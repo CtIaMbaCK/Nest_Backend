@@ -19,6 +19,7 @@ export class UsersService {
   }
 
   createUser(body: CreateUserDto): Promise<any> {
+    console.log(body);
     return this.prisma.user.create({
       data: body,
     });

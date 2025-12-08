@@ -19,8 +19,8 @@ model User {
   email                 String    @unique
   password              String
   // accountType           String
-  contact               String?
-  name                  String?
+  contact               String
+  name                  String
   guardianName          String?
   guardianContact       String?
   createdAt             DateTime? @default(now())
