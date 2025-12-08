@@ -7,8 +7,8 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreateUserDto } from './DTO/create-user.dto';
-import { UpdateUserDto } from './DTO/update-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -17,12 +17,12 @@ export class UsersController {
 
   @Get()
   getUsers() {
-    return this.userService.getUser();
+    return this.userService.getUsers();
   }
 
   @Get(':id')
   getUserById(@Param('id') id: string) {
-    return `User ${id}`;
+    return this.userService.getUser(id);
   }
 
   @Post()
@@ -30,7 +30,7 @@ export class UsersController {
     @Body()
     body: CreateUserDto,
   ) {
-    return body;
+    return this.userService.createUser(body);
   }
 
   @Patch(':id')

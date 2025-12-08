@@ -15,15 +15,19 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  email String @unique
-  password String
-  contact String?
-  name String?
-  guardianName String?
-  guardianContact String?
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
+  id                    Int       @id @default(autoincrement())
+  email                 String    @unique
+  password              String
+  // accountType           String
+  contact               String?
+  name                  String?
+  guardianName          String?
+  guardianContact       String?
+  createdAt             DateTime? @default(now())
+  updatedAt             DateTime? @updatedAt
+  // is_active      Boolean   @default(false)
+  code_expiry           DateTime?
+  code_id               String?
+  force_update_password Boolean   @default(false)
 
-  @@map("users")
 }
