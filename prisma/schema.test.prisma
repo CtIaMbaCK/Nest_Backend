@@ -1,0 +1,212 @@
+// enum Role {
+//   ADMIN
+//   VOLUNTEER
+//   BENEFICIARY
+//   ORGANIZATION
+// }
+
+// enum UserStatus {
+//   PENDING
+//   ACTIVE
+//   DENIED
+//   BANNED
+// }
+
+// enum GuardianRelation {
+//   PARENT    // Ba mẹ
+//   SPOUSE    // Vợ/Chồng
+//   CHILD     // Con cái
+//   SIBLING   // Anh/Chị/Em
+//   RELATIVE  // Người thân/Họ hàng
+//   FRIEND    // Bạn bè
+//   OTHER     // Khác
+// }
+
+// enum ActivityType {
+//   EDUCATION   // Giáo dục
+//   MEDICAL     // Y tế
+//   HOUSE_WORK  // Việc nhà
+//   TRANSPORT   // Di chuyển
+//   DONATION    // Quyên góp
+//   OTHER       // Khác
+// }
+
+// // thiet lap hoat dong 
+// enum RecurrenceType {
+//   NONE
+//   DAILY
+//   WEEKLY
+//   CUSTOM
+// }
+
+// enum ActivityStatus {
+//   PENDING   // Chờ duyệt
+//   APPROVED  // Đã duyệt (Open)
+//   ONGOING   // Đang diễn ra
+//   COMPLETED // Hoàn thành
+//   CANCELLED // Đã hủy
+//   REJECTED  // Từ chối
+// }
+
+// enum VulnerabilityType {
+//   POOR      // Hộ nghèo
+//   DISABLED  // Khuyết tật
+//   ELDERLY   // Người già
+//   SICKNESS  // Bệnh tật
+//   ORPHAN    // Mồ côi
+//   OTHER     // Khác
+// }
+
+// // --------------------------------------
+// // MODELS (Các bảng dữ liệu)
+// // --------------------------------------
+
+// model User {
+//   id              String     @id @default(uuid())
+//   email           String     @unique
+//   phoneNumber     String     @unique @map("phone_number")
+//   passwordHash    String     @map("password_hash")
+//   fullName        String     @map("full_name")
+//   avatarUrl       String?    @map("avatar_url")
+  
+//   role            Role
+//   status          UserStatus @default(PENDING)
+
+//   // Định danh cá nhân
+//   dateOfBirth     DateTime   @map("date_of_birth") @db.Date
+//   cccdFrontFile   String?    @map("cccd_front_file")
+//   cccdBackFile    String?    @map("cccd_back_file")
+
+//   // System
+//   createdAt           DateTime @default(now()) @map("created_at")
+//   forceChangePassword Boolean  @default(false) @map("force_change_password")
+
+//   // Quan hệ 1-1 (Profiles)
+//   volunteerProfile  VolunteerProfile?
+//   bficiaryProfile   BficiaryProfile?
+
+//   // Quan hệ 1-N (Activity)
+//   activitiesRequested Activity[] @relation("ActivityRequester")
+//   activitiesVolunteered Activity[] @relation("ActivityVolunteer")
+
+//   // Quan hệ Reviews (Viết & Nhận)
+//   reviewsWritten    Review[] @relation("Reviewer")
+//   reviewsReceived   Review[] @relation("ReviewTarget")
+
+//   // Quan hệ Appreciations (Gửi & Nhận)
+//   appreciationsSent     Appreciation[] @relation("AppreciationSender")
+//   appreciationsReceived Appreciation[] @relation("AppreciationReceiver")
+
+//   @@map("users")
+// }
+
+// model VolunteerProfile {
+//   userId             String   @id @map("user_id")
+//   user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+//   // Lưu JSON hoặc String[] tùy database. Với Postgres dùng String[] tiện hơn
+//   skills             Json?    // VD: ["EDUCATION", "MEDICAL"]
+//   experienceYears    Int      @default(0) @map("experience_years")
+//   preferredDistricts Json?    // VD: ["TAN_BINH", "QUAN_1"]
+//   bio                String?  @db.Text
+//   totalThanks        Int      @default(0) @map("total_thanks")
+
+//   @@map("volunteer_profiles")
+// }
+
+// model BficiaryProfile {
+//   userId               String            @id @map("user_id")
+//   user                 User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+//   vulnerabilityType    VulnerabilityType @map("vulnerability_type")
+//   situationDescription String?           @map("situation_description") @db.Text
+//   healthCondition      String?           @map("health_condition") @db.Text
+  
+//   // Mảng URL hình ảnh minh chứng
+//   proofFiles           String[]          @map("proof_files") 
+
+//   // Người bảo hộ
+//   guardianName         String?           @map("guardian_name")
+//   guardianPhone        String?           @map("guardian_phone")
+//   guardianRelation     GuardianRelation? @map("guardian_relation")
+
+//   @@map("bficiary_profiles")
+// }
+
+// model Activity {
+//   id              String   @id @default(uuid())
+
+//   // --- Quan hệ User ---
+//   requesterId     String   @map("requester_id")
+//   requester       User     @relation("ActivityRequester", fields: [requesterId], references: [id])
+  
+//   volunteerId     String?  @map("volunteer_id")
+//   volunteer       User?    @relation("ActivityVolunteer", fields: [volunteerId], references: [id])
+  
+//   acceptedAt      DateTime? @map("accepted_at")
+
+//   // --- Nội dung ---
+//   activityType    ActivityType @map("activity_type")
+//   title           String
+//   description     String?      @db.Text
+  
+//   // Địa điểm
+//   district        String       // Key quận (VD: TAN_BINH)
+//   addressDetail   String       @map("address_detail")
+
+//   // Thời gian
+//   startDate       DateTime     @map("start_date") @db.Date
+//   endDate         DateTime?    @map("end_date")   @db.Date
+//   startTime       DateTime     @map("start_time") @db.Time // Hoặc dùng String nếu muốn đơn giản
+//   endTime         DateTime     @map("end_time")   @db.Time 
+//   recurrence      RecurrenceType @default(NONE)
+
+//   // System & Images
+//   status          ActivityStatus @default(PENDING)
+//   activityImages  String[]       @map("activity_images") // List URL
+//   createdAt       DateTime       @default(now()) @map("created_at")
+
+//   // Quan hệ ngược
+//   reviews         Review[]
+//   appreciations   Appreciation[]
+
+//   @@map("activities")
+// }
+
+// model Review {
+//   id          String   @id @default(uuid())
+  
+//   activityId  String   @map("activity_id")
+//   activity    Activity @relation(fields: [activityId], references: [id])
+
+//   reviewerId  String   @map("reviewer_id")
+//   reviewer    User     @relation("Reviewer", fields: [reviewerId], references: [id])
+
+//   targetId    String   @map("target_id")
+//   target      User     @relation("ReviewTarget", fields: [targetId], references: [id])
+
+//   rating      Int      // 1-5
+//   comment     String?  @db.Text
+//   createdAt   DateTime @default(now()) @map("created_at")
+
+//   @@map("reviews")
+// }
+
+// model Appreciation {
+//   id          String   @id @default(uuid())
+
+//   senderId    String   @map("sender_id")
+//   sender      User     @relation("AppreciationSender", fields: [senderId], references: [id])
+
+//   receiverId  String   @map("receiver_id")
+//   receiver    User     @relation("AppreciationReceiver", fields: [receiverId], references: [id])
+
+//   activityId  String   @map("activity_id")
+//   activity    Activity @relation(fields: [activityId], references: [id])
+
+//   createdAt   DateTime @default(now()) @map("created_at")
+
+//   // Ràng buộc duy nhất: 1 Người chỉ được cảm ơn 1 lần cho 1 hoạt động
+//   @@unique([senderId, activityId])
+//   @@map("appreciations")
+// }

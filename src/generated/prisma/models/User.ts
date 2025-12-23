@@ -20,88 +20,76 @@ export type UserModel = runtime.Types.Result.DefaultSelection<Prisma.$UserPayloa
 
 export type AggregateUser = {
   _count: UserCountAggregateOutputType | null
-  _avg: UserAvgAggregateOutputType | null
-  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
 }
 
-export type UserAvgAggregateOutputType = {
-  id: number | null
-}
-
-export type UserSumAggregateOutputType = {
-  id: number | null
-}
-
 export type UserMinAggregateOutputType = {
-  id: number | null
+  id: string | null
   email: string | null
-  password: string | null
-  contact: string | null
-  name: string | null
-  guardianName: string | null
-  guardianContact: string | null
+  phoneNumber: string | null
+  passwordHash: string | null
+  role: $Enums.Role | null
+  status: $Enums.UserStatus | null
+  createdAt: Date | null
+  forceChangePassword: boolean | null
 }
 
 export type UserMaxAggregateOutputType = {
-  id: number | null
+  id: string | null
   email: string | null
-  password: string | null
-  contact: string | null
-  name: string | null
-  guardianName: string | null
-  guardianContact: string | null
+  phoneNumber: string | null
+  passwordHash: string | null
+  role: $Enums.Role | null
+  status: $Enums.UserStatus | null
+  createdAt: Date | null
+  forceChangePassword: boolean | null
 }
 
 export type UserCountAggregateOutputType = {
   id: number
   email: number
-  password: number
-  contact: number
-  name: number
-  guardianName: number
-  guardianContact: number
+  phoneNumber: number
+  passwordHash: number
+  role: number
+  status: number
+  createdAt: number
+  forceChangePassword: number
   _all: number
 }
 
 
-export type UserAvgAggregateInputType = {
-  id?: true
-}
-
-export type UserSumAggregateInputType = {
-  id?: true
-}
-
 export type UserMinAggregateInputType = {
   id?: true
   email?: true
-  password?: true
-  contact?: true
-  name?: true
-  guardianName?: true
-  guardianContact?: true
+  phoneNumber?: true
+  passwordHash?: true
+  role?: true
+  status?: true
+  createdAt?: true
+  forceChangePassword?: true
 }
 
 export type UserMaxAggregateInputType = {
   id?: true
   email?: true
-  password?: true
-  contact?: true
-  name?: true
-  guardianName?: true
-  guardianContact?: true
+  phoneNumber?: true
+  passwordHash?: true
+  role?: true
+  status?: true
+  createdAt?: true
+  forceChangePassword?: true
 }
 
 export type UserCountAggregateInputType = {
   id?: true
   email?: true
-  password?: true
-  contact?: true
-  name?: true
-  guardianName?: true
-  guardianContact?: true
+  phoneNumber?: true
+  passwordHash?: true
+  role?: true
+  status?: true
+  createdAt?: true
+  forceChangePassword?: true
   _all?: true
 }
 
@@ -143,18 +131,6 @@ export type UserAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: UserAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: UserSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: UserMinAggregateInputType
@@ -185,23 +161,20 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   _count?: UserCountAggregateInputType | true
-  _avg?: UserAvgAggregateInputType
-  _sum?: UserSumAggregateInputType
   _min?: UserMinAggregateInputType
   _max?: UserMaxAggregateInputType
 }
 
 export type UserGroupByOutputType = {
-  id: number
+  id: string
   email: string
-  password: string
-  contact: string | null
-  name: string | null
-  guardianName: string | null
-  guardianContact: string | null
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status: $Enums.UserStatus
+  createdAt: Date
+  forceChangePassword: boolean
   _count: UserCountAggregateOutputType | null
-  _avg: UserAvgAggregateOutputType | null
-  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
 }
@@ -225,242 +198,1248 @@ export type UserWhereInput = {
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
-  id?: Prisma.IntFilter<"User"> | number
+  id?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
-  contact?: Prisma.StringNullableFilter<"User"> | string | null
-  name?: Prisma.StringNullableFilter<"User"> | string | null
-  guardianName?: Prisma.StringNullableFilter<"User"> | string | null
-  guardianContact?: Prisma.StringNullableFilter<"User"> | string | null
+  phoneNumber?: Prisma.StringFilter<"User"> | string
+  passwordHash?: Prisma.StringFilter<"User"> | string
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  forceChangePassword?: Prisma.BoolFilter<"User"> | boolean
+  volunteerProfile?: Prisma.XOR<Prisma.VolunteerProfileNullableScalarRelationFilter, Prisma.VolunteerProfileWhereInput> | null
+  bficiaryProfile?: Prisma.XOR<Prisma.BficiaryProfileNullableScalarRelationFilter, Prisma.BficiaryProfileWhereInput> | null
+  activitiesRequested?: Prisma.ActivityListRelationFilter
+  activitiesVolunteered?: Prisma.ActivityListRelationFilter
+  reviewsWritten?: Prisma.ReviewListRelationFilter
+  reviewsReceived?: Prisma.ReviewListRelationFilter
+  appreciationsSent?: Prisma.AppreciationListRelationFilter
+  appreciationsReceived?: Prisma.AppreciationListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
-  contact?: Prisma.SortOrderInput | Prisma.SortOrder
-  name?: Prisma.SortOrderInput | Prisma.SortOrder
-  guardianName?: Prisma.SortOrderInput | Prisma.SortOrder
-  guardianContact?: Prisma.SortOrderInput | Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  forceChangePassword?: Prisma.SortOrder
+  volunteerProfile?: Prisma.VolunteerProfileOrderByWithRelationInput
+  bficiaryProfile?: Prisma.BficiaryProfileOrderByWithRelationInput
+  activitiesRequested?: Prisma.ActivityOrderByRelationAggregateInput
+  activitiesVolunteered?: Prisma.ActivityOrderByRelationAggregateInput
+  reviewsWritten?: Prisma.ReviewOrderByRelationAggregateInput
+  reviewsReceived?: Prisma.ReviewOrderByRelationAggregateInput
+  appreciationsSent?: Prisma.AppreciationOrderByRelationAggregateInput
+  appreciationsReceived?: Prisma.AppreciationOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
+  id?: string
   email?: string
+  phoneNumber?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
-  password?: Prisma.StringFilter<"User"> | string
-  contact?: Prisma.StringNullableFilter<"User"> | string | null
-  name?: Prisma.StringNullableFilter<"User"> | string | null
-  guardianName?: Prisma.StringNullableFilter<"User"> | string | null
-  guardianContact?: Prisma.StringNullableFilter<"User"> | string | null
-}, "id" | "email">
+  passwordHash?: Prisma.StringFilter<"User"> | string
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  forceChangePassword?: Prisma.BoolFilter<"User"> | boolean
+  volunteerProfile?: Prisma.XOR<Prisma.VolunteerProfileNullableScalarRelationFilter, Prisma.VolunteerProfileWhereInput> | null
+  bficiaryProfile?: Prisma.XOR<Prisma.BficiaryProfileNullableScalarRelationFilter, Prisma.BficiaryProfileWhereInput> | null
+  activitiesRequested?: Prisma.ActivityListRelationFilter
+  activitiesVolunteered?: Prisma.ActivityListRelationFilter
+  reviewsWritten?: Prisma.ReviewListRelationFilter
+  reviewsReceived?: Prisma.ReviewListRelationFilter
+  appreciationsSent?: Prisma.AppreciationListRelationFilter
+  appreciationsReceived?: Prisma.AppreciationListRelationFilter
+}, "id" | "email" | "phoneNumber">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
-  contact?: Prisma.SortOrderInput | Prisma.SortOrder
-  name?: Prisma.SortOrderInput | Prisma.SortOrder
-  guardianName?: Prisma.SortOrderInput | Prisma.SortOrder
-  guardianContact?: Prisma.SortOrderInput | Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  forceChangePassword?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
-  _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
-  _sum?: Prisma.UserSumOrderByAggregateInput
 }
 
 export type UserScalarWhereWithAggregatesInput = {
   AND?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   OR?: Prisma.UserScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"User"> | number
+  id?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
-  password?: Prisma.StringWithAggregatesFilter<"User"> | string
-  contact?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  name?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  guardianName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  guardianContact?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  phoneNumber?: Prisma.StringWithAggregatesFilter<"User"> | string
+  passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
+  role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+  status?: Prisma.EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  forceChangePassword?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
 }
 
 export type UserCreateInput = {
+  id?: string
   email: string
-  password: string
-  contact?: string | null
-  name?: string | null
-  guardianName?: string | null
-  guardianContact?: string | null
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.ActivityCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.ActivityCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateInput = {
-  id?: number
+  id?: string
   email: string
-  password: string
-  contact?: string | null
-  name?: string | null
-  guardianName?: string | null
-  guardianContact?: string | null
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.ActivityUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.ActivityUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUpdateInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  contact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  guardianName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  guardianContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.ActivityUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.ActivityUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  contact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  guardianName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  guardianContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.ActivityUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.ActivityUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateManyInput = {
-  id?: number
+  id?: string
   email: string
-  password: string
-  contact?: string | null
-  name?: string | null
-  guardianName?: string | null
-  guardianContact?: string | null
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
 }
 
 export type UserUpdateManyMutationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  contact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  guardianName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  guardianContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type UserUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  contact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  guardianName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  guardianContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
-  contact?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  guardianName?: Prisma.SortOrder
-  guardianContact?: Prisma.SortOrder
-}
-
-export type UserAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  forceChangePassword?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
-  contact?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  guardianName?: Prisma.SortOrder
-  guardianContact?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  forceChangePassword?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
-  contact?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  guardianName?: Prisma.SortOrder
-  guardianContact?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  forceChangePassword?: Prisma.SortOrder
 }
 
-export type UserSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
+export type UserScalarRelationFilter = {
+  is?: Prisma.UserWhereInput
+  isNot?: Prisma.UserWhereInput
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
 }
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
+export type EnumRoleFieldUpdateOperationsInput = {
+  set?: $Enums.Role
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
+export type EnumUserStatusFieldUpdateOperationsInput = {
+  set?: $Enums.UserStatus
 }
 
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
+export type UserCreateNestedOneWithoutVolunteerProfileInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVolunteerProfileInput, Prisma.UserUncheckedCreateWithoutVolunteerProfileInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVolunteerProfileInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutVolunteerProfileNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVolunteerProfileInput, Prisma.UserUncheckedCreateWithoutVolunteerProfileInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVolunteerProfileInput
+  upsert?: Prisma.UserUpsertWithoutVolunteerProfileInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutVolunteerProfileInput, Prisma.UserUpdateWithoutVolunteerProfileInput>, Prisma.UserUncheckedUpdateWithoutVolunteerProfileInput>
+}
+
+export type UserCreateNestedOneWithoutBficiaryProfileInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBficiaryProfileInput, Prisma.UserUncheckedCreateWithoutBficiaryProfileInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBficiaryProfileInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutBficiaryProfileNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBficiaryProfileInput, Prisma.UserUncheckedCreateWithoutBficiaryProfileInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBficiaryProfileInput
+  upsert?: Prisma.UserUpsertWithoutBficiaryProfileInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBficiaryProfileInput, Prisma.UserUpdateWithoutBficiaryProfileInput>, Prisma.UserUncheckedUpdateWithoutBficiaryProfileInput>
+}
+
+export type UserCreateNestedOneWithoutActivitiesRequestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutActivitiesRequestedInput, Prisma.UserUncheckedCreateWithoutActivitiesRequestedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutActivitiesRequestedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutActivitiesVolunteeredInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutActivitiesVolunteeredInput, Prisma.UserUncheckedCreateWithoutActivitiesVolunteeredInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutActivitiesVolunteeredInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutActivitiesRequestedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutActivitiesRequestedInput, Prisma.UserUncheckedCreateWithoutActivitiesRequestedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutActivitiesRequestedInput
+  upsert?: Prisma.UserUpsertWithoutActivitiesRequestedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutActivitiesRequestedInput, Prisma.UserUpdateWithoutActivitiesRequestedInput>, Prisma.UserUncheckedUpdateWithoutActivitiesRequestedInput>
+}
+
+export type UserUpdateOneWithoutActivitiesVolunteeredNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutActivitiesVolunteeredInput, Prisma.UserUncheckedCreateWithoutActivitiesVolunteeredInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutActivitiesVolunteeredInput
+  upsert?: Prisma.UserUpsertWithoutActivitiesVolunteeredInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutActivitiesVolunteeredInput, Prisma.UserUpdateWithoutActivitiesVolunteeredInput>, Prisma.UserUncheckedUpdateWithoutActivitiesVolunteeredInput>
+}
+
+export type UserCreateNestedOneWithoutReviewsWrittenInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsWrittenInput, Prisma.UserUncheckedCreateWithoutReviewsWrittenInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsWrittenInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutReviewsReceivedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsReceivedInput, Prisma.UserUncheckedCreateWithoutReviewsReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutReviewsWrittenNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsWrittenInput, Prisma.UserUncheckedCreateWithoutReviewsWrittenInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsWrittenInput
+  upsert?: Prisma.UserUpsertWithoutReviewsWrittenInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewsWrittenInput, Prisma.UserUpdateWithoutReviewsWrittenInput>, Prisma.UserUncheckedUpdateWithoutReviewsWrittenInput>
+}
+
+export type UserUpdateOneRequiredWithoutReviewsReceivedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsReceivedInput, Prisma.UserUncheckedCreateWithoutReviewsReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsReceivedInput
+  upsert?: Prisma.UserUpsertWithoutReviewsReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewsReceivedInput, Prisma.UserUpdateWithoutReviewsReceivedInput>, Prisma.UserUncheckedUpdateWithoutReviewsReceivedInput>
+}
+
+export type UserCreateNestedOneWithoutAppreciationsSentInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAppreciationsSentInput, Prisma.UserUncheckedCreateWithoutAppreciationsSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAppreciationsSentInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutAppreciationsReceivedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAppreciationsReceivedInput, Prisma.UserUncheckedCreateWithoutAppreciationsReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAppreciationsReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAppreciationsSentNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAppreciationsSentInput, Prisma.UserUncheckedCreateWithoutAppreciationsSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAppreciationsSentInput
+  upsert?: Prisma.UserUpsertWithoutAppreciationsSentInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAppreciationsSentInput, Prisma.UserUpdateWithoutAppreciationsSentInput>, Prisma.UserUncheckedUpdateWithoutAppreciationsSentInput>
+}
+
+export type UserUpdateOneRequiredWithoutAppreciationsReceivedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAppreciationsReceivedInput, Prisma.UserUncheckedCreateWithoutAppreciationsReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAppreciationsReceivedInput
+  upsert?: Prisma.UserUpsertWithoutAppreciationsReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAppreciationsReceivedInput, Prisma.UserUpdateWithoutAppreciationsReceivedInput>, Prisma.UserUncheckedUpdateWithoutAppreciationsReceivedInput>
+}
+
+export type UserCreateWithoutVolunteerProfileInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.ActivityCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.ActivityCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+}
+
+export type UserUncheckedCreateWithoutVolunteerProfileInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.ActivityUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.ActivityUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+}
+
+export type UserCreateOrConnectWithoutVolunteerProfileInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutVolunteerProfileInput, Prisma.UserUncheckedCreateWithoutVolunteerProfileInput>
+}
+
+export type UserUpsertWithoutVolunteerProfileInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutVolunteerProfileInput, Prisma.UserUncheckedUpdateWithoutVolunteerProfileInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutVolunteerProfileInput, Prisma.UserUncheckedCreateWithoutVolunteerProfileInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutVolunteerProfileInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutVolunteerProfileInput, Prisma.UserUncheckedUpdateWithoutVolunteerProfileInput>
+}
+
+export type UserUpdateWithoutVolunteerProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.ActivityUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.ActivityUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUncheckedUpdateWithoutVolunteerProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.ActivityUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.ActivityUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserCreateWithoutBficiaryProfileInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.ActivityCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.ActivityCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+}
+
+export type UserUncheckedCreateWithoutBficiaryProfileInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.ActivityUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.ActivityUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+}
+
+export type UserCreateOrConnectWithoutBficiaryProfileInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBficiaryProfileInput, Prisma.UserUncheckedCreateWithoutBficiaryProfileInput>
+}
+
+export type UserUpsertWithoutBficiaryProfileInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBficiaryProfileInput, Prisma.UserUncheckedUpdateWithoutBficiaryProfileInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBficiaryProfileInput, Prisma.UserUncheckedCreateWithoutBficiaryProfileInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBficiaryProfileInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBficiaryProfileInput, Prisma.UserUncheckedUpdateWithoutBficiaryProfileInput>
+}
+
+export type UserUpdateWithoutBficiaryProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.ActivityUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.ActivityUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBficiaryProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.ActivityUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.ActivityUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserCreateWithoutActivitiesRequestedInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  activitiesVolunteered?: Prisma.ActivityCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+}
+
+export type UserUncheckedCreateWithoutActivitiesRequestedInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesVolunteered?: Prisma.ActivityUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+}
+
+export type UserCreateOrConnectWithoutActivitiesRequestedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutActivitiesRequestedInput, Prisma.UserUncheckedCreateWithoutActivitiesRequestedInput>
+}
+
+export type UserCreateWithoutActivitiesVolunteeredInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.ActivityCreateNestedManyWithoutRequesterInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+}
+
+export type UserUncheckedCreateWithoutActivitiesVolunteeredInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.ActivityUncheckedCreateNestedManyWithoutRequesterInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+}
+
+export type UserCreateOrConnectWithoutActivitiesVolunteeredInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutActivitiesVolunteeredInput, Prisma.UserUncheckedCreateWithoutActivitiesVolunteeredInput>
+}
+
+export type UserUpsertWithoutActivitiesRequestedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutActivitiesRequestedInput, Prisma.UserUncheckedUpdateWithoutActivitiesRequestedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutActivitiesRequestedInput, Prisma.UserUncheckedCreateWithoutActivitiesRequestedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutActivitiesRequestedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutActivitiesRequestedInput, Prisma.UserUncheckedUpdateWithoutActivitiesRequestedInput>
+}
+
+export type UserUpdateWithoutActivitiesRequestedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  activitiesVolunteered?: Prisma.ActivityUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUncheckedUpdateWithoutActivitiesRequestedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesVolunteered?: Prisma.ActivityUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUpsertWithoutActivitiesVolunteeredInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutActivitiesVolunteeredInput, Prisma.UserUncheckedUpdateWithoutActivitiesVolunteeredInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutActivitiesVolunteeredInput, Prisma.UserUncheckedCreateWithoutActivitiesVolunteeredInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutActivitiesVolunteeredInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutActivitiesVolunteeredInput, Prisma.UserUncheckedUpdateWithoutActivitiesVolunteeredInput>
+}
+
+export type UserUpdateWithoutActivitiesVolunteeredInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.ActivityUpdateManyWithoutRequesterNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUncheckedUpdateWithoutActivitiesVolunteeredInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.ActivityUncheckedUpdateManyWithoutRequesterNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserCreateWithoutReviewsWrittenInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.ActivityCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.ActivityCreateNestedManyWithoutVolunteerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+}
+
+export type UserUncheckedCreateWithoutReviewsWrittenInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.ActivityUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.ActivityUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+}
+
+export type UserCreateOrConnectWithoutReviewsWrittenInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsWrittenInput, Prisma.UserUncheckedCreateWithoutReviewsWrittenInput>
+}
+
+export type UserCreateWithoutReviewsReceivedInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.ActivityCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.ActivityCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+}
+
+export type UserUncheckedCreateWithoutReviewsReceivedInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.ActivityUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.ActivityUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+}
+
+export type UserCreateOrConnectWithoutReviewsReceivedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsReceivedInput, Prisma.UserUncheckedCreateWithoutReviewsReceivedInput>
+}
+
+export type UserUpsertWithoutReviewsWrittenInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewsWrittenInput, Prisma.UserUncheckedUpdateWithoutReviewsWrittenInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsWrittenInput, Prisma.UserUncheckedCreateWithoutReviewsWrittenInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewsWrittenInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewsWrittenInput, Prisma.UserUncheckedUpdateWithoutReviewsWrittenInput>
+}
+
+export type UserUpdateWithoutReviewsWrittenInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.ActivityUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.ActivityUpdateManyWithoutVolunteerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewsWrittenInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.ActivityUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.ActivityUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUpsertWithoutReviewsReceivedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewsReceivedInput, Prisma.UserUncheckedUpdateWithoutReviewsReceivedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsReceivedInput, Prisma.UserUncheckedCreateWithoutReviewsReceivedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewsReceivedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewsReceivedInput, Prisma.UserUncheckedUpdateWithoutReviewsReceivedInput>
+}
+
+export type UserUpdateWithoutReviewsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.ActivityUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.ActivityUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.ActivityUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.ActivityUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserCreateWithoutAppreciationsSentInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.ActivityCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.ActivityCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+}
+
+export type UserUncheckedCreateWithoutAppreciationsSentInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.ActivityUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.ActivityUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+}
+
+export type UserCreateOrConnectWithoutAppreciationsSentInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAppreciationsSentInput, Prisma.UserUncheckedCreateWithoutAppreciationsSentInput>
+}
+
+export type UserCreateWithoutAppreciationsReceivedInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.ActivityCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.ActivityCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+}
+
+export type UserUncheckedCreateWithoutAppreciationsReceivedInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.ActivityUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.ActivityUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+}
+
+export type UserCreateOrConnectWithoutAppreciationsReceivedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAppreciationsReceivedInput, Prisma.UserUncheckedCreateWithoutAppreciationsReceivedInput>
+}
+
+export type UserUpsertWithoutAppreciationsSentInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAppreciationsSentInput, Prisma.UserUncheckedUpdateWithoutAppreciationsSentInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAppreciationsSentInput, Prisma.UserUncheckedCreateWithoutAppreciationsSentInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAppreciationsSentInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAppreciationsSentInput, Prisma.UserUncheckedUpdateWithoutAppreciationsSentInput>
+}
+
+export type UserUpdateWithoutAppreciationsSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.ActivityUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.ActivityUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAppreciationsSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.ActivityUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.ActivityUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUpsertWithoutAppreciationsReceivedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAppreciationsReceivedInput, Prisma.UserUncheckedUpdateWithoutAppreciationsReceivedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAppreciationsReceivedInput, Prisma.UserUncheckedCreateWithoutAppreciationsReceivedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAppreciationsReceivedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAppreciationsReceivedInput, Prisma.UserUncheckedUpdateWithoutAppreciationsReceivedInput>
+}
+
+export type UserUpdateWithoutAppreciationsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.ActivityUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.ActivityUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAppreciationsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.ActivityUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.ActivityUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+}
+
+
+/**
+ * Count Type UserCountOutputType
+ */
+
+export type UserCountOutputType = {
+  activitiesRequested: number
+  activitiesVolunteered: number
+  reviewsWritten: number
+  reviewsReceived: number
+  appreciationsSent: number
+  appreciationsReceived: number
+}
+
+export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  activitiesRequested?: boolean | UserCountOutputTypeCountActivitiesRequestedArgs
+  activitiesVolunteered?: boolean | UserCountOutputTypeCountActivitiesVolunteeredArgs
+  reviewsWritten?: boolean | UserCountOutputTypeCountReviewsWrittenArgs
+  reviewsReceived?: boolean | UserCountOutputTypeCountReviewsReceivedArgs
+  appreciationsSent?: boolean | UserCountOutputTypeCountAppreciationsSentArgs
+  appreciationsReceived?: boolean | UserCountOutputTypeCountAppreciationsReceivedArgs
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserCountOutputType
+   */
+  select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountActivitiesRequestedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ActivityWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountActivitiesVolunteeredArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ActivityWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReviewsWrittenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReviewsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAppreciationsSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AppreciationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAppreciationsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AppreciationWhereInput
+}
 
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
-  password?: boolean
-  contact?: boolean
-  name?: boolean
-  guardianName?: boolean
-  guardianContact?: boolean
+  phoneNumber?: boolean
+  passwordHash?: boolean
+  role?: boolean
+  status?: boolean
+  createdAt?: boolean
+  forceChangePassword?: boolean
+  volunteerProfile?: boolean | Prisma.User$volunteerProfileArgs<ExtArgs>
+  bficiaryProfile?: boolean | Prisma.User$bficiaryProfileArgs<ExtArgs>
+  activitiesRequested?: boolean | Prisma.User$activitiesRequestedArgs<ExtArgs>
+  activitiesVolunteered?: boolean | Prisma.User$activitiesVolunteeredArgs<ExtArgs>
+  reviewsWritten?: boolean | Prisma.User$reviewsWrittenArgs<ExtArgs>
+  reviewsReceived?: boolean | Prisma.User$reviewsReceivedArgs<ExtArgs>
+  appreciationsSent?: boolean | Prisma.User$appreciationsSentArgs<ExtArgs>
+  appreciationsReceived?: boolean | Prisma.User$appreciationsReceivedArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
-  password?: boolean
-  contact?: boolean
-  name?: boolean
-  guardianName?: boolean
-  guardianContact?: boolean
+  phoneNumber?: boolean
+  passwordHash?: boolean
+  role?: boolean
+  status?: boolean
+  createdAt?: boolean
+  forceChangePassword?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
-  password?: boolean
-  contact?: boolean
-  name?: boolean
-  guardianName?: boolean
-  guardianContact?: boolean
+  phoneNumber?: boolean
+  passwordHash?: boolean
+  role?: boolean
+  status?: boolean
+  createdAt?: boolean
+  forceChangePassword?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
   id?: boolean
   email?: boolean
-  password?: boolean
-  contact?: boolean
-  name?: boolean
-  guardianName?: boolean
-  guardianContact?: boolean
+  phoneNumber?: boolean
+  passwordHash?: boolean
+  role?: boolean
+  status?: boolean
+  createdAt?: boolean
+  forceChangePassword?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "contact" | "name" | "guardianName" | "guardianContact", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "phoneNumber" | "passwordHash" | "role" | "status" | "createdAt" | "forceChangePassword", ExtArgs["result"]["user"]>
+export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  volunteerProfile?: boolean | Prisma.User$volunteerProfileArgs<ExtArgs>
+  bficiaryProfile?: boolean | Prisma.User$bficiaryProfileArgs<ExtArgs>
+  activitiesRequested?: boolean | Prisma.User$activitiesRequestedArgs<ExtArgs>
+  activitiesVolunteered?: boolean | Prisma.User$activitiesVolunteeredArgs<ExtArgs>
+  reviewsWritten?: boolean | Prisma.User$reviewsWrittenArgs<ExtArgs>
+  reviewsReceived?: boolean | Prisma.User$reviewsReceivedArgs<ExtArgs>
+  appreciationsSent?: boolean | Prisma.User$appreciationsSentArgs<ExtArgs>
+  appreciationsReceived?: boolean | Prisma.User$appreciationsReceivedArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
-  objects: {}
+  objects: {
+    volunteerProfile: Prisma.$VolunteerProfilePayload<ExtArgs> | null
+    bficiaryProfile: Prisma.$BficiaryProfilePayload<ExtArgs> | null
+    activitiesRequested: Prisma.$ActivityPayload<ExtArgs>[]
+    activitiesVolunteered: Prisma.$ActivityPayload<ExtArgs>[]
+    reviewsWritten: Prisma.$ReviewPayload<ExtArgs>[]
+    reviewsReceived: Prisma.$ReviewPayload<ExtArgs>[]
+    appreciationsSent: Prisma.$AppreciationPayload<ExtArgs>[]
+    appreciationsReceived: Prisma.$AppreciationPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
+    id: string
     email: string
-    password: string
-    contact: string | null
-    name: string | null
-    guardianName: string | null
-    guardianContact: string | null
+    phoneNumber: string
+    passwordHash: string
+    role: $Enums.Role
+    status: $Enums.UserStatus
+    createdAt: Date
+    forceChangePassword: boolean
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -855,6 +1834,14 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  volunteerProfile<T extends Prisma.User$volunteerProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$volunteerProfileArgs<ExtArgs>>): Prisma.Prisma__VolunteerProfileClient<runtime.Types.Result.GetResult<Prisma.$VolunteerProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  bficiaryProfile<T extends Prisma.User$bficiaryProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bficiaryProfileArgs<ExtArgs>>): Prisma.Prisma__BficiaryProfileClient<runtime.Types.Result.GetResult<Prisma.$BficiaryProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  activitiesRequested<T extends Prisma.User$activitiesRequestedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$activitiesRequestedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  activitiesVolunteered<T extends Prisma.User$activitiesVolunteeredArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$activitiesVolunteeredArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewsWritten<T extends Prisma.User$reviewsWrittenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsWrittenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewsReceived<T extends Prisma.User$reviewsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  appreciationsSent<T extends Prisma.User$appreciationsSentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$appreciationsSentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppreciationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  appreciationsReceived<T extends Prisma.User$appreciationsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$appreciationsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppreciationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -884,13 +1871,14 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
  * Fields of the User model
  */
 export interface UserFieldRefs {
-  readonly id: Prisma.FieldRef<"User", 'Int'>
+  readonly id: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
-  readonly password: Prisma.FieldRef<"User", 'String'>
-  readonly contact: Prisma.FieldRef<"User", 'String'>
-  readonly name: Prisma.FieldRef<"User", 'String'>
-  readonly guardianName: Prisma.FieldRef<"User", 'String'>
-  readonly guardianContact: Prisma.FieldRef<"User", 'String'>
+  readonly phoneNumber: Prisma.FieldRef<"User", 'String'>
+  readonly passwordHash: Prisma.FieldRef<"User", 'String'>
+  readonly role: Prisma.FieldRef<"User", 'Role'>
+  readonly status: Prisma.FieldRef<"User", 'UserStatus'>
+  readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly forceChangePassword: Prisma.FieldRef<"User", 'Boolean'>
 }
     
 
@@ -907,6 +1895,10 @@ export type UserFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * Filter, which User to fetch.
    */
@@ -926,6 +1918,10 @@ export type UserFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which User to fetch.
    */
   where: Prisma.UserWhereUniqueInput
@@ -943,6 +1939,10 @@ export type UserFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * Filter, which User to fetch.
    */
@@ -992,6 +1992,10 @@ export type UserFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which User to fetch.
    */
   where?: Prisma.UserWhereInput
@@ -1040,6 +2044,10 @@ export type UserFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which Users to fetch.
    */
   where?: Prisma.UserWhereInput
@@ -1082,6 +2090,10 @@ export type UserCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * The data needed to create a User.
    */
@@ -1130,6 +2142,10 @@ export type UserUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * The data needed to update a User.
    */
@@ -1197,6 +2213,10 @@ export type UserUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * The filter to search for the User to update in case it exists.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1223,6 +2243,10 @@ export type UserDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter which User to delete.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1243,6 +2267,188 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * User.volunteerProfile
+ */
+export type User$volunteerProfileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the VolunteerProfile
+   */
+  select?: Prisma.VolunteerProfileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the VolunteerProfile
+   */
+  omit?: Prisma.VolunteerProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.VolunteerProfileInclude<ExtArgs> | null
+  where?: Prisma.VolunteerProfileWhereInput
+}
+
+/**
+ * User.bficiaryProfile
+ */
+export type User$bficiaryProfileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BficiaryProfile
+   */
+  select?: Prisma.BficiaryProfileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BficiaryProfile
+   */
+  omit?: Prisma.BficiaryProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BficiaryProfileInclude<ExtArgs> | null
+  where?: Prisma.BficiaryProfileWhereInput
+}
+
+/**
+ * User.activitiesRequested
+ */
+export type User$activitiesRequestedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Activity
+   */
+  select?: Prisma.ActivitySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Activity
+   */
+  omit?: Prisma.ActivityOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ActivityInclude<ExtArgs> | null
+  where?: Prisma.ActivityWhereInput
+  orderBy?: Prisma.ActivityOrderByWithRelationInput | Prisma.ActivityOrderByWithRelationInput[]
+  cursor?: Prisma.ActivityWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ActivityScalarFieldEnum | Prisma.ActivityScalarFieldEnum[]
+}
+
+/**
+ * User.activitiesVolunteered
+ */
+export type User$activitiesVolunteeredArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Activity
+   */
+  select?: Prisma.ActivitySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Activity
+   */
+  omit?: Prisma.ActivityOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ActivityInclude<ExtArgs> | null
+  where?: Prisma.ActivityWhereInput
+  orderBy?: Prisma.ActivityOrderByWithRelationInput | Prisma.ActivityOrderByWithRelationInput[]
+  cursor?: Prisma.ActivityWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ActivityScalarFieldEnum | Prisma.ActivityScalarFieldEnum[]
+}
+
+/**
+ * User.reviewsWritten
+ */
+export type User$reviewsWrittenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Review
+   */
+  select?: Prisma.ReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Review
+   */
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
+  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
+}
+
+/**
+ * User.reviewsReceived
+ */
+export type User$reviewsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Review
+   */
+  select?: Prisma.ReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Review
+   */
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
+  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
+}
+
+/**
+ * User.appreciationsSent
+ */
+export type User$appreciationsSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Appreciation
+   */
+  select?: Prisma.AppreciationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Appreciation
+   */
+  omit?: Prisma.AppreciationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AppreciationInclude<ExtArgs> | null
+  where?: Prisma.AppreciationWhereInput
+  orderBy?: Prisma.AppreciationOrderByWithRelationInput | Prisma.AppreciationOrderByWithRelationInput[]
+  cursor?: Prisma.AppreciationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AppreciationScalarFieldEnum | Prisma.AppreciationScalarFieldEnum[]
+}
+
+/**
+ * User.appreciationsReceived
+ */
+export type User$appreciationsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Appreciation
+   */
+  select?: Prisma.AppreciationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Appreciation
+   */
+  omit?: Prisma.AppreciationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AppreciationInclude<ExtArgs> | null
+  where?: Prisma.AppreciationWhereInput
+  orderBy?: Prisma.AppreciationOrderByWithRelationInput | Prisma.AppreciationOrderByWithRelationInput[]
+  cursor?: Prisma.AppreciationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AppreciationScalarFieldEnum | Prisma.AppreciationScalarFieldEnum[]
+}
+
+/**
  * User without action
  */
 export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1254,4 +2460,8 @@ export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
 }

@@ -51,7 +51,12 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User'
+  User: 'User',
+  VolunteerProfile: 'VolunteerProfile',
+  BficiaryProfile: 'BficiaryProfile',
+  Activity: 'Activity',
+  Review: 'Review',
+  Appreciation: 'Appreciation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -73,14 +78,96 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  password: 'password',
-  contact: 'contact',
-  name: 'name',
-  guardianName: 'guardianName',
-  guardianContact: 'guardianContact'
+  phoneNumber: 'phoneNumber',
+  passwordHash: 'passwordHash',
+  role: 'role',
+  status: 'status',
+  createdAt: 'createdAt',
+  forceChangePassword: 'forceChangePassword'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const VolunteerProfileScalarFieldEnum = {
+  userId: 'userId',
+  fullName: 'fullName',
+  avatarUrl: 'avatarUrl',
+  skills: 'skills',
+  experienceYears: 'experienceYears',
+  bio: 'bio',
+  totalThanks: 'totalThanks',
+  preferredDistricts: 'preferredDistricts',
+  cccdFrontFile: 'cccdFrontFile',
+  cccdBackFile: 'cccdBackFile'
+} as const
+
+export type VolunteerProfileScalarFieldEnum = (typeof VolunteerProfileScalarFieldEnum)[keyof typeof VolunteerProfileScalarFieldEnum]
+
+
+export const BficiaryProfileScalarFieldEnum = {
+  userId: 'userId',
+  fullName: 'fullName',
+  avatarUrl: 'avatarUrl',
+  vulnerabilityType: 'vulnerabilityType',
+  situationDescription: 'situationDescription',
+  healthCondition: 'healthCondition',
+  proofFiles: 'proofFiles',
+  cccdFrontFile: 'cccdFrontFile',
+  cccdBackFile: 'cccdBackFile',
+  guardianName: 'guardianName',
+  guardianPhone: 'guardianPhone',
+  guardianRelation: 'guardianRelation'
+} as const
+
+export type BficiaryProfileScalarFieldEnum = (typeof BficiaryProfileScalarFieldEnum)[keyof typeof BficiaryProfileScalarFieldEnum]
+
+
+export const ActivityScalarFieldEnum = {
+  id: 'id',
+  requesterId: 'requesterId',
+  volunteerId: 'volunteerId',
+  acceptedAt: 'acceptedAt',
+  activityType: 'activityType',
+  title: 'title',
+  description: 'description',
+  district: 'district',
+  addressDetail: 'addressDetail',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  recurrence: 'recurrence',
+  status: 'status',
+  activityImages: 'activityImages',
+  createdAt: 'createdAt'
+} as const
+
+export type ActivityScalarFieldEnum = (typeof ActivityScalarFieldEnum)[keyof typeof ActivityScalarFieldEnum]
+
+
+export const ReviewScalarFieldEnum = {
+  id: 'id',
+  activityId: 'activityId',
+  reviewerId: 'reviewerId',
+  targetId: 'targetId',
+  rating: 'rating',
+  comment: 'comment',
+  createdAt: 'createdAt'
+} as const
+
+export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
+
+
+export const AppreciationScalarFieldEnum = {
+  id: 'id',
+  senderId: 'senderId',
+  receiverId: 'receiverId',
+  activityId: 'activityId',
+  createdAt: 'createdAt'
+} as const
+
+export type AppreciationScalarFieldEnum = (typeof AppreciationScalarFieldEnum)[keyof typeof AppreciationScalarFieldEnum]
 
 
 export const SortOrder = {

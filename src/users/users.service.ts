@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { helpHashPassword } from 'src/helpers/utils';
+// import { CreateUserDto } from './dto/create-user.dto';
+// import { helpHashPassword } from 'src/helpers/utils';
 
 @Injectable()
 export class UsersService {
@@ -14,18 +14,25 @@ export class UsersService {
 
   // tim kiem 1 user
   getUser(id: string): Promise<any> {
-    return this.prisma.user.findFirst({
-      where: { id: Number(id) },
-    });
+    try {
+      return this.prisma.user.findFirst({
+        where: { id: String(id) },
+      });
+    } catch (error) {
+      throw new Error('Lỗi xảy ra', { cause: error });
+    }
   }
 
-  async createUser(body: CreateUserDto): Promise<any> {
-    // hash
-    // viet them try catch de bat loi
-    const hashPassword: string = await helpHashPassword(body.password);
-    // return this.prisma.user.create({
-    //   data: body,
-    // });
-    return 'tao user moi';
-  }
+  // tao user
+  createUSer() {}
+
+  // async createUser(body: CreateUserDto): Promise<any> {
+  //   // hash
+  //   // viet them try catch de bat loi
+  //   const hashPassword: string = await helpHashPassword(body.password);
+  //   // return this.prisma.user.create({
+  //   //   data: body,
+  //   // });
+  //   return 'tao user moi';
+  // }
 }

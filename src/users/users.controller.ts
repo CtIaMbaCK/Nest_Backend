@@ -25,13 +25,13 @@ export class UsersController {
     return this.userService.getUser(id);
   }
 
-  @Post()
-  createUser(
-    @Body()
-    body: CreateUserDto,
-  ) {
-    return this.userService.createUser(body);
-  }
+  // @Post()
+  // createUser(
+  //   @Body()
+  //   body: CreateUserDto,
+  // ) {
+  //   return this.userService.createUser(body);
+  // }
 
   @Patch(':id')
   updateUserById(@Param('id') id: string, @Body() body: UpdateUserDto) {

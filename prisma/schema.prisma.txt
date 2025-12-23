@@ -1,0 +1,101 @@
+
+
+
+enum UserRole {
+  ADMIN         // Quản trị viên
+  VOLUNTEER     // Tình nguyện viên
+  BENEFICIARY   // Người cần giúp đỡ (Người thụ hưởng)
+}
+
+enum GuardianRelation {
+  PARENT      // Bố / Mẹ
+  SPOUSE      // Vợ / Chồng
+  SIBLING     // Anh / Chị / Em ruột
+  CHILD       // Con cái
+  RELATIVE    // Họ hàng (Cô dì chú bác)
+  FRIEND      // Bạn bè
+  OTHER       // Khác
+}
+
+// 3. Bảng User: Chỉ chứa thông tin Đăng nhập & Bảo mật (Lightweight)
+model User {
+  id                  Int       @id @default(autoincrement())
+  
+  // Thông tin định danh (Dùng để login)
+  phoneNumber         String    @unique
+  email               String?   @unique // Có thể null nếu user không dùng email
+  password            String    // Mật khẩu đã mã hóa (Hashed)
+  
+  // Phân quyền & Trạng thái
+  role                UserRole  @default(BENEFICIARY)
+  isActive            Boolean   @default(true)  // Khóa tài khoản nếu vi phạm
+  forceChangePassword Boolean   @default(false) // Bắt đổi pass lần đầu
+
+  // Quan hệ 1-1 với Profile
+  profile             UserProfile?
+
+  // Timestamps
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  @@map("users") // Tên bảng trong DB là 'users' (số nhiều, viết thường)
+}
+
+
+model UserProfile {
+  id                Int       @id @default(autoincrement())
+  userId            Int       @unique // Khóa ngoại 1-1
+  
+  // Thông tin hiển thị công khai
+  fullName          String?
+  avatarFileName    String?   // Lưu tên file: "avatar-uuid.jpg" (Serve Public)
+  
+  // --- THÔNG TIN NHẠY CẢM (Bảo mật - Private) ---
+  cccdNumber        String?   // Số CCCD
+  cccdFrontFileName String?   // Lưu tên file: "uuid-front.jpg" (Serve qua API Private)
+  cccdBackFileName  String?   // Lưu tên file: "uuid-back.jpg"
+  
+  proofFileNames    String[]  @default([])
+
+  // --- THÔNG TIN BẢO HỘ (Dành cho người yếu thế) ---
+  guardianName      String?
+  guardianPhone     String?
+  guardianRelation  GuardianRelation?   // VD: Bố, Mẹ, Con cái...
+
+  // --- HỆ THỐNG MATCHING (Quan hệ N-N) ---
+  // Tình nguyện viên: Có những kỹ năng gì?
+  skills            Skill[]           
+  
+  // Người cần giúp: Cần hỗ trợ mảng nào?
+  supportNeeds      SupportCategory[] 
+
+  // Kết nối ngược về User
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  updatedAt         DateTime  @updatedAt
+
+  @@map("user_profiles")
+}
+
+
+model Skill {
+  id          Int           @id @default(autoincrement())
+  name        String        @unique // Tên hiển thị: "Sơ cấp cứu", "Sửa điện"...
+  code        String        @unique // Mã code để dev dùng: "MEDICAL", "REPAIR"
+  description String?       // Mô tả thêm nếu cần
+  
+  profiles    UserProfile[] // Một kỹ năng có nhiều người biết
+
+  @@map("master_skills")
+}
+
+model SupportCategory {
+  id          Int           @id @default(autoincrement())
+  name        String        @unique // Tên hiển thị: "Cần thực phẩm", "Cần thuốc"...
+  code        String        @unique // Mã code: "FOOD", "MEDICINE"
+  description String?
+  
+  profiles    UserProfile[] // Một nhu cầu có nhiều người cần
+
+  @@map("master_support_categories")
+}
