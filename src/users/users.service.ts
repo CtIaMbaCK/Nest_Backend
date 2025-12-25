@@ -1,6 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-// import { CreateUserDto } from './dto/create-user.dto';
+import {
+  CreateBficiaryProfileDto,
+  CreateVolunteerProfileDto,
+} from './dto/create-user.dto';
+import { Role } from 'src/generated/prisma/enums';
 // import { helpHashPassword } from 'src/helpers/utils';
 
 @Injectable()
@@ -23,16 +31,39 @@ export class UsersService {
     }
   }
 
-  // tao user
-  createUSer() {}
+  async createVolunteerProfile(userId: string, dto: CreateVolunteerProfileDto) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user) throw new NotFoundException('Người dùng không tồn tại');
 
-  // async createUser(body: CreateUserDto): Promise<any> {
-  //   // hash
-  //   // viet them try catch de bat loi
-  //   const hashPassword: string = await helpHashPassword(body.password);
-  //   // return this.prisma.user.create({
-  //   //   data: body,
-  //   // });
-  //   return 'tao user moi';
-  // }
+    if (user.role !== Role.VOLUNTEER) {
+      throw new ForbiddenException(
+        'Lỗi: Tài khoản của bạn không phải là Tình nguyện viên!',
+      );
+    }
+    return this.prisma.volunteerProfile.upsert({
+      where: { userId: userId },
+      update: { ...dto },
+      create: { userId, ...dto },
+    });
+  }
+
+  async createBenificiaryProfile(
+    userId: string,
+    dto: CreateBficiaryProfileDto,
+  ) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+
+    if (!user) throw new NotFoundException('Người dùng không tồn tại');
+
+    if (user.role !== Role.BENEFICIARY) {
+      throw new ForbiddenException(
+        'Lỗi: Tài khoản của bạn không phải là Người cần giúp đỡ!',
+      );
+    }
+    return this.prisma.bficiaryProfile.upsert({
+      where: { userId: userId },
+      update: { ...dto },
+      create: { userId, ...dto },
+    });
+  }
 }

@@ -117,6 +117,7 @@ export type District = (typeof District)[keyof typeof District]
 
 
 export const Skill = {
+  TEACHING: 'TEACHING',
   EDUCATION: 'EDUCATION',
   MEDICAL: 'MEDICAL',
   PSYCHOLOGICAL: 'PSYCHOLOGICAL',

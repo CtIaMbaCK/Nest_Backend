@@ -236,6 +236,13 @@ export type EnumActivityTypeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumActivityTypeFilter<$PrismaModel> | $Enums.ActivityType
 }
 
+export type EnumDistrictFilter<$PrismaModel = never> = {
+  equals?: $Enums.District | Prisma.EnumDistrictFieldRefInput<$PrismaModel>
+  in?: $Enums.District[] | Prisma.ListEnumDistrictFieldRefInput<$PrismaModel>
+  notIn?: $Enums.District[] | Prisma.ListEnumDistrictFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDistrictFilter<$PrismaModel> | $Enums.District
+}
+
 export type EnumRecurrenceTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.RecurrenceType | Prisma.EnumRecurrenceTypeFieldRefInput<$PrismaModel>
   in?: $Enums.RecurrenceType[] | Prisma.ListEnumRecurrenceTypeFieldRefInput<$PrismaModel>
@@ -272,6 +279,16 @@ export type EnumActivityTypeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumActivityTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumActivityTypeFilter<$PrismaModel>
+}
+
+export type EnumDistrictWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.District | Prisma.EnumDistrictFieldRefInput<$PrismaModel>
+  in?: $Enums.District[] | Prisma.ListEnumDistrictFieldRefInput<$PrismaModel>
+  notIn?: $Enums.District[] | Prisma.ListEnumDistrictFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDistrictWithAggregatesFilter<$PrismaModel> | $Enums.District
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDistrictFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDistrictFilter<$PrismaModel>
 }
 
 export type EnumRecurrenceTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -529,6 +546,13 @@ export type NestedEnumActivityTypeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumActivityTypeFilter<$PrismaModel> | $Enums.ActivityType
 }
 
+export type NestedEnumDistrictFilter<$PrismaModel = never> = {
+  equals?: $Enums.District | Prisma.EnumDistrictFieldRefInput<$PrismaModel>
+  in?: $Enums.District[] | Prisma.ListEnumDistrictFieldRefInput<$PrismaModel>
+  notIn?: $Enums.District[] | Prisma.ListEnumDistrictFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDistrictFilter<$PrismaModel> | $Enums.District
+}
+
 export type NestedEnumRecurrenceTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.RecurrenceType | Prisma.EnumRecurrenceTypeFieldRefInput<$PrismaModel>
   in?: $Enums.RecurrenceType[] | Prisma.ListEnumRecurrenceTypeFieldRefInput<$PrismaModel>
@@ -565,6 +589,16 @@ export type NestedEnumActivityTypeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumActivityTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumActivityTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumDistrictWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.District | Prisma.EnumDistrictFieldRefInput<$PrismaModel>
+  in?: $Enums.District[] | Prisma.ListEnumDistrictFieldRefInput<$PrismaModel>
+  notIn?: $Enums.District[] | Prisma.ListEnumDistrictFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDistrictWithAggregatesFilter<$PrismaModel> | $Enums.District
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDistrictFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDistrictFilter<$PrismaModel>
 }
 
 export type NestedEnumRecurrenceTypeWithAggregatesFilter<$PrismaModel = never> = {

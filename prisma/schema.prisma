@@ -29,22 +29,22 @@ enum UserStatus {
 }
 
 enum GuardianRelation {
-  PARENT    // Ba mẹ
-  SPOUSE    // Vợ/Chồng
-  CHILD     // Con cái
-  SIBLING   // Anh/Chị/Em
-  RELATIVE  // Người thân/Họ hàng
-  FRIEND    // Bạn bè
-  OTHER     // Khác
+  PARENT    
+  SPOUSE    
+  CHILD     
+  SIBLING   
+  RELATIVE  
+  FRIEND    
+  OTHER     
 }
 
 enum ActivityType {
-  EDUCATION   // Giáo dục
-  MEDICAL     // Y tế
-  HOUSE_WORK  // Việc nhà
-  TRANSPORT   // Di chuyển
-  DONATION    // Quyên góp
-  OTHER       // Khác
+  EDUCATION   
+  MEDICAL     
+  HOUSE_WORK  
+  TRANSPORT   
+  DONATION    
+  OTHER       
 }
 
 // thiet lap hoat dong 
@@ -56,21 +56,21 @@ enum RecurrenceType {
 }
 
 enum ActivityStatus {
-  PENDING   // Chờ duyệt
-  APPROVED  // Đã duyệt (Open)
-  ONGOING   // Đang diễn ra
-  COMPLETED // Hoàn thành
-  CANCELLED // Đã hủy
-  REJECTED  // Từ chối
+  PENDING   
+  APPROVED  
+  ONGOING   
+  COMPLETED 
+  CANCELLED 
+  REJECTED  
 }
 
 enum VulnerabilityType {
-  POOR      // Hộ nghèo
-  DISABLED  // Khuyết tật
-  ELDERLY   // Người già
-  SICKNESS  // Bệnh tật
-  ORPHAN    // Mồ côi
-  OTHER     // Khác
+  POOR      
+  DISABLED  
+  ELDERLY   
+  SICKNESS  
+  ORPHAN    
+  OTHER     
 }
 
 enum District {
@@ -103,6 +103,7 @@ enum District {
 
 
 enum Skill {
+  TEACHING
   EDUCATION         
   MEDICAL           
   PSYCHOLOGICAL     
@@ -202,19 +203,19 @@ model Activity {
   description     String?      @db.Text
   
   // Địa điểm
-  district        String       // Key quận (VD: TAN_BINH)
+  district        District     @map("district")       
   addressDetail   String       @map("address_detail")
 
   // Thời gian
   startDate       DateTime     @map("start_date") @db.Date
   endDate         DateTime?    @map("end_date")   @db.Date
-  startTime       DateTime     @map("start_time") @db.Time // Hoặc dùng String nếu muốn đơn giản
+  startTime       DateTime     @map("start_time") @db.Time 
   endTime         DateTime     @map("end_time")   @db.Time 
   recurrence      RecurrenceType @default(NONE)
 
   // System & Images
   status          ActivityStatus @default(PENDING)
-  activityImages  String[]       @map("activity_images") // List URL
+  activityImages  String[]       @map("activity_images") 
   createdAt       DateTime       @default(now()) @map("created_at")
 
   // Quan hệ ngược

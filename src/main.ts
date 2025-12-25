@@ -18,7 +18,16 @@ async function bootstrap() {
     .setTitle('Backend API')
     .setDescription('API kết nối Frontend')
     .setVersion('1.0')
-    .addBearerAuth()
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'Bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        in: 'header',
+      },
+      'JWT-auth',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

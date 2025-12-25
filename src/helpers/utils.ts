@@ -1,14 +1,26 @@
 import * as bcrypt from 'bcrypt';
-const salt = 20;
+
+const saltRounds = 10;
 
 export const helpHashPassword = async (
-  plaintPassword: string,
-): Promise<any> => {
+  plainPassword: string,
+): Promise<string> => {
   try {
-    const hash = await bcrypt.hash(plaintPassword, salt);
-    console.log('hashPassword: ', hash);
+    const hash = await bcrypt.hash(plainPassword, saltRounds);
     return hash;
   } catch (error) {
-    throw new Error(`Có lỗi xảy ra: ${error}`);
+    throw new Error(`Lỗi mã hóa mật khẩu: ${error}`);
+  }
+};
+
+export const helpComparePassword = async (
+  plainPassword: string,
+  hashedPassword: string,
+): Promise<boolean> => {
+  try {
+    const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
+    return isMatch;
+  } catch (err) {
+    throw new Error(`Lỗi ${err}`);
   }
 };

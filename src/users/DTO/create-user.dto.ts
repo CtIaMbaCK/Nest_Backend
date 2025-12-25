@@ -6,9 +6,7 @@ import {
   MinLength,
   IsPhoneNumber,
   IsEnum,
-  IsDateString,
   IsOptional,
-  ValidateIf,
   IsArray,
   IsInt,
   Min,
@@ -19,6 +17,8 @@ import {
   Role,
   VulnerabilityType,
   GuardianRelation,
+  Skill,
+  District,
 } from 'src/generated/prisma/enums';
 
 // tạo thongtin basic user
@@ -31,157 +31,135 @@ export class CreateBasicUserDto {
   @IsEmail({}, { message: 'Email không hợp lệ' })
   email: string;
 
-  @ApiProperty({
-    example: 'StrongP@ss123',
-    description: 'Mật khẩu (ít nhất 6 ký tự)',
-  })
+  @ApiProperty({ example: '123456', description: 'Mật khẩu' })
   @IsNotEmpty({ message: 'Mật khẩu không được để trống' })
   @MinLength(6, { message: 'Mật khẩu phải có ít nhất 6 ký tự' })
   password: string;
-
-  @ApiProperty({ example: 'Nguyễn Văn A', description: 'Họ và tên đầy đủ' })
-  @IsNotEmpty({ message: 'Họ tên không được để trống' })
-  @IsString()
-  fullName: string;
 
   @ApiProperty({ example: '0912345678', description: 'Số điện thoại' })
   @IsNotEmpty({ message: 'Số điện thoại không được để trống' })
-  @IsPhoneNumber('VN', {
-    message: 'Số điện thoại không đúng định dạng Việt Nam',
-  })
+  @IsPhoneNumber('VN', { message: 'Số điện thoại không đúng định dạng VN' })
   phoneNumber: string;
 
-  @ApiProperty({
-    example: '2000-01-01T00:00:00.000Z',
-    description: 'Ngày sinh (ISO 8601)',
-  })
-  @IsNotEmpty({ message: 'Ngày sinh không được để trống' })
-  @IsDateString({}, { message: 'Ngày sinh phải là định dạng ngày tháng (ISO)' })
-  dateOfBirth: string;
+  @ApiProperty({ description: 'Vai trò' })
+  @IsNotEmpty({ message: 'Vui lòng chọn vai trò' })
+  @IsEnum(Role, { message: 'Vai trò không hợp lệ' })
+  role: Role;
 }
 
+// thong tin tinh nguyen vien
 export class CreateVolunteerProfileDto {
-  @ApiPropertyOptional({
-    example: ['EDUCATION', 'MEDICAL'],
-    description: 'Kỹ năng chuyên môn (Danh sách Enum string)',
-  })
-  @IsArray({ message: 'Kỹ năng phải là một danh sách' })
-  @IsOptional()
-  skills?: string[];
-
-  @ApiPropertyOptional({
-    example: 'Tôi muốn đóng góp...',
-    description: 'Giới thiệu bản thân',
-  })
-  @IsString()
-  @IsOptional()
-  bio?: string;
-
-  // Có thể thêm các trường khác như kinh nghiệm, quận huyện ưu tiên...
-}
-//
-export class CreateUserDto {
-  // thong tin chung
-  @ApiProperty({
-    example: 'nguyenvan@example.com',
-    description: 'Email đăng nhập',
-  })
-  @IsNotEmpty({ message: 'Email không được để trống' })
-  @IsEmail({}, { message: 'Email không hợp lệ' })
-  email: string;
-
-  @ApiProperty({
-    example: 'StrongP@ss123',
-    description: 'Mật khẩu (ít nhất 6 ký tự)',
-  })
-  @IsNotEmpty({ message: 'Mật khẩu không được để trống' })
-  @MinLength(6, { message: 'Mật khẩu phải có ít nhất 6 ký tự' })
-  password: string;
-
-  @ApiProperty({ example: 'Nguyễn Văn A', description: 'Họ và tên đầy đủ' })
+  @ApiProperty({ example: 'Nguyễn Văn A', description: 'Họ và tên hiển thị' })
   @IsNotEmpty({ message: 'Họ tên không được để trống' })
   @IsString()
   fullName: string;
 
-  @ApiProperty({ example: '0912345678', description: 'Số điện thoại Việt Nam' })
-  @IsNotEmpty({ message: 'Số điện thoại không được để trống' })
-  @IsPhoneNumber('VN', {
-    message: 'Số điện thoại không đúng định dạng Việt Nam',
-  })
-  phoneNumber: string;
-
-  @ApiProperty({
-    enum: Role,
-    example: Role.VOLUNTEER,
-    description: 'Vai trò: VOLUNTEER hoặc BENEFICIARY',
-  })
-  @IsNotEmpty({ message: 'Vui lòng chọn vai trò (Role)' })
-  @IsEnum(Role, { message: 'Vai trò không hợp lệ' })
-  role: Role;
-
-  @ApiProperty({
-    example: '2000-01-01T00:00:00.000Z',
-    description: 'Ngày sinh (ISO 8601)',
-  })
-  @IsNotEmpty({ message: 'Ngày sinh không được để trống' })
-  @IsDateString({}, { message: 'Ngày sinh phải là định dạng ngày tháng (ISO)' })
-  dateOfBirth: string;
-
-  //  thong tin tinh nguyen vien va chi valid khi la role tinh nguyen vien
-
-  @ApiPropertyOptional({
-    example: ['EDUCATION', 'MEDICAL'],
-    description: 'Kỹ năng chuyên môn',
-  })
-  @ValidateIf((o: { role?: Role }) => o.role === Role.VOLUNTEER)
-  @IsArray({ message: 'Kỹ năng phải là một danh sách' })
+  @ApiPropertyOptional({ description: 'Link ảnh đại diện' })
+  @IsString()
   @IsOptional()
-  skills?: string[];
+  avatarUrl?: string;
+
+  @ApiPropertyOptional({ description: 'Link ảnh mặt trước CCCD' })
+  @IsString()
+  @IsOptional()
+  cccdFrontFile?: string;
+
+  @ApiPropertyOptional({ description: 'Link ảnh mặt sau CCCD' })
+  @IsString()
+  @IsOptional()
+  cccdBackFile?: string;
 
   @ApiPropertyOptional({
-    example: 'Tôi muốn đóng góp...',
-    description: 'Giới thiệu bản thân',
+    enum: Skill,
+    isArray: true,
+    example: [Skill.LOGISTICS, Skill.TEACHING],
+    description: 'Danh sách kỹ năng chuyên môn',
   })
-  @ValidateIf((o: { role?: Role }) => o.role === Role.VOLUNTEER)
+  @IsArray({ message: 'Kỹ năng phải là một danh sách' })
+  @IsEnum(Skill, { each: true, message: 'Kỹ năng không hợp lệ' })
+  @IsOptional()
+  skills?: Skill[];
+
+  @ApiPropertyOptional({ example: 2, description: 'Số năm kinh nghiệm' })
+  @IsInt({ message: 'Số năm kinh nghiệm phải là số nguyên' })
+  @Min(0)
+  @IsOptional()
+  experienceYears?: number;
+
+  @ApiPropertyOptional({ description: 'Giới thiệu bản thân' })
   @IsString()
   @IsOptional()
   bio?: string;
 
-  //  thong tin nguoi can giup đỡ va chi valid khi la role ng cần giúp đỡ
-  @ValidateIf((o: { role?: Role }) => o.role === Role.BENEFICIARY)
   @ApiPropertyOptional({
-    enum: VulnerabilityType,
-    description: 'Loại hình khó khăn',
+    enum: District,
+    isArray: true,
+    description: 'Quận huyện ưu tiên',
   })
-  @ValidateIf((o: { role?: Role }) => o.role === Role.BENEFICIARY)
-  @IsNotEmpty({ message: 'Phải chọn loại hình khó khăn' })
+  @IsArray()
+  @IsEnum(District, { each: true, message: 'Quận huyện không hợp lệ' })
+  @IsOptional()
+  preferredDistricts?: District[];
+}
+
+// thong tin nguoi can giup do
+export class CreateBficiaryProfileDto {
+  @ApiProperty({ example: 'Trần Thị B', description: 'Họ và tên hiển thị' })
+  @IsNotEmpty({ message: 'Họ tên không được để trống' })
+  @IsString()
+  fullName: string;
+
+  @ApiPropertyOptional({ description: 'Link ảnh đại diện' })
+  @IsString()
+  @IsOptional()
+  avatarUrl?: string;
+
+  @ApiPropertyOptional({ description: 'Link ảnh mặt trước CCCD' })
+  @IsString()
+  @IsOptional()
+  cccdFrontFile?: string;
+
+  @ApiPropertyOptional({ description: 'Link ảnh mặt sau CCCD' })
+  @IsString()
+  @IsOptional()
+  cccdBackFile?: string;
+
+  @ApiProperty({ enum: VulnerabilityType, description: 'Loại hình khó khăn' })
+  @IsNotEmpty({ message: 'Vui lòng chọn loại hình khó khăn' })
   @IsEnum(VulnerabilityType)
-  vulnerabilityType?: VulnerabilityType;
+  vulnerabilityType: VulnerabilityType;
 
   @ApiPropertyOptional({ description: 'Mô tả hoàn cảnh' })
-  @ValidateIf((o: { role?: Role }) => o.role === Role.BENEFICIARY)
   @IsString()
   @IsOptional()
   situationDescription?: string;
 
-  // --- Người bảo hộ ---
+  @ApiPropertyOptional({ description: 'Tình trạng sức khỏe' })
+  @IsString()
+  @IsOptional()
+  healthCondition?: string;
+
+  @ApiPropertyOptional({ description: 'Link ảnh minh chứng' })
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  proofFiles?: string[];
+
   @ApiPropertyOptional({ description: 'Tên người bảo hộ' })
-  @ValidateIf((o: { role?: Role }) => o.role === Role.BENEFICIARY)
   @IsString()
   @IsOptional()
   guardianName?: string;
 
   @ApiPropertyOptional({ description: 'SĐT người bảo hộ' })
-  @ValidateIf((o: { role?: Role }) => o.role === Role.BENEFICIARY)
-  @IsPhoneNumber('VN', { message: 'SĐT người bảo hộ không hợp lệ' })
+  @IsPhoneNumber('VN', { message: 'SĐT không hợp lệ' })
   @IsOptional()
-  guardianPhone?: string; // Đã đổi tên cho khớp logic DB
+  guardianPhone?: string;
 
   @ApiPropertyOptional({
     enum: GuardianRelation,
-    description: 'Quan hệ với người bảo hộ',
+    description: 'Quan hệ người bảo hộ',
   })
-  @ValidateIf((o: { role?: Role }) => o.role === Role.BENEFICIARY)
+  @IsOptional()
   @IsEnum(GuardianRelation)
   @IsOptional()
   guardianRelation?: GuardianRelation;
