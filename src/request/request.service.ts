@@ -142,7 +142,9 @@ export class RequestService {
     });
   }
 
+  // Lấy tất cả yêu cầu giúp đỡ - cho admin
   async findAllRequests() {
+    // them chuc nang la admin moi coi dc
     return this.prisma.helpRequest.findMany({
       orderBy: { createdAt: 'desc' },
       include: {
@@ -153,6 +155,28 @@ export class RequestService {
             volunteerProfile: true,
           },
         },
+      },
+    });
+  }
+
+  // Lấy tất cả yêu cầu giúp đỡ của người đăng ký
+  async findRequestsByRequester(userId: string) {
+    return this.prisma.helpRequest.findMany({
+      where: { requesterId: userId },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        volunteer: true,
+      },
+    });
+  }
+
+  // Lấy tất cả yêu cầu giúp đỡ của tình nguyện viên
+  async findRequestsByVolunteer(userId: string) {
+    return this.prisma.helpRequest.findMany({
+      where: { volunteerId: userId },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        requester: true,
       },
     });
   }

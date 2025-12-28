@@ -7,6 +7,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import {
   CreateBficiaryProfileDto,
   CreateVolunteerProfileDto,
+  UpdateBficiaryProfileDto,
+  UpdateVolunteerProfileDto,
 } from './dto/create-user.dto';
 import { Role } from 'src/generated/prisma/enums';
 // import { helpHashPassword } from 'src/helpers/utils';
@@ -64,6 +66,40 @@ export class UsersService {
       where: { userId: userId },
       update: { ...dto },
       create: { userId, ...dto },
+    });
+  }
+
+  // update thong tin nguoi can giup do
+  async updateBenificiaryProfile(
+    userId: string,
+    dto: UpdateBficiaryProfileDto,
+  ) {
+    const profileBene = await this.prisma.bficiaryProfile.findUnique({
+      where: { userId: userId },
+    });
+
+    if (!profileBene) {
+      throw new NotFoundException('Hồ sơ người cần giúp không tồn tại');
+    }
+
+    return this.prisma.bficiaryProfile.update({
+      where: { userId: userId },
+      data: { ...dto },
+    });
+  }
+
+  async updateVolunteerProfile(userId: string, dto: UpdateVolunteerProfileDto) {
+    const profileVol = await this.prisma.volunteerProfile.findUnique({
+      where: { userId: userId },
+    });
+
+    if (!profileVol) {
+      throw new NotFoundException('Hồ sơ tình nguyện viên không tồn tại');
+    }
+
+    return this.prisma.volunteerProfile.update({
+      where: { userId: userId },
+      data: { ...dto },
     });
   }
 }

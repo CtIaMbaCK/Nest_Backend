@@ -1,4 +1,4 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional, PartialType } from '@nestjs/swagger';
 import {
   IsEmail,
   IsNotEmpty,
@@ -163,3 +163,11 @@ export class CreateBficiaryProfileDto {
   @IsOptional()
   guardianRelation?: GuardianRelation;
 }
+
+export class UpdateVolunteerProfileDto extends PartialType(
+  CreateVolunteerProfileDto,
+) {}
+
+export class UpdateBficiaryProfileDto extends PartialType(
+  CreateBficiaryProfileDto,
+) {}

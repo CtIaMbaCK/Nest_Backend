@@ -43,12 +43,12 @@ export class AuthService {
       },
     });
 
-    return this.signToken(newUser.id, newUser.email, newUser.role);
+    return this.signToken(newUser.id, newUser.phoneNumber, newUser.role);
   }
 
   //   Tao token
-  private async signToken(userId: string, email: string, role: string) {
-    const payload = { sub: userId, email, role };
+  private async signToken(userId: string, phoneNumber: string, role: string) {
+    const payload = { sub: userId, phoneNumber, role };
     const token = await this.jwtService.signAsync(payload, {
       secret: ENV('SECRET_KEY'),
       expiresIn: '1d',

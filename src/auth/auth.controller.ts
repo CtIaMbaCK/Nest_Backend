@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Put, UseGuards, Req } from '@nestjs/common';
+import { Body, Controller, Post, Put, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UsersService } from 'src/users/users.service';
 
@@ -9,10 +9,9 @@ import {
   CreateVolunteerProfileDto,
 } from 'src/users/dto/create-user.dto';
 
-import type { Request } from 'express';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { CurrentUser } from './interface/current';
 import { LoginDto } from 'src/users/dto/login-user.dto';
+import { GetUser } from './decorator/get-user.decorator';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -31,22 +30,20 @@ export class AuthController {
   @ApiBearerAuth('JWT-auth')
   @Put('profile/tnv')
   completeVolunteer(
-    @Req() req: Request,
+    @GetUser('sub') userId: string,
     @Body() dto: CreateVolunteerProfileDto,
   ) {
-    const user = req.user as CurrentUser;
-    return this.usersService.createVolunteerProfile(user.userId, dto);
+    return this.usersService.createVolunteerProfile(userId, dto);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth('JWT-auth')
   @Put('profile/ncgd')
   completeBeneficiary(
-    @Req() req: Request,
+    @GetUser('sub') userId: string,
     @Body() dto: CreateBficiaryProfileDto,
   ) {
-    const user = req.user as CurrentUser;
-    return this.usersService.createBenificiaryProfile(user.userId, dto);
+    return this.usersService.createBenificiaryProfile(userId, dto);
   }
 
   @Post('login')
