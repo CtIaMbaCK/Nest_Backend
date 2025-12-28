@@ -387,7 +387,7 @@ export const ModelName = {
   User: 'User',
   VolunteerProfile: 'VolunteerProfile',
   BficiaryProfile: 'BficiaryProfile',
-  Activity: 'Activity',
+  HelpRequest: 'HelpRequest',
   Review: 'Review',
   Appreciation: 'Appreciation'
 } as const
@@ -405,7 +405,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "volunteerProfile" | "bficiaryProfile" | "activity" | "review" | "appreciation"
+    modelProps: "user" | "volunteerProfile" | "bficiaryProfile" | "helpRequest" | "review" | "appreciation"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -631,77 +631,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Activity: {
-      payload: Prisma.$ActivityPayload<ExtArgs>
-      fields: Prisma.ActivityFieldRefs
+    HelpRequest: {
+      payload: Prisma.$HelpRequestPayload<ExtArgs>
+      fields: Prisma.HelpRequestFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.ActivityFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload> | null
+          args: Prisma.HelpRequestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HelpRequestPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.ActivityFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload>
+          args: Prisma.HelpRequestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HelpRequestPayload>
         }
         findFirst: {
-          args: Prisma.ActivityFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload> | null
+          args: Prisma.HelpRequestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HelpRequestPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.ActivityFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload>
+          args: Prisma.HelpRequestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HelpRequestPayload>
         }
         findMany: {
-          args: Prisma.ActivityFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload>[]
+          args: Prisma.HelpRequestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HelpRequestPayload>[]
         }
         create: {
-          args: Prisma.ActivityCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload>
+          args: Prisma.HelpRequestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HelpRequestPayload>
         }
         createMany: {
-          args: Prisma.ActivityCreateManyArgs<ExtArgs>
+          args: Prisma.HelpRequestCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.ActivityCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload>[]
+          args: Prisma.HelpRequestCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HelpRequestPayload>[]
         }
         delete: {
-          args: Prisma.ActivityDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload>
+          args: Prisma.HelpRequestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HelpRequestPayload>
         }
         update: {
-          args: Prisma.ActivityUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload>
+          args: Prisma.HelpRequestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HelpRequestPayload>
         }
         deleteMany: {
-          args: Prisma.ActivityDeleteManyArgs<ExtArgs>
+          args: Prisma.HelpRequestDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.ActivityUpdateManyArgs<ExtArgs>
+          args: Prisma.HelpRequestUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.ActivityUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload>[]
+          args: Prisma.HelpRequestUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HelpRequestPayload>[]
         }
         upsert: {
-          args: Prisma.ActivityUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload>
+          args: Prisma.HelpRequestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HelpRequestPayload>
         }
         aggregate: {
-          args: Prisma.ActivityAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateActivity>
+          args: Prisma.HelpRequestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateHelpRequest>
         }
         groupBy: {
-          args: Prisma.ActivityGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ActivityGroupByOutputType>[]
+          args: Prisma.HelpRequestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HelpRequestGroupByOutputType>[]
         }
         count: {
-          args: Prisma.ActivityCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ActivityCountAggregateOutputType> | number
+          args: Prisma.HelpRequestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HelpRequestCountAggregateOutputType> | number
         }
       }
     }
@@ -940,7 +940,7 @@ export const BficiaryProfileScalarFieldEnum = {
 export type BficiaryProfileScalarFieldEnum = (typeof BficiaryProfileScalarFieldEnum)[keyof typeof BficiaryProfileScalarFieldEnum]
 
 
-export const ActivityScalarFieldEnum = {
+export const HelpRequestScalarFieldEnum = {
   id: 'id',
   requesterId: 'requesterId',
   volunteerId: 'volunteerId',
@@ -948,6 +948,7 @@ export const ActivityScalarFieldEnum = {
   activityType: 'activityType',
   title: 'title',
   description: 'description',
+  urgencyLevel: 'urgencyLevel',
   district: 'district',
   addressDetail: 'addressDetail',
   startDate: 'startDate',
@@ -957,10 +958,12 @@ export const ActivityScalarFieldEnum = {
   recurrence: 'recurrence',
   status: 'status',
   activityImages: 'activityImages',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  latitude: 'latitude',
+  longitude: 'longitude'
 } as const
 
-export type ActivityScalarFieldEnum = (typeof ActivityScalarFieldEnum)[keyof typeof ActivityScalarFieldEnum]
+export type HelpRequestScalarFieldEnum = (typeof HelpRequestScalarFieldEnum)[keyof typeof HelpRequestScalarFieldEnum]
 
 
 export const ReviewScalarFieldEnum = {
@@ -1151,16 +1154,30 @@ export type ListEnumGuardianRelationFieldRefInput<$PrismaModel> = FieldRefInputT
 
 
 /**
- * Reference to a field of type 'ActivityType'
+ * Reference to a field of type 'RequestCategory'
  */
-export type EnumActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActivityType'>
+export type EnumRequestCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RequestCategory'>
     
 
 
 /**
- * Reference to a field of type 'ActivityType[]'
+ * Reference to a field of type 'RequestCategory[]'
  */
-export type ListEnumActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActivityType[]'>
+export type ListEnumRequestCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RequestCategory[]'>
+    
+
+
+/**
+ * Reference to a field of type 'UrgencyLevel'
+ */
+export type EnumUrgencyLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UrgencyLevel'>
+    
+
+
+/**
+ * Reference to a field of type 'UrgencyLevel[]'
+ */
+export type ListEnumUrgencyLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UrgencyLevel[]'>
     
 
 
@@ -1303,7 +1320,7 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   volunteerProfile?: Prisma.VolunteerProfileOmit
   bficiaryProfile?: Prisma.BficiaryProfileOmit
-  activity?: Prisma.ActivityOmit
+  helpRequest?: Prisma.HelpRequestOmit
   review?: Prisma.ReviewOmit
   appreciation?: Prisma.AppreciationOmit
 }

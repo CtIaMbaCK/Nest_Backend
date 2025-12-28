@@ -5,6 +5,9 @@ import { CreateBasicUserDto } from 'src/users/dto/create-user.dto';
 import { helpComparePassword, helpHashPassword } from 'src/helpers/utils';
 import { LoginDto } from 'src/users/dto/login-user.dto';
 
+import 'dotenv/config';
+import { env as ENV } from 'prisma/config';
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -47,7 +50,7 @@ export class AuthService {
   private async signToken(userId: string, email: string, role: string) {
     const payload = { sub: userId, email, role };
     const token = await this.jwtService.signAsync(payload, {
-      secret: 'mySecretKey',
+      secret: ENV('SECRET_KEY'),
       expiresIn: '1d',
     });
 

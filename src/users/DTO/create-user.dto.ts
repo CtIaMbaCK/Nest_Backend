@@ -11,7 +11,6 @@ import {
   IsInt,
   Min,
 } from 'class-validator';
-// import { Role, VulnerabilityType, GuardianRelation } from '@prisma/client'; // Import trực tiếp từ Prisma
 
 import {
   Role,

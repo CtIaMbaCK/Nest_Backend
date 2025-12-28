@@ -54,7 +54,7 @@ export const ModelName = {
   User: 'User',
   VolunteerProfile: 'VolunteerProfile',
   BficiaryProfile: 'BficiaryProfile',
-  Activity: 'Activity',
+  HelpRequest: 'HelpRequest',
   Review: 'Review',
   Appreciation: 'Appreciation'
 } as const
@@ -123,7 +123,7 @@ export const BficiaryProfileScalarFieldEnum = {
 export type BficiaryProfileScalarFieldEnum = (typeof BficiaryProfileScalarFieldEnum)[keyof typeof BficiaryProfileScalarFieldEnum]
 
 
-export const ActivityScalarFieldEnum = {
+export const HelpRequestScalarFieldEnum = {
   id: 'id',
   requesterId: 'requesterId',
   volunteerId: 'volunteerId',
@@ -131,6 +131,7 @@ export const ActivityScalarFieldEnum = {
   activityType: 'activityType',
   title: 'title',
   description: 'description',
+  urgencyLevel: 'urgencyLevel',
   district: 'district',
   addressDetail: 'addressDetail',
   startDate: 'startDate',
@@ -140,10 +141,12 @@ export const ActivityScalarFieldEnum = {
   recurrence: 'recurrence',
   status: 'status',
   activityImages: 'activityImages',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  latitude: 'latitude',
+  longitude: 'longitude'
 } as const
 
-export type ActivityScalarFieldEnum = (typeof ActivityScalarFieldEnum)[keyof typeof ActivityScalarFieldEnum]
+export type HelpRequestScalarFieldEnum = (typeof HelpRequestScalarFieldEnum)[keyof typeof HelpRequestScalarFieldEnum]
 
 
 export const ReviewScalarFieldEnum = {

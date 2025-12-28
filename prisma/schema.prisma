@@ -38,13 +38,15 @@ enum GuardianRelation {
   OTHER     
 }
 
-enum ActivityType {
+// activity category
+enum RequestCategory {
   EDUCATION   
   MEDICAL     
   HOUSE_WORK  
   TRANSPORT   
-  DONATION    
-  OTHER       
+  FOOD
+  SHELTER
+  OTHER      
 }
 
 // thiet lap hoat dong 
@@ -55,6 +57,7 @@ enum RecurrenceType {
   CUSTOM
 }
 
+// request
 enum ActivityStatus {
   PENDING   
   APPROVED  
@@ -117,6 +120,11 @@ enum Skill {
   IT_SUPPORT        
 }
 
+// 
+enum UrgencyLevel {
+  STANDARD
+  CRITICAL
+}
 
 // models
 model User {
@@ -136,8 +144,8 @@ model User {
   bficiaryProfile   BficiaryProfile?
 
   // 1-n activity
-  activitiesRequested Activity[] @relation("ActivityRequester")
-  activitiesVolunteered Activity[] @relation("ActivityVolunteer")
+  activitiesRequested HelpRequest[] @relation("HelpRequester")
+  activitiesVolunteered HelpRequest[] @relation("HelpVolunteer")
 
   reviewsWritten    Review[] @relation("Reviewer")
   reviewsReceived   Review[] @relation("ReviewTarget")
@@ -147,6 +155,7 @@ model User {
 
 }
 
+// profile của tình nguyện viên
 model VolunteerProfile {
   userId             String   @id @map("user_id")
   user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -164,6 +173,7 @@ model VolunteerProfile {
   cccdBackFile    String?    @map("cccd_back_file")
 }
 
+// profile của người cần giúp đỡ
 model BficiaryProfile {
   userId               String            @id @map("user_id")
   user                 User              @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -185,38 +195,46 @@ model BficiaryProfile {
 
 }
 
-model Activity {
+model HelpRequest {
   id              String   @id @default(uuid())
 
   // --- Quan hệ User ---
   requesterId     String   @map("requester_id")
-  requester       User     @relation("ActivityRequester", fields: [requesterId], references: [id])
+  requester       User     @relation("HelpRequester", fields: [requesterId], references: [id])
   
   volunteerId     String?  @map("volunteer_id")
-  volunteer       User?    @relation("ActivityVolunteer", fields: [volunteerId], references: [id])
+  volunteer       User?    @relation("HelpVolunteer", fields: [volunteerId], references: [id])
   
   acceptedAt      DateTime? @map("accepted_at")
 
   // --- Nội dung ---
-  activityType    ActivityType @map("activity_type")
+  activityType    RequestCategory @map("request_category")
   title           String
   description     String?      @db.Text
+
+  // urgency
+  urgencyLevel UrgencyLevel @map("urgency_level") @default(STANDARD)
   
   // Địa điểm
-  district        District     @map("district")       
+  district        District     @map("district")      
   addressDetail   String       @map("address_detail")
 
   // Thời gian
   startDate       DateTime     @map("start_date") @db.Date
   endDate         DateTime?    @map("end_date")   @db.Date
+  
   startTime       DateTime     @map("start_time") @db.Time 
   endTime         DateTime     @map("end_time")   @db.Time 
+  
   recurrence      RecurrenceType @default(NONE)
 
   // System & Images
   status          ActivityStatus @default(PENDING)
   activityImages  String[]       @map("activity_images") 
   createdAt       DateTime       @default(now()) @map("created_at")
+
+  latitude         Float?    @map("latitude")
+  longitude        Float?    @map("longitude")
 
   // Quan hệ ngược
   reviews         Review[]
@@ -228,7 +246,7 @@ model Review {
   id          String   @id @default(uuid())
   
   activityId  String   @map("activity_id")
-  activity    Activity @relation(fields: [activityId], references: [id])
+  activity    HelpRequest @relation(fields: [activityId], references: [id])
 
   reviewerId  String   @map("reviewer_id")
   reviewer    User     @relation("Reviewer", fields: [reviewerId], references: [id])
@@ -252,7 +270,7 @@ model Appreciation {
   receiver    User     @relation("AppreciationReceiver", fields: [receiverId], references: [id])
 
   activityId  String   @map("activity_id")
-  activity    Activity @relation(fields: [activityId], references: [id])
+  activity    HelpRequest @relation(fields: [activityId], references: [id])
 
   createdAt   DateTime @default(now()) @map("created_at")
 

@@ -5,13 +5,16 @@ import { JwtStrategy } from './jwt.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersModule } from 'src/users/users.module';
 import { PassportModule } from '@nestjs/passport';
+import 'dotenv/config';
+import { env as ENV } from 'prisma/config';
 
 @Module({
   imports: [
     UsersModule,
     PassportModule,
     JwtModule.register({
-      secret: 'mySecretKey',
+      global: true,
+      secret: ENV('SECRET_KEY'),
       signOptions: { expiresIn: '1d' },
     }),
   ],

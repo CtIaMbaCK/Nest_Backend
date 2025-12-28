@@ -42,16 +42,17 @@ export const GuardianRelation = {
 export type GuardianRelation = (typeof GuardianRelation)[keyof typeof GuardianRelation]
 
 
-export const ActivityType = {
+export const RequestCategory = {
   EDUCATION: 'EDUCATION',
   MEDICAL: 'MEDICAL',
   HOUSE_WORK: 'HOUSE_WORK',
   TRANSPORT: 'TRANSPORT',
-  DONATION: 'DONATION',
+  FOOD: 'FOOD',
+  SHELTER: 'SHELTER',
   OTHER: 'OTHER'
 } as const
 
-export type ActivityType = (typeof ActivityType)[keyof typeof ActivityType]
+export type RequestCategory = (typeof RequestCategory)[keyof typeof RequestCategory]
 
 
 export const RecurrenceType = {
@@ -132,3 +133,11 @@ export const Skill = {
 } as const
 
 export type Skill = (typeof Skill)[keyof typeof Skill]
+
+
+export const UrgencyLevel = {
+  STANDARD: 'STANDARD',
+  CRITICAL: 'CRITICAL'
+} as const
+
+export type UrgencyLevel = (typeof UrgencyLevel)[keyof typeof UrgencyLevel]

@@ -53,10 +53,10 @@ export type VolunteerProfile = Prisma.VolunteerProfileModel
  */
 export type BficiaryProfile = Prisma.BficiaryProfileModel
 /**
- * Model Activity
+ * Model HelpRequest
  * 
  */
-export type Activity = Prisma.ActivityModel
+export type HelpRequest = Prisma.HelpRequestModel
 /**
  * Model Review
  * 

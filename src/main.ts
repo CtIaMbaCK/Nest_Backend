@@ -32,12 +32,11 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
 
-  // Đường dẫn vào xem swagger sẽ là /api
   SwaggerModule.setup('api', app, document);
 
-  // 4. Bật CORS (để Flutter hoặc Web gọi được mà không bị chặn)
   app.enableCors();
 
-  await app.listen(process.env.PORT ?? 8080);
+  await app.listen(process.env.PORT ?? 8080, '0.0.0.0');
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();

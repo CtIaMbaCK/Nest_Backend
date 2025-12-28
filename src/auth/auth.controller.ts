@@ -12,6 +12,7 @@ import {
 import type { Request } from 'express';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CurrentUser } from './interface/current';
+import { LoginDto } from 'src/users/dto/login-user.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -46,5 +47,10 @@ export class AuthController {
   ) {
     const user = req.user as CurrentUser;
     return this.usersService.createBenificiaryProfile(user.userId, dto);
+  }
+
+  @Post('login')
+  login(@Body() dto: LoginDto) {
+    return this.authService.login(dto);
   }
 }
