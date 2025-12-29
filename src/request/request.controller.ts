@@ -7,6 +7,7 @@ import {
   Patch,
   Param,
   Get,
+  Query,
 } from '@nestjs/common';
 import { RequestService } from './request.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -14,8 +15,9 @@ import { CreateRequestDto } from './dto/create-request.dto';
 
 import { userDecorator } from '../users/user.decorator';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { UpdateRequestDto } from './dto/update-request.dto';
+import { UpdateRequestDto, UpdateStatusDto } from './dto/update-request.dto';
 import { GetUser } from 'src/auth/decorator/get-user.decorator';
+import { FilterActivityDto } from './dto/filter.dto';
 
 interface UserPayload {
   userId: string;
@@ -66,6 +68,13 @@ export class RequestController {
     return this.requestService.findRequestsByRequester(userId);
   }
 
+  // xem thong tin chi tiet yeu cau giup do
+  @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  getRequestById(@Param('id') requestId: string) {
+    return this.requestService.getRequestDetail(requestId);
+  }
+
   // tim tat ca yeu cau giup do cua tinh nguyen vien
   @UseGuards(JwtAuthGuard)
   @Get('volunteerRequests')
@@ -79,5 +88,28 @@ export class RequestController {
   @Get('map-locations')
   getMapLocations() {
     return this.requestService.getMapLocation();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id/status')
+  @ApiOperation({
+    summary: 'TNV cập nhật trạng thái hoạt động (Hoàn thành + Ảnh minh chứng)',
+  })
+  updateStatus(
+    @GetUser('sub') userId: string,
+    @Param('id') requestId: string,
+    @Body() dto: UpdateStatusDto,
+  ) {
+    return this.requestService.updateStatusRequestWhenComplete(
+      userId,
+      requestId,
+      dto,
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  findAll(@Query() filterDto: FilterActivityDto) {
+    return this.requestService.findAll(filterDto);
   }
 }

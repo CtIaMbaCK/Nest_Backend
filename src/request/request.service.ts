@@ -5,13 +5,14 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateRequestDto } from './dto/create-request.dto';
-import { UpdateRequestDto } from './dto/update-request.dto';
+import { UpdateRequestDto, UpdateStatusDto } from './dto/update-request.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import axios from 'axios';
 import 'dotenv/config';
 import { env as ENV } from 'prisma/config';
 
 import { GoongResponse } from './goong.interface';
+import { FilterActivityDto } from './dto/filter.dto';
 
 @Injectable()
 export class RequestService {
@@ -70,6 +71,51 @@ export class RequestService {
     });
   }
 
+  // xem chi tiet
+  async getRequestDetail(id: string) {
+    const request = await this.prisma.helpRequest.findUnique({
+      where: { id },
+      include: {
+        requester: {
+          select: {
+            id: true,
+            phoneNumber: true,
+            bficiaryProfile: {
+              select: {
+                fullName: true,
+                avatarUrl: true,
+                guardianName: true,
+                guardianPhone: true,
+                guardianRelation: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!request) {
+      throw new NotFoundException('Không tìm thấy hoạt động/yêu cầu này');
+    }
+
+    const { requester, ...requestInfo } = request; // Tách requester ra khỏi requestInfo
+
+    return {
+      ...requestInfo,
+      requester: {
+        id: requester.id, //cai nay bo dc
+        phoneNumber: requester.phoneNumber,
+
+        fullName: requester.bficiaryProfile?.fullName || 'Người cần giúp đỡ',
+        avatarUrl: requester.bficiaryProfile?.avatarUrl || null,
+
+        guardianName: requester.bficiaryProfile?.guardianName || null,
+        guardianPhone: requester.bficiaryProfile?.guardianPhone || null,
+        guardianRelation: requester.bficiaryProfile?.guardianRelation || null,
+      },
+    };
+  }
+
   async acceptRequest(volunteerId: string, requesterId: string) {
     const existedRequest = await this.prisma.helpRequest.findUnique({
       where: {
@@ -100,6 +146,45 @@ export class RequestService {
     });
   }
 
+  // cap nhat trang thai yeu cau khi hoan thanh
+  async updateStatusRequestWhenComplete(
+    userId: string,
+    requestId: string,
+    dto: UpdateStatusDto,
+  ) {
+    const request = await this.prisma.helpRequest.findUnique({
+      where: { id: requestId },
+    });
+
+    if (!request) {
+      throw new NotFoundException('Không tìm thấy yêu cầu');
+    }
+
+    if (request.volunteerId !== userId) {
+      throw new ForbiddenException(
+        'Bạn không thực hiện hoạt động này để cập nhật trạng thái',
+      );
+    }
+
+    if (request.status === 'COMPLETED') {
+      throw new BadRequestException(
+        'Yêu cầu này đã hoàn thành, không thể cập nhật trạng thái nữa!',
+      );
+    }
+
+    return this.prisma.helpRequest.update({
+      where: { id: requestId },
+      data: {
+        status: 'COMPLETED',
+        doneAt: new Date(),
+
+        proofImages: dto.proofImages,
+        completionNotes: dto.completionNotes,
+      },
+    });
+  }
+
+  // cap nhat yeu cau giup do
   async updateRequest(
     volunteerId: string,
     requestId: string,
@@ -188,6 +273,7 @@ export class RequestService {
         id: true,
         latitude: true,
         longitude: true,
+
         addressDetail: true,
 
         title: true,
@@ -196,11 +282,56 @@ export class RequestService {
     });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} request`;
-  }
+  // SUA SAU
+  async findAll(dto: FilterActivityDto) {
+    const { search, status, page = 1, limit = 10 } = dto;
 
-  remove(id: number) {
-    return `This action removes a #${id} request`;
+    const skip = (page - 1) * limit;
+
+    const whereCondition: any = {};
+
+    if (search && search.trim() !== '') {
+      whereCondition.title = {
+        contains: search,
+        mode: 'insensitive',
+      };
+    }
+
+    if (status) {
+      whereCondition.status = status;
+    }
+
+    const [data, total] = await Promise.all([
+      this.prisma.helpRequest.findMany({
+        where: whereCondition,
+        take: limit,
+        skip: skip,
+        orderBy: { createdAt: 'desc' },
+        include: {
+          requester: {
+            select: {
+              id: true,
+              bficiaryProfile: {
+                select: {
+                  fullName: true,
+                  avatarUrl: true,
+                },
+              },
+            },
+          },
+        },
+      }),
+      this.prisma.helpRequest.count({ where: whereCondition }),
+    ]);
+
+    return {
+      data,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
   }
 }

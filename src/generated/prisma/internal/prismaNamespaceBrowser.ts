@@ -143,7 +143,10 @@ export const HelpRequestScalarFieldEnum = {
   activityImages: 'activityImages',
   createdAt: 'createdAt',
   latitude: 'latitude',
-  longitude: 'longitude'
+  longitude: 'longitude',
+  doneAt: 'doneAt',
+  proofImages: 'proofImages',
+  completionNotes: 'completionNotes'
 } as const
 
 export type HelpRequestScalarFieldEnum = (typeof HelpRequestScalarFieldEnum)[keyof typeof HelpRequestScalarFieldEnum]

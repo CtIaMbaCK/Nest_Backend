@@ -56,6 +56,8 @@ export type HelpRequestMinAggregateOutputType = {
   createdAt: Date | null
   latitude: number | null
   longitude: number | null
+  doneAt: Date | null
+  completionNotes: string | null
 }
 
 export type HelpRequestMaxAggregateOutputType = {
@@ -78,6 +80,8 @@ export type HelpRequestMaxAggregateOutputType = {
   createdAt: Date | null
   latitude: number | null
   longitude: number | null
+  doneAt: Date | null
+  completionNotes: string | null
 }
 
 export type HelpRequestCountAggregateOutputType = {
@@ -101,6 +105,9 @@ export type HelpRequestCountAggregateOutputType = {
   createdAt: number
   latitude: number
   longitude: number
+  doneAt: number
+  proofImages: number
+  completionNotes: number
   _all: number
 }
 
@@ -135,6 +142,8 @@ export type HelpRequestMinAggregateInputType = {
   createdAt?: true
   latitude?: true
   longitude?: true
+  doneAt?: true
+  completionNotes?: true
 }
 
 export type HelpRequestMaxAggregateInputType = {
@@ -157,6 +166,8 @@ export type HelpRequestMaxAggregateInputType = {
   createdAt?: true
   latitude?: true
   longitude?: true
+  doneAt?: true
+  completionNotes?: true
 }
 
 export type HelpRequestCountAggregateInputType = {
@@ -180,6 +191,9 @@ export type HelpRequestCountAggregateInputType = {
   createdAt?: true
   latitude?: true
   longitude?: true
+  doneAt?: true
+  proofImages?: true
+  completionNotes?: true
   _all?: true
 }
 
@@ -290,6 +304,9 @@ export type HelpRequestGroupByOutputType = {
   createdAt: Date
   latitude: number | null
   longitude: number | null
+  doneAt: Date | null
+  proofImages: string[]
+  completionNotes: string | null
   _count: HelpRequestCountAggregateOutputType | null
   _avg: HelpRequestAvgAggregateOutputType | null
   _sum: HelpRequestSumAggregateOutputType | null
@@ -336,6 +353,9 @@ export type HelpRequestWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"HelpRequest"> | Date | string
   latitude?: Prisma.FloatNullableFilter<"HelpRequest"> | number | null
   longitude?: Prisma.FloatNullableFilter<"HelpRequest"> | number | null
+  doneAt?: Prisma.DateTimeNullableFilter<"HelpRequest"> | Date | string | null
+  proofImages?: Prisma.StringNullableListFilter<"HelpRequest">
+  completionNotes?: Prisma.StringNullableFilter<"HelpRequest"> | string | null
   requester?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   volunteer?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   reviews?: Prisma.ReviewListRelationFilter
@@ -363,6 +383,9 @@ export type HelpRequestOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  doneAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  proofImages?: Prisma.SortOrder
+  completionNotes?: Prisma.SortOrderInput | Prisma.SortOrder
   requester?: Prisma.UserOrderByWithRelationInput
   volunteer?: Prisma.UserOrderByWithRelationInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
@@ -393,6 +416,9 @@ export type HelpRequestWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"HelpRequest"> | Date | string
   latitude?: Prisma.FloatNullableFilter<"HelpRequest"> | number | null
   longitude?: Prisma.FloatNullableFilter<"HelpRequest"> | number | null
+  doneAt?: Prisma.DateTimeNullableFilter<"HelpRequest"> | Date | string | null
+  proofImages?: Prisma.StringNullableListFilter<"HelpRequest">
+  completionNotes?: Prisma.StringNullableFilter<"HelpRequest"> | string | null
   requester?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   volunteer?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   reviews?: Prisma.ReviewListRelationFilter
@@ -420,6 +446,9 @@ export type HelpRequestOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  doneAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  proofImages?: Prisma.SortOrder
+  completionNotes?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.HelpRequestCountOrderByAggregateInput
   _avg?: Prisma.HelpRequestAvgOrderByAggregateInput
   _max?: Prisma.HelpRequestMaxOrderByAggregateInput
@@ -451,6 +480,9 @@ export type HelpRequestScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"HelpRequest"> | Date | string
   latitude?: Prisma.FloatNullableWithAggregatesFilter<"HelpRequest"> | number | null
   longitude?: Prisma.FloatNullableWithAggregatesFilter<"HelpRequest"> | number | null
+  doneAt?: Prisma.DateTimeNullableWithAggregatesFilter<"HelpRequest"> | Date | string | null
+  proofImages?: Prisma.StringNullableListFilter<"HelpRequest">
+  completionNotes?: Prisma.StringNullableWithAggregatesFilter<"HelpRequest"> | string | null
 }
 
 export type HelpRequestCreateInput = {
@@ -472,6 +504,9 @@ export type HelpRequestCreateInput = {
   createdAt?: Date | string
   latitude?: number | null
   longitude?: number | null
+  doneAt?: Date | string | null
+  proofImages?: Prisma.HelpRequestCreateproofImagesInput | string[]
+  completionNotes?: string | null
   requester: Prisma.UserCreateNestedOneWithoutActivitiesRequestedInput
   volunteer?: Prisma.UserCreateNestedOneWithoutActivitiesVolunteeredInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutActivityInput
@@ -499,6 +534,9 @@ export type HelpRequestUncheckedCreateInput = {
   createdAt?: Date | string
   latitude?: number | null
   longitude?: number | null
+  doneAt?: Date | string | null
+  proofImages?: Prisma.HelpRequestCreateproofImagesInput | string[]
+  completionNotes?: string | null
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutActivityInput
   appreciations?: Prisma.AppreciationUncheckedCreateNestedManyWithoutActivityInput
 }
@@ -522,6 +560,9 @@ export type HelpRequestUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  proofImages?: Prisma.HelpRequestUpdateproofImagesInput | string[]
+  completionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requester?: Prisma.UserUpdateOneRequiredWithoutActivitiesRequestedNestedInput
   volunteer?: Prisma.UserUpdateOneWithoutActivitiesVolunteeredNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutActivityNestedInput
@@ -549,6 +590,9 @@ export type HelpRequestUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  proofImages?: Prisma.HelpRequestUpdateproofImagesInput | string[]
+  completionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutActivityNestedInput
   appreciations?: Prisma.AppreciationUncheckedUpdateManyWithoutActivityNestedInput
 }
@@ -574,6 +618,9 @@ export type HelpRequestCreateManyInput = {
   createdAt?: Date | string
   latitude?: number | null
   longitude?: number | null
+  doneAt?: Date | string | null
+  proofImages?: Prisma.HelpRequestCreateproofImagesInput | string[]
+  completionNotes?: string | null
 }
 
 export type HelpRequestUpdateManyMutationInput = {
@@ -595,6 +642,9 @@ export type HelpRequestUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  proofImages?: Prisma.HelpRequestUpdateproofImagesInput | string[]
+  completionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type HelpRequestUncheckedUpdateManyInput = {
@@ -618,6 +668,9 @@ export type HelpRequestUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  proofImages?: Prisma.HelpRequestUpdateproofImagesInput | string[]
+  completionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type HelpRequestListRelationFilter = {
@@ -651,6 +704,9 @@ export type HelpRequestCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
+  doneAt?: Prisma.SortOrder
+  proofImages?: Prisma.SortOrder
+  completionNotes?: Prisma.SortOrder
 }
 
 export type HelpRequestAvgOrderByAggregateInput = {
@@ -678,6 +734,8 @@ export type HelpRequestMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
+  doneAt?: Prisma.SortOrder
+  completionNotes?: Prisma.SortOrder
 }
 
 export type HelpRequestMinOrderByAggregateInput = {
@@ -700,6 +758,8 @@ export type HelpRequestMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
+  doneAt?: Prisma.SortOrder
+  completionNotes?: Prisma.SortOrder
 }
 
 export type HelpRequestSumOrderByAggregateInput = {
@@ -800,6 +860,10 @@ export type HelpRequestCreateactivityImagesInput = {
   set: string[]
 }
 
+export type HelpRequestCreateproofImagesInput = {
+  set: string[]
+}
+
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
@@ -835,6 +899,11 @@ export type NullableFloatFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type HelpRequestUpdateproofImagesInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type HelpRequestCreateNestedOneWithoutReviewsInput = {
@@ -884,6 +953,9 @@ export type HelpRequestCreateWithoutRequesterInput = {
   createdAt?: Date | string
   latitude?: number | null
   longitude?: number | null
+  doneAt?: Date | string | null
+  proofImages?: Prisma.HelpRequestCreateproofImagesInput | string[]
+  completionNotes?: string | null
   volunteer?: Prisma.UserCreateNestedOneWithoutActivitiesVolunteeredInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutActivityInput
   appreciations?: Prisma.AppreciationCreateNestedManyWithoutActivityInput
@@ -909,6 +981,9 @@ export type HelpRequestUncheckedCreateWithoutRequesterInput = {
   createdAt?: Date | string
   latitude?: number | null
   longitude?: number | null
+  doneAt?: Date | string | null
+  proofImages?: Prisma.HelpRequestCreateproofImagesInput | string[]
+  completionNotes?: string | null
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutActivityInput
   appreciations?: Prisma.AppreciationUncheckedCreateNestedManyWithoutActivityInput
 }
@@ -942,6 +1017,9 @@ export type HelpRequestCreateWithoutVolunteerInput = {
   createdAt?: Date | string
   latitude?: number | null
   longitude?: number | null
+  doneAt?: Date | string | null
+  proofImages?: Prisma.HelpRequestCreateproofImagesInput | string[]
+  completionNotes?: string | null
   requester: Prisma.UserCreateNestedOneWithoutActivitiesRequestedInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutActivityInput
   appreciations?: Prisma.AppreciationCreateNestedManyWithoutActivityInput
@@ -967,6 +1045,9 @@ export type HelpRequestUncheckedCreateWithoutVolunteerInput = {
   createdAt?: Date | string
   latitude?: number | null
   longitude?: number | null
+  doneAt?: Date | string | null
+  proofImages?: Prisma.HelpRequestCreateproofImagesInput | string[]
+  completionNotes?: string | null
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutActivityInput
   appreciations?: Prisma.AppreciationUncheckedCreateNestedManyWithoutActivityInput
 }
@@ -1021,6 +1102,9 @@ export type HelpRequestScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"HelpRequest"> | Date | string
   latitude?: Prisma.FloatNullableFilter<"HelpRequest"> | number | null
   longitude?: Prisma.FloatNullableFilter<"HelpRequest"> | number | null
+  doneAt?: Prisma.DateTimeNullableFilter<"HelpRequest"> | Date | string | null
+  proofImages?: Prisma.StringNullableListFilter<"HelpRequest">
+  completionNotes?: Prisma.StringNullableFilter<"HelpRequest"> | string | null
 }
 
 export type HelpRequestUpsertWithWhereUniqueWithoutVolunteerInput = {
@@ -1058,6 +1142,9 @@ export type HelpRequestCreateWithoutReviewsInput = {
   createdAt?: Date | string
   latitude?: number | null
   longitude?: number | null
+  doneAt?: Date | string | null
+  proofImages?: Prisma.HelpRequestCreateproofImagesInput | string[]
+  completionNotes?: string | null
   requester: Prisma.UserCreateNestedOneWithoutActivitiesRequestedInput
   volunteer?: Prisma.UserCreateNestedOneWithoutActivitiesVolunteeredInput
   appreciations?: Prisma.AppreciationCreateNestedManyWithoutActivityInput
@@ -1084,6 +1171,9 @@ export type HelpRequestUncheckedCreateWithoutReviewsInput = {
   createdAt?: Date | string
   latitude?: number | null
   longitude?: number | null
+  doneAt?: Date | string | null
+  proofImages?: Prisma.HelpRequestCreateproofImagesInput | string[]
+  completionNotes?: string | null
   appreciations?: Prisma.AppreciationUncheckedCreateNestedManyWithoutActivityInput
 }
 
@@ -1122,6 +1212,9 @@ export type HelpRequestUpdateWithoutReviewsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  proofImages?: Prisma.HelpRequestUpdateproofImagesInput | string[]
+  completionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requester?: Prisma.UserUpdateOneRequiredWithoutActivitiesRequestedNestedInput
   volunteer?: Prisma.UserUpdateOneWithoutActivitiesVolunteeredNestedInput
   appreciations?: Prisma.AppreciationUpdateManyWithoutActivityNestedInput
@@ -1148,6 +1241,9 @@ export type HelpRequestUncheckedUpdateWithoutReviewsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  proofImages?: Prisma.HelpRequestUpdateproofImagesInput | string[]
+  completionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   appreciations?: Prisma.AppreciationUncheckedUpdateManyWithoutActivityNestedInput
 }
 
@@ -1170,6 +1266,9 @@ export type HelpRequestCreateWithoutAppreciationsInput = {
   createdAt?: Date | string
   latitude?: number | null
   longitude?: number | null
+  doneAt?: Date | string | null
+  proofImages?: Prisma.HelpRequestCreateproofImagesInput | string[]
+  completionNotes?: string | null
   requester: Prisma.UserCreateNestedOneWithoutActivitiesRequestedInput
   volunteer?: Prisma.UserCreateNestedOneWithoutActivitiesVolunteeredInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutActivityInput
@@ -1196,6 +1295,9 @@ export type HelpRequestUncheckedCreateWithoutAppreciationsInput = {
   createdAt?: Date | string
   latitude?: number | null
   longitude?: number | null
+  doneAt?: Date | string | null
+  proofImages?: Prisma.HelpRequestCreateproofImagesInput | string[]
+  completionNotes?: string | null
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutActivityInput
 }
 
@@ -1234,6 +1336,9 @@ export type HelpRequestUpdateWithoutAppreciationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  proofImages?: Prisma.HelpRequestUpdateproofImagesInput | string[]
+  completionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requester?: Prisma.UserUpdateOneRequiredWithoutActivitiesRequestedNestedInput
   volunteer?: Prisma.UserUpdateOneWithoutActivitiesVolunteeredNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutActivityNestedInput
@@ -1260,6 +1365,9 @@ export type HelpRequestUncheckedUpdateWithoutAppreciationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  proofImages?: Prisma.HelpRequestUpdateproofImagesInput | string[]
+  completionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutActivityNestedInput
 }
 
@@ -1283,6 +1391,9 @@ export type HelpRequestCreateManyRequesterInput = {
   createdAt?: Date | string
   latitude?: number | null
   longitude?: number | null
+  doneAt?: Date | string | null
+  proofImages?: Prisma.HelpRequestCreateproofImagesInput | string[]
+  completionNotes?: string | null
 }
 
 export type HelpRequestCreateManyVolunteerInput = {
@@ -1305,6 +1416,9 @@ export type HelpRequestCreateManyVolunteerInput = {
   createdAt?: Date | string
   latitude?: number | null
   longitude?: number | null
+  doneAt?: Date | string | null
+  proofImages?: Prisma.HelpRequestCreateproofImagesInput | string[]
+  completionNotes?: string | null
 }
 
 export type HelpRequestUpdateWithoutRequesterInput = {
@@ -1326,6 +1440,9 @@ export type HelpRequestUpdateWithoutRequesterInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  proofImages?: Prisma.HelpRequestUpdateproofImagesInput | string[]
+  completionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   volunteer?: Prisma.UserUpdateOneWithoutActivitiesVolunteeredNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutActivityNestedInput
   appreciations?: Prisma.AppreciationUpdateManyWithoutActivityNestedInput
@@ -1351,6 +1468,9 @@ export type HelpRequestUncheckedUpdateWithoutRequesterInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  proofImages?: Prisma.HelpRequestUpdateproofImagesInput | string[]
+  completionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutActivityNestedInput
   appreciations?: Prisma.AppreciationUncheckedUpdateManyWithoutActivityNestedInput
 }
@@ -1375,6 +1495,9 @@ export type HelpRequestUncheckedUpdateManyWithoutRequesterInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  proofImages?: Prisma.HelpRequestUpdateproofImagesInput | string[]
+  completionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type HelpRequestUpdateWithoutVolunteerInput = {
@@ -1396,6 +1519,9 @@ export type HelpRequestUpdateWithoutVolunteerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  proofImages?: Prisma.HelpRequestUpdateproofImagesInput | string[]
+  completionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requester?: Prisma.UserUpdateOneRequiredWithoutActivitiesRequestedNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutActivityNestedInput
   appreciations?: Prisma.AppreciationUpdateManyWithoutActivityNestedInput
@@ -1421,6 +1547,9 @@ export type HelpRequestUncheckedUpdateWithoutVolunteerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  proofImages?: Prisma.HelpRequestUpdateproofImagesInput | string[]
+  completionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutActivityNestedInput
   appreciations?: Prisma.AppreciationUncheckedUpdateManyWithoutActivityNestedInput
 }
@@ -1445,6 +1574,9 @@ export type HelpRequestUncheckedUpdateManyWithoutVolunteerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  proofImages?: Prisma.HelpRequestUpdateproofImagesInput | string[]
+  completionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1508,6 +1640,9 @@ export type HelpRequestSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   createdAt?: boolean
   latitude?: boolean
   longitude?: boolean
+  doneAt?: boolean
+  proofImages?: boolean
+  completionNotes?: boolean
   requester?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   volunteer?: boolean | Prisma.HelpRequest$volunteerArgs<ExtArgs>
   reviews?: boolean | Prisma.HelpRequest$reviewsArgs<ExtArgs>
@@ -1536,6 +1671,9 @@ export type HelpRequestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   createdAt?: boolean
   latitude?: boolean
   longitude?: boolean
+  doneAt?: boolean
+  proofImages?: boolean
+  completionNotes?: boolean
   requester?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   volunteer?: boolean | Prisma.HelpRequest$volunteerArgs<ExtArgs>
 }, ExtArgs["result"]["helpRequest"]>
@@ -1561,6 +1699,9 @@ export type HelpRequestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   createdAt?: boolean
   latitude?: boolean
   longitude?: boolean
+  doneAt?: boolean
+  proofImages?: boolean
+  completionNotes?: boolean
   requester?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   volunteer?: boolean | Prisma.HelpRequest$volunteerArgs<ExtArgs>
 }, ExtArgs["result"]["helpRequest"]>
@@ -1586,9 +1727,12 @@ export type HelpRequestSelectScalar = {
   createdAt?: boolean
   latitude?: boolean
   longitude?: boolean
+  doneAt?: boolean
+  proofImages?: boolean
+  completionNotes?: boolean
 }
 
-export type HelpRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "requesterId" | "volunteerId" | "acceptedAt" | "activityType" | "title" | "description" | "urgencyLevel" | "district" | "addressDetail" | "startDate" | "endDate" | "startTime" | "endTime" | "recurrence" | "status" | "activityImages" | "createdAt" | "latitude" | "longitude", ExtArgs["result"]["helpRequest"]>
+export type HelpRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "requesterId" | "volunteerId" | "acceptedAt" | "activityType" | "title" | "description" | "urgencyLevel" | "district" | "addressDetail" | "startDate" | "endDate" | "startTime" | "endTime" | "recurrence" | "status" | "activityImages" | "createdAt" | "latitude" | "longitude" | "doneAt" | "proofImages" | "completionNotes", ExtArgs["result"]["helpRequest"]>
 export type HelpRequestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   requester?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   volunteer?: boolean | Prisma.HelpRequest$volunteerArgs<ExtArgs>
@@ -1634,6 +1778,9 @@ export type $HelpRequestPayload<ExtArgs extends runtime.Types.Extensions.Interna
     createdAt: Date
     latitude: number | null
     longitude: number | null
+    doneAt: Date | null
+    proofImages: string[]
+    completionNotes: string | null
   }, ExtArgs["result"]["helpRequest"]>
   composites: {}
 }
@@ -2081,6 +2228,9 @@ export interface HelpRequestFieldRefs {
   readonly createdAt: Prisma.FieldRef<"HelpRequest", 'DateTime'>
   readonly latitude: Prisma.FieldRef<"HelpRequest", 'Float'>
   readonly longitude: Prisma.FieldRef<"HelpRequest", 'Float'>
+  readonly doneAt: Prisma.FieldRef<"HelpRequest", 'DateTime'>
+  readonly proofImages: Prisma.FieldRef<"HelpRequest", 'String[]'>
+  readonly completionNotes: Prisma.FieldRef<"HelpRequest", 'String'>
 }
     
 

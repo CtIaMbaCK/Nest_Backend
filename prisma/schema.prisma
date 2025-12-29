@@ -228,7 +228,6 @@ model HelpRequest {
   
   recurrence      RecurrenceType @default(NONE)
 
-  // System & Images
   status          ActivityStatus @default(PENDING)
   activityImages  String[]       @map("activity_images") 
   createdAt       DateTime       @default(now()) @map("created_at")
@@ -236,9 +235,12 @@ model HelpRequest {
   latitude         Float?    @map("latitude")
   longitude        Float?    @map("longitude")
 
-  // Quan hệ ngược
   reviews         Review[]
   appreciations   Appreciation[]
+
+  doneAt          DateTime? @map("done_at")
+  proofImages     String[]  @map("proof_images")
+  completionNotes String?  @map("completion_notes") @db.Text
 
 }
 
@@ -274,6 +276,5 @@ model Appreciation {
 
   createdAt   DateTime @default(now()) @map("created_at")
 
-  // Ràng buộc duy nhất: 1 Người chỉ được cảm ơn 1 lần cho 1 hoạt động
   @@unique([senderId, activityId])
 }

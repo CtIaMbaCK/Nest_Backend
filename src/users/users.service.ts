@@ -11,11 +11,15 @@ import {
   UpdateVolunteerProfileDto,
 } from './dto/create-user.dto';
 import { Role } from 'src/generated/prisma/enums';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 // import { helpHashPassword } from 'src/helpers/utils';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly cloudinary: CloudinaryService,
+  ) {}
 
   // get all
   getUsers() {
@@ -33,7 +37,15 @@ export class UsersService {
     }
   }
 
-  async createVolunteerProfile(userId: string, dto: CreateVolunteerProfileDto) {
+  async createVolunteerProfile(
+    userId: string,
+    dto: CreateVolunteerProfileDto,
+    files: {
+      avatarUrl?: Express.Multer.File[];
+      cccdFront?: Express.Multer.File[];
+      cccdBack?: Express.Multer.File[];
+    },
+  ) {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
     if (!user) throw new NotFoundException('Người dùng không tồn tại');
 
@@ -42,19 +54,42 @@ export class UsersService {
         'Lỗi: Tài khoản của bạn không phải là Tình nguyện viên!',
       );
     }
+
+    const avatarUrl = files.avatarUrl?.[0]
+      ? await this.cloudinary.uploadFile(files.avatarUrl[0])
+      : undefined;
+    const cccdFront = files.cccdFront?.[0]
+      ? await this.cloudinary.uploadFile(files.cccdFront[0])
+      : undefined;
+    const cccdBack = files.cccdBack?.[0]
+      ? await this.cloudinary.uploadFile(files.cccdBack[0])
+      : undefined;
+
+    const profileData = {
+      ...dto,
+      ...(avatarUrl && { avatarUrl }),
+      ...(cccdFront && { cccdFrontFile: cccdFront }),
+      ...(cccdBack && { cccdBackFile: cccdBack }),
+    };
+
     return this.prisma.volunteerProfile.upsert({
       where: { userId: userId },
-      update: { ...dto },
-      create: { userId, ...dto },
+      update: profileData,
+      create: { userId, ...profileData },
     });
   }
 
   async createBenificiaryProfile(
     userId: string,
     dto: CreateBficiaryProfileDto,
+    files: {
+      avatarUrl?: Express.Multer.File[];
+      cccdFront?: Express.Multer.File[];
+      cccdBack?: Express.Multer.File[];
+      proofFiles?: Express.Multer.File[];
+    },
   ) {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
-
     if (!user) throw new NotFoundException('Người dùng không tồn tại');
 
     if (user.role !== Role.BENEFICIARY) {
@@ -62,10 +97,41 @@ export class UsersService {
         'Lỗi: Tài khoản của bạn không phải là Người cần giúp đỡ!',
       );
     }
+
+    // 2. Upload ảnh lẻ
+    const avatarUrl = files.avatarUrl?.[0]
+      ? await this.cloudinary.uploadFile(files.avatarUrl[0])
+      : undefined;
+
+    const cccdFront = files.cccdFront?.[0]
+      ? await this.cloudinary.uploadFile(files.cccdFront[0])
+      : undefined;
+
+    const cccdBack = files.cccdBack?.[0]
+      ? await this.cloudinary.uploadFile(files.cccdBack[0])
+      : undefined;
+
+    // 3. Upload mảng ảnh minh chứng
+    let proofUrls: string[] = [];
+    if (files.proofFiles && files.proofFiles.length > 0) {
+      proofUrls = await this.cloudinary.uploadFiles(files.proofFiles);
+    }
+
+    const profileData = {
+      ...dto,
+      ...(avatarUrl && { avatarUrl }),
+      ...(cccdFront && { cccdFrontFile: cccdFront }),
+      ...(cccdBack && { cccdBackFile: cccdBack }),
+      ...(proofUrls.length > 0 && { proofFiles: proofUrls }),
+    };
+
     return this.prisma.bficiaryProfile.upsert({
       where: { userId: userId },
-      update: { ...dto },
-      create: { userId, ...dto },
+      update: profileData,
+      create: {
+        userId,
+        ...profileData,
+      },
     });
   }
 
