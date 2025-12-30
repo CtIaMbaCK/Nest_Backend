@@ -1,10 +1,12 @@
 import {
   Body,
   Controller,
+  ForbiddenException,
   Get,
-  Param,
   Patch,
+  UploadedFiles,
   UseGuards,
+  UseInterceptors,
   // Post,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
@@ -14,7 +16,8 @@ import {
   UpdateBficiaryProfileDto,
   UpdateVolunteerProfileDto,
 } from './dto/create-user.dto';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 
 @ApiBearerAuth('JWT-auth')
 @Controller('users')
@@ -28,34 +31,126 @@ export class UsersController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get(':id')
-  getUserById(@Param('id') id: string) {
-    return this.userService.getUser(id);
+  @Get('me')
+  async getProfile(@GetUser('sub') userId: string) {
+    const user = userId;
+    return this.userService.getMyProfile(user);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch('profile/volunteer/:userId')
+  @Patch('profile/volunteer')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        avatarUrl: {
+          type: 'string',
+          format: 'binary',
+          description: 'Ảnh đại diện',
+        },
+        cccdFront: {
+          type: 'string',
+          format: 'binary',
+          description: 'CCCD Mặt trước',
+        },
+        cccdBack: {
+          type: 'string',
+          format: 'binary',
+          description: 'CCCD Mặt sau',
+        },
+
+        // Text Fields (Liệt kê các trường trong DTO để Swagger hiện ô nhập)
+        fullName: { type: 'string' },
+        bio: { type: 'string' },
+        address: { type: 'string' },
+        experienceYears: { type: 'integer', example: 1 },
+        skills: { type: 'string', description: 'Kỹ năng chuyên môn' },
+      },
+    },
+  })
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'avatarUrl', maxCount: 1 },
+      { name: 'cccdFront', maxCount: 1 },
+      { name: 'cccdBack', maxCount: 1 },
+    ]),
+  )
   updateVolunteerProfile(
     @GetUser('sub') userId: string,
     @GetUser('role') role: string,
     @Body() dto: UpdateVolunteerProfileDto,
+    @UploadedFiles()
+    files: {
+      avatarUrl?: Express.Multer.File[];
+      cccdFront?: Express.Multer.File[];
+      cccdBack?: Express.Multer.File[];
+    },
   ) {
     if (role !== 'VOLUNTEER') {
-      throw new Error('Bạn không phải là Tình nguyện viên');
+      throw new ForbiddenException('Bạn không phải là Tình nguyện viên');
     }
-    return this.userService.updateVolunteerProfile(userId, dto);
+    return this.userService.updateVolunteerProfile(userId, dto, files);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch('profile/benificiary/:userId')
+  @Patch('profile/benificiary')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        avatarUrl: {
+          type: 'string',
+          format: 'binary',
+          description: 'Ảnh đại diện',
+        },
+        cccdFront: { type: 'string', format: 'binary' },
+        cccdBack: { type: 'string', format: 'binary' },
+
+        proofFiles: {
+          type: 'array',
+          items: { type: 'string', format: 'binary' },
+          description: 'Upload ảnh minh chứng MỚI',
+        },
+
+        fullName: { type: 'string' },
+        vulnerabilityType: { type: 'string' },
+        situationDescription: { type: 'string' },
+        address: { type: 'string' },
+
+        keepingProofFiles: {
+          type: 'array',
+          items: { type: 'string' },
+          description:
+            'Danh sách Link ảnh cũ muốn giữ lại (Nhấn Add string item)',
+        },
+      },
+    },
+  })
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'avatarUrl', maxCount: 1 },
+      { name: 'cccdFront', maxCount: 1 },
+      { name: 'cccdBack', maxCount: 1 },
+      { name: 'proofFiles', maxCount: 5 },
+    ]),
+  )
   updateBenificiaryProfile(
     @GetUser('sub') userId: string,
     @GetUser('role') role: string,
     @Body() dto: UpdateBficiaryProfileDto,
+    @UploadedFiles()
+    files: {
+      avatarUrl?: Express.Multer.File[];
+      cccdFront?: Express.Multer.File[];
+      cccdBack?: Express.Multer.File[];
+      proofFiles?: Express.Multer.File[];
+    },
   ) {
     if (role !== 'BENEFICIARY') {
-      throw new Error('Bạn không phải là người cần giúp đỡ');
+      throw new ForbiddenException('Bạn không phải là người cần giúp đỡ');
     }
-    return this.userService.updateBenificiaryProfile(userId, dto);
+    return this.userService.updateBenificiaryProfile(userId, dto, files);
   }
 }

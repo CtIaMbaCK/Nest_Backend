@@ -13,16 +13,10 @@ import { RequestService } from './request.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateRequestDto } from './dto/create-request.dto';
 
-import { userDecorator } from '../users/user.decorator';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UpdateRequestDto, UpdateStatusDto } from './dto/update-request.dto';
 import { GetUser } from 'src/auth/decorator/get-user.decorator';
 import { FilterActivityDto } from './dto/filter.dto';
-
-interface UserPayload {
-  userId: string;
-  [key: string]: any;
-}
 
 @ApiTags('Request')
 @ApiBearerAuth('JWT-auth')
@@ -48,11 +42,11 @@ export class RequestController {
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
   update(
-    @userDecorator() user: UserPayload,
+    @GetUser('sub') user: string,
     @Param('id') id: string,
     @Body() updateRequestDto: UpdateRequestDto,
   ) {
-    return this.requestService.updateRequest(user.userId, id, updateRequestDto);
+    return this.requestService.updateRequest(user, id, updateRequestDto);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -109,7 +103,7 @@ export class RequestController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  findAll(@Query() filterDto: FilterActivityDto) {
-    return this.requestService.findAll(filterDto);
+  findAll(@GetUser('sub') user: string, @Query() filterDto: FilterActivityDto) {
+    return this.requestService.findAllByUserId(user, filterDto);
   }
 }

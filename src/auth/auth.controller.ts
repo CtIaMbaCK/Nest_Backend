@@ -17,7 +17,7 @@ import {
   CreateVolunteerProfileDto,
 } from 'src/users/dto/create-user.dto';
 
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { LoginDto } from 'src/users/dto/login-user.dto';
 import { GetUser } from './decorator/get-user.decorator';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
@@ -38,6 +38,35 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth('JWT-auth')
   @Put('profile/tnv')
+  @ApiConsumes('multipart/form-data')
+
+  // 2. Định nghĩa cái Form hiển thị trên Swagger
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        avatar: {
+          type: 'string',
+          format: 'binary',
+          description: 'Ảnh đại diện',
+        },
+        cccdFront: {
+          type: 'string',
+          format: 'binary',
+          description: 'Mặt trước CCCD',
+        },
+        cccdBack: {
+          type: 'string',
+          format: 'binary',
+          description: 'Mặt sau CCCD',
+        },
+
+        fullName: { type: 'string', example: 'Nguyễn Văn A' },
+        bio: { type: 'string', example: 'Thích làm từ thiện' },
+        experienceYears: { type: 'integer', example: 2 },
+      },
+    },
+  })
   @UseInterceptors(
     FileFieldsInterceptor([
       { name: 'avatar', maxCount: 1 },
@@ -58,9 +87,32 @@ export class AuthController {
     return this.usersService.createVolunteerProfile(userId, dto, files);
   }
 
+  //
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth('JWT-auth')
   @Put('profile/ncgd')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        avatar: { type: 'string', format: 'binary' },
+        cccdFront: { type: 'string', format: 'binary' },
+        cccdBack: { type: 'string', format: 'binary' },
+        // Mảng file (Minh chứng)
+        proofFiles: {
+          type: 'array',
+          items: { type: 'string', format: 'binary' },
+          description: 'Chọn nhiều file minh chứng',
+        },
+
+        // Các trường Text
+        fullName: { type: 'string', example: 'Trần Thị B' },
+        vulnerabilityType: { type: 'string', example: 'POOR' },
+        situationDescription: { type: 'string' },
+      },
+    },
+  })
   @UseInterceptors(
     FileFieldsInterceptor([
       { name: 'avatar', maxCount: 1 },

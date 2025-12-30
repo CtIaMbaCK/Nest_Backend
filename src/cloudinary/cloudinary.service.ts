@@ -19,10 +19,10 @@ export class CloudinaryService {
           error: UploadApiErrorResponse | undefined,
           result: UploadApiResponse | undefined,
         ) => {
-          if (error) return reject(new Error(JSON.stringify(error)));
+          if (error)
+            return reject(new Error(error.message || 'Cloudinary loi'));
 
-          if (!result)
-            return reject(new Error('Upload failed: No result returned'));
+          if (!result) return reject(new Error('ko up hinh anh dc '));
 
           resolve(result.secure_url);
         },

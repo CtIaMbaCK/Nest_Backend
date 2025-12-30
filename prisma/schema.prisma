@@ -228,7 +228,7 @@ model HelpRequest {
   
   recurrence      RecurrenceType @default(NONE)
 
-  status          ActivityStatus @default(PENDING)
+  status          ActivityStatus @default(APPROVED)
   activityImages  String[]       @map("activity_images") 
   createdAt       DateTime       @default(now()) @map("created_at")
 

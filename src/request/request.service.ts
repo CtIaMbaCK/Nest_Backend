@@ -283,12 +283,13 @@ export class RequestService {
   }
 
   // SUA SAU
-  async findAll(dto: FilterActivityDto) {
+  async findAllByUserId(userId: string, dto: FilterActivityDto) {
     const { search, status, page = 1, limit = 10 } = dto;
-
     const skip = (page - 1) * limit;
 
-    const whereCondition: any = {};
+    const whereCondition: any = {
+      requesterId: userId,
+    };
 
     if (search && search.trim() !== '') {
       whereCondition.title = {

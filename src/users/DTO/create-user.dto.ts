@@ -170,4 +170,10 @@ export class UpdateVolunteerProfileDto extends PartialType(
 
 export class UpdateBficiaryProfileDto extends PartialType(
   CreateBficiaryProfileDto,
-) {}
+) {
+  @ApiPropertyOptional({
+    description: 'Danh sách URL ảnh cũ muốn giữ lại (không xóa)',
+    oneOf: [{ type: 'string' }, { type: 'array', items: { type: 'string' } }],
+  })
+  keepingProofFiles?: string | string[];
+}

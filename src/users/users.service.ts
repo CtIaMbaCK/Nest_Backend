@@ -37,6 +37,26 @@ export class UsersService {
     }
   }
 
+  async getMyProfile(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        email: true,
+        phoneNumber: true,
+        role: true,
+        status: true,
+        createdAt: true,
+
+        volunteerProfile: true,
+        bficiaryProfile: true,
+      },
+    });
+
+    if (!user) throw new NotFoundException('User not found');
+    return user;
+  }
+
   async createVolunteerProfile(
     userId: string,
     dto: CreateVolunteerProfileDto,
@@ -98,7 +118,7 @@ export class UsersService {
       );
     }
 
-    // 2. Upload ảnh lẻ
+    // hinh anh cccd
     const avatarUrl = files.avatarUrl?.[0]
       ? await this.cloudinary.uploadFile(files.avatarUrl[0])
       : undefined;
@@ -111,7 +131,7 @@ export class UsersService {
       ? await this.cloudinary.uploadFile(files.cccdBack[0])
       : undefined;
 
-    // 3. Upload mảng ảnh minh chứng
+    // anh minh chung
     let proofUrls: string[] = [];
     if (files.proofFiles && files.proofFiles.length > 0) {
       proofUrls = await this.cloudinary.uploadFiles(files.proofFiles);
@@ -139,22 +159,74 @@ export class UsersService {
   async updateBenificiaryProfile(
     userId: string,
     dto: UpdateBficiaryProfileDto,
+    files: {
+      avatarUrl?: Express.Multer.File[];
+      cccdFront?: Express.Multer.File[];
+      cccdBack?: Express.Multer.File[];
+      proofFiles?: Express.Multer.File[];
+    } = {},
   ) {
+    // 1. Kiểm tra User tồn tại
     const profileBene = await this.prisma.bficiaryProfile.findUnique({
       where: { userId: userId },
     });
-
     if (!profileBene) {
       throw new NotFoundException('Hồ sơ người cần giúp không tồn tại');
     }
 
+    const { keepingProofFiles, ...prismaData } = dto;
+
+    const avatarUrl = files.avatarUrl?.[0]
+      ? await this.cloudinary.uploadFile(files.avatarUrl[0])
+      : undefined;
+
+    const cccdFront = files.cccdFront?.[0]
+      ? await this.cloudinary.uploadFile(files.cccdFront[0])
+      : undefined;
+
+    const cccdBack = files.cccdBack?.[0]
+      ? await this.cloudinary.uploadFile(files.cccdBack[0])
+      : undefined;
+
+    let finalProofImages: string[] = [];
+
+    if (keepingProofFiles) {
+      if (Array.isArray(keepingProofFiles)) {
+        finalProofImages = [...keepingProofFiles];
+      } else {
+        finalProofImages = [keepingProofFiles];
+      }
+    }
+
+    if (files.proofFiles && files.proofFiles.length > 0) {
+      const newProofUrls = await this.cloudinary.uploadFiles(files.proofFiles);
+      finalProofImages = [...finalProofImages, ...newProofUrls];
+    }
+
     return this.prisma.bficiaryProfile.update({
       where: { userId: userId },
-      data: { ...dto },
+      data: {
+        ...prismaData,
+
+        ...(avatarUrl && { avatarUrl: avatarUrl }),
+        ...(cccdFront && { cccdFrontFile: cccdFront }),
+        ...(cccdBack && { cccdBackFile: cccdBack }),
+
+        proofFiles: finalProofImages,
+      },
     });
   }
 
-  async updateVolunteerProfile(userId: string, dto: UpdateVolunteerProfileDto) {
+  //cap nhat vlunteer
+  async updateVolunteerProfile(
+    userId: string,
+    dto: UpdateVolunteerProfileDto,
+    files: {
+      avatarUrl?: Express.Multer.File[];
+      cccdFront?: Express.Multer.File[];
+      cccdBack?: Express.Multer.File[];
+    } = {},
+  ) {
     const profileVol = await this.prisma.volunteerProfile.findUnique({
       where: { userId: userId },
     });
@@ -163,9 +235,29 @@ export class UsersService {
       throw new NotFoundException('Hồ sơ tình nguyện viên không tồn tại');
     }
 
+    const { experienceYears, ...prismaData } = dto;
+
+    const avatarUrl = files.avatarUrl?.[0]
+      ? await this.cloudinary.uploadFile(files.avatarUrl[0])
+      : undefined;
+
+    const cccdFront = files.cccdFront?.[0]
+      ? await this.cloudinary.uploadFile(files.cccdFront[0])
+      : undefined;
+
+    const cccdBack = files.cccdBack?.[0]
+      ? await this.cloudinary.uploadFile(files.cccdBack[0])
+      : undefined;
+
     return this.prisma.volunteerProfile.update({
       where: { userId: userId },
-      data: { ...dto },
+      data: {
+        ...prismaData,
+        ...(experienceYears && { experienceYears: Number(experienceYears) }),
+        ...(avatarUrl && { avatarUrl: avatarUrl }),
+        ...(cccdFront && { cccdFrontFile: cccdFront }),
+        ...(cccdBack && { cccdBackFile: cccdBack }),
+      },
     });
   }
 }
