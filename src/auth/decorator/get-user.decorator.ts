@@ -9,7 +9,7 @@ export const GetUser = createParamDecorator(
       .getRequest<Request & { user: JwtPayload }>();
 
     const user = request.user;
-    console.log('Decoded user from JWT:', user);
+    // console.log('Decoded user from JWT:', user);
 
     if (!user) return null;
 

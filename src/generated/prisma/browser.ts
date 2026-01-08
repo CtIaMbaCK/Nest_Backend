@@ -47,3 +47,8 @@ export type Review = Prisma.ReviewModel
  * 
  */
 export type Appreciation = Prisma.AppreciationModel
+/**
+ * Model OrganizationProfile
+ * 
+ */
+export type OrganizationProfile = Prisma.OrganizationProfileModel

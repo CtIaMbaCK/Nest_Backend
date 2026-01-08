@@ -1,4 +1,5 @@
 import { ApiProperty, ApiPropertyOptional, PartialType } from '@nestjs/swagger';
+import { Transform, TransformFnParams } from 'class-transformer';
 import {
   IsEmail,
   IsNotEmpty,
@@ -95,9 +96,13 @@ export class CreateVolunteerProfileDto {
     isArray: true,
     description: 'Quận huyện ưu tiên',
   })
-  @IsArray()
-  @IsEnum(District, { each: true, message: 'Quận huyện không hợp lệ' })
   @IsOptional()
+  @IsArray({ message: 'Quận huyện phải là một danh sách' })
+  @IsEnum(District, { each: true, message: 'Quận huyện không hợp lệ' })
+  @Transform(({ value }): District[] => {
+    if (Array.isArray(value)) return value;
+    return value ? [value] : [];
+  })
   preferredDistricts?: District[];
 }
 
@@ -171,9 +176,19 @@ export class UpdateVolunteerProfileDto extends PartialType(
 export class UpdateBficiaryProfileDto extends PartialType(
   CreateBficiaryProfileDto,
 ) {
-  @ApiPropertyOptional({
-    description: 'Danh sách URL ảnh cũ muốn giữ lại (không xóa)',
-    oneOf: [{ type: 'string' }, { type: 'array', items: { type: 'string' } }],
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true }) // Đảm bảo mọi phần tử trong mảng đều là string
+  @Transform(({ value }: TransformFnParams) => {
+    if (value === null || value === undefined) return undefined;
+
+    if (typeof value === 'string') {
+      if (value.trim() === '') return [];
+      return [value];
+    }
+    if (Array.isArray(value)) return value;
+
+    return [];
   })
-  keepingProofFiles?: string | string[];
+  keepingProofFiles?: string[];
 }

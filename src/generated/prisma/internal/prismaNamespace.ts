@@ -389,7 +389,8 @@ export const ModelName = {
   BficiaryProfile: 'BficiaryProfile',
   HelpRequest: 'HelpRequest',
   Review: 'Review',
-  Appreciation: 'Appreciation'
+  Appreciation: 'Appreciation',
+  OrganizationProfile: 'OrganizationProfile'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -405,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "volunteerProfile" | "bficiaryProfile" | "helpRequest" | "review" | "appreciation"
+    modelProps: "user" | "volunteerProfile" | "bficiaryProfile" | "helpRequest" | "review" | "appreciation" | "organizationProfile"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -853,6 +854,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    OrganizationProfile: {
+      payload: Prisma.$OrganizationProfilePayload<ExtArgs>
+      fields: Prisma.OrganizationProfileFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OrganizationProfileFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationProfilePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OrganizationProfileFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationProfilePayload>
+        }
+        findFirst: {
+          args: Prisma.OrganizationProfileFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationProfilePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OrganizationProfileFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationProfilePayload>
+        }
+        findMany: {
+          args: Prisma.OrganizationProfileFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationProfilePayload>[]
+        }
+        create: {
+          args: Prisma.OrganizationProfileCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationProfilePayload>
+        }
+        createMany: {
+          args: Prisma.OrganizationProfileCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OrganizationProfileCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationProfilePayload>[]
+        }
+        delete: {
+          args: Prisma.OrganizationProfileDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationProfilePayload>
+        }
+        update: {
+          args: Prisma.OrganizationProfileUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationProfilePayload>
+        }
+        deleteMany: {
+          args: Prisma.OrganizationProfileDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OrganizationProfileUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OrganizationProfileUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationProfilePayload>[]
+        }
+        upsert: {
+          args: Prisma.OrganizationProfileUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationProfilePayload>
+        }
+        aggregate: {
+          args: Prisma.OrganizationProfileAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOrganizationProfile>
+        }
+        groupBy: {
+          args: Prisma.OrganizationProfileGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OrganizationProfileGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OrganizationProfileCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OrganizationProfileCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -916,7 +991,10 @@ export const VolunteerProfileScalarFieldEnum = {
   totalThanks: 'totalThanks',
   preferredDistricts: 'preferredDistricts',
   cccdFrontFile: 'cccdFrontFile',
-  cccdBackFile: 'cccdBackFile'
+  cccdBackFile: 'cccdBackFile',
+  organizationId: 'organizationId',
+  organizationStatus: 'organizationStatus',
+  joinedOrganizationAt: 'joinedOrganizationAt'
 } as const
 
 export type VolunteerProfileScalarFieldEnum = (typeof VolunteerProfileScalarFieldEnum)[keyof typeof VolunteerProfileScalarFieldEnum]
@@ -934,7 +1012,10 @@ export const BficiaryProfileScalarFieldEnum = {
   cccdBackFile: 'cccdBackFile',
   guardianName: 'guardianName',
   guardianPhone: 'guardianPhone',
-  guardianRelation: 'guardianRelation'
+  guardianRelation: 'guardianRelation',
+  organizationId: 'organizationId',
+  organizationStatus: 'organizationStatus',
+  joinedOrganizationAt: 'joinedOrganizationAt'
 } as const
 
 export type BficiaryProfileScalarFieldEnum = (typeof BficiaryProfileScalarFieldEnum)[keyof typeof BficiaryProfileScalarFieldEnum]
@@ -991,6 +1072,25 @@ export const AppreciationScalarFieldEnum = {
 } as const
 
 export type AppreciationScalarFieldEnum = (typeof AppreciationScalarFieldEnum)[keyof typeof AppreciationScalarFieldEnum]
+
+
+export const OrganizationProfileScalarFieldEnum = {
+  userId: 'userId',
+  organizationName: 'organizationName',
+  avatarUrl: 'avatarUrl',
+  representativeName: 'representativeName',
+  description: 'description',
+  website: 'website',
+  district: 'district',
+  addressDetail: 'addressDetail',
+  businessLicense: 'businessLicense',
+  verificationDocs: 'verificationDocs',
+  totalCampaigns: 'totalCampaigns',
+  totalVolunteers: 'totalVolunteers',
+  createdAt: 'createdAt'
+} as const
+
+export type OrganizationProfileScalarFieldEnum = (typeof OrganizationProfileScalarFieldEnum)[keyof typeof OrganizationProfileScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1125,6 +1225,20 @@ export type ListEnumDistrictFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'District'
  */
 export type EnumDistrictFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'District'>
+    
+
+
+/**
+ * Reference to a field of type 'OrgStatus'
+ */
+export type EnumOrgStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrgStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'OrgStatus[]'
+ */
+export type ListEnumOrgStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrgStatus[]'>
     
 
 
@@ -1326,6 +1440,7 @@ export type GlobalOmitConfig = {
   helpRequest?: Prisma.HelpRequestOmit
   review?: Prisma.ReviewOmit
   appreciation?: Prisma.AppreciationOmit
+  organizationProfile?: Prisma.OrganizationProfileOmit
 }
 
 /* Types for Logging */

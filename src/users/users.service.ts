@@ -12,6 +12,7 @@ import {
 } from './dto/create-user.dto';
 import { Role } from 'src/generated/prisma/enums';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { CreateOrganizationDto } from 'src/admin-tcxh/organization/dto/create-organization.dto';
 // import { helpHashPassword } from 'src/helpers/utils';
 
 @Injectable()
@@ -155,6 +156,62 @@ export class UsersService {
     });
   }
 
+  // tao tai khoan tcxh
+  async createOrganization(
+    userId: string,
+    dto: CreateOrganizationDto,
+    files: {
+      avatarUrl?: Express.Multer.File[];
+      businessLicense?: Express.Multer.File[];
+      verificationDocs?: Express.Multer.File[];
+    },
+  ) {
+    const OrganizationUser = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!OrganizationUser)
+      throw new NotFoundException('Người dùng không tồn tại');
+
+    if (OrganizationUser.role !== Role.ORGANIZATION) {
+      throw new ForbiddenException(
+        'Lỗi: Tài khoản của bạn không phải là Tổ chức xã hội!',
+      );
+    }
+
+    // xu ly hinh anh
+    const avatarUrl = files.avatarUrl?.[0]
+      ? await this.cloudinary.uploadFile(files.avatarUrl[0])
+      : undefined;
+
+    const businessLicense = files.businessLicense?.[0]
+      ? await this.cloudinary.uploadFile(files.businessLicense[0])
+      : undefined;
+
+    let verificationDocs: string[] = [];
+    if (files.verificationDocs && files.verificationDocs.length > 0) {
+      verificationDocs = await this.cloudinary.uploadFiles(
+        files.verificationDocs,
+      );
+    }
+
+    const profileData = {
+      ...dto,
+      ...(avatarUrl && { avatarUrl }),
+      ...(businessLicense && { businessLicense: businessLicense }),
+      ...(verificationDocs.length > 0 && { verificationDocs }),
+    };
+
+    return this.prisma.organizationProfile.upsert({
+      where: { userId: userId },
+      update: profileData,
+      create: {
+        userId,
+        ...profileData,
+      },
+    });
+  }
+
   // update thong tin nguoi can giup do
   async updateBenificiaryProfile(
     userId: string,
@@ -166,52 +223,51 @@ export class UsersService {
       proofFiles?: Express.Multer.File[];
     } = {},
   ) {
-    // 1. Kiểm tra User tồn tại
-    const profileBene = await this.prisma.bficiaryProfile.findUnique({
-      where: { userId: userId },
+    // 1. Tìm hồ sơ hiện tại
+    const profile = await this.prisma.bficiaryProfile.findUnique({
+      where: { userId },
     });
-    if (!profileBene) {
-      throw new NotFoundException('Hồ sơ người cần giúp không tồn tại');
-    }
+    if (!profile) throw new NotFoundException('Hồ sơ không tồn tại');
 
     const { keepingProofFiles, ...prismaData } = dto;
 
-    const avatarUrl = files.avatarUrl?.[0]
-      ? await this.cloudinary.uploadFile(files.avatarUrl[0])
-      : undefined;
+    // 2. Upload ảnh mới (nếu có)
+    const [newAvatar, newCccdFront, newCccdBack] = await Promise.all([
+      files.avatarUrl?.[0]
+        ? this.cloudinary.uploadFile(files.avatarUrl[0])
+        : Promise.resolve(undefined),
+      files.cccdFront?.[0]
+        ? this.cloudinary.uploadFile(files.cccdFront[0])
+        : Promise.resolve(undefined),
+      files.cccdBack?.[0]
+        ? this.cloudinary.uploadFile(files.cccdBack[0])
+        : Promise.resolve(undefined),
+    ]);
 
-    const cccdFront = files.cccdFront?.[0]
-      ? await this.cloudinary.uploadFile(files.cccdFront[0])
-      : undefined;
+    // 3. Xử lý mảng ảnh minh chứng (Hợp nhất cũ và mới)
+    let finalProofImages: string[] = profile.proofFiles; // Mặc định là mảng cũ trong DB
 
-    const cccdBack = files.cccdBack?.[0]
-      ? await this.cloudinary.uploadFile(files.cccdBack[0])
-      : undefined;
-
-    let finalProofImages: string[] = [];
-
-    if (keepingProofFiles) {
-      if (Array.isArray(keepingProofFiles)) {
-        finalProofImages = [...keepingProofFiles];
-      } else {
-        finalProofImages = [keepingProofFiles];
-      }
+    // Nếu FE gửi danh sách ảnh cũ muốn giữ lại
+    if (keepingProofFiles !== undefined) {
+      finalProofImages = Array.isArray(keepingProofFiles)
+        ? keepingProofFiles
+        : [keepingProofFiles];
     }
 
+    // Nếu có upload thêm ảnh minh chứng mới -> Đẩy thêm vào mảng
     if (files.proofFiles && files.proofFiles.length > 0) {
       const newProofUrls = await this.cloudinary.uploadFiles(files.proofFiles);
       finalProofImages = [...finalProofImages, ...newProofUrls];
     }
 
+    // 4. Cập nhật vào Database
     return this.prisma.bficiaryProfile.update({
-      where: { userId: userId },
+      where: { userId },
       data: {
         ...prismaData,
-
-        ...(avatarUrl && { avatarUrl: avatarUrl }),
-        ...(cccdFront && { cccdFrontFile: cccdFront }),
-        ...(cccdBack && { cccdBackFile: cccdBack }),
-
+        ...(newAvatar && { avatarUrl: newAvatar }),
+        ...(newCccdFront && { cccdFrontFile: newCccdFront }),
+        ...(newCccdBack && { cccdBackFile: newCccdBack }),
         proofFiles: finalProofImages,
       },
     });

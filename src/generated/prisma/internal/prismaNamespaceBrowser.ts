@@ -56,7 +56,8 @@ export const ModelName = {
   BficiaryProfile: 'BficiaryProfile',
   HelpRequest: 'HelpRequest',
   Review: 'Review',
-  Appreciation: 'Appreciation'
+  Appreciation: 'Appreciation',
+  OrganizationProfile: 'OrganizationProfile'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -99,7 +100,10 @@ export const VolunteerProfileScalarFieldEnum = {
   totalThanks: 'totalThanks',
   preferredDistricts: 'preferredDistricts',
   cccdFrontFile: 'cccdFrontFile',
-  cccdBackFile: 'cccdBackFile'
+  cccdBackFile: 'cccdBackFile',
+  organizationId: 'organizationId',
+  organizationStatus: 'organizationStatus',
+  joinedOrganizationAt: 'joinedOrganizationAt'
 } as const
 
 export type VolunteerProfileScalarFieldEnum = (typeof VolunteerProfileScalarFieldEnum)[keyof typeof VolunteerProfileScalarFieldEnum]
@@ -117,7 +121,10 @@ export const BficiaryProfileScalarFieldEnum = {
   cccdBackFile: 'cccdBackFile',
   guardianName: 'guardianName',
   guardianPhone: 'guardianPhone',
-  guardianRelation: 'guardianRelation'
+  guardianRelation: 'guardianRelation',
+  organizationId: 'organizationId',
+  organizationStatus: 'organizationStatus',
+  joinedOrganizationAt: 'joinedOrganizationAt'
 } as const
 
 export type BficiaryProfileScalarFieldEnum = (typeof BficiaryProfileScalarFieldEnum)[keyof typeof BficiaryProfileScalarFieldEnum]
@@ -174,6 +181,25 @@ export const AppreciationScalarFieldEnum = {
 } as const
 
 export type AppreciationScalarFieldEnum = (typeof AppreciationScalarFieldEnum)[keyof typeof AppreciationScalarFieldEnum]
+
+
+export const OrganizationProfileScalarFieldEnum = {
+  userId: 'userId',
+  organizationName: 'organizationName',
+  avatarUrl: 'avatarUrl',
+  representativeName: 'representativeName',
+  description: 'description',
+  website: 'website',
+  district: 'district',
+  addressDetail: 'addressDetail',
+  businessLicense: 'businessLicense',
+  verificationDocs: 'verificationDocs',
+  totalCampaigns: 'totalCampaigns',
+  totalVolunteers: 'totalVolunteers',
+  createdAt: 'createdAt'
+} as const
+
+export type OrganizationProfileScalarFieldEnum = (typeof OrganizationProfileScalarFieldEnum)[keyof typeof OrganizationProfileScalarFieldEnum]
 
 
 export const SortOrder = {

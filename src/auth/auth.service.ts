@@ -46,23 +46,13 @@ export class AuthService {
     return this.signToken(newUser.id, newUser.phoneNumber, newUser.role);
   }
 
-  //   Tao token
-  private async signToken(userId: string, phoneNumber: string, role: string) {
-    const payload = { sub: userId, phoneNumber, role };
-    const token = await this.jwtService.signAsync(payload, {
-      secret: ENV('SECRET_KEY'),
-      expiresIn: '1d',
-    });
-
-    return { accessToken: token, role: role };
-  }
-
   async login(dto: LoginDto) {
     const user = await this.prisma.user.findUnique({
-      where: { phoneNumber: dto.phoneNumbner },
+      where: { phoneNumber: dto.phoneNumber },
     });
 
     if (!user) {
+      console.log('tai khoan ko ton tai');
       throw new UnauthorizedException('Tài khoản chưa được đăng ký');
     }
 
@@ -87,5 +77,16 @@ export class AuthService {
         role: user.role,
       },
     };
+  }
+
+  //   Tao token
+  private async signToken(userId: string, phoneNumber: string, role: string) {
+    const payload = { sub: userId, phoneNumber, role };
+    const token = await this.jwtService.signAsync(payload, {
+      secret: ENV('SECRET_KEY'),
+      expiresIn: '1d',
+    });
+
+    return { accessToken: token, role: role };
   }
 }

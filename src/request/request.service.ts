@@ -227,7 +227,7 @@ export class RequestService {
     });
   }
 
-  // Lấy tất cả yêu cầu giúp đỡ - cho admin
+  // Lấy tất cả yêu cầu giúp đỡ - cho admin, tnv cung co the dung de dang ky
   async findAllRequests() {
     // them chuc nang la admin moi coi dc
     return this.prisma.helpRequest.findMany({
@@ -244,7 +244,7 @@ export class RequestService {
     });
   }
 
-  // Lấy tất cả yêu cầu giúp đỡ của người đăng ký
+  // Lấy tất cả yêu cầu giúp đỡ của người can giup do
   async findRequestsByRequester(userId: string) {
     return this.prisma.helpRequest.findMany({
       where: { requesterId: userId },

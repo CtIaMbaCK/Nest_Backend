@@ -141,3 +141,12 @@ export const UrgencyLevel = {
 } as const
 
 export type UrgencyLevel = (typeof UrgencyLevel)[keyof typeof UrgencyLevel]
+
+
+export const OrgStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type OrgStatus = (typeof OrgStatus)[keyof typeof OrgStatus]

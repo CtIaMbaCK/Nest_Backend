@@ -14,6 +14,7 @@ export class CloudinaryService {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
           folder: 'better-us',
+          timeout: 60000,
         },
         (
           error: UploadApiErrorResponse | undefined,

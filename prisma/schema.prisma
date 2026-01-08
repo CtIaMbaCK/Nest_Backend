@@ -29,24 +29,24 @@ enum UserStatus {
 }
 
 enum GuardianRelation {
-  PARENT    
-  SPOUSE    
-  CHILD     
-  SIBLING   
-  RELATIVE  
-  FRIEND    
-  OTHER     
+  PARENT
+  SPOUSE
+  CHILD
+  SIBLING
+  RELATIVE
+  FRIEND
+  OTHER
 }
 
 // activity category
 enum RequestCategory {
-  EDUCATION   
-  MEDICAL     
-  HOUSE_WORK  
-  TRANSPORT   
+  EDUCATION
+  MEDICAL
+  HOUSE_WORK
+  TRANSPORT
   FOOD
   SHELTER
-  OTHER      
+  OTHER
 }
 
 // thiet lap hoat dong 
@@ -59,21 +59,21 @@ enum RecurrenceType {
 
 // request
 enum ActivityStatus {
-  PENDING   
-  APPROVED  
-  ONGOING   
-  COMPLETED 
-  CANCELLED 
-  REJECTED  
+  PENDING
+  APPROVED
+  ONGOING
+  COMPLETED
+  CANCELLED
+  REJECTED
 }
 
 enum VulnerabilityType {
-  POOR      
-  DISABLED  
-  ELDERLY   
-  SICKNESS  
-  ORPHAN    
-  OTHER     
+  POOR
+  DISABLED
+  ELDERLY
+  SICKNESS
+  ORPHAN
+  OTHER
 }
 
 enum District {
@@ -88,14 +88,14 @@ enum District {
   QUAN_11
   QUAN_12
 
-  BINH_TAN    
-  BINH_THANH    
-  GO_VAP    
-  PHU_NHUAN    
-  TAN_BINH    
-  TAN_PHU    
+  BINH_TAN
+  BINH_THANH
+  GO_VAP
+  PHU_NHUAN
+  TAN_BINH
+  TAN_PHU
 
-  TP_THU_DUC   
+  TP_THU_DUC
 
   HUYEN_BINH_CHANH
   HUYEN_CAN_GIO
@@ -104,20 +104,19 @@ enum District {
   HUYEN_NHA_BE
 }
 
-
 enum Skill {
   TEACHING
-  EDUCATION         
-  MEDICAL           
-  PSYCHOLOGICAL     
-  LEGAL             
-  SOCIAL_WORK       
-  DISASTER_RELIEF   
-  FUNDRAISING       
-  LOGISTICS         
-  COMMUNICATION     
-  TRANSLATION       
-  IT_SUPPORT        
+  EDUCATION
+  MEDICAL
+  PSYCHOLOGICAL
+  LEGAL
+  SOCIAL_WORK
+  DISASTER_RELIEF
+  FUNDRAISING
+  LOGISTICS
+  COMMUNICATION
+  TRANSLATION
+  IT_SUPPORT
 }
 
 // 
@@ -126,155 +125,284 @@ enum UrgencyLevel {
   CRITICAL
 }
 
+enum OrgStatus {
+  PENDING   
+  APPROVED  
+  REJECTED  
+}
+
 // models
 model User {
-  id              String     @id @default(uuid())
-  email           String     @unique
-  phoneNumber     String     @unique @map("phone_number")
-  passwordHash    String     @map("password_hash")
- 
-  
-  role            Role
-  status          UserStatus @default(PENDING)
-  createdAt           DateTime @default(now()) @map("created_at")
-  forceChangePassword Boolean  @default(false) @map("force_change_password")
+  id           String @id @default(uuid())
+  email        String @unique
+  phoneNumber  String @unique @map("phone_number")
+  passwordHash String @map("password_hash")
+
+  role                Role
+  status              UserStatus @default(PENDING)
+  createdAt           DateTime   @default(now()) @map("created_at")
+  forceChangePassword Boolean    @default(false) @map("force_change_password")
 
   // 1-1 Profiles
-  volunteerProfile  VolunteerProfile?
-  bficiaryProfile   BficiaryProfile?
+  volunteerProfile     VolunteerProfile?
+  bficiaryProfile      BficiaryProfile?
+  organizationProfiles OrganizationProfile?
 
   // 1-n activity
-  activitiesRequested HelpRequest[] @relation("HelpRequester")
+  activitiesRequested   HelpRequest[] @relation("HelpRequester")
   activitiesVolunteered HelpRequest[] @relation("HelpVolunteer")
 
-  reviewsWritten    Review[] @relation("Reviewer")
-  reviewsReceived   Review[] @relation("ReviewTarget")
+  reviewsWritten  Review[] @relation("Reviewer")
+  reviewsReceived Review[] @relation("ReviewTarget")
 
   appreciationsSent     Appreciation[] @relation("AppreciationSender")
   appreciationsReceived Appreciation[] @relation("AppreciationReceiver")
 
+  // // 
+  // campaigns             Campaign[]             @relation("CampaignCreator")
+  // campaignRegistrations CampaignRegistration[] @relation("CampaignVolunteer")
+
+  // // ========== THÊM CÁC DÒNG NÀY ==========
+  volunteersManaged    VolunteerProfile[] @relation("VolunteerOrganization")
+  beneficiariesManaged BficiaryProfile[]  @relation("BeneficiaryOrganization")
+  // posts                Post[]             @relation("OrgPosts")
+  // // =======================================
 }
 
 // profile của tình nguyện viên
 model VolunteerProfile {
-  userId             String   @id @map("user_id")
-  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @id @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  fullName        String     @map("full_name")
-  avatarUrl       String?    @map("avatar_url")
+  fullName  String  @map("full_name")
+  avatarUrl String? @map("avatar_url")
 
-  skills             Skill[] @map("skill")
-  experienceYears    Int      @default(0) @map("experience_years")
-  bio                String?  @db.Text
-  totalThanks        Int      @default(0) @map("total_thanks")
+  skills             Skill[]    @map("skill")
+  experienceYears    Int        @default(0) @map("experience_years")
+  bio                String?    @db.Text
+  totalThanks        Int        @default(0) @map("total_thanks")
   preferredDistricts District[] @map("preferred_districts")
 
-  cccdFrontFile   String?    @map("cccd_front_file")
-  cccdBackFile    String?    @map("cccd_back_file")
+  cccdFrontFile String? @map("cccd_front_file")
+  cccdBackFile  String? @map("cccd_back_file")
+
+  organizationId       String?   @map("organization_id")
+  organization         User?     @relation("VolunteerOrganization", fields: [organizationId], references: [id])
+  organizationStatus   OrgStatus? @map("organization_status")
+  joinedOrganizationAt DateTime? @map("joined_organization_at")
 }
 
 // profile của người cần giúp đỡ
 model BficiaryProfile {
-  userId               String            @id @map("user_id")
-  user                 User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @id @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  fullName        String     @map("full_name")
-  avatarUrl       String?    @map("avatar_url")
+  fullName  String  @map("full_name")
+  avatarUrl String? @map("avatar_url")
 
   vulnerabilityType    VulnerabilityType @map("vulnerability_type")
   situationDescription String?           @map("situation_description") @db.Text
   healthCondition      String?           @map("health_condition") @db.Text
-  
-  proofFiles           String[]          @map("proof_files") 
-  cccdFrontFile   String?    @map("cccd_front_file")
-  cccdBackFile    String?    @map("cccd_back_file")
 
-  guardianName         String?           @map("guardian_name")
-  guardianPhone        String?           @map("guardian_phone")
-  guardianRelation     GuardianRelation? @map("guardian_relation")
+  proofFiles    String[] @map("proof_files")
+  cccdFrontFile String?  @map("cccd_front_file")
+  cccdBackFile  String?  @map("cccd_back_file")
 
+  guardianName     String?           @map("guardian_name")
+  guardianPhone    String?           @map("guardian_phone")
+  guardianRelation GuardianRelation? @map("guardian_relation")
+
+  organizationId       String?   @map("organization_id")
+  organization         User?     @relation("BeneficiaryOrganization", fields: [organizationId], references: [id])
+  organizationStatus   OrgStatus? @map("organization_status") 
+  joinedOrganizationAt DateTime? @map("joined_organization_at")
 }
 
 model HelpRequest {
-  id              String   @id @default(uuid())
+  id String @id @default(uuid())
 
   // --- Quan hệ User ---
-  requesterId     String   @map("requester_id")
-  requester       User     @relation("HelpRequester", fields: [requesterId], references: [id])
-  
-  volunteerId     String?  @map("volunteer_id")
-  volunteer       User?    @relation("HelpVolunteer", fields: [volunteerId], references: [id])
-  
-  acceptedAt      DateTime? @map("accepted_at")
+  requesterId String @map("requester_id")
+  requester   User   @relation("HelpRequester", fields: [requesterId], references: [id])
+
+  volunteerId String? @map("volunteer_id")
+  volunteer   User?   @relation("HelpVolunteer", fields: [volunteerId], references: [id])
+
+  acceptedAt DateTime? @map("accepted_at")
 
   // --- Nội dung ---
-  activityType    RequestCategory @map("request_category")
-  title           String
-  description     String?      @db.Text
+  activityType RequestCategory @map("request_category")
+  title        String
+  description  String?         @db.Text
 
   // urgency
-  urgencyLevel UrgencyLevel @map("urgency_level") @default(STANDARD)
-  
+  urgencyLevel UrgencyLevel @default(STANDARD) @map("urgency_level")
+
   // Địa điểm
-  district        District     @map("district")      
-  addressDetail   String       @map("address_detail")
+  district      District @map("district")
+  addressDetail String   @map("address_detail")
 
   // Thời gian
-  startDate       DateTime     @map("start_date") @db.Date
-  endDate         DateTime?    @map("end_date")   @db.Date
-  
-  startTime       DateTime     @map("start_time") @db.Time 
-  endTime         DateTime     @map("end_time")   @db.Time 
-  
-  recurrence      RecurrenceType @default(NONE)
+  startDate DateTime  @map("start_date") @db.Date
+  endDate   DateTime? @map("end_date") @db.Date
 
-  status          ActivityStatus @default(APPROVED)
-  activityImages  String[]       @map("activity_images") 
-  createdAt       DateTime       @default(now()) @map("created_at")
+  startTime DateTime @map("start_time") @db.Time
+  endTime   DateTime @map("end_time") @db.Time
 
-  latitude         Float?    @map("latitude")
-  longitude        Float?    @map("longitude")
+  recurrence RecurrenceType @default(NONE)
 
-  reviews         Review[]
-  appreciations   Appreciation[]
+  status         ActivityStatus @default(APPROVED)
+  activityImages String[]       @map("activity_images")
+  createdAt      DateTime       @default(now()) @map("created_at")
+
+  latitude  Float? @map("latitude")
+  longitude Float? @map("longitude")
+
+  reviews       Review[]
+  appreciations Appreciation[]
 
   doneAt          DateTime? @map("done_at")
   proofImages     String[]  @map("proof_images")
-  completionNotes String?  @map("completion_notes") @db.Text
-
+  completionNotes String?   @map("completion_notes") @db.Text
 }
 
 model Review {
-  id          String   @id @default(uuid())
-  
-  activityId  String   @map("activity_id")
-  activity    HelpRequest @relation(fields: [activityId], references: [id])
+  id String @id @default(uuid())
 
-  reviewerId  String   @map("reviewer_id")
-  reviewer    User     @relation("Reviewer", fields: [reviewerId], references: [id])
+  activityId String      @map("activity_id")
+  activity   HelpRequest @relation(fields: [activityId], references: [id])
 
-  targetId    String   @map("target_id")
-  target      User     @relation("ReviewTarget", fields: [targetId], references: [id])
+  reviewerId String @map("reviewer_id")
+  reviewer   User   @relation("Reviewer", fields: [reviewerId], references: [id])
 
-  rating      Int      // 1-5
-  comment     String?  @db.Text
-  createdAt   DateTime @default(now()) @map("created_at")
+  targetId String @map("target_id")
+  target   User   @relation("ReviewTarget", fields: [targetId], references: [id])
 
+  rating    Int // 1-5
+  comment   String?  @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
 }
 
 model Appreciation {
-  id          String   @id @default(uuid())
+  id String @id @default(uuid())
 
-  senderId    String   @map("sender_id")
-  sender      User     @relation("AppreciationSender", fields: [senderId], references: [id])
+  senderId String @map("sender_id")
+  sender   User   @relation("AppreciationSender", fields: [senderId], references: [id])
 
-  receiverId  String   @map("receiver_id")
-  receiver    User     @relation("AppreciationReceiver", fields: [receiverId], references: [id])
+  receiverId String @map("receiver_id")
+  receiver   User   @relation("AppreciationReceiver", fields: [receiverId], references: [id])
 
-  activityId  String   @map("activity_id")
-  activity    HelpRequest @relation(fields: [activityId], references: [id])
+  activityId String      @map("activity_id")
+  activity   HelpRequest @relation(fields: [activityId], references: [id])
 
-  createdAt   DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
 
   @@unique([senderId, activityId])
 }
+
+// moi them
+
+// enum CampaignType {
+//   EVENT // su kien dien ra trong ngay, ngan, ko di xa 
+//   CAMPAIGN // su kien dien ra trong nhieu ngay, dai, có thể đi xa
+// }
+
+// enum CampaignStatus {
+//   PEDING // Đang chờ duyệt
+//   APPROVED // Đã duyệt
+//   REJECTED // Đã từ chối
+//   ONGOING // Đang diễn ra
+//   COMPLETED // Hoàn thành
+//   CANCELLED // Đã hủy
+// }
+
+model OrganizationProfile {
+  userId String @id @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  organizationName   String  @map("organization_name")
+  avatarUrl          String? @map("avatar_url")
+  representativeName String  @map("representative_name")
+
+  description String? @db.Text
+  website     String?
+
+  district      District @map("district")
+  addressDetail String   @map("address_detail")
+
+  businessLicense  String?  @map("business_license")
+  verificationDocs String[] @map("verification_docs")
+
+  totalCampaigns  Int @default(0) @map("total_campaigns")
+  totalVolunteers Int @default(0) @map("total_volunteers")
+
+  createdAt DateTime @default(now()) @map("created_at")
+}
+
+// model Campaign {
+//   id String @id @default(uuid())
+
+//   creatorId String @map("creator_id")
+//   creator   User   @relation("CampaignCreator", fields: [creatorId], references: [id])
+
+//   type   CampaignType
+//   status CampaignStatus @default(APPROVED)
+
+//   title       String
+//   description String? @db.Text
+//   goal        String? @db.Text
+
+//   district      District @map("district")
+//   addressDetail String   @map("address_detail")
+//   latitude      Float?   @map("latitude")
+//   longitude     Float?   @map("longitude")
+
+//   startDate DateTime  @map("start_date")
+//   endDate   DateTime? @map("end_date")
+
+//   coverImage String?  @map("cover_image")
+//   images     String[] @map("images")
+
+//   targetVolunteers Int                    @default(0) @map("target_volunteers")
+//   registrations    CampaignRegistration[]
+
+//   createdAt DateTime @default(now()) @map("created_at")
+//   updatedAt DateTime @updatedAt @map("updated_at")
+// }
+
+// model CampaignRegistration {
+//   id String @id @default(uuid())
+
+//   campaignId String   @map("campaign_id")
+//   campaign   Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+//   volunteerId String @map("volunteer_id")
+//   volunteer   User   @relation("CampaignVolunteer", fields: [volunteerId], references: [id])
+
+//   status       String   @default("REGISTERED")
+//   registeredAt DateTime @default(now()) @map("registered_at")
+//   notes        String?  @db.Text
+
+//   @@unique([campaignId, volunteerId])
+// }
+
+// model Post {
+//   id String @id @default(uuid())
+
+//   organizationId String @map("organization_id")
+//   organization   User   @relation("OrgPosts", fields: [organizationId], references: [id])
+
+//   title   String
+//   content String   @db.Text
+//   images  String[]
+
+//   type String @default("NEWS") // NEWS, ANNOUNCEMENT, STORY, ACHIEVEMENT
+
+//   status      String    @default("DRAFT") // DRAFT, PUBLISHED
+//   publishedAt DateTime? @map("published_at")
+
+//   views Int @default(0)
+
+//   createdAt DateTime @default(now()) @map("created_at")
+//   updatedAt DateTime @updatedAt @map("updated_at")
+// }

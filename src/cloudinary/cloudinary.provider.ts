@@ -9,7 +9,7 @@ export const CloudinaryProvider = {
     const apiKey = ENV('CLOUDINARY_API_KEY');
     const apiSecret = ENV('CLOUDINARY_API_SECRET');
 
-    console.log('Cloudinary Config:', { cloudName, apiKey, apiSecret });
+    // console.log('Cloudinary Config:', { cloudName, apiKey, apiSecret });
 
     return cloudinary.config({
       cloud_name: 'dj8d3e2d9',

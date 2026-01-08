@@ -100,30 +100,22 @@ export class UsersController {
     schema: {
       type: 'object',
       properties: {
-        avatarUrl: {
-          type: 'string',
-          format: 'binary',
-          description: 'Ảnh đại diện',
-        },
+        avatarUrl: { type: 'string', format: 'binary' },
         cccdFront: { type: 'string', format: 'binary' },
         cccdBack: { type: 'string', format: 'binary' },
-
         proofFiles: {
           type: 'array',
           items: { type: 'string', format: 'binary' },
-          description: 'Upload ảnh minh chứng MỚI',
+          description: 'Chọn các file minh chứng mới (nếu có)',
         },
-
         fullName: { type: 'string' },
         vulnerabilityType: { type: 'string' },
         situationDescription: { type: 'string' },
         address: { type: 'string' },
-
         keepingProofFiles: {
           type: 'array',
           items: { type: 'string' },
-          description:
-            'Danh sách Link ảnh cũ muốn giữ lại (Nhấn Add string item)',
+          description: 'Danh sách các URL ảnh cũ muốn giữ lại',
         },
       },
     },
@@ -136,7 +128,7 @@ export class UsersController {
       { name: 'proofFiles', maxCount: 5 },
     ]),
   )
-  updateBenificiaryProfile(
+  async updateBenificiaryProfile(
     @GetUser('sub') userId: string,
     @GetUser('role') role: string,
     @Body() dto: UpdateBficiaryProfileDto,
@@ -149,8 +141,11 @@ export class UsersController {
     },
   ) {
     if (role !== 'BENEFICIARY') {
-      throw new ForbiddenException('Bạn không phải là người cần giúp đỡ');
+      throw new ForbiddenException(
+        'Chỉ người cần giúp đỡ mới có quyền cập nhật hồ sơ này',
+      );
     }
+
     return this.userService.updateBenificiaryProfile(userId, dto, files);
   }
 }

@@ -1,6 +1,6 @@
 export interface JwtPayload {
   sub: string;
-  phoneNum: string;
+  phoneNumber: string;
   role: string;
 }
 

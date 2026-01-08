@@ -45,6 +45,9 @@ export type VolunteerProfileMinAggregateOutputType = {
   totalThanks: number | null
   cccdFrontFile: string | null
   cccdBackFile: string | null
+  organizationId: string | null
+  organizationStatus: $Enums.OrgStatus | null
+  joinedOrganizationAt: Date | null
 }
 
 export type VolunteerProfileMaxAggregateOutputType = {
@@ -56,6 +59,9 @@ export type VolunteerProfileMaxAggregateOutputType = {
   totalThanks: number | null
   cccdFrontFile: string | null
   cccdBackFile: string | null
+  organizationId: string | null
+  organizationStatus: $Enums.OrgStatus | null
+  joinedOrganizationAt: Date | null
 }
 
 export type VolunteerProfileCountAggregateOutputType = {
@@ -69,6 +75,9 @@ export type VolunteerProfileCountAggregateOutputType = {
   preferredDistricts: number
   cccdFrontFile: number
   cccdBackFile: number
+  organizationId: number
+  organizationStatus: number
+  joinedOrganizationAt: number
   _all: number
 }
 
@@ -92,6 +101,9 @@ export type VolunteerProfileMinAggregateInputType = {
   totalThanks?: true
   cccdFrontFile?: true
   cccdBackFile?: true
+  organizationId?: true
+  organizationStatus?: true
+  joinedOrganizationAt?: true
 }
 
 export type VolunteerProfileMaxAggregateInputType = {
@@ -103,6 +115,9 @@ export type VolunteerProfileMaxAggregateInputType = {
   totalThanks?: true
   cccdFrontFile?: true
   cccdBackFile?: true
+  organizationId?: true
+  organizationStatus?: true
+  joinedOrganizationAt?: true
 }
 
 export type VolunteerProfileCountAggregateInputType = {
@@ -116,6 +131,9 @@ export type VolunteerProfileCountAggregateInputType = {
   preferredDistricts?: true
   cccdFrontFile?: true
   cccdBackFile?: true
+  organizationId?: true
+  organizationStatus?: true
+  joinedOrganizationAt?: true
   _all?: true
 }
 
@@ -216,6 +234,9 @@ export type VolunteerProfileGroupByOutputType = {
   preferredDistricts: $Enums.District[]
   cccdFrontFile: string | null
   cccdBackFile: string | null
+  organizationId: string | null
+  organizationStatus: $Enums.OrgStatus | null
+  joinedOrganizationAt: Date | null
   _count: VolunteerProfileCountAggregateOutputType | null
   _avg: VolunteerProfileAvgAggregateOutputType | null
   _sum: VolunteerProfileSumAggregateOutputType | null
@@ -252,7 +273,11 @@ export type VolunteerProfileWhereInput = {
   preferredDistricts?: Prisma.EnumDistrictNullableListFilter<"VolunteerProfile">
   cccdFrontFile?: Prisma.StringNullableFilter<"VolunteerProfile"> | string | null
   cccdBackFile?: Prisma.StringNullableFilter<"VolunteerProfile"> | string | null
+  organizationId?: Prisma.StringNullableFilter<"VolunteerProfile"> | string | null
+  organizationStatus?: Prisma.EnumOrgStatusNullableFilter<"VolunteerProfile"> | $Enums.OrgStatus | null
+  joinedOrganizationAt?: Prisma.DateTimeNullableFilter<"VolunteerProfile"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  organization?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type VolunteerProfileOrderByWithRelationInput = {
@@ -266,7 +291,11 @@ export type VolunteerProfileOrderByWithRelationInput = {
   preferredDistricts?: Prisma.SortOrder
   cccdFrontFile?: Prisma.SortOrderInput | Prisma.SortOrder
   cccdBackFile?: Prisma.SortOrderInput | Prisma.SortOrder
+  organizationId?: Prisma.SortOrderInput | Prisma.SortOrder
+  organizationStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  joinedOrganizationAt?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  organization?: Prisma.UserOrderByWithRelationInput
 }
 
 export type VolunteerProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -283,7 +312,11 @@ export type VolunteerProfileWhereUniqueInput = Prisma.AtLeast<{
   preferredDistricts?: Prisma.EnumDistrictNullableListFilter<"VolunteerProfile">
   cccdFrontFile?: Prisma.StringNullableFilter<"VolunteerProfile"> | string | null
   cccdBackFile?: Prisma.StringNullableFilter<"VolunteerProfile"> | string | null
+  organizationId?: Prisma.StringNullableFilter<"VolunteerProfile"> | string | null
+  organizationStatus?: Prisma.EnumOrgStatusNullableFilter<"VolunteerProfile"> | $Enums.OrgStatus | null
+  joinedOrganizationAt?: Prisma.DateTimeNullableFilter<"VolunteerProfile"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  organization?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "userId">
 
 export type VolunteerProfileOrderByWithAggregationInput = {
@@ -297,6 +330,9 @@ export type VolunteerProfileOrderByWithAggregationInput = {
   preferredDistricts?: Prisma.SortOrder
   cccdFrontFile?: Prisma.SortOrderInput | Prisma.SortOrder
   cccdBackFile?: Prisma.SortOrderInput | Prisma.SortOrder
+  organizationId?: Prisma.SortOrderInput | Prisma.SortOrder
+  organizationStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  joinedOrganizationAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.VolunteerProfileCountOrderByAggregateInput
   _avg?: Prisma.VolunteerProfileAvgOrderByAggregateInput
   _max?: Prisma.VolunteerProfileMaxOrderByAggregateInput
@@ -318,6 +354,9 @@ export type VolunteerProfileScalarWhereWithAggregatesInput = {
   preferredDistricts?: Prisma.EnumDistrictNullableListFilter<"VolunteerProfile">
   cccdFrontFile?: Prisma.StringNullableWithAggregatesFilter<"VolunteerProfile"> | string | null
   cccdBackFile?: Prisma.StringNullableWithAggregatesFilter<"VolunteerProfile"> | string | null
+  organizationId?: Prisma.StringNullableWithAggregatesFilter<"VolunteerProfile"> | string | null
+  organizationStatus?: Prisma.EnumOrgStatusNullableWithAggregatesFilter<"VolunteerProfile"> | $Enums.OrgStatus | null
+  joinedOrganizationAt?: Prisma.DateTimeNullableWithAggregatesFilter<"VolunteerProfile"> | Date | string | null
 }
 
 export type VolunteerProfileCreateInput = {
@@ -330,7 +369,10 @@ export type VolunteerProfileCreateInput = {
   preferredDistricts?: Prisma.VolunteerProfileCreatepreferredDistrictsInput | $Enums.District[]
   cccdFrontFile?: string | null
   cccdBackFile?: string | null
+  organizationStatus?: $Enums.OrgStatus | null
+  joinedOrganizationAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutVolunteerProfileInput
+  organization?: Prisma.UserCreateNestedOneWithoutVolunteersManagedInput
 }
 
 export type VolunteerProfileUncheckedCreateInput = {
@@ -344,6 +386,9 @@ export type VolunteerProfileUncheckedCreateInput = {
   preferredDistricts?: Prisma.VolunteerProfileCreatepreferredDistrictsInput | $Enums.District[]
   cccdFrontFile?: string | null
   cccdBackFile?: string | null
+  organizationId?: string | null
+  organizationStatus?: $Enums.OrgStatus | null
+  joinedOrganizationAt?: Date | string | null
 }
 
 export type VolunteerProfileUpdateInput = {
@@ -356,7 +401,10 @@ export type VolunteerProfileUpdateInput = {
   preferredDistricts?: Prisma.VolunteerProfileUpdatepreferredDistrictsInput | $Enums.District[]
   cccdFrontFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cccdBackFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
+  joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutVolunteerProfileNestedInput
+  organization?: Prisma.UserUpdateOneWithoutVolunteersManagedNestedInput
 }
 
 export type VolunteerProfileUncheckedUpdateInput = {
@@ -370,6 +418,9 @@ export type VolunteerProfileUncheckedUpdateInput = {
   preferredDistricts?: Prisma.VolunteerProfileUpdatepreferredDistrictsInput | $Enums.District[]
   cccdFrontFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cccdBackFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
+  joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type VolunteerProfileCreateManyInput = {
@@ -383,6 +434,9 @@ export type VolunteerProfileCreateManyInput = {
   preferredDistricts?: Prisma.VolunteerProfileCreatepreferredDistrictsInput | $Enums.District[]
   cccdFrontFile?: string | null
   cccdBackFile?: string | null
+  organizationId?: string | null
+  organizationStatus?: $Enums.OrgStatus | null
+  joinedOrganizationAt?: Date | string | null
 }
 
 export type VolunteerProfileUpdateManyMutationInput = {
@@ -395,6 +449,8 @@ export type VolunteerProfileUpdateManyMutationInput = {
   preferredDistricts?: Prisma.VolunteerProfileUpdatepreferredDistrictsInput | $Enums.District[]
   cccdFrontFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cccdBackFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
+  joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type VolunteerProfileUncheckedUpdateManyInput = {
@@ -408,11 +464,24 @@ export type VolunteerProfileUncheckedUpdateManyInput = {
   preferredDistricts?: Prisma.VolunteerProfileUpdatepreferredDistrictsInput | $Enums.District[]
   cccdFrontFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cccdBackFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
+  joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type VolunteerProfileNullableScalarRelationFilter = {
   is?: Prisma.VolunteerProfileWhereInput | null
   isNot?: Prisma.VolunteerProfileWhereInput | null
+}
+
+export type VolunteerProfileListRelationFilter = {
+  every?: Prisma.VolunteerProfileWhereInput
+  some?: Prisma.VolunteerProfileWhereInput
+  none?: Prisma.VolunteerProfileWhereInput
+}
+
+export type VolunteerProfileOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type EnumSkillNullableListFilter<$PrismaModel = never> = {
@@ -442,6 +511,9 @@ export type VolunteerProfileCountOrderByAggregateInput = {
   preferredDistricts?: Prisma.SortOrder
   cccdFrontFile?: Prisma.SortOrder
   cccdBackFile?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrder
+  organizationStatus?: Prisma.SortOrder
+  joinedOrganizationAt?: Prisma.SortOrder
 }
 
 export type VolunteerProfileAvgOrderByAggregateInput = {
@@ -458,6 +530,9 @@ export type VolunteerProfileMaxOrderByAggregateInput = {
   totalThanks?: Prisma.SortOrder
   cccdFrontFile?: Prisma.SortOrder
   cccdBackFile?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrder
+  organizationStatus?: Prisma.SortOrder
+  joinedOrganizationAt?: Prisma.SortOrder
 }
 
 export type VolunteerProfileMinOrderByAggregateInput = {
@@ -469,6 +544,9 @@ export type VolunteerProfileMinOrderByAggregateInput = {
   totalThanks?: Prisma.SortOrder
   cccdFrontFile?: Prisma.SortOrder
   cccdBackFile?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrder
+  organizationStatus?: Prisma.SortOrder
+  joinedOrganizationAt?: Prisma.SortOrder
 }
 
 export type VolunteerProfileSumOrderByAggregateInput = {
@@ -482,10 +560,24 @@ export type VolunteerProfileCreateNestedOneWithoutUserInput = {
   connect?: Prisma.VolunteerProfileWhereUniqueInput
 }
 
+export type VolunteerProfileCreateNestedManyWithoutOrganizationInput = {
+  create?: Prisma.XOR<Prisma.VolunteerProfileCreateWithoutOrganizationInput, Prisma.VolunteerProfileUncheckedCreateWithoutOrganizationInput> | Prisma.VolunteerProfileCreateWithoutOrganizationInput[] | Prisma.VolunteerProfileUncheckedCreateWithoutOrganizationInput[]
+  connectOrCreate?: Prisma.VolunteerProfileCreateOrConnectWithoutOrganizationInput | Prisma.VolunteerProfileCreateOrConnectWithoutOrganizationInput[]
+  createMany?: Prisma.VolunteerProfileCreateManyOrganizationInputEnvelope
+  connect?: Prisma.VolunteerProfileWhereUniqueInput | Prisma.VolunteerProfileWhereUniqueInput[]
+}
+
 export type VolunteerProfileUncheckedCreateNestedOneWithoutUserInput = {
   create?: Prisma.XOR<Prisma.VolunteerProfileCreateWithoutUserInput, Prisma.VolunteerProfileUncheckedCreateWithoutUserInput>
   connectOrCreate?: Prisma.VolunteerProfileCreateOrConnectWithoutUserInput
   connect?: Prisma.VolunteerProfileWhereUniqueInput
+}
+
+export type VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput = {
+  create?: Prisma.XOR<Prisma.VolunteerProfileCreateWithoutOrganizationInput, Prisma.VolunteerProfileUncheckedCreateWithoutOrganizationInput> | Prisma.VolunteerProfileCreateWithoutOrganizationInput[] | Prisma.VolunteerProfileUncheckedCreateWithoutOrganizationInput[]
+  connectOrCreate?: Prisma.VolunteerProfileCreateOrConnectWithoutOrganizationInput | Prisma.VolunteerProfileCreateOrConnectWithoutOrganizationInput[]
+  createMany?: Prisma.VolunteerProfileCreateManyOrganizationInputEnvelope
+  connect?: Prisma.VolunteerProfileWhereUniqueInput | Prisma.VolunteerProfileWhereUniqueInput[]
 }
 
 export type VolunteerProfileUpdateOneWithoutUserNestedInput = {
@@ -498,6 +590,20 @@ export type VolunteerProfileUpdateOneWithoutUserNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.VolunteerProfileUpdateToOneWithWhereWithoutUserInput, Prisma.VolunteerProfileUpdateWithoutUserInput>, Prisma.VolunteerProfileUncheckedUpdateWithoutUserInput>
 }
 
+export type VolunteerProfileUpdateManyWithoutOrganizationNestedInput = {
+  create?: Prisma.XOR<Prisma.VolunteerProfileCreateWithoutOrganizationInput, Prisma.VolunteerProfileUncheckedCreateWithoutOrganizationInput> | Prisma.VolunteerProfileCreateWithoutOrganizationInput[] | Prisma.VolunteerProfileUncheckedCreateWithoutOrganizationInput[]
+  connectOrCreate?: Prisma.VolunteerProfileCreateOrConnectWithoutOrganizationInput | Prisma.VolunteerProfileCreateOrConnectWithoutOrganizationInput[]
+  upsert?: Prisma.VolunteerProfileUpsertWithWhereUniqueWithoutOrganizationInput | Prisma.VolunteerProfileUpsertWithWhereUniqueWithoutOrganizationInput[]
+  createMany?: Prisma.VolunteerProfileCreateManyOrganizationInputEnvelope
+  set?: Prisma.VolunteerProfileWhereUniqueInput | Prisma.VolunteerProfileWhereUniqueInput[]
+  disconnect?: Prisma.VolunteerProfileWhereUniqueInput | Prisma.VolunteerProfileWhereUniqueInput[]
+  delete?: Prisma.VolunteerProfileWhereUniqueInput | Prisma.VolunteerProfileWhereUniqueInput[]
+  connect?: Prisma.VolunteerProfileWhereUniqueInput | Prisma.VolunteerProfileWhereUniqueInput[]
+  update?: Prisma.VolunteerProfileUpdateWithWhereUniqueWithoutOrganizationInput | Prisma.VolunteerProfileUpdateWithWhereUniqueWithoutOrganizationInput[]
+  updateMany?: Prisma.VolunteerProfileUpdateManyWithWhereWithoutOrganizationInput | Prisma.VolunteerProfileUpdateManyWithWhereWithoutOrganizationInput[]
+  deleteMany?: Prisma.VolunteerProfileScalarWhereInput | Prisma.VolunteerProfileScalarWhereInput[]
+}
+
 export type VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput = {
   create?: Prisma.XOR<Prisma.VolunteerProfileCreateWithoutUserInput, Prisma.VolunteerProfileUncheckedCreateWithoutUserInput>
   connectOrCreate?: Prisma.VolunteerProfileCreateOrConnectWithoutUserInput
@@ -506,6 +612,20 @@ export type VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput = {
   delete?: Prisma.VolunteerProfileWhereInput | boolean
   connect?: Prisma.VolunteerProfileWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.VolunteerProfileUpdateToOneWithWhereWithoutUserInput, Prisma.VolunteerProfileUpdateWithoutUserInput>, Prisma.VolunteerProfileUncheckedUpdateWithoutUserInput>
+}
+
+export type VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput = {
+  create?: Prisma.XOR<Prisma.VolunteerProfileCreateWithoutOrganizationInput, Prisma.VolunteerProfileUncheckedCreateWithoutOrganizationInput> | Prisma.VolunteerProfileCreateWithoutOrganizationInput[] | Prisma.VolunteerProfileUncheckedCreateWithoutOrganizationInput[]
+  connectOrCreate?: Prisma.VolunteerProfileCreateOrConnectWithoutOrganizationInput | Prisma.VolunteerProfileCreateOrConnectWithoutOrganizationInput[]
+  upsert?: Prisma.VolunteerProfileUpsertWithWhereUniqueWithoutOrganizationInput | Prisma.VolunteerProfileUpsertWithWhereUniqueWithoutOrganizationInput[]
+  createMany?: Prisma.VolunteerProfileCreateManyOrganizationInputEnvelope
+  set?: Prisma.VolunteerProfileWhereUniqueInput | Prisma.VolunteerProfileWhereUniqueInput[]
+  disconnect?: Prisma.VolunteerProfileWhereUniqueInput | Prisma.VolunteerProfileWhereUniqueInput[]
+  delete?: Prisma.VolunteerProfileWhereUniqueInput | Prisma.VolunteerProfileWhereUniqueInput[]
+  connect?: Prisma.VolunteerProfileWhereUniqueInput | Prisma.VolunteerProfileWhereUniqueInput[]
+  update?: Prisma.VolunteerProfileUpdateWithWhereUniqueWithoutOrganizationInput | Prisma.VolunteerProfileUpdateWithWhereUniqueWithoutOrganizationInput[]
+  updateMany?: Prisma.VolunteerProfileUpdateManyWithWhereWithoutOrganizationInput | Prisma.VolunteerProfileUpdateManyWithWhereWithoutOrganizationInput[]
+  deleteMany?: Prisma.VolunteerProfileScalarWhereInput | Prisma.VolunteerProfileScalarWhereInput[]
 }
 
 export type VolunteerProfileCreateskillsInput = {
@@ -538,6 +658,14 @@ export type VolunteerProfileUpdatepreferredDistrictsInput = {
   push?: $Enums.District | $Enums.District[]
 }
 
+export type NullableEnumOrgStatusFieldUpdateOperationsInput = {
+  set?: $Enums.OrgStatus | null
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type VolunteerProfileCreateWithoutUserInput = {
   fullName: string
   avatarUrl?: string | null
@@ -548,6 +676,9 @@ export type VolunteerProfileCreateWithoutUserInput = {
   preferredDistricts?: Prisma.VolunteerProfileCreatepreferredDistrictsInput | $Enums.District[]
   cccdFrontFile?: string | null
   cccdBackFile?: string | null
+  organizationStatus?: $Enums.OrgStatus | null
+  joinedOrganizationAt?: Date | string | null
+  organization?: Prisma.UserCreateNestedOneWithoutVolunteersManagedInput
 }
 
 export type VolunteerProfileUncheckedCreateWithoutUserInput = {
@@ -560,11 +691,54 @@ export type VolunteerProfileUncheckedCreateWithoutUserInput = {
   preferredDistricts?: Prisma.VolunteerProfileCreatepreferredDistrictsInput | $Enums.District[]
   cccdFrontFile?: string | null
   cccdBackFile?: string | null
+  organizationId?: string | null
+  organizationStatus?: $Enums.OrgStatus | null
+  joinedOrganizationAt?: Date | string | null
 }
 
 export type VolunteerProfileCreateOrConnectWithoutUserInput = {
   where: Prisma.VolunteerProfileWhereUniqueInput
   create: Prisma.XOR<Prisma.VolunteerProfileCreateWithoutUserInput, Prisma.VolunteerProfileUncheckedCreateWithoutUserInput>
+}
+
+export type VolunteerProfileCreateWithoutOrganizationInput = {
+  fullName: string
+  avatarUrl?: string | null
+  skills?: Prisma.VolunteerProfileCreateskillsInput | $Enums.Skill[]
+  experienceYears?: number
+  bio?: string | null
+  totalThanks?: number
+  preferredDistricts?: Prisma.VolunteerProfileCreatepreferredDistrictsInput | $Enums.District[]
+  cccdFrontFile?: string | null
+  cccdBackFile?: string | null
+  organizationStatus?: $Enums.OrgStatus | null
+  joinedOrganizationAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutVolunteerProfileInput
+}
+
+export type VolunteerProfileUncheckedCreateWithoutOrganizationInput = {
+  userId: string
+  fullName: string
+  avatarUrl?: string | null
+  skills?: Prisma.VolunteerProfileCreateskillsInput | $Enums.Skill[]
+  experienceYears?: number
+  bio?: string | null
+  totalThanks?: number
+  preferredDistricts?: Prisma.VolunteerProfileCreatepreferredDistrictsInput | $Enums.District[]
+  cccdFrontFile?: string | null
+  cccdBackFile?: string | null
+  organizationStatus?: $Enums.OrgStatus | null
+  joinedOrganizationAt?: Date | string | null
+}
+
+export type VolunteerProfileCreateOrConnectWithoutOrganizationInput = {
+  where: Prisma.VolunteerProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.VolunteerProfileCreateWithoutOrganizationInput, Prisma.VolunteerProfileUncheckedCreateWithoutOrganizationInput>
+}
+
+export type VolunteerProfileCreateManyOrganizationInputEnvelope = {
+  data: Prisma.VolunteerProfileCreateManyOrganizationInput | Prisma.VolunteerProfileCreateManyOrganizationInput[]
+  skipDuplicates?: boolean
 }
 
 export type VolunteerProfileUpsertWithoutUserInput = {
@@ -588,6 +762,9 @@ export type VolunteerProfileUpdateWithoutUserInput = {
   preferredDistricts?: Prisma.VolunteerProfileUpdatepreferredDistrictsInput | $Enums.District[]
   cccdFrontFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cccdBackFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
+  joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  organization?: Prisma.UserUpdateOneWithoutVolunteersManagedNestedInput
 }
 
 export type VolunteerProfileUncheckedUpdateWithoutUserInput = {
@@ -600,6 +777,104 @@ export type VolunteerProfileUncheckedUpdateWithoutUserInput = {
   preferredDistricts?: Prisma.VolunteerProfileUpdatepreferredDistrictsInput | $Enums.District[]
   cccdFrontFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cccdBackFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
+  joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type VolunteerProfileUpsertWithWhereUniqueWithoutOrganizationInput = {
+  where: Prisma.VolunteerProfileWhereUniqueInput
+  update: Prisma.XOR<Prisma.VolunteerProfileUpdateWithoutOrganizationInput, Prisma.VolunteerProfileUncheckedUpdateWithoutOrganizationInput>
+  create: Prisma.XOR<Prisma.VolunteerProfileCreateWithoutOrganizationInput, Prisma.VolunteerProfileUncheckedCreateWithoutOrganizationInput>
+}
+
+export type VolunteerProfileUpdateWithWhereUniqueWithoutOrganizationInput = {
+  where: Prisma.VolunteerProfileWhereUniqueInput
+  data: Prisma.XOR<Prisma.VolunteerProfileUpdateWithoutOrganizationInput, Prisma.VolunteerProfileUncheckedUpdateWithoutOrganizationInput>
+}
+
+export type VolunteerProfileUpdateManyWithWhereWithoutOrganizationInput = {
+  where: Prisma.VolunteerProfileScalarWhereInput
+  data: Prisma.XOR<Prisma.VolunteerProfileUpdateManyMutationInput, Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationInput>
+}
+
+export type VolunteerProfileScalarWhereInput = {
+  AND?: Prisma.VolunteerProfileScalarWhereInput | Prisma.VolunteerProfileScalarWhereInput[]
+  OR?: Prisma.VolunteerProfileScalarWhereInput[]
+  NOT?: Prisma.VolunteerProfileScalarWhereInput | Prisma.VolunteerProfileScalarWhereInput[]
+  userId?: Prisma.StringFilter<"VolunteerProfile"> | string
+  fullName?: Prisma.StringFilter<"VolunteerProfile"> | string
+  avatarUrl?: Prisma.StringNullableFilter<"VolunteerProfile"> | string | null
+  skills?: Prisma.EnumSkillNullableListFilter<"VolunteerProfile">
+  experienceYears?: Prisma.IntFilter<"VolunteerProfile"> | number
+  bio?: Prisma.StringNullableFilter<"VolunteerProfile"> | string | null
+  totalThanks?: Prisma.IntFilter<"VolunteerProfile"> | number
+  preferredDistricts?: Prisma.EnumDistrictNullableListFilter<"VolunteerProfile">
+  cccdFrontFile?: Prisma.StringNullableFilter<"VolunteerProfile"> | string | null
+  cccdBackFile?: Prisma.StringNullableFilter<"VolunteerProfile"> | string | null
+  organizationId?: Prisma.StringNullableFilter<"VolunteerProfile"> | string | null
+  organizationStatus?: Prisma.EnumOrgStatusNullableFilter<"VolunteerProfile"> | $Enums.OrgStatus | null
+  joinedOrganizationAt?: Prisma.DateTimeNullableFilter<"VolunteerProfile"> | Date | string | null
+}
+
+export type VolunteerProfileCreateManyOrganizationInput = {
+  userId: string
+  fullName: string
+  avatarUrl?: string | null
+  skills?: Prisma.VolunteerProfileCreateskillsInput | $Enums.Skill[]
+  experienceYears?: number
+  bio?: string | null
+  totalThanks?: number
+  preferredDistricts?: Prisma.VolunteerProfileCreatepreferredDistrictsInput | $Enums.District[]
+  cccdFrontFile?: string | null
+  cccdBackFile?: string | null
+  organizationStatus?: $Enums.OrgStatus | null
+  joinedOrganizationAt?: Date | string | null
+}
+
+export type VolunteerProfileUpdateWithoutOrganizationInput = {
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.VolunteerProfileUpdateskillsInput | $Enums.Skill[]
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalThanks?: Prisma.IntFieldUpdateOperationsInput | number
+  preferredDistricts?: Prisma.VolunteerProfileUpdatepreferredDistrictsInput | $Enums.District[]
+  cccdFrontFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cccdBackFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
+  joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutVolunteerProfileNestedInput
+}
+
+export type VolunteerProfileUncheckedUpdateWithoutOrganizationInput = {
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.VolunteerProfileUpdateskillsInput | $Enums.Skill[]
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalThanks?: Prisma.IntFieldUpdateOperationsInput | number
+  preferredDistricts?: Prisma.VolunteerProfileUpdatepreferredDistrictsInput | $Enums.District[]
+  cccdFrontFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cccdBackFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
+  joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type VolunteerProfileUncheckedUpdateManyWithoutOrganizationInput = {
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.VolunteerProfileUpdateskillsInput | $Enums.Skill[]
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalThanks?: Prisma.IntFieldUpdateOperationsInput | number
+  preferredDistricts?: Prisma.VolunteerProfileUpdatepreferredDistrictsInput | $Enums.District[]
+  cccdFrontFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cccdBackFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
+  joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -615,7 +890,11 @@ export type VolunteerProfileSelect<ExtArgs extends runtime.Types.Extensions.Inte
   preferredDistricts?: boolean
   cccdFrontFile?: boolean
   cccdBackFile?: boolean
+  organizationId?: boolean
+  organizationStatus?: boolean
+  joinedOrganizationAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.VolunteerProfile$organizationArgs<ExtArgs>
 }, ExtArgs["result"]["volunteerProfile"]>
 
 export type VolunteerProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -629,7 +908,11 @@ export type VolunteerProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   preferredDistricts?: boolean
   cccdFrontFile?: boolean
   cccdBackFile?: boolean
+  organizationId?: boolean
+  organizationStatus?: boolean
+  joinedOrganizationAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.VolunteerProfile$organizationArgs<ExtArgs>
 }, ExtArgs["result"]["volunteerProfile"]>
 
 export type VolunteerProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -643,7 +926,11 @@ export type VolunteerProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   preferredDistricts?: boolean
   cccdFrontFile?: boolean
   cccdBackFile?: boolean
+  organizationId?: boolean
+  organizationStatus?: boolean
+  joinedOrganizationAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.VolunteerProfile$organizationArgs<ExtArgs>
 }, ExtArgs["result"]["volunteerProfile"]>
 
 export type VolunteerProfileSelectScalar = {
@@ -657,23 +944,30 @@ export type VolunteerProfileSelectScalar = {
   preferredDistricts?: boolean
   cccdFrontFile?: boolean
   cccdBackFile?: boolean
+  organizationId?: boolean
+  organizationStatus?: boolean
+  joinedOrganizationAt?: boolean
 }
 
-export type VolunteerProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "fullName" | "avatarUrl" | "skills" | "experienceYears" | "bio" | "totalThanks" | "preferredDistricts" | "cccdFrontFile" | "cccdBackFile", ExtArgs["result"]["volunteerProfile"]>
+export type VolunteerProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "fullName" | "avatarUrl" | "skills" | "experienceYears" | "bio" | "totalThanks" | "preferredDistricts" | "cccdFrontFile" | "cccdBackFile" | "organizationId" | "organizationStatus" | "joinedOrganizationAt", ExtArgs["result"]["volunteerProfile"]>
 export type VolunteerProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.VolunteerProfile$organizationArgs<ExtArgs>
 }
 export type VolunteerProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.VolunteerProfile$organizationArgs<ExtArgs>
 }
 export type VolunteerProfileIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.VolunteerProfile$organizationArgs<ExtArgs>
 }
 
 export type $VolunteerProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "VolunteerProfile"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    organization: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     userId: string
@@ -686,6 +980,9 @@ export type $VolunteerProfilePayload<ExtArgs extends runtime.Types.Extensions.In
     preferredDistricts: $Enums.District[]
     cccdFrontFile: string | null
     cccdBackFile: string | null
+    organizationId: string | null
+    organizationStatus: $Enums.OrgStatus | null
+    joinedOrganizationAt: Date | null
   }, ExtArgs["result"]["volunteerProfile"]>
   composites: {}
 }
@@ -1081,6 +1378,7 @@ readonly fields: VolunteerProfileFieldRefs;
 export interface Prisma__VolunteerProfileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  organization<T extends Prisma.VolunteerProfile$organizationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VolunteerProfile$organizationArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1120,6 +1418,9 @@ export interface VolunteerProfileFieldRefs {
   readonly preferredDistricts: Prisma.FieldRef<"VolunteerProfile", 'District[]'>
   readonly cccdFrontFile: Prisma.FieldRef<"VolunteerProfile", 'String'>
   readonly cccdBackFile: Prisma.FieldRef<"VolunteerProfile", 'String'>
+  readonly organizationId: Prisma.FieldRef<"VolunteerProfile", 'String'>
+  readonly organizationStatus: Prisma.FieldRef<"VolunteerProfile", 'OrgStatus'>
+  readonly joinedOrganizationAt: Prisma.FieldRef<"VolunteerProfile", 'DateTime'>
 }
     
 
@@ -1513,6 +1814,25 @@ export type VolunteerProfileDeleteManyArgs<ExtArgs extends runtime.Types.Extensi
    * Limit how many VolunteerProfiles to delete.
    */
   limit?: number
+}
+
+/**
+ * VolunteerProfile.organization
+ */
+export type VolunteerProfile$organizationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

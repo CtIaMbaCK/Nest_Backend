@@ -208,12 +208,15 @@ export type UserWhereInput = {
   forceChangePassword?: Prisma.BoolFilter<"User"> | boolean
   volunteerProfile?: Prisma.XOR<Prisma.VolunteerProfileNullableScalarRelationFilter, Prisma.VolunteerProfileWhereInput> | null
   bficiaryProfile?: Prisma.XOR<Prisma.BficiaryProfileNullableScalarRelationFilter, Prisma.BficiaryProfileWhereInput> | null
+  organizationProfiles?: Prisma.XOR<Prisma.OrganizationProfileNullableScalarRelationFilter, Prisma.OrganizationProfileWhereInput> | null
   activitiesRequested?: Prisma.HelpRequestListRelationFilter
   activitiesVolunteered?: Prisma.HelpRequestListRelationFilter
   reviewsWritten?: Prisma.ReviewListRelationFilter
   reviewsReceived?: Prisma.ReviewListRelationFilter
   appreciationsSent?: Prisma.AppreciationListRelationFilter
   appreciationsReceived?: Prisma.AppreciationListRelationFilter
+  volunteersManaged?: Prisma.VolunteerProfileListRelationFilter
+  beneficiariesManaged?: Prisma.BficiaryProfileListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -227,12 +230,15 @@ export type UserOrderByWithRelationInput = {
   forceChangePassword?: Prisma.SortOrder
   volunteerProfile?: Prisma.VolunteerProfileOrderByWithRelationInput
   bficiaryProfile?: Prisma.BficiaryProfileOrderByWithRelationInput
+  organizationProfiles?: Prisma.OrganizationProfileOrderByWithRelationInput
   activitiesRequested?: Prisma.HelpRequestOrderByRelationAggregateInput
   activitiesVolunteered?: Prisma.HelpRequestOrderByRelationAggregateInput
   reviewsWritten?: Prisma.ReviewOrderByRelationAggregateInput
   reviewsReceived?: Prisma.ReviewOrderByRelationAggregateInput
   appreciationsSent?: Prisma.AppreciationOrderByRelationAggregateInput
   appreciationsReceived?: Prisma.AppreciationOrderByRelationAggregateInput
+  volunteersManaged?: Prisma.VolunteerProfileOrderByRelationAggregateInput
+  beneficiariesManaged?: Prisma.BficiaryProfileOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -249,12 +255,15 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   forceChangePassword?: Prisma.BoolFilter<"User"> | boolean
   volunteerProfile?: Prisma.XOR<Prisma.VolunteerProfileNullableScalarRelationFilter, Prisma.VolunteerProfileWhereInput> | null
   bficiaryProfile?: Prisma.XOR<Prisma.BficiaryProfileNullableScalarRelationFilter, Prisma.BficiaryProfileWhereInput> | null
+  organizationProfiles?: Prisma.XOR<Prisma.OrganizationProfileNullableScalarRelationFilter, Prisma.OrganizationProfileWhereInput> | null
   activitiesRequested?: Prisma.HelpRequestListRelationFilter
   activitiesVolunteered?: Prisma.HelpRequestListRelationFilter
   reviewsWritten?: Prisma.ReviewListRelationFilter
   reviewsReceived?: Prisma.ReviewListRelationFilter
   appreciationsSent?: Prisma.AppreciationListRelationFilter
   appreciationsReceived?: Prisma.AppreciationListRelationFilter
+  volunteersManaged?: Prisma.VolunteerProfileListRelationFilter
+  beneficiariesManaged?: Prisma.BficiaryProfileListRelationFilter
 }, "id" | "email" | "phoneNumber">
 
 export type UserOrderByWithAggregationInput = {
@@ -296,12 +305,15 @@ export type UserCreateInput = {
   forceChangePassword?: boolean
   volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
   bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
   activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
   activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
   reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
   appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
   appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -315,12 +327,15 @@ export type UserUncheckedCreateInput = {
   forceChangePassword?: boolean
   volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
   bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
   activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
   activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
   reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
   appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
   appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUpdateInput = {
@@ -334,12 +349,15 @@ export type UserUpdateInput = {
   forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
   bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
   activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
   activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
   reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
   appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
   appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -353,12 +371,15 @@ export type UserUncheckedUpdateInput = {
   forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
   bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
   activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
   activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
   reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
   appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
   appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -463,6 +484,12 @@ export type UserCreateNestedOneWithoutVolunteerProfileInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
+export type UserCreateNestedOneWithoutVolunteersManagedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVolunteersManagedInput, Prisma.UserUncheckedCreateWithoutVolunteersManagedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVolunteersManagedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
 export type UserUpdateOneRequiredWithoutVolunteerProfileNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutVolunteerProfileInput, Prisma.UserUncheckedCreateWithoutVolunteerProfileInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutVolunteerProfileInput
@@ -471,9 +498,25 @@ export type UserUpdateOneRequiredWithoutVolunteerProfileNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutVolunteerProfileInput, Prisma.UserUpdateWithoutVolunteerProfileInput>, Prisma.UserUncheckedUpdateWithoutVolunteerProfileInput>
 }
 
+export type UserUpdateOneWithoutVolunteersManagedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVolunteersManagedInput, Prisma.UserUncheckedCreateWithoutVolunteersManagedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVolunteersManagedInput
+  upsert?: Prisma.UserUpsertWithoutVolunteersManagedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutVolunteersManagedInput, Prisma.UserUpdateWithoutVolunteersManagedInput>, Prisma.UserUncheckedUpdateWithoutVolunteersManagedInput>
+}
+
 export type UserCreateNestedOneWithoutBficiaryProfileInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutBficiaryProfileInput, Prisma.UserUncheckedCreateWithoutBficiaryProfileInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutBficiaryProfileInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutBeneficiariesManagedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBeneficiariesManagedInput, Prisma.UserUncheckedCreateWithoutBeneficiariesManagedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBeneficiariesManagedInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
@@ -483,6 +526,16 @@ export type UserUpdateOneRequiredWithoutBficiaryProfileNestedInput = {
   upsert?: Prisma.UserUpsertWithoutBficiaryProfileInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBficiaryProfileInput, Prisma.UserUpdateWithoutBficiaryProfileInput>, Prisma.UserUncheckedUpdateWithoutBficiaryProfileInput>
+}
+
+export type UserUpdateOneWithoutBeneficiariesManagedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBeneficiariesManagedInput, Prisma.UserUncheckedCreateWithoutBeneficiariesManagedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBeneficiariesManagedInput
+  upsert?: Prisma.UserUpsertWithoutBeneficiariesManagedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBeneficiariesManagedInput, Prisma.UserUpdateWithoutBeneficiariesManagedInput>, Prisma.UserUncheckedUpdateWithoutBeneficiariesManagedInput>
 }
 
 export type UserCreateNestedOneWithoutActivitiesRequestedInput = {
@@ -571,6 +624,20 @@ export type UserUpdateOneRequiredWithoutAppreciationsReceivedNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAppreciationsReceivedInput, Prisma.UserUpdateWithoutAppreciationsReceivedInput>, Prisma.UserUncheckedUpdateWithoutAppreciationsReceivedInput>
 }
 
+export type UserCreateNestedOneWithoutOrganizationProfilesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOrganizationProfilesInput, Prisma.UserUncheckedCreateWithoutOrganizationProfilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrganizationProfilesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutOrganizationProfilesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOrganizationProfilesInput, Prisma.UserUncheckedCreateWithoutOrganizationProfilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrganizationProfilesInput
+  upsert?: Prisma.UserUpsertWithoutOrganizationProfilesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOrganizationProfilesInput, Prisma.UserUpdateWithoutOrganizationProfilesInput>, Prisma.UserUncheckedUpdateWithoutOrganizationProfilesInput>
+}
+
 export type UserCreateWithoutVolunteerProfileInput = {
   id?: string
   email: string
@@ -581,12 +648,15 @@ export type UserCreateWithoutVolunteerProfileInput = {
   createdAt?: Date | string
   forceChangePassword?: boolean
   bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
   activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
   activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
   reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
   appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
   appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutVolunteerProfileInput = {
@@ -599,17 +669,67 @@ export type UserUncheckedCreateWithoutVolunteerProfileInput = {
   createdAt?: Date | string
   forceChangePassword?: boolean
   bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
   activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
   activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
   reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
   appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
   appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutVolunteerProfileInput = {
   where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutVolunteerProfileInput, Prisma.UserUncheckedCreateWithoutVolunteerProfileInput>
+}
+
+export type UserCreateWithoutVolunteersManagedInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
+}
+
+export type UserUncheckedCreateWithoutVolunteersManagedInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type UserCreateOrConnectWithoutVolunteersManagedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutVolunteersManagedInput, Prisma.UserUncheckedCreateWithoutVolunteersManagedInput>
 }
 
 export type UserUpsertWithoutVolunteerProfileInput = {
@@ -633,12 +753,15 @@ export type UserUpdateWithoutVolunteerProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
   activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
   activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
   reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
   appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
   appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolunteerProfileInput = {
@@ -651,12 +774,68 @@ export type UserUncheckedUpdateWithoutVolunteerProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
   activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
   activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
   reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
   appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
   appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type UserUpsertWithoutVolunteersManagedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutVolunteersManagedInput, Prisma.UserUncheckedUpdateWithoutVolunteersManagedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutVolunteersManagedInput, Prisma.UserUncheckedCreateWithoutVolunteersManagedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutVolunteersManagedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutVolunteersManagedInput, Prisma.UserUncheckedUpdateWithoutVolunteersManagedInput>
+}
+
+export type UserUpdateWithoutVolunteersManagedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
+}
+
+export type UserUncheckedUpdateWithoutVolunteersManagedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserCreateWithoutBficiaryProfileInput = {
@@ -669,12 +848,15 @@ export type UserCreateWithoutBficiaryProfileInput = {
   createdAt?: Date | string
   forceChangePassword?: boolean
   volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
   activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
   activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
   reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
   appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
   appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutBficiaryProfileInput = {
@@ -687,17 +869,67 @@ export type UserUncheckedCreateWithoutBficiaryProfileInput = {
   createdAt?: Date | string
   forceChangePassword?: boolean
   volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
   activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
   activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
   reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
   appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
   appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutBficiaryProfileInput = {
   where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutBficiaryProfileInput, Prisma.UserUncheckedCreateWithoutBficiaryProfileInput>
+}
+
+export type UserCreateWithoutBeneficiariesManagedInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+}
+
+export type UserUncheckedCreateWithoutBeneficiariesManagedInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type UserCreateOrConnectWithoutBeneficiariesManagedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBeneficiariesManagedInput, Prisma.UserUncheckedCreateWithoutBeneficiariesManagedInput>
 }
 
 export type UserUpsertWithoutBficiaryProfileInput = {
@@ -721,12 +953,15 @@ export type UserUpdateWithoutBficiaryProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
   activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
   activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
   reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
   appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
   appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBficiaryProfileInput = {
@@ -739,12 +974,68 @@ export type UserUncheckedUpdateWithoutBficiaryProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
   activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
   activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
   reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
   appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
   appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type UserUpsertWithoutBeneficiariesManagedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBeneficiariesManagedInput, Prisma.UserUncheckedUpdateWithoutBeneficiariesManagedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBeneficiariesManagedInput, Prisma.UserUncheckedCreateWithoutBeneficiariesManagedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBeneficiariesManagedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBeneficiariesManagedInput, Prisma.UserUncheckedUpdateWithoutBeneficiariesManagedInput>
+}
+
+export type UserUpdateWithoutBeneficiariesManagedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBeneficiariesManagedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserCreateWithoutActivitiesRequestedInput = {
@@ -758,11 +1049,14 @@ export type UserCreateWithoutActivitiesRequestedInput = {
   forceChangePassword?: boolean
   volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
   bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
   activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
   reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
   appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
   appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutActivitiesRequestedInput = {
@@ -776,11 +1070,14 @@ export type UserUncheckedCreateWithoutActivitiesRequestedInput = {
   forceChangePassword?: boolean
   volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
   bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
   activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
   reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
   appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
   appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutActivitiesRequestedInput = {
@@ -799,11 +1096,14 @@ export type UserCreateWithoutActivitiesVolunteeredInput = {
   forceChangePassword?: boolean
   volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
   bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
   activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
   reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
   appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
   appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutActivitiesVolunteeredInput = {
@@ -817,11 +1117,14 @@ export type UserUncheckedCreateWithoutActivitiesVolunteeredInput = {
   forceChangePassword?: boolean
   volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
   bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
   activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
   reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
   appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
   appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutActivitiesVolunteeredInput = {
@@ -851,11 +1154,14 @@ export type UserUpdateWithoutActivitiesRequestedInput = {
   forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
   bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
   activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
   reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
   appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
   appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivitiesRequestedInput = {
@@ -869,11 +1175,14 @@ export type UserUncheckedUpdateWithoutActivitiesRequestedInput = {
   forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
   bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
   activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
   reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
   appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
   appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUpsertWithoutActivitiesVolunteeredInput = {
@@ -898,11 +1207,14 @@ export type UserUpdateWithoutActivitiesVolunteeredInput = {
   forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
   bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
   activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
   reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
   appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
   appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivitiesVolunteeredInput = {
@@ -916,11 +1228,14 @@ export type UserUncheckedUpdateWithoutActivitiesVolunteeredInput = {
   forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
   bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
   activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
   reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
   appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
   appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserCreateWithoutReviewsWrittenInput = {
@@ -934,11 +1249,14 @@ export type UserCreateWithoutReviewsWrittenInput = {
   forceChangePassword?: boolean
   volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
   bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
   activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
   activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
   reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
   appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
   appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutReviewsWrittenInput = {
@@ -952,11 +1270,14 @@ export type UserUncheckedCreateWithoutReviewsWrittenInput = {
   forceChangePassword?: boolean
   volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
   bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
   activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
   activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
   reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
   appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
   appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutReviewsWrittenInput = {
@@ -975,11 +1296,14 @@ export type UserCreateWithoutReviewsReceivedInput = {
   forceChangePassword?: boolean
   volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
   bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
   activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
   activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
   reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
   appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutReviewsReceivedInput = {
@@ -993,11 +1317,14 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   forceChangePassword?: boolean
   volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
   bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
   activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
   activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
   reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
   appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutReviewsReceivedInput = {
@@ -1027,11 +1354,14 @@ export type UserUpdateWithoutReviewsWrittenInput = {
   forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
   bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
   activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
   activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
   reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
   appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
   appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsWrittenInput = {
@@ -1045,11 +1375,14 @@ export type UserUncheckedUpdateWithoutReviewsWrittenInput = {
   forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
   bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
   activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
   activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
   reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
   appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
   appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUpsertWithoutReviewsReceivedInput = {
@@ -1074,11 +1407,14 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
   bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
   activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
   activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
   reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
   appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
@@ -1092,11 +1428,14 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
   bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
   activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
   activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
   reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
   appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserCreateWithoutAppreciationsSentInput = {
@@ -1110,11 +1449,14 @@ export type UserCreateWithoutAppreciationsSentInput = {
   forceChangePassword?: boolean
   volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
   bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
   activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
   activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
   reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
   appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutAppreciationsSentInput = {
@@ -1128,11 +1470,14 @@ export type UserUncheckedCreateWithoutAppreciationsSentInput = {
   forceChangePassword?: boolean
   volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
   bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
   activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
   activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
   reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
   appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutAppreciationsSentInput = {
@@ -1151,11 +1496,14 @@ export type UserCreateWithoutAppreciationsReceivedInput = {
   forceChangePassword?: boolean
   volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
   bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
   activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
   activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
   reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
   appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutAppreciationsReceivedInput = {
@@ -1169,11 +1517,14 @@ export type UserUncheckedCreateWithoutAppreciationsReceivedInput = {
   forceChangePassword?: boolean
   volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
   bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
   activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
   activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
   reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
   appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutAppreciationsReceivedInput = {
@@ -1203,11 +1554,14 @@ export type UserUpdateWithoutAppreciationsSentInput = {
   forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
   bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
   activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
   activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
   reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
   appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAppreciationsSentInput = {
@@ -1221,11 +1575,14 @@ export type UserUncheckedUpdateWithoutAppreciationsSentInput = {
   forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
   bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
   activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
   activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
   reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
   appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUpsertWithoutAppreciationsReceivedInput = {
@@ -1250,14 +1607,117 @@ export type UserUpdateWithoutAppreciationsReceivedInput = {
   forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
   volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
   bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
   activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
   activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
   reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
   appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAppreciationsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type UserCreateWithoutOrganizationProfilesInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
+}
+
+export type UserUncheckedCreateWithoutOrganizationProfilesInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type UserCreateOrConnectWithoutOrganizationProfilesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutOrganizationProfilesInput, Prisma.UserUncheckedCreateWithoutOrganizationProfilesInput>
+}
+
+export type UserUpsertWithoutOrganizationProfilesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOrganizationProfilesInput, Prisma.UserUncheckedUpdateWithoutOrganizationProfilesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOrganizationProfilesInput, Prisma.UserUncheckedCreateWithoutOrganizationProfilesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutOrganizationProfilesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOrganizationProfilesInput, Prisma.UserUncheckedUpdateWithoutOrganizationProfilesInput>
+}
+
+export type UserUpdateWithoutOrganizationProfilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOrganizationProfilesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1273,6 +1733,9 @@ export type UserUncheckedUpdateWithoutAppreciationsReceivedInput = {
   reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
   appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 
@@ -1287,6 +1750,8 @@ export type UserCountOutputType = {
   reviewsReceived: number
   appreciationsSent: number
   appreciationsReceived: number
+  volunteersManaged: number
+  beneficiariesManaged: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1296,6 +1761,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   reviewsReceived?: boolean | UserCountOutputTypeCountReviewsReceivedArgs
   appreciationsSent?: boolean | UserCountOutputTypeCountAppreciationsSentArgs
   appreciationsReceived?: boolean | UserCountOutputTypeCountAppreciationsReceivedArgs
+  volunteersManaged?: boolean | UserCountOutputTypeCountVolunteersManagedArgs
+  beneficiariesManaged?: boolean | UserCountOutputTypeCountBeneficiariesManagedArgs
 }
 
 /**
@@ -1350,6 +1817,20 @@ export type UserCountOutputTypeCountAppreciationsReceivedArgs<ExtArgs extends ru
   where?: Prisma.AppreciationWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountVolunteersManagedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.VolunteerProfileWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBeneficiariesManagedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BficiaryProfileWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1362,12 +1843,15 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   forceChangePassword?: boolean
   volunteerProfile?: boolean | Prisma.User$volunteerProfileArgs<ExtArgs>
   bficiaryProfile?: boolean | Prisma.User$bficiaryProfileArgs<ExtArgs>
+  organizationProfiles?: boolean | Prisma.User$organizationProfilesArgs<ExtArgs>
   activitiesRequested?: boolean | Prisma.User$activitiesRequestedArgs<ExtArgs>
   activitiesVolunteered?: boolean | Prisma.User$activitiesVolunteeredArgs<ExtArgs>
   reviewsWritten?: boolean | Prisma.User$reviewsWrittenArgs<ExtArgs>
   reviewsReceived?: boolean | Prisma.User$reviewsReceivedArgs<ExtArgs>
   appreciationsSent?: boolean | Prisma.User$appreciationsSentArgs<ExtArgs>
   appreciationsReceived?: boolean | Prisma.User$appreciationsReceivedArgs<ExtArgs>
+  volunteersManaged?: boolean | Prisma.User$volunteersManagedArgs<ExtArgs>
+  beneficiariesManaged?: boolean | Prisma.User$beneficiariesManagedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1408,12 +1892,15 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   volunteerProfile?: boolean | Prisma.User$volunteerProfileArgs<ExtArgs>
   bficiaryProfile?: boolean | Prisma.User$bficiaryProfileArgs<ExtArgs>
+  organizationProfiles?: boolean | Prisma.User$organizationProfilesArgs<ExtArgs>
   activitiesRequested?: boolean | Prisma.User$activitiesRequestedArgs<ExtArgs>
   activitiesVolunteered?: boolean | Prisma.User$activitiesVolunteeredArgs<ExtArgs>
   reviewsWritten?: boolean | Prisma.User$reviewsWrittenArgs<ExtArgs>
   reviewsReceived?: boolean | Prisma.User$reviewsReceivedArgs<ExtArgs>
   appreciationsSent?: boolean | Prisma.User$appreciationsSentArgs<ExtArgs>
   appreciationsReceived?: boolean | Prisma.User$appreciationsReceivedArgs<ExtArgs>
+  volunteersManaged?: boolean | Prisma.User$volunteersManagedArgs<ExtArgs>
+  beneficiariesManaged?: boolean | Prisma.User$beneficiariesManagedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1424,12 +1911,15 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     volunteerProfile: Prisma.$VolunteerProfilePayload<ExtArgs> | null
     bficiaryProfile: Prisma.$BficiaryProfilePayload<ExtArgs> | null
+    organizationProfiles: Prisma.$OrganizationProfilePayload<ExtArgs> | null
     activitiesRequested: Prisma.$HelpRequestPayload<ExtArgs>[]
     activitiesVolunteered: Prisma.$HelpRequestPayload<ExtArgs>[]
     reviewsWritten: Prisma.$ReviewPayload<ExtArgs>[]
     reviewsReceived: Prisma.$ReviewPayload<ExtArgs>[]
     appreciationsSent: Prisma.$AppreciationPayload<ExtArgs>[]
     appreciationsReceived: Prisma.$AppreciationPayload<ExtArgs>[]
+    volunteersManaged: Prisma.$VolunteerProfilePayload<ExtArgs>[]
+    beneficiariesManaged: Prisma.$BficiaryProfilePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1836,12 +2326,15 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   volunteerProfile<T extends Prisma.User$volunteerProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$volunteerProfileArgs<ExtArgs>>): Prisma.Prisma__VolunteerProfileClient<runtime.Types.Result.GetResult<Prisma.$VolunteerProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   bficiaryProfile<T extends Prisma.User$bficiaryProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bficiaryProfileArgs<ExtArgs>>): Prisma.Prisma__BficiaryProfileClient<runtime.Types.Result.GetResult<Prisma.$BficiaryProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  organizationProfiles<T extends Prisma.User$organizationProfilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$organizationProfilesArgs<ExtArgs>>): Prisma.Prisma__OrganizationProfileClient<runtime.Types.Result.GetResult<Prisma.$OrganizationProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   activitiesRequested<T extends Prisma.User$activitiesRequestedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$activitiesRequestedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HelpRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activitiesVolunteered<T extends Prisma.User$activitiesVolunteeredArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$activitiesVolunteeredArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HelpRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviewsWritten<T extends Prisma.User$reviewsWrittenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsWrittenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviewsReceived<T extends Prisma.User$reviewsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   appreciationsSent<T extends Prisma.User$appreciationsSentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$appreciationsSentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppreciationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   appreciationsReceived<T extends Prisma.User$appreciationsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$appreciationsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppreciationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  volunteersManaged<T extends Prisma.User$volunteersManagedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$volunteersManagedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VolunteerProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  beneficiariesManaged<T extends Prisma.User$beneficiariesManagedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$beneficiariesManagedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BficiaryProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2305,6 +2798,25 @@ export type User$bficiaryProfileArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
+ * User.organizationProfiles
+ */
+export type User$organizationProfilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OrganizationProfile
+   */
+  select?: Prisma.OrganizationProfileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OrganizationProfile
+   */
+  omit?: Prisma.OrganizationProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrganizationProfileInclude<ExtArgs> | null
+  where?: Prisma.OrganizationProfileWhereInput
+}
+
+/**
  * User.activitiesRequested
  */
 export type User$activitiesRequestedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2446,6 +2958,54 @@ export type User$appreciationsReceivedArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.AppreciationScalarFieldEnum | Prisma.AppreciationScalarFieldEnum[]
+}
+
+/**
+ * User.volunteersManaged
+ */
+export type User$volunteersManagedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the VolunteerProfile
+   */
+  select?: Prisma.VolunteerProfileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the VolunteerProfile
+   */
+  omit?: Prisma.VolunteerProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.VolunteerProfileInclude<ExtArgs> | null
+  where?: Prisma.VolunteerProfileWhereInput
+  orderBy?: Prisma.VolunteerProfileOrderByWithRelationInput | Prisma.VolunteerProfileOrderByWithRelationInput[]
+  cursor?: Prisma.VolunteerProfileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.VolunteerProfileScalarFieldEnum | Prisma.VolunteerProfileScalarFieldEnum[]
+}
+
+/**
+ * User.beneficiariesManaged
+ */
+export type User$beneficiariesManagedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BficiaryProfile
+   */
+  select?: Prisma.BficiaryProfileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BficiaryProfile
+   */
+  omit?: Prisma.BficiaryProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BficiaryProfileInclude<ExtArgs> | null
+  where?: Prisma.BficiaryProfileWhereInput
+  orderBy?: Prisma.BficiaryProfileOrderByWithRelationInput | Prisma.BficiaryProfileOrderByWithRelationInput[]
+  cursor?: Prisma.BficiaryProfileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BficiaryProfileScalarFieldEnum | Prisma.BficiaryProfileScalarFieldEnum[]
 }
 
 /**
