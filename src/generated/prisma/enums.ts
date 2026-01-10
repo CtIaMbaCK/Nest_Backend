@@ -150,3 +150,24 @@ export const OrgStatus = {
 } as const
 
 export type OrgStatus = (typeof OrgStatus)[keyof typeof OrgStatus]
+
+
+export const CampaignStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  ONGOING: 'ONGOING',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type CampaignStatus = (typeof CampaignStatus)[keyof typeof CampaignStatus]
+
+
+export const RegistrationStatus = {
+  REGISTERED: 'REGISTERED',
+  ATTENDED: 'ATTENDED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type RegistrationStatus = (typeof RegistrationStatus)[keyof typeof RegistrationStatus]

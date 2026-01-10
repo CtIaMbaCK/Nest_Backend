@@ -57,7 +57,10 @@ export const ModelName = {
   HelpRequest: 'HelpRequest',
   Review: 'Review',
   Appreciation: 'Appreciation',
-  OrganizationProfile: 'OrganizationProfile'
+  OrganizationProfile: 'OrganizationProfile',
+  Campaign: 'Campaign',
+  CampaignRegistration: 'CampaignRegistration',
+  CommunicationPost: 'CommunicationPost'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -200,6 +203,54 @@ export const OrganizationProfileScalarFieldEnum = {
 } as const
 
 export type OrganizationProfileScalarFieldEnum = (typeof OrganizationProfileScalarFieldEnum)[keyof typeof OrganizationProfileScalarFieldEnum]
+
+
+export const CampaignScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  status: 'status',
+  title: 'title',
+  description: 'description',
+  goal: 'goal',
+  district: 'district',
+  addressDetail: 'addressDetail',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  coverImage: 'coverImage',
+  images: 'images',
+  targetVolunteers: 'targetVolunteers',
+  maxVolunteers: 'maxVolunteers',
+  currentVolunteers: 'currentVolunteers',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CampaignScalarFieldEnum = (typeof CampaignScalarFieldEnum)[keyof typeof CampaignScalarFieldEnum]
+
+
+export const CampaignRegistrationScalarFieldEnum = {
+  id: 'id',
+  campaignId: 'campaignId',
+  volunteerId: 'volunteerId',
+  status: 'status',
+  registeredAt: 'registeredAt',
+  notes: 'notes'
+} as const
+
+export type CampaignRegistrationScalarFieldEnum = (typeof CampaignRegistrationScalarFieldEnum)[keyof typeof CampaignRegistrationScalarFieldEnum]
+
+
+export const CommunicationPostScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  title: 'title',
+  content: 'content',
+  coverImage: 'coverImage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CommunicationPostScalarFieldEnum = (typeof CommunicationPostScalarFieldEnum)[keyof typeof CommunicationPostScalarFieldEnum]
 
 
 export const SortOrder = {

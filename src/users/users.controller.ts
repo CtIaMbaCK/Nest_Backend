@@ -1,13 +1,16 @@
 import {
   Body,
   Controller,
+  Delete,
   ForbiddenException,
   Get,
+  Param,
   Patch,
+  Post,
+  Query,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
-  // Post,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -16,13 +19,24 @@ import {
   UpdateBficiaryProfileDto,
   UpdateVolunteerProfileDto,
 } from './dto/create-user.dto';
-import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { CampaignService } from 'src/admin-tcxh/campaign/campaign.service';
+import { RegisterCampaignDto, SearchCampaignDto } from 'src/admin-tcxh/campaign/dto';
 
 @ApiBearerAuth('JWT-auth')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly userService: UsersService) {}
+  constructor(
+    private readonly userService: UsersService,
+    private readonly campaignService: CampaignService,
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @Get()
@@ -147,5 +161,65 @@ export class UsersController {
     }
 
     return this.userService.updateBenificiaryProfile(userId, dto, files);
+  }
+
+  // ========== API CHO TÌNH NGUYỆN VIÊN - CAMPAIGN ==========
+
+  @ApiTags('Volunteer - Campaign')
+  @UseGuards(JwtAuthGuard)
+  @Get('volunteer/campaigns/recommended')
+  @ApiOperation({
+    summary: '[TNV] Xem tất cả campaign, ưu tiên campaign cùng quận lên đầu',
+    description:
+      'Hiển thị tất cả campaign sắp diễn ra. Campaign có quận trùng với preferredDistricts của TNV sẽ được ưu tiên hiển thị lên đầu.',
+  })
+  async getRecommendedCampaigns(@GetUser('sub') volunteerId: string) {
+    return this.campaignService.getRecommendedCampaigns(volunteerId);
+  }
+
+  @ApiTags('Volunteer - Campaign')
+  @UseGuards(JwtAuthGuard)
+  @Get('volunteer/campaigns/search')
+  @ApiOperation({
+    summary: '[TNV] Tìm kiếm campaign theo từ khóa',
+    description:
+      'Tìm kiếm campaign theo từ khóa trong tiêu đề và mô tả. Kết quả ưu tiên campaign cùng quận lên đầu.',
+  })
+  async searchCampaigns(
+    @GetUser('sub') volunteerId: string,
+    @Query() dto: SearchCampaignDto,
+  ) {
+    return this.campaignService.searchCampaigns(volunteerId, dto);
+  }
+
+  @ApiTags('Volunteer - Campaign')
+  @UseGuards(JwtAuthGuard)
+  @Get('volunteer/campaigns/my-registrations')
+  @ApiOperation({ summary: '[TNV] Xem danh sách campaign đã đăng ký' })
+  async getMyRegistrations(@GetUser('sub') volunteerId: string) {
+    return this.campaignService.getMyRegistrations(volunteerId);
+  }
+
+  @ApiTags('Volunteer - Campaign')
+  @UseGuards(JwtAuthGuard)
+  @Post('volunteer/campaigns/:id/register')
+  @ApiOperation({ summary: '[TNV] Đăng ký tham gia campaign' })
+  async registerCampaign(
+    @GetUser('sub') volunteerId: string,
+    @Param('id') campaignId: string,
+    @Body() dto: RegisterCampaignDto,
+  ) {
+    return this.campaignService.registerCampaign(volunteerId, campaignId, dto);
+  }
+
+  @ApiTags('Volunteer - Campaign')
+  @UseGuards(JwtAuthGuard)
+  @Delete('volunteer/campaigns/:id/cancel')
+  @ApiOperation({ summary: '[TNV] Hủy đăng ký campaign' })
+  async cancelRegistration(
+    @GetUser('sub') volunteerId: string,
+    @Param('id') campaignId: string,
+  ) {
+    return this.campaignService.cancelRegistration(volunteerId, campaignId);
   }
 }

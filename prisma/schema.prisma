@@ -158,15 +158,14 @@ model User {
   appreciationsSent     Appreciation[] @relation("AppreciationSender")
   appreciationsReceived Appreciation[] @relation("AppreciationReceiver")
 
-  // // 
-  // campaigns             Campaign[]             @relation("CampaignCreator")
-  // campaignRegistrations CampaignRegistration[] @relation("CampaignVolunteer")
+  // Campaign
+  campaigns             Campaign[]             @relation("CampaignOrganization")
+  campaignRegistrations CampaignRegistration[] @relation("CampaignVolunteer")
 
-  // // ========== THÊM CÁC DÒNG NÀY ==========
-  volunteersManaged    VolunteerProfile[] @relation("VolunteerOrganization")
-  beneficiariesManaged BficiaryProfile[]  @relation("BeneficiaryOrganization")
-  // posts                Post[]             @relation("OrgPosts")
-  // // =======================================
+  // Organization management
+  volunteersManaged    VolunteerProfile[]    @relation("VolunteerOrganization")
+  beneficiariesManaged BficiaryProfile[]     @relation("BeneficiaryOrganization")
+  communicationPosts   CommunicationPost[]   @relation("OrgPosts")
 }
 
 // profile của tình nguyện viên
@@ -302,19 +301,20 @@ model Appreciation {
 
 // moi them
 
-// enum CampaignType {
-//   EVENT // su kien dien ra trong ngay, ngan, ko di xa 
-//   CAMPAIGN // su kien dien ra trong nhieu ngay, dai, có thể đi xa
-// }
+enum CampaignStatus {
+  PENDING    // Đang chờ duyệt
+  APPROVED   // Đã duyệt, đang mở đăng ký
+  REJECTED   // Đã từ chối
+  ONGOING    // Đang diễn ra
+  COMPLETED  // Hoàn thành
+  CANCELLED  // Đã hủy
+}
 
-// enum CampaignStatus {
-//   PEDING // Đang chờ duyệt
-//   APPROVED // Đã duyệt
-//   REJECTED // Đã từ chối
-//   ONGOING // Đang diễn ra
-//   COMPLETED // Hoàn thành
-//   CANCELLED // Đã hủy
-// }
+enum RegistrationStatus {
+  REGISTERED  // Đã đăng ký
+  ATTENDED    // Đã tham gia
+  CANCELLED   // Đã hủy
+}
 
 model OrganizationProfile {
   userId String @id @map("user_id")
@@ -339,70 +339,69 @@ model OrganizationProfile {
   createdAt DateTime @default(now()) @map("created_at")
 }
 
-// model Campaign {
-//   id String @id @default(uuid())
+model Campaign {
+  id String @id @default(uuid())
 
-//   creatorId String @map("creator_id")
-//   creator   User   @relation("CampaignCreator", fields: [creatorId], references: [id])
+  organizationId String @map("organization_id")
+  organization   User   @relation("CampaignOrganization", fields: [organizationId], references: [id])
 
-//   type   CampaignType
-//   status CampaignStatus @default(APPROVED)
+  status CampaignStatus @default(PENDING)
 
-//   title       String
-//   description String? @db.Text
-//   goal        String? @db.Text
+  title       String
+  description String? @db.Text
+  goal        String? @db.Text
 
-//   district      District @map("district")
-//   addressDetail String   @map("address_detail")
-//   latitude      Float?   @map("latitude")
-//   longitude     Float?   @map("longitude")
+  // Địa điểm - để gợi ý theo preferredDistricts
+  district      District @map("district")
+  addressDetail String   @map("address_detail")
 
-//   startDate DateTime  @map("start_date")
-//   endDate   DateTime? @map("end_date")
+  // Thời gian
+  startDate DateTime  @map("start_date")
+  endDate   DateTime? @map("end_date")
 
-//   coverImage String?  @map("cover_image")
-//   images     String[] @map("images")
+  // Hình ảnh
+  coverImage String?  @map("cover_image")
+  images     String[] @map("images")
 
-//   targetVolunteers Int                    @default(0) @map("target_volunteers")
-//   registrations    CampaignRegistration[]
+  // Số lượng tình nguyện viên
+  targetVolunteers  Int @default(0) @map("target_volunteers")
+  maxVolunteers     Int @default(0) @map("max_volunteers")
+  currentVolunteers Int @default(0) @map("current_volunteers")
 
-//   createdAt DateTime @default(now()) @map("created_at")
-//   updatedAt DateTime @updatedAt @map("updated_at")
-// }
+  registrations CampaignRegistration[]
 
-// model CampaignRegistration {
-//   id String @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
 
-//   campaignId String   @map("campaign_id")
-//   campaign   Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+model CampaignRegistration {
+  id String @id @default(uuid())
 
-//   volunteerId String @map("volunteer_id")
-//   volunteer   User   @relation("CampaignVolunteer", fields: [volunteerId], references: [id])
+  campaignId String   @map("campaign_id")
+  campaign   Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
 
-//   status       String   @default("REGISTERED")
-//   registeredAt DateTime @default(now()) @map("registered_at")
-//   notes        String?  @db.Text
+  volunteerId String @map("volunteer_id")
+  volunteer   User   @relation("CampaignVolunteer", fields: [volunteerId], references: [id])
 
-//   @@unique([campaignId, volunteerId])
-// }
+  status       RegistrationStatus @default(REGISTERED)
+  registeredAt DateTime           @default(now()) @map("registered_at")
+  notes        String?            @db.Text
 
-// model Post {
-//   id String @id @default(uuid())
+  @@unique([campaignId, volunteerId])
+}
 
-//   organizationId String @map("organization_id")
-//   organization   User   @relation("OrgPosts", fields: [organizationId], references: [id])
+model CommunicationPost {
+  id String @id @default(uuid())
 
-//   title   String
-//   content String   @db.Text
-//   images  String[]
+  organizationId String @map("organization_id")
+  organization   User   @relation("OrgPosts", fields: [organizationId], references: [id])
 
-//   type String @default("NEWS") // NEWS, ANNOUNCEMENT, STORY, ACHIEVEMENT
+  title      String
+  content    String  @db.Text
+  coverImage String? @map("cover_image")
 
-//   status      String    @default("DRAFT") // DRAFT, PUBLISHED
-//   publishedAt DateTime? @map("published_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-//   views Int @default(0)
-
-//   createdAt DateTime @default(now()) @map("created_at")
-//   updatedAt DateTime @updatedAt @map("updated_at")
-// }
+  @@map("communication_posts")
+}

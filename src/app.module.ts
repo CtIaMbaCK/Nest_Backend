@@ -8,6 +8,8 @@ import { RequestModule } from './request/request.module';
 import { FeedbackModule } from './feedback/feedback.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { OrganizationModule } from './admin-tcxh/organization/organization.module';
+import { CampaignModule } from './admin-tcxh/campaign/campaign.module';
+import { CommunicationModule } from './admin-tcxh/communication/communication.module';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { OrganizationModule } from './admin-tcxh/organization/organization.modul
     FeedbackModule,
     CloudinaryModule,
     OrganizationModule,
+    CampaignModule,
+    CommunicationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

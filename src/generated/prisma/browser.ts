@@ -52,3 +52,18 @@ export type Appreciation = Prisma.AppreciationModel
  * 
  */
 export type OrganizationProfile = Prisma.OrganizationProfileModel
+/**
+ * Model Campaign
+ * 
+ */
+export type Campaign = Prisma.CampaignModel
+/**
+ * Model CampaignRegistration
+ * 
+ */
+export type CampaignRegistration = Prisma.CampaignRegistrationModel
+/**
+ * Model CommunicationPost
+ * 
+ */
+export type CommunicationPost = Prisma.CommunicationPostModel

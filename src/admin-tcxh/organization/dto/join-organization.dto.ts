@@ -42,7 +42,7 @@ export class GetBeneficiariesDto {
 export class GetVolunteersDto extends GetBeneficiariesDto {
   @ApiPropertyOptional({
     enum: District,
-    isArray: true, // Cho phép chọn nhiều trên UI Swagger
+    isArray: true,
     description: 'Lọc theo danh sách các quận/huyện',
   })
   @IsOptional()
