@@ -67,3 +67,23 @@ export type CampaignRegistration = Prisma.CampaignRegistrationModel
  * 
  */
 export type CommunicationPost = Prisma.CommunicationPostModel
+/**
+ * Model PointHistory
+ * 
+ */
+export type PointHistory = Prisma.PointHistoryModel
+/**
+ * Model VolunteerComment
+ * 
+ */
+export type VolunteerComment = Prisma.VolunteerCommentModel
+/**
+ * Model CertificateTemplate
+ * 
+ */
+export type CertificateTemplate = Prisma.CertificateTemplateModel
+/**
+ * Model IssuedCertificate
+ * 
+ */
+export type IssuedCertificate = Prisma.IssuedCertificateModel

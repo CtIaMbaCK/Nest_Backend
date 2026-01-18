@@ -13,6 +13,7 @@ import { env as ENV } from 'prisma/config';
 
 import { GoongResponse } from './goong.interface';
 import { FilterActivityDto } from './dto/filter.dto';
+import { PointsHelper } from '../volunteer-rewards/points.helper';
 
 @Injectable()
 export class RequestService {
@@ -172,7 +173,7 @@ export class RequestService {
       );
     }
 
-    return this.prisma.helpRequest.update({
+    const updated = await this.prisma.helpRequest.update({
       where: { id: requestId },
       data: {
         status: 'COMPLETED',
@@ -182,6 +183,17 @@ export class RequestService {
         completionNotes: dto.completionNotes,
       },
     });
+
+    // Tự động cộng +10 điểm cho TNV khi hoàn thành request
+    if (request.volunteerId) {
+      await PointsHelper.addPointsForHelpRequest(
+        this.prisma,
+        request.volunteerId,
+        requestId,
+      );
+    }
+
+    return updated;
   }
 
   // cap nhat yeu cau giup do

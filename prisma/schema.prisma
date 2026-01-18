@@ -166,6 +166,14 @@ model User {
   volunteersManaged    VolunteerProfile[]    @relation("VolunteerOrganization")
   beneficiariesManaged BficiaryProfile[]     @relation("BeneficiaryOrganization")
   communicationPosts   CommunicationPost[]   @relation("OrgPosts")
+
+  // Hệ thống khen thưởng
+  pointHistory           PointHistory[]        @relation("VolunteerPoints")
+  volunteerComments      VolunteerComment[]    @relation("VolunteerComments")
+  organizationComments   VolunteerComment[]    @relation("OrgComments")
+  certificateTemplates   CertificateTemplate[] @relation("OrgCertTemplates")
+  certificatesReceived   IssuedCertificate[]   @relation("VolunteerCertificates")
+  certificatesIssued     IssuedCertificate[]   @relation("OrgIssuedCertificates")
 }
 
 // profile của tình nguyện viên
@@ -189,6 +197,9 @@ model VolunteerProfile {
   organization         User?     @relation("VolunteerOrganization", fields: [organizationId], references: [id])
   organizationStatus   OrgStatus? @map("organization_status")
   joinedOrganizationAt DateTime? @map("joined_organization_at")
+
+  // Hệ thống điểm khen thưởng
+  points Int @default(0) // Tổng điểm tích lũy
 }
 
 // profile của người cần giúp đỡ
@@ -404,4 +415,130 @@ model CommunicationPost {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("communication_posts")
+}
+
+// ============================================
+// HỆ THỐNG ĐIỂM & KHEN THƯỞNG TÌNH NGUYỆN VIÊN
+// ============================================
+
+// Nguồn cộng điểm
+enum PointSource {
+  HELP_REQUEST // Hoàn thành yêu cầu giúp đỡ: +10 điểm
+  CAMPAIGN     // Tham gia campaign: +10 điểm
+  MANUAL       // TCXH cộng điểm thủ công
+  BONUS        // Thưởng đặc biệt
+}
+
+// 1. Lịch sử tích điểm (optional - để track chi tiết)
+model PointHistory {
+  id String @id @default(uuid())
+
+  volunteerId String @map("volunteer_id")
+  volunteer   User   @relation("VolunteerPoints", fields: [volunteerId], references: [id])
+
+  points      Int // Số điểm (có thể âm nếu trừ)
+  source      PointSource
+  description String? @db.Text
+
+  // Reference đến activity hoặc campaign (nullable)
+  helpRequestId String? @map("help_request_id")
+  campaignId    String? @map("campaign_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("point_history")
+}
+
+// 2. Nhận xét của TCXH về TNV (nhận xét tổng thể, không gắn với campaign cụ thể)
+model VolunteerComment {
+  id String @id @default(uuid())
+
+  volunteerId String @map("volunteer_id")
+  volunteer   User   @relation("VolunteerComments", fields: [volunteerId], references: [id])
+
+  organizationId String @map("organization_id")
+  organization   User   @relation("OrgComments", fields: [organizationId], references: [id])
+
+  comment String @db.Text
+  rating  Int? // 1-5 sao (optional)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("volunteer_comments")
+}
+
+// 3. Mẫu chứng nhận của TCXH
+model CertificateTemplate {
+  id String @id @default(uuid())
+
+  organizationId String @map("organization_id")
+  organization   User   @relation("OrgCertTemplates", fields: [organizationId], references: [id])
+
+  name        String // Tên mẫu: "Chứng nhận xuất sắc", "Chứng nhận tham gia"
+  description String? @db.Text
+
+  // URL ảnh template đã upload lên Cloudinary
+  templateImageUrl String @map("template_image_url")
+
+  // Cấu hình text box để điền tên TNV (JSON)
+  // {
+  //   "volunteerName": {
+  //     "x": 250,        // Vị trí X (pixel từ góc trái trên)
+  //     "y": 300,        // Vị trí Y (pixel từ góc trái trên)
+  //     "width": 400,    // Độ rộng text box
+  //     "height": 80,    // Độ cao text box
+  //     "fontSize": 32,  // Cỡ chữ
+  //     "fontFamily": "Arial",
+  //     "color": "#000000",
+  //     "align": "center" // left, center, right
+  //   },
+  //   "points": { ... },       // Optional - hiển thị điểm
+  //   "issueDate": { ... },    // Optional - ngày cấp
+  //   "organizationName": { ... } // Optional - tên tổ chức
+  // }
+  textBoxConfig Json @map("text_box_config")
+
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  issuedCertificates IssuedCertificate[]
+
+  @@map("certificate_templates")
+}
+
+// 4. Chứng nhận đã cấp
+model IssuedCertificate {
+  id String @id @default(uuid())
+
+  templateId String              @map("template_id")
+  template   CertificateTemplate @relation(fields: [templateId], references: [id])
+
+  volunteerId String @map("volunteer_id")
+  volunteer   User   @relation("VolunteerCertificates", fields: [volunteerId], references: [id])
+
+  organizationId String @map("organization_id")
+  organization   User   @relation("OrgIssuedCertificates", fields: [organizationId], references: [id])
+
+  // Thông tin được điền vào chứng nhận (JSON)
+  // {
+  //   "volunteerName": "Nguyễn Văn A",
+  //   "points": 120,
+  //   "issueDate": "11/01/2026",
+  //   "achievementText": "Đã hoàn thành xuất sắc 12 hoạt động tình nguyện"
+  // }
+  certificateData Json @map("certificate_data")
+
+  // URL file PDF đã xuất (upload lên Cloudinary)
+  pdfUrl String @map("pdf_url")
+
+  // Email tracking
+  emailSent   Boolean   @default(false) @map("email_sent")
+  emailSentAt DateTime? @map("email_sent_at")
+
+  notes    String?  @db.Text
+  issuedAt DateTime @default(now()) @map("issued_at")
+
+  @@map("issued_certificates")
 }

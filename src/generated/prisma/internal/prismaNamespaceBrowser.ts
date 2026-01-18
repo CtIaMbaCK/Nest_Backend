@@ -60,7 +60,11 @@ export const ModelName = {
   OrganizationProfile: 'OrganizationProfile',
   Campaign: 'Campaign',
   CampaignRegistration: 'CampaignRegistration',
-  CommunicationPost: 'CommunicationPost'
+  CommunicationPost: 'CommunicationPost',
+  PointHistory: 'PointHistory',
+  VolunteerComment: 'VolunteerComment',
+  CertificateTemplate: 'CertificateTemplate',
+  IssuedCertificate: 'IssuedCertificate'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -106,7 +110,8 @@ export const VolunteerProfileScalarFieldEnum = {
   cccdBackFile: 'cccdBackFile',
   organizationId: 'organizationId',
   organizationStatus: 'organizationStatus',
-  joinedOrganizationAt: 'joinedOrganizationAt'
+  joinedOrganizationAt: 'joinedOrganizationAt',
+  points: 'points'
 } as const
 
 export type VolunteerProfileScalarFieldEnum = (typeof VolunteerProfileScalarFieldEnum)[keyof typeof VolunteerProfileScalarFieldEnum]
@@ -253,12 +258,77 @@ export const CommunicationPostScalarFieldEnum = {
 export type CommunicationPostScalarFieldEnum = (typeof CommunicationPostScalarFieldEnum)[keyof typeof CommunicationPostScalarFieldEnum]
 
 
+export const PointHistoryScalarFieldEnum = {
+  id: 'id',
+  volunteerId: 'volunteerId',
+  points: 'points',
+  source: 'source',
+  description: 'description',
+  helpRequestId: 'helpRequestId',
+  campaignId: 'campaignId',
+  createdAt: 'createdAt'
+} as const
+
+export type PointHistoryScalarFieldEnum = (typeof PointHistoryScalarFieldEnum)[keyof typeof PointHistoryScalarFieldEnum]
+
+
+export const VolunteerCommentScalarFieldEnum = {
+  id: 'id',
+  volunteerId: 'volunteerId',
+  organizationId: 'organizationId',
+  comment: 'comment',
+  rating: 'rating',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VolunteerCommentScalarFieldEnum = (typeof VolunteerCommentScalarFieldEnum)[keyof typeof VolunteerCommentScalarFieldEnum]
+
+
+export const CertificateTemplateScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  name: 'name',
+  description: 'description',
+  templateImageUrl: 'templateImageUrl',
+  textBoxConfig: 'textBoxConfig',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CertificateTemplateScalarFieldEnum = (typeof CertificateTemplateScalarFieldEnum)[keyof typeof CertificateTemplateScalarFieldEnum]
+
+
+export const IssuedCertificateScalarFieldEnum = {
+  id: 'id',
+  templateId: 'templateId',
+  volunteerId: 'volunteerId',
+  organizationId: 'organizationId',
+  certificateData: 'certificateData',
+  pdfUrl: 'pdfUrl',
+  emailSent: 'emailSent',
+  emailSentAt: 'emailSentAt',
+  notes: 'notes',
+  issuedAt: 'issuedAt'
+} as const
+
+export type IssuedCertificateScalarFieldEnum = (typeof IssuedCertificateScalarFieldEnum)[keyof typeof IssuedCertificateScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const JsonNullValueInput = {
+  JsonNull: 'JsonNull'
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -275,4 +345,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: 'DbNull',
+  JsonNull: 'JsonNull',
+  AnyNull: 'AnyNull'
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

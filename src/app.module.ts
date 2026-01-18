@@ -10,6 +10,8 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { OrganizationModule } from './admin-tcxh/organization/organization.module';
 import { CampaignModule } from './admin-tcxh/campaign/campaign.module';
 import { CommunicationModule } from './admin-tcxh/communication/communication.module';
+import { StatisticsModule } from './admin-tcxh/statistics/statistics.module';
+import { VolunteerRewardsModule } from './volunteer-rewards/volunteer-rewards.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { CommunicationModule } from './admin-tcxh/communication/communication.mo
     OrganizationModule,
     CampaignModule,
     CommunicationModule,
+    StatisticsModule,
+    VolunteerRewardsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

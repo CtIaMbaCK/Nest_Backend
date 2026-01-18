@@ -39,6 +39,8 @@ export class UsersService {
   }
 
   async getMyProfile(userId: string) {
+    console.log('🔍 getMyProfile called with userId:', userId);
+
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
       select: {
@@ -51,8 +53,12 @@ export class UsersService {
 
         volunteerProfile: true,
         bficiaryProfile: true,
+        organizationProfiles: true,
       },
     });
+
+    console.log('📦 User data from DB:', JSON.stringify(user, null, 2));
+    console.log('🏢 organizationProfiles field:', user?.organizationProfiles);
 
     if (!user) throw new NotFoundException('User not found');
     return user;

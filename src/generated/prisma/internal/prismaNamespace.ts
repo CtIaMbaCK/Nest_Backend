@@ -393,7 +393,11 @@ export const ModelName = {
   OrganizationProfile: 'OrganizationProfile',
   Campaign: 'Campaign',
   CampaignRegistration: 'CampaignRegistration',
-  CommunicationPost: 'CommunicationPost'
+  CommunicationPost: 'CommunicationPost',
+  PointHistory: 'PointHistory',
+  VolunteerComment: 'VolunteerComment',
+  CertificateTemplate: 'CertificateTemplate',
+  IssuedCertificate: 'IssuedCertificate'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -409,7 +413,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "volunteerProfile" | "bficiaryProfile" | "helpRequest" | "review" | "appreciation" | "organizationProfile" | "campaign" | "campaignRegistration" | "communicationPost"
+    modelProps: "user" | "volunteerProfile" | "bficiaryProfile" | "helpRequest" | "review" | "appreciation" | "organizationProfile" | "campaign" | "campaignRegistration" | "communicationPost" | "pointHistory" | "volunteerComment" | "certificateTemplate" | "issuedCertificate"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1153,6 +1157,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PointHistory: {
+      payload: Prisma.$PointHistoryPayload<ExtArgs>
+      fields: Prisma.PointHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PointHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PointHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PointHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PointHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.PointHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PointHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PointHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PointHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.PointHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PointHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.PointHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PointHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.PointHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PointHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PointHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.PointHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PointHistoryPayload>
+        }
+        update: {
+          args: Prisma.PointHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PointHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.PointHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PointHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PointHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PointHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.PointHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PointHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.PointHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePointHistory>
+        }
+        groupBy: {
+          args: Prisma.PointHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PointHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PointHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PointHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
+    VolunteerComment: {
+      payload: Prisma.$VolunteerCommentPayload<ExtArgs>
+      fields: Prisma.VolunteerCommentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.VolunteerCommentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VolunteerCommentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.VolunteerCommentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VolunteerCommentPayload>
+        }
+        findFirst: {
+          args: Prisma.VolunteerCommentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VolunteerCommentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.VolunteerCommentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VolunteerCommentPayload>
+        }
+        findMany: {
+          args: Prisma.VolunteerCommentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VolunteerCommentPayload>[]
+        }
+        create: {
+          args: Prisma.VolunteerCommentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VolunteerCommentPayload>
+        }
+        createMany: {
+          args: Prisma.VolunteerCommentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.VolunteerCommentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VolunteerCommentPayload>[]
+        }
+        delete: {
+          args: Prisma.VolunteerCommentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VolunteerCommentPayload>
+        }
+        update: {
+          args: Prisma.VolunteerCommentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VolunteerCommentPayload>
+        }
+        deleteMany: {
+          args: Prisma.VolunteerCommentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.VolunteerCommentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.VolunteerCommentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VolunteerCommentPayload>[]
+        }
+        upsert: {
+          args: Prisma.VolunteerCommentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VolunteerCommentPayload>
+        }
+        aggregate: {
+          args: Prisma.VolunteerCommentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateVolunteerComment>
+        }
+        groupBy: {
+          args: Prisma.VolunteerCommentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VolunteerCommentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.VolunteerCommentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VolunteerCommentCountAggregateOutputType> | number
+        }
+      }
+    }
+    CertificateTemplate: {
+      payload: Prisma.$CertificateTemplatePayload<ExtArgs>
+      fields: Prisma.CertificateTemplateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CertificateTemplateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificateTemplatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CertificateTemplateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificateTemplatePayload>
+        }
+        findFirst: {
+          args: Prisma.CertificateTemplateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificateTemplatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CertificateTemplateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificateTemplatePayload>
+        }
+        findMany: {
+          args: Prisma.CertificateTemplateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificateTemplatePayload>[]
+        }
+        create: {
+          args: Prisma.CertificateTemplateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificateTemplatePayload>
+        }
+        createMany: {
+          args: Prisma.CertificateTemplateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CertificateTemplateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificateTemplatePayload>[]
+        }
+        delete: {
+          args: Prisma.CertificateTemplateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificateTemplatePayload>
+        }
+        update: {
+          args: Prisma.CertificateTemplateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificateTemplatePayload>
+        }
+        deleteMany: {
+          args: Prisma.CertificateTemplateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CertificateTemplateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CertificateTemplateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificateTemplatePayload>[]
+        }
+        upsert: {
+          args: Prisma.CertificateTemplateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificateTemplatePayload>
+        }
+        aggregate: {
+          args: Prisma.CertificateTemplateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCertificateTemplate>
+        }
+        groupBy: {
+          args: Prisma.CertificateTemplateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CertificateTemplateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CertificateTemplateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CertificateTemplateCountAggregateOutputType> | number
+        }
+      }
+    }
+    IssuedCertificate: {
+      payload: Prisma.$IssuedCertificatePayload<ExtArgs>
+      fields: Prisma.IssuedCertificateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.IssuedCertificateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IssuedCertificatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.IssuedCertificateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IssuedCertificatePayload>
+        }
+        findFirst: {
+          args: Prisma.IssuedCertificateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IssuedCertificatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.IssuedCertificateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IssuedCertificatePayload>
+        }
+        findMany: {
+          args: Prisma.IssuedCertificateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IssuedCertificatePayload>[]
+        }
+        create: {
+          args: Prisma.IssuedCertificateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IssuedCertificatePayload>
+        }
+        createMany: {
+          args: Prisma.IssuedCertificateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.IssuedCertificateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IssuedCertificatePayload>[]
+        }
+        delete: {
+          args: Prisma.IssuedCertificateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IssuedCertificatePayload>
+        }
+        update: {
+          args: Prisma.IssuedCertificateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IssuedCertificatePayload>
+        }
+        deleteMany: {
+          args: Prisma.IssuedCertificateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.IssuedCertificateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.IssuedCertificateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IssuedCertificatePayload>[]
+        }
+        upsert: {
+          args: Prisma.IssuedCertificateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IssuedCertificatePayload>
+        }
+        aggregate: {
+          args: Prisma.IssuedCertificateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateIssuedCertificate>
+        }
+        groupBy: {
+          args: Prisma.IssuedCertificateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IssuedCertificateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.IssuedCertificateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IssuedCertificateCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1219,7 +1519,8 @@ export const VolunteerProfileScalarFieldEnum = {
   cccdBackFile: 'cccdBackFile',
   organizationId: 'organizationId',
   organizationStatus: 'organizationStatus',
-  joinedOrganizationAt: 'joinedOrganizationAt'
+  joinedOrganizationAt: 'joinedOrganizationAt',
+  points: 'points'
 } as const
 
 export type VolunteerProfileScalarFieldEnum = (typeof VolunteerProfileScalarFieldEnum)[keyof typeof VolunteerProfileScalarFieldEnum]
@@ -1366,12 +1667,77 @@ export const CommunicationPostScalarFieldEnum = {
 export type CommunicationPostScalarFieldEnum = (typeof CommunicationPostScalarFieldEnum)[keyof typeof CommunicationPostScalarFieldEnum]
 
 
+export const PointHistoryScalarFieldEnum = {
+  id: 'id',
+  volunteerId: 'volunteerId',
+  points: 'points',
+  source: 'source',
+  description: 'description',
+  helpRequestId: 'helpRequestId',
+  campaignId: 'campaignId',
+  createdAt: 'createdAt'
+} as const
+
+export type PointHistoryScalarFieldEnum = (typeof PointHistoryScalarFieldEnum)[keyof typeof PointHistoryScalarFieldEnum]
+
+
+export const VolunteerCommentScalarFieldEnum = {
+  id: 'id',
+  volunteerId: 'volunteerId',
+  organizationId: 'organizationId',
+  comment: 'comment',
+  rating: 'rating',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VolunteerCommentScalarFieldEnum = (typeof VolunteerCommentScalarFieldEnum)[keyof typeof VolunteerCommentScalarFieldEnum]
+
+
+export const CertificateTemplateScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  name: 'name',
+  description: 'description',
+  templateImageUrl: 'templateImageUrl',
+  textBoxConfig: 'textBoxConfig',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CertificateTemplateScalarFieldEnum = (typeof CertificateTemplateScalarFieldEnum)[keyof typeof CertificateTemplateScalarFieldEnum]
+
+
+export const IssuedCertificateScalarFieldEnum = {
+  id: 'id',
+  templateId: 'templateId',
+  volunteerId: 'volunteerId',
+  organizationId: 'organizationId',
+  certificateData: 'certificateData',
+  pdfUrl: 'pdfUrl',
+  emailSent: 'emailSent',
+  emailSentAt: 'emailSentAt',
+  notes: 'notes',
+  issuedAt: 'issuedAt'
+} as const
+
+export type IssuedCertificateScalarFieldEnum = (typeof IssuedCertificateScalarFieldEnum)[keyof typeof IssuedCertificateScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -1388,6 +1754,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -1640,6 +2015,34 @@ export type EnumRegistrationStatusFieldRefInput<$PrismaModel> = FieldRefInputTyp
 export type ListEnumRegistrationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RegistrationStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'PointSource'
+ */
+export type EnumPointSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PointSource'>
+    
+
+
+/**
+ * Reference to a field of type 'PointSource[]'
+ */
+export type ListEnumPointSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PointSource[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -1745,6 +2148,10 @@ export type GlobalOmitConfig = {
   campaign?: Prisma.CampaignOmit
   campaignRegistration?: Prisma.CampaignRegistrationOmit
   communicationPost?: Prisma.CommunicationPostOmit
+  pointHistory?: Prisma.PointHistoryOmit
+  volunteerComment?: Prisma.VolunteerCommentOmit
+  certificateTemplate?: Prisma.CertificateTemplateOmit
+  issuedCertificate?: Prisma.IssuedCertificateOmit
 }
 
 /* Types for Logging */

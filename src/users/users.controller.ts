@@ -28,7 +28,10 @@ import {
 } from '@nestjs/swagger';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { CampaignService } from 'src/admin-tcxh/campaign/campaign.service';
-import { RegisterCampaignDto, SearchCampaignDto } from 'src/admin-tcxh/campaign/dto';
+import {
+  RegisterCampaignDto,
+  SearchCampaignDto,
+} from 'src/admin-tcxh/campaign/dto';
 
 @ApiBearerAuth('JWT-auth')
 @Controller('users')

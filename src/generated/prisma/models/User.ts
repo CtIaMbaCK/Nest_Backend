@@ -220,6 +220,12 @@ export type UserWhereInput = {
   volunteersManaged?: Prisma.VolunteerProfileListRelationFilter
   beneficiariesManaged?: Prisma.BficiaryProfileListRelationFilter
   communicationPosts?: Prisma.CommunicationPostListRelationFilter
+  pointHistory?: Prisma.PointHistoryListRelationFilter
+  volunteerComments?: Prisma.VolunteerCommentListRelationFilter
+  organizationComments?: Prisma.VolunteerCommentListRelationFilter
+  certificateTemplates?: Prisma.CertificateTemplateListRelationFilter
+  certificatesReceived?: Prisma.IssuedCertificateListRelationFilter
+  certificatesIssued?: Prisma.IssuedCertificateListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -245,6 +251,12 @@ export type UserOrderByWithRelationInput = {
   volunteersManaged?: Prisma.VolunteerProfileOrderByRelationAggregateInput
   beneficiariesManaged?: Prisma.BficiaryProfileOrderByRelationAggregateInput
   communicationPosts?: Prisma.CommunicationPostOrderByRelationAggregateInput
+  pointHistory?: Prisma.PointHistoryOrderByRelationAggregateInput
+  volunteerComments?: Prisma.VolunteerCommentOrderByRelationAggregateInput
+  organizationComments?: Prisma.VolunteerCommentOrderByRelationAggregateInput
+  certificateTemplates?: Prisma.CertificateTemplateOrderByRelationAggregateInput
+  certificatesReceived?: Prisma.IssuedCertificateOrderByRelationAggregateInput
+  certificatesIssued?: Prisma.IssuedCertificateOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -273,6 +285,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   volunteersManaged?: Prisma.VolunteerProfileListRelationFilter
   beneficiariesManaged?: Prisma.BficiaryProfileListRelationFilter
   communicationPosts?: Prisma.CommunicationPostListRelationFilter
+  pointHistory?: Prisma.PointHistoryListRelationFilter
+  volunteerComments?: Prisma.VolunteerCommentListRelationFilter
+  organizationComments?: Prisma.VolunteerCommentListRelationFilter
+  certificateTemplates?: Prisma.CertificateTemplateListRelationFilter
+  certificatesReceived?: Prisma.IssuedCertificateListRelationFilter
+  certificatesIssued?: Prisma.IssuedCertificateListRelationFilter
 }, "id" | "email" | "phoneNumber">
 
 export type UserOrderByWithAggregationInput = {
@@ -326,6 +344,12 @@ export type UserCreateInput = {
   volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -351,6 +375,12 @@ export type UserUncheckedCreateInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUpdateInput = {
@@ -376,6 +406,12 @@ export type UserUpdateInput = {
   volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -401,6 +437,12 @@ export type UserUncheckedUpdateInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -701,6 +743,90 @@ export type UserUpdateOneRequiredWithoutCommunicationPostsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCommunicationPostsInput, Prisma.UserUpdateWithoutCommunicationPostsInput>, Prisma.UserUncheckedUpdateWithoutCommunicationPostsInput>
 }
 
+export type UserCreateNestedOneWithoutPointHistoryInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPointHistoryInput, Prisma.UserUncheckedCreateWithoutPointHistoryInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPointHistoryInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPointHistoryNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPointHistoryInput, Prisma.UserUncheckedCreateWithoutPointHistoryInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPointHistoryInput
+  upsert?: Prisma.UserUpsertWithoutPointHistoryInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPointHistoryInput, Prisma.UserUpdateWithoutPointHistoryInput>, Prisma.UserUncheckedUpdateWithoutPointHistoryInput>
+}
+
+export type UserCreateNestedOneWithoutVolunteerCommentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVolunteerCommentsInput, Prisma.UserUncheckedCreateWithoutVolunteerCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVolunteerCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutOrganizationCommentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOrganizationCommentsInput, Prisma.UserUncheckedCreateWithoutOrganizationCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrganizationCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutVolunteerCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVolunteerCommentsInput, Prisma.UserUncheckedCreateWithoutVolunteerCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVolunteerCommentsInput
+  upsert?: Prisma.UserUpsertWithoutVolunteerCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutVolunteerCommentsInput, Prisma.UserUpdateWithoutVolunteerCommentsInput>, Prisma.UserUncheckedUpdateWithoutVolunteerCommentsInput>
+}
+
+export type UserUpdateOneRequiredWithoutOrganizationCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOrganizationCommentsInput, Prisma.UserUncheckedCreateWithoutOrganizationCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrganizationCommentsInput
+  upsert?: Prisma.UserUpsertWithoutOrganizationCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOrganizationCommentsInput, Prisma.UserUpdateWithoutOrganizationCommentsInput>, Prisma.UserUncheckedUpdateWithoutOrganizationCommentsInput>
+}
+
+export type UserCreateNestedOneWithoutCertificateTemplatesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCertificateTemplatesInput, Prisma.UserUncheckedCreateWithoutCertificateTemplatesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCertificateTemplatesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCertificateTemplatesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCertificateTemplatesInput, Prisma.UserUncheckedCreateWithoutCertificateTemplatesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCertificateTemplatesInput
+  upsert?: Prisma.UserUpsertWithoutCertificateTemplatesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCertificateTemplatesInput, Prisma.UserUpdateWithoutCertificateTemplatesInput>, Prisma.UserUncheckedUpdateWithoutCertificateTemplatesInput>
+}
+
+export type UserCreateNestedOneWithoutCertificatesReceivedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCertificatesReceivedInput, Prisma.UserUncheckedCreateWithoutCertificatesReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCertificatesReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutCertificatesIssuedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCertificatesIssuedInput, Prisma.UserUncheckedCreateWithoutCertificatesIssuedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCertificatesIssuedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCertificatesReceivedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCertificatesReceivedInput, Prisma.UserUncheckedCreateWithoutCertificatesReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCertificatesReceivedInput
+  upsert?: Prisma.UserUpsertWithoutCertificatesReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCertificatesReceivedInput, Prisma.UserUpdateWithoutCertificatesReceivedInput>, Prisma.UserUncheckedUpdateWithoutCertificatesReceivedInput>
+}
+
+export type UserUpdateOneRequiredWithoutCertificatesIssuedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCertificatesIssuedInput, Prisma.UserUncheckedCreateWithoutCertificatesIssuedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCertificatesIssuedInput
+  upsert?: Prisma.UserUpsertWithoutCertificatesIssuedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCertificatesIssuedInput, Prisma.UserUpdateWithoutCertificatesIssuedInput>, Prisma.UserUncheckedUpdateWithoutCertificatesIssuedInput>
+}
+
 export type UserCreateWithoutVolunteerProfileInput = {
   id?: string
   email: string
@@ -723,6 +849,12 @@ export type UserCreateWithoutVolunteerProfileInput = {
   volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutVolunteerProfileInput = {
@@ -747,6 +879,12 @@ export type UserUncheckedCreateWithoutVolunteerProfileInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutVolunteerProfileInput = {
@@ -776,6 +914,12 @@ export type UserCreateWithoutVolunteersManagedInput = {
   campaignRegistrations?: Prisma.CampaignRegistrationCreateNestedManyWithoutVolunteerInput
   beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutVolunteersManagedInput = {
@@ -800,6 +944,12 @@ export type UserUncheckedCreateWithoutVolunteersManagedInput = {
   campaignRegistrations?: Prisma.CampaignRegistrationUncheckedCreateNestedManyWithoutVolunteerInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutVolunteersManagedInput = {
@@ -840,6 +990,12 @@ export type UserUpdateWithoutVolunteerProfileInput = {
   volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolunteerProfileInput = {
@@ -864,6 +1020,12 @@ export type UserUncheckedUpdateWithoutVolunteerProfileInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUpsertWithoutVolunteersManagedInput = {
@@ -899,6 +1061,12 @@ export type UserUpdateWithoutVolunteersManagedInput = {
   campaignRegistrations?: Prisma.CampaignRegistrationUpdateManyWithoutVolunteerNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolunteersManagedInput = {
@@ -923,6 +1091,12 @@ export type UserUncheckedUpdateWithoutVolunteersManagedInput = {
   campaignRegistrations?: Prisma.CampaignRegistrationUncheckedUpdateManyWithoutVolunteerNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserCreateWithoutBficiaryProfileInput = {
@@ -947,6 +1121,12 @@ export type UserCreateWithoutBficiaryProfileInput = {
   volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutBficiaryProfileInput = {
@@ -971,6 +1151,12 @@ export type UserUncheckedCreateWithoutBficiaryProfileInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutBficiaryProfileInput = {
@@ -1000,6 +1186,12 @@ export type UserCreateWithoutBeneficiariesManagedInput = {
   campaignRegistrations?: Prisma.CampaignRegistrationCreateNestedManyWithoutVolunteerInput
   volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutBeneficiariesManagedInput = {
@@ -1024,6 +1216,12 @@ export type UserUncheckedCreateWithoutBeneficiariesManagedInput = {
   campaignRegistrations?: Prisma.CampaignRegistrationUncheckedCreateNestedManyWithoutVolunteerInput
   volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutBeneficiariesManagedInput = {
@@ -1064,6 +1262,12 @@ export type UserUpdateWithoutBficiaryProfileInput = {
   volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBficiaryProfileInput = {
@@ -1088,6 +1292,12 @@ export type UserUncheckedUpdateWithoutBficiaryProfileInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUpsertWithoutBeneficiariesManagedInput = {
@@ -1123,6 +1333,12 @@ export type UserUpdateWithoutBeneficiariesManagedInput = {
   campaignRegistrations?: Prisma.CampaignRegistrationUpdateManyWithoutVolunteerNestedInput
   volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBeneficiariesManagedInput = {
@@ -1147,6 +1363,12 @@ export type UserUncheckedUpdateWithoutBeneficiariesManagedInput = {
   campaignRegistrations?: Prisma.CampaignRegistrationUncheckedUpdateManyWithoutVolunteerNestedInput
   volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserCreateWithoutActivitiesRequestedInput = {
@@ -1171,6 +1393,12 @@ export type UserCreateWithoutActivitiesRequestedInput = {
   volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutActivitiesRequestedInput = {
@@ -1195,6 +1423,12 @@ export type UserUncheckedCreateWithoutActivitiesRequestedInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutActivitiesRequestedInput = {
@@ -1224,6 +1458,12 @@ export type UserCreateWithoutActivitiesVolunteeredInput = {
   volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutActivitiesVolunteeredInput = {
@@ -1248,6 +1488,12 @@ export type UserUncheckedCreateWithoutActivitiesVolunteeredInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutActivitiesVolunteeredInput = {
@@ -1288,6 +1534,12 @@ export type UserUpdateWithoutActivitiesRequestedInput = {
   volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivitiesRequestedInput = {
@@ -1312,6 +1564,12 @@ export type UserUncheckedUpdateWithoutActivitiesRequestedInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUpsertWithoutActivitiesVolunteeredInput = {
@@ -1347,6 +1605,12 @@ export type UserUpdateWithoutActivitiesVolunteeredInput = {
   volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivitiesVolunteeredInput = {
@@ -1371,6 +1635,12 @@ export type UserUncheckedUpdateWithoutActivitiesVolunteeredInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserCreateWithoutReviewsWrittenInput = {
@@ -1395,6 +1665,12 @@ export type UserCreateWithoutReviewsWrittenInput = {
   volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutReviewsWrittenInput = {
@@ -1419,6 +1695,12 @@ export type UserUncheckedCreateWithoutReviewsWrittenInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutReviewsWrittenInput = {
@@ -1448,6 +1730,12 @@ export type UserCreateWithoutReviewsReceivedInput = {
   volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutReviewsReceivedInput = {
@@ -1472,6 +1760,12 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutReviewsReceivedInput = {
@@ -1512,6 +1806,12 @@ export type UserUpdateWithoutReviewsWrittenInput = {
   volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsWrittenInput = {
@@ -1536,6 +1836,12 @@ export type UserUncheckedUpdateWithoutReviewsWrittenInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUpsertWithoutReviewsReceivedInput = {
@@ -1571,6 +1877,12 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
@@ -1595,6 +1907,12 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserCreateWithoutAppreciationsSentInput = {
@@ -1619,6 +1937,12 @@ export type UserCreateWithoutAppreciationsSentInput = {
   volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutAppreciationsSentInput = {
@@ -1643,6 +1967,12 @@ export type UserUncheckedCreateWithoutAppreciationsSentInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutAppreciationsSentInput = {
@@ -1672,6 +2002,12 @@ export type UserCreateWithoutAppreciationsReceivedInput = {
   volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutAppreciationsReceivedInput = {
@@ -1696,6 +2032,12 @@ export type UserUncheckedCreateWithoutAppreciationsReceivedInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutAppreciationsReceivedInput = {
@@ -1736,6 +2078,12 @@ export type UserUpdateWithoutAppreciationsSentInput = {
   volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAppreciationsSentInput = {
@@ -1760,6 +2108,12 @@ export type UserUncheckedUpdateWithoutAppreciationsSentInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUpsertWithoutAppreciationsReceivedInput = {
@@ -1795,6 +2149,12 @@ export type UserUpdateWithoutAppreciationsReceivedInput = {
   volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAppreciationsReceivedInput = {
@@ -1819,6 +2179,12 @@ export type UserUncheckedUpdateWithoutAppreciationsReceivedInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserCreateWithoutOrganizationProfilesInput = {
@@ -1843,6 +2209,12 @@ export type UserCreateWithoutOrganizationProfilesInput = {
   volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutOrganizationProfilesInput = {
@@ -1867,6 +2239,12 @@ export type UserUncheckedCreateWithoutOrganizationProfilesInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutOrganizationProfilesInput = {
@@ -1907,6 +2285,12 @@ export type UserUpdateWithoutOrganizationProfilesInput = {
   volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrganizationProfilesInput = {
@@ -1931,6 +2315,12 @@ export type UserUncheckedUpdateWithoutOrganizationProfilesInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserCreateWithoutCampaignsInput = {
@@ -1955,6 +2345,12 @@ export type UserCreateWithoutCampaignsInput = {
   volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutCampaignsInput = {
@@ -1979,6 +2375,12 @@ export type UserUncheckedCreateWithoutCampaignsInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutCampaignsInput = {
@@ -2019,6 +2421,12 @@ export type UserUpdateWithoutCampaignsInput = {
   volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCampaignsInput = {
@@ -2043,6 +2451,12 @@ export type UserUncheckedUpdateWithoutCampaignsInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserCreateWithoutCampaignRegistrationsInput = {
@@ -2067,6 +2481,12 @@ export type UserCreateWithoutCampaignRegistrationsInput = {
   volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutCampaignRegistrationsInput = {
@@ -2091,6 +2511,12 @@ export type UserUncheckedCreateWithoutCampaignRegistrationsInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
   communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutCampaignRegistrationsInput = {
@@ -2131,6 +2557,12 @@ export type UserUpdateWithoutCampaignRegistrationsInput = {
   volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCampaignRegistrationsInput = {
@@ -2155,6 +2587,12 @@ export type UserUncheckedUpdateWithoutCampaignRegistrationsInput = {
   volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserCreateWithoutCommunicationPostsInput = {
@@ -2179,6 +2617,12 @@ export type UserCreateWithoutCommunicationPostsInput = {
   campaignRegistrations?: Prisma.CampaignRegistrationCreateNestedManyWithoutVolunteerInput
   volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserUncheckedCreateWithoutCommunicationPostsInput = {
@@ -2203,6 +2647,12 @@ export type UserUncheckedCreateWithoutCommunicationPostsInput = {
   campaignRegistrations?: Prisma.CampaignRegistrationUncheckedCreateNestedManyWithoutVolunteerInput
   volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type UserCreateOrConnectWithoutCommunicationPostsInput = {
@@ -2243,6 +2693,12 @@ export type UserUpdateWithoutCommunicationPostsInput = {
   campaignRegistrations?: Prisma.CampaignRegistrationUpdateManyWithoutVolunteerNestedInput
   volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommunicationPostsInput = {
@@ -2267,6 +2723,828 @@ export type UserUncheckedUpdateWithoutCommunicationPostsInput = {
   campaignRegistrations?: Prisma.CampaignRegistrationUncheckedUpdateManyWithoutVolunteerNestedInput
   volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
   beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type UserCreateWithoutPointHistoryInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  campaigns?: Prisma.CampaignCreateNestedManyWithoutOrganizationInput
+  campaignRegistrations?: Prisma.CampaignRegistrationCreateNestedManyWithoutVolunteerInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
+  communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+}
+
+export type UserUncheckedCreateWithoutPointHistoryInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutOrganizationInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type UserCreateOrConnectWithoutPointHistoryInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPointHistoryInput, Prisma.UserUncheckedCreateWithoutPointHistoryInput>
+}
+
+export type UserUpsertWithoutPointHistoryInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPointHistoryInput, Prisma.UserUncheckedUpdateWithoutPointHistoryInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPointHistoryInput, Prisma.UserUncheckedCreateWithoutPointHistoryInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPointHistoryInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPointHistoryInput, Prisma.UserUncheckedUpdateWithoutPointHistoryInput>
+}
+
+export type UserUpdateWithoutPointHistoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  campaigns?: Prisma.CampaignUpdateManyWithoutOrganizationNestedInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUpdateManyWithoutVolunteerNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
+  communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPointHistoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type UserCreateWithoutVolunteerCommentsInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  campaigns?: Prisma.CampaignCreateNestedManyWithoutOrganizationInput
+  campaignRegistrations?: Prisma.CampaignRegistrationCreateNestedManyWithoutVolunteerInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
+  communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+}
+
+export type UserUncheckedCreateWithoutVolunteerCommentsInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutOrganizationInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type UserCreateOrConnectWithoutVolunteerCommentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutVolunteerCommentsInput, Prisma.UserUncheckedCreateWithoutVolunteerCommentsInput>
+}
+
+export type UserCreateWithoutOrganizationCommentsInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  campaigns?: Prisma.CampaignCreateNestedManyWithoutOrganizationInput
+  campaignRegistrations?: Prisma.CampaignRegistrationCreateNestedManyWithoutVolunteerInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
+  communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+}
+
+export type UserUncheckedCreateWithoutOrganizationCommentsInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutOrganizationInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type UserCreateOrConnectWithoutOrganizationCommentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutOrganizationCommentsInput, Prisma.UserUncheckedCreateWithoutOrganizationCommentsInput>
+}
+
+export type UserUpsertWithoutVolunteerCommentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutVolunteerCommentsInput, Prisma.UserUncheckedUpdateWithoutVolunteerCommentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutVolunteerCommentsInput, Prisma.UserUncheckedCreateWithoutVolunteerCommentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutVolunteerCommentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutVolunteerCommentsInput, Prisma.UserUncheckedUpdateWithoutVolunteerCommentsInput>
+}
+
+export type UserUpdateWithoutVolunteerCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  campaigns?: Prisma.CampaignUpdateManyWithoutOrganizationNestedInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUpdateManyWithoutVolunteerNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
+  communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+}
+
+export type UserUncheckedUpdateWithoutVolunteerCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type UserUpsertWithoutOrganizationCommentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOrganizationCommentsInput, Prisma.UserUncheckedUpdateWithoutOrganizationCommentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOrganizationCommentsInput, Prisma.UserUncheckedCreateWithoutOrganizationCommentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutOrganizationCommentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOrganizationCommentsInput, Prisma.UserUncheckedUpdateWithoutOrganizationCommentsInput>
+}
+
+export type UserUpdateWithoutOrganizationCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  campaigns?: Prisma.CampaignUpdateManyWithoutOrganizationNestedInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUpdateManyWithoutVolunteerNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
+  communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOrganizationCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type UserCreateWithoutCertificateTemplatesInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  campaigns?: Prisma.CampaignCreateNestedManyWithoutOrganizationInput
+  campaignRegistrations?: Prisma.CampaignRegistrationCreateNestedManyWithoutVolunteerInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
+  communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+}
+
+export type UserUncheckedCreateWithoutCertificateTemplatesInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutOrganizationInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type UserCreateOrConnectWithoutCertificateTemplatesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCertificateTemplatesInput, Prisma.UserUncheckedCreateWithoutCertificateTemplatesInput>
+}
+
+export type UserUpsertWithoutCertificateTemplatesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCertificateTemplatesInput, Prisma.UserUncheckedUpdateWithoutCertificateTemplatesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCertificateTemplatesInput, Prisma.UserUncheckedCreateWithoutCertificateTemplatesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCertificateTemplatesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCertificateTemplatesInput, Prisma.UserUncheckedUpdateWithoutCertificateTemplatesInput>
+}
+
+export type UserUpdateWithoutCertificateTemplatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  campaigns?: Prisma.CampaignUpdateManyWithoutOrganizationNestedInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUpdateManyWithoutVolunteerNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
+  communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCertificateTemplatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type UserCreateWithoutCertificatesReceivedInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  campaigns?: Prisma.CampaignCreateNestedManyWithoutOrganizationInput
+  campaignRegistrations?: Prisma.CampaignRegistrationCreateNestedManyWithoutVolunteerInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
+  communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+}
+
+export type UserUncheckedCreateWithoutCertificatesReceivedInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutOrganizationInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type UserCreateOrConnectWithoutCertificatesReceivedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCertificatesReceivedInput, Prisma.UserUncheckedCreateWithoutCertificatesReceivedInput>
+}
+
+export type UserCreateWithoutCertificatesIssuedInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  campaigns?: Prisma.CampaignCreateNestedManyWithoutOrganizationInput
+  campaignRegistrations?: Prisma.CampaignRegistrationCreateNestedManyWithoutVolunteerInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
+  communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+}
+
+export type UserUncheckedCreateWithoutCertificatesIssuedInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutOrganizationInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+}
+
+export type UserCreateOrConnectWithoutCertificatesIssuedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCertificatesIssuedInput, Prisma.UserUncheckedCreateWithoutCertificatesIssuedInput>
+}
+
+export type UserUpsertWithoutCertificatesReceivedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCertificatesReceivedInput, Prisma.UserUncheckedUpdateWithoutCertificatesReceivedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCertificatesReceivedInput, Prisma.UserUncheckedCreateWithoutCertificatesReceivedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCertificatesReceivedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCertificatesReceivedInput, Prisma.UserUncheckedUpdateWithoutCertificatesReceivedInput>
+}
+
+export type UserUpdateWithoutCertificatesReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  campaigns?: Prisma.CampaignUpdateManyWithoutOrganizationNestedInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUpdateManyWithoutVolunteerNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
+  communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCertificatesReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type UserUpsertWithoutCertificatesIssuedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCertificatesIssuedInput, Prisma.UserUncheckedUpdateWithoutCertificatesIssuedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCertificatesIssuedInput, Prisma.UserUncheckedCreateWithoutCertificatesIssuedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCertificatesIssuedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCertificatesIssuedInput, Prisma.UserUncheckedUpdateWithoutCertificatesIssuedInput>
+}
+
+export type UserUpdateWithoutCertificatesIssuedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  campaigns?: Prisma.CampaignUpdateManyWithoutOrganizationNestedInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUpdateManyWithoutVolunteerNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
+  communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCertificatesIssuedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
 }
 
 
@@ -2286,6 +3564,12 @@ export type UserCountOutputType = {
   volunteersManaged: number
   beneficiariesManaged: number
   communicationPosts: number
+  pointHistory: number
+  volunteerComments: number
+  organizationComments: number
+  certificateTemplates: number
+  certificatesReceived: number
+  certificatesIssued: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2300,6 +3584,12 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   volunteersManaged?: boolean | UserCountOutputTypeCountVolunteersManagedArgs
   beneficiariesManaged?: boolean | UserCountOutputTypeCountBeneficiariesManagedArgs
   communicationPosts?: boolean | UserCountOutputTypeCountCommunicationPostsArgs
+  pointHistory?: boolean | UserCountOutputTypeCountPointHistoryArgs
+  volunteerComments?: boolean | UserCountOutputTypeCountVolunteerCommentsArgs
+  organizationComments?: boolean | UserCountOutputTypeCountOrganizationCommentsArgs
+  certificateTemplates?: boolean | UserCountOutputTypeCountCertificateTemplatesArgs
+  certificatesReceived?: boolean | UserCountOutputTypeCountCertificatesReceivedArgs
+  certificatesIssued?: boolean | UserCountOutputTypeCountCertificatesIssuedArgs
 }
 
 /**
@@ -2389,6 +3679,48 @@ export type UserCountOutputTypeCountCommunicationPostsArgs<ExtArgs extends runti
   where?: Prisma.CommunicationPostWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPointHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PointHistoryWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountVolunteerCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.VolunteerCommentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountOrganizationCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.VolunteerCommentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCertificateTemplatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CertificateTemplateWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCertificatesReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IssuedCertificateWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCertificatesIssuedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IssuedCertificateWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2413,6 +3745,12 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   volunteersManaged?: boolean | Prisma.User$volunteersManagedArgs<ExtArgs>
   beneficiariesManaged?: boolean | Prisma.User$beneficiariesManagedArgs<ExtArgs>
   communicationPosts?: boolean | Prisma.User$communicationPostsArgs<ExtArgs>
+  pointHistory?: boolean | Prisma.User$pointHistoryArgs<ExtArgs>
+  volunteerComments?: boolean | Prisma.User$volunteerCommentsArgs<ExtArgs>
+  organizationComments?: boolean | Prisma.User$organizationCommentsArgs<ExtArgs>
+  certificateTemplates?: boolean | Prisma.User$certificateTemplatesArgs<ExtArgs>
+  certificatesReceived?: boolean | Prisma.User$certificatesReceivedArgs<ExtArgs>
+  certificatesIssued?: boolean | Prisma.User$certificatesIssuedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2465,6 +3803,12 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   volunteersManaged?: boolean | Prisma.User$volunteersManagedArgs<ExtArgs>
   beneficiariesManaged?: boolean | Prisma.User$beneficiariesManagedArgs<ExtArgs>
   communicationPosts?: boolean | Prisma.User$communicationPostsArgs<ExtArgs>
+  pointHistory?: boolean | Prisma.User$pointHistoryArgs<ExtArgs>
+  volunteerComments?: boolean | Prisma.User$volunteerCommentsArgs<ExtArgs>
+  organizationComments?: boolean | Prisma.User$organizationCommentsArgs<ExtArgs>
+  certificateTemplates?: boolean | Prisma.User$certificateTemplatesArgs<ExtArgs>
+  certificatesReceived?: boolean | Prisma.User$certificatesReceivedArgs<ExtArgs>
+  certificatesIssued?: boolean | Prisma.User$certificatesIssuedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2487,6 +3831,12 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     volunteersManaged: Prisma.$VolunteerProfilePayload<ExtArgs>[]
     beneficiariesManaged: Prisma.$BficiaryProfilePayload<ExtArgs>[]
     communicationPosts: Prisma.$CommunicationPostPayload<ExtArgs>[]
+    pointHistory: Prisma.$PointHistoryPayload<ExtArgs>[]
+    volunteerComments: Prisma.$VolunteerCommentPayload<ExtArgs>[]
+    organizationComments: Prisma.$VolunteerCommentPayload<ExtArgs>[]
+    certificateTemplates: Prisma.$CertificateTemplatePayload<ExtArgs>[]
+    certificatesReceived: Prisma.$IssuedCertificatePayload<ExtArgs>[]
+    certificatesIssued: Prisma.$IssuedCertificatePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2905,6 +4255,12 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   volunteersManaged<T extends Prisma.User$volunteersManagedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$volunteersManagedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VolunteerProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   beneficiariesManaged<T extends Prisma.User$beneficiariesManagedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$beneficiariesManagedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BficiaryProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   communicationPosts<T extends Prisma.User$communicationPostsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$communicationPostsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommunicationPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  pointHistory<T extends Prisma.User$pointHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$pointHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PointHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  volunteerComments<T extends Prisma.User$volunteerCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$volunteerCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VolunteerCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  organizationComments<T extends Prisma.User$organizationCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$organizationCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VolunteerCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  certificateTemplates<T extends Prisma.User$certificateTemplatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$certificateTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CertificateTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  certificatesReceived<T extends Prisma.User$certificatesReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$certificatesReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IssuedCertificatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  certificatesIssued<T extends Prisma.User$certificatesIssuedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$certificatesIssuedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IssuedCertificatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3648,6 +5004,150 @@ export type User$communicationPostsArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.CommunicationPostScalarFieldEnum | Prisma.CommunicationPostScalarFieldEnum[]
+}
+
+/**
+ * User.pointHistory
+ */
+export type User$pointHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PointHistory
+   */
+  select?: Prisma.PointHistorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PointHistory
+   */
+  omit?: Prisma.PointHistoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PointHistoryInclude<ExtArgs> | null
+  where?: Prisma.PointHistoryWhereInput
+  orderBy?: Prisma.PointHistoryOrderByWithRelationInput | Prisma.PointHistoryOrderByWithRelationInput[]
+  cursor?: Prisma.PointHistoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PointHistoryScalarFieldEnum | Prisma.PointHistoryScalarFieldEnum[]
+}
+
+/**
+ * User.volunteerComments
+ */
+export type User$volunteerCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the VolunteerComment
+   */
+  select?: Prisma.VolunteerCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the VolunteerComment
+   */
+  omit?: Prisma.VolunteerCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.VolunteerCommentInclude<ExtArgs> | null
+  where?: Prisma.VolunteerCommentWhereInput
+  orderBy?: Prisma.VolunteerCommentOrderByWithRelationInput | Prisma.VolunteerCommentOrderByWithRelationInput[]
+  cursor?: Prisma.VolunteerCommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.VolunteerCommentScalarFieldEnum | Prisma.VolunteerCommentScalarFieldEnum[]
+}
+
+/**
+ * User.organizationComments
+ */
+export type User$organizationCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the VolunteerComment
+   */
+  select?: Prisma.VolunteerCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the VolunteerComment
+   */
+  omit?: Prisma.VolunteerCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.VolunteerCommentInclude<ExtArgs> | null
+  where?: Prisma.VolunteerCommentWhereInput
+  orderBy?: Prisma.VolunteerCommentOrderByWithRelationInput | Prisma.VolunteerCommentOrderByWithRelationInput[]
+  cursor?: Prisma.VolunteerCommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.VolunteerCommentScalarFieldEnum | Prisma.VolunteerCommentScalarFieldEnum[]
+}
+
+/**
+ * User.certificateTemplates
+ */
+export type User$certificateTemplatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CertificateTemplate
+   */
+  select?: Prisma.CertificateTemplateSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CertificateTemplate
+   */
+  omit?: Prisma.CertificateTemplateOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CertificateTemplateInclude<ExtArgs> | null
+  where?: Prisma.CertificateTemplateWhereInput
+  orderBy?: Prisma.CertificateTemplateOrderByWithRelationInput | Prisma.CertificateTemplateOrderByWithRelationInput[]
+  cursor?: Prisma.CertificateTemplateWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CertificateTemplateScalarFieldEnum | Prisma.CertificateTemplateScalarFieldEnum[]
+}
+
+/**
+ * User.certificatesReceived
+ */
+export type User$certificatesReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the IssuedCertificate
+   */
+  select?: Prisma.IssuedCertificateSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the IssuedCertificate
+   */
+  omit?: Prisma.IssuedCertificateOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IssuedCertificateInclude<ExtArgs> | null
+  where?: Prisma.IssuedCertificateWhereInput
+  orderBy?: Prisma.IssuedCertificateOrderByWithRelationInput | Prisma.IssuedCertificateOrderByWithRelationInput[]
+  cursor?: Prisma.IssuedCertificateWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IssuedCertificateScalarFieldEnum | Prisma.IssuedCertificateScalarFieldEnum[]
+}
+
+/**
+ * User.certificatesIssued
+ */
+export type User$certificatesIssuedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the IssuedCertificate
+   */
+  select?: Prisma.IssuedCertificateSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the IssuedCertificate
+   */
+  omit?: Prisma.IssuedCertificateOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IssuedCertificateInclude<ExtArgs> | null
+  where?: Prisma.IssuedCertificateWhereInput
+  orderBy?: Prisma.IssuedCertificateOrderByWithRelationInput | Prisma.IssuedCertificateOrderByWithRelationInput[]
+  cursor?: Prisma.IssuedCertificateWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IssuedCertificateScalarFieldEnum | Prisma.IssuedCertificateScalarFieldEnum[]
 }
 
 /**

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -174,5 +175,43 @@ export class CampaignController {
       page,
       limit,
     );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('registrations/:registrationId/status')
+  @ApiOperation({ summary: '[TCXH] Cập nhật trạng thái đăng ký campaign (ATTENDED để cộng điểm)' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        status: {
+          type: 'string',
+          enum: ['REGISTERED', 'ATTENDED', 'CANCELLED'],
+          description: 'Trạng thái mới (ATTENDED sẽ tự động cộng +10 điểm)',
+        },
+      },
+      required: ['status'],
+    },
+  })
+  async updateRegistrationStatus(
+    @GetUser('sub') organizationId: string,
+    @Param('registrationId') registrationId: string,
+    @Body('status') status: string,
+  ) {
+    return this.campaignService.updateRegistrationStatus(
+      organizationId,
+      registrationId,
+      status as any,
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  @ApiOperation({ summary: '[TCXH] Xóa campaign (chỉ được phép nếu chưa có TNV nào đăng ký)' })
+  async deleteCampaign(
+    @GetUser('sub') organizationId: string,
+    @Param('id') campaignId: string,
+  ) {
+    return this.campaignService.deleteCampaign(campaignId, organizationId);
   }
 }

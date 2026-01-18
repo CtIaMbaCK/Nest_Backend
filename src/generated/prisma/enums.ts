@@ -171,3 +171,13 @@ export const RegistrationStatus = {
 } as const
 
 export type RegistrationStatus = (typeof RegistrationStatus)[keyof typeof RegistrationStatus]
+
+
+export const PointSource = {
+  HELP_REQUEST: 'HELP_REQUEST',
+  CAMPAIGN: 'CAMPAIGN',
+  MANUAL: 'MANUAL',
+  BONUS: 'BONUS'
+} as const
+
+export type PointSource = (typeof PointSource)[keyof typeof PointSource]

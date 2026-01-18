@@ -29,11 +29,13 @@ export type AggregateVolunteerProfile = {
 export type VolunteerProfileAvgAggregateOutputType = {
   experienceYears: number | null
   totalThanks: number | null
+  points: number | null
 }
 
 export type VolunteerProfileSumAggregateOutputType = {
   experienceYears: number | null
   totalThanks: number | null
+  points: number | null
 }
 
 export type VolunteerProfileMinAggregateOutputType = {
@@ -48,6 +50,7 @@ export type VolunteerProfileMinAggregateOutputType = {
   organizationId: string | null
   organizationStatus: $Enums.OrgStatus | null
   joinedOrganizationAt: Date | null
+  points: number | null
 }
 
 export type VolunteerProfileMaxAggregateOutputType = {
@@ -62,6 +65,7 @@ export type VolunteerProfileMaxAggregateOutputType = {
   organizationId: string | null
   organizationStatus: $Enums.OrgStatus | null
   joinedOrganizationAt: Date | null
+  points: number | null
 }
 
 export type VolunteerProfileCountAggregateOutputType = {
@@ -78,6 +82,7 @@ export type VolunteerProfileCountAggregateOutputType = {
   organizationId: number
   organizationStatus: number
   joinedOrganizationAt: number
+  points: number
   _all: number
 }
 
@@ -85,11 +90,13 @@ export type VolunteerProfileCountAggregateOutputType = {
 export type VolunteerProfileAvgAggregateInputType = {
   experienceYears?: true
   totalThanks?: true
+  points?: true
 }
 
 export type VolunteerProfileSumAggregateInputType = {
   experienceYears?: true
   totalThanks?: true
+  points?: true
 }
 
 export type VolunteerProfileMinAggregateInputType = {
@@ -104,6 +111,7 @@ export type VolunteerProfileMinAggregateInputType = {
   organizationId?: true
   organizationStatus?: true
   joinedOrganizationAt?: true
+  points?: true
 }
 
 export type VolunteerProfileMaxAggregateInputType = {
@@ -118,6 +126,7 @@ export type VolunteerProfileMaxAggregateInputType = {
   organizationId?: true
   organizationStatus?: true
   joinedOrganizationAt?: true
+  points?: true
 }
 
 export type VolunteerProfileCountAggregateInputType = {
@@ -134,6 +143,7 @@ export type VolunteerProfileCountAggregateInputType = {
   organizationId?: true
   organizationStatus?: true
   joinedOrganizationAt?: true
+  points?: true
   _all?: true
 }
 
@@ -237,6 +247,7 @@ export type VolunteerProfileGroupByOutputType = {
   organizationId: string | null
   organizationStatus: $Enums.OrgStatus | null
   joinedOrganizationAt: Date | null
+  points: number
   _count: VolunteerProfileCountAggregateOutputType | null
   _avg: VolunteerProfileAvgAggregateOutputType | null
   _sum: VolunteerProfileSumAggregateOutputType | null
@@ -276,6 +287,7 @@ export type VolunteerProfileWhereInput = {
   organizationId?: Prisma.StringNullableFilter<"VolunteerProfile"> | string | null
   organizationStatus?: Prisma.EnumOrgStatusNullableFilter<"VolunteerProfile"> | $Enums.OrgStatus | null
   joinedOrganizationAt?: Prisma.DateTimeNullableFilter<"VolunteerProfile"> | Date | string | null
+  points?: Prisma.IntFilter<"VolunteerProfile"> | number
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   organization?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
@@ -294,6 +306,7 @@ export type VolunteerProfileOrderByWithRelationInput = {
   organizationId?: Prisma.SortOrderInput | Prisma.SortOrder
   organizationStatus?: Prisma.SortOrderInput | Prisma.SortOrder
   joinedOrganizationAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  points?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   organization?: Prisma.UserOrderByWithRelationInput
 }
@@ -315,6 +328,7 @@ export type VolunteerProfileWhereUniqueInput = Prisma.AtLeast<{
   organizationId?: Prisma.StringNullableFilter<"VolunteerProfile"> | string | null
   organizationStatus?: Prisma.EnumOrgStatusNullableFilter<"VolunteerProfile"> | $Enums.OrgStatus | null
   joinedOrganizationAt?: Prisma.DateTimeNullableFilter<"VolunteerProfile"> | Date | string | null
+  points?: Prisma.IntFilter<"VolunteerProfile"> | number
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   organization?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "userId">
@@ -333,6 +347,7 @@ export type VolunteerProfileOrderByWithAggregationInput = {
   organizationId?: Prisma.SortOrderInput | Prisma.SortOrder
   organizationStatus?: Prisma.SortOrderInput | Prisma.SortOrder
   joinedOrganizationAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  points?: Prisma.SortOrder
   _count?: Prisma.VolunteerProfileCountOrderByAggregateInput
   _avg?: Prisma.VolunteerProfileAvgOrderByAggregateInput
   _max?: Prisma.VolunteerProfileMaxOrderByAggregateInput
@@ -357,6 +372,7 @@ export type VolunteerProfileScalarWhereWithAggregatesInput = {
   organizationId?: Prisma.StringNullableWithAggregatesFilter<"VolunteerProfile"> | string | null
   organizationStatus?: Prisma.EnumOrgStatusNullableWithAggregatesFilter<"VolunteerProfile"> | $Enums.OrgStatus | null
   joinedOrganizationAt?: Prisma.DateTimeNullableWithAggregatesFilter<"VolunteerProfile"> | Date | string | null
+  points?: Prisma.IntWithAggregatesFilter<"VolunteerProfile"> | number
 }
 
 export type VolunteerProfileCreateInput = {
@@ -371,6 +387,7 @@ export type VolunteerProfileCreateInput = {
   cccdBackFile?: string | null
   organizationStatus?: $Enums.OrgStatus | null
   joinedOrganizationAt?: Date | string | null
+  points?: number
   user: Prisma.UserCreateNestedOneWithoutVolunteerProfileInput
   organization?: Prisma.UserCreateNestedOneWithoutVolunteersManagedInput
 }
@@ -389,6 +406,7 @@ export type VolunteerProfileUncheckedCreateInput = {
   organizationId?: string | null
   organizationStatus?: $Enums.OrgStatus | null
   joinedOrganizationAt?: Date | string | null
+  points?: number
 }
 
 export type VolunteerProfileUpdateInput = {
@@ -403,6 +421,7 @@ export type VolunteerProfileUpdateInput = {
   cccdBackFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
   joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  points?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutVolunteerProfileNestedInput
   organization?: Prisma.UserUpdateOneWithoutVolunteersManagedNestedInput
 }
@@ -421,6 +440,7 @@ export type VolunteerProfileUncheckedUpdateInput = {
   organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
   joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  points?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type VolunteerProfileCreateManyInput = {
@@ -437,6 +457,7 @@ export type VolunteerProfileCreateManyInput = {
   organizationId?: string | null
   organizationStatus?: $Enums.OrgStatus | null
   joinedOrganizationAt?: Date | string | null
+  points?: number
 }
 
 export type VolunteerProfileUpdateManyMutationInput = {
@@ -451,6 +472,7 @@ export type VolunteerProfileUpdateManyMutationInput = {
   cccdBackFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
   joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  points?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type VolunteerProfileUncheckedUpdateManyInput = {
@@ -467,6 +489,7 @@ export type VolunteerProfileUncheckedUpdateManyInput = {
   organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
   joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  points?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type VolunteerProfileNullableScalarRelationFilter = {
@@ -514,11 +537,13 @@ export type VolunteerProfileCountOrderByAggregateInput = {
   organizationId?: Prisma.SortOrder
   organizationStatus?: Prisma.SortOrder
   joinedOrganizationAt?: Prisma.SortOrder
+  points?: Prisma.SortOrder
 }
 
 export type VolunteerProfileAvgOrderByAggregateInput = {
   experienceYears?: Prisma.SortOrder
   totalThanks?: Prisma.SortOrder
+  points?: Prisma.SortOrder
 }
 
 export type VolunteerProfileMaxOrderByAggregateInput = {
@@ -533,6 +558,7 @@ export type VolunteerProfileMaxOrderByAggregateInput = {
   organizationId?: Prisma.SortOrder
   organizationStatus?: Prisma.SortOrder
   joinedOrganizationAt?: Prisma.SortOrder
+  points?: Prisma.SortOrder
 }
 
 export type VolunteerProfileMinOrderByAggregateInput = {
@@ -547,11 +573,13 @@ export type VolunteerProfileMinOrderByAggregateInput = {
   organizationId?: Prisma.SortOrder
   organizationStatus?: Prisma.SortOrder
   joinedOrganizationAt?: Prisma.SortOrder
+  points?: Prisma.SortOrder
 }
 
 export type VolunteerProfileSumOrderByAggregateInput = {
   experienceYears?: Prisma.SortOrder
   totalThanks?: Prisma.SortOrder
+  points?: Prisma.SortOrder
 }
 
 export type VolunteerProfileCreateNestedOneWithoutUserInput = {
@@ -678,6 +706,7 @@ export type VolunteerProfileCreateWithoutUserInput = {
   cccdBackFile?: string | null
   organizationStatus?: $Enums.OrgStatus | null
   joinedOrganizationAt?: Date | string | null
+  points?: number
   organization?: Prisma.UserCreateNestedOneWithoutVolunteersManagedInput
 }
 
@@ -694,6 +723,7 @@ export type VolunteerProfileUncheckedCreateWithoutUserInput = {
   organizationId?: string | null
   organizationStatus?: $Enums.OrgStatus | null
   joinedOrganizationAt?: Date | string | null
+  points?: number
 }
 
 export type VolunteerProfileCreateOrConnectWithoutUserInput = {
@@ -713,6 +743,7 @@ export type VolunteerProfileCreateWithoutOrganizationInput = {
   cccdBackFile?: string | null
   organizationStatus?: $Enums.OrgStatus | null
   joinedOrganizationAt?: Date | string | null
+  points?: number
   user: Prisma.UserCreateNestedOneWithoutVolunteerProfileInput
 }
 
@@ -729,6 +760,7 @@ export type VolunteerProfileUncheckedCreateWithoutOrganizationInput = {
   cccdBackFile?: string | null
   organizationStatus?: $Enums.OrgStatus | null
   joinedOrganizationAt?: Date | string | null
+  points?: number
 }
 
 export type VolunteerProfileCreateOrConnectWithoutOrganizationInput = {
@@ -764,6 +796,7 @@ export type VolunteerProfileUpdateWithoutUserInput = {
   cccdBackFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
   joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  points?: Prisma.IntFieldUpdateOperationsInput | number
   organization?: Prisma.UserUpdateOneWithoutVolunteersManagedNestedInput
 }
 
@@ -780,6 +813,7 @@ export type VolunteerProfileUncheckedUpdateWithoutUserInput = {
   organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
   joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  points?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type VolunteerProfileUpsertWithWhereUniqueWithoutOrganizationInput = {
@@ -815,6 +849,7 @@ export type VolunteerProfileScalarWhereInput = {
   organizationId?: Prisma.StringNullableFilter<"VolunteerProfile"> | string | null
   organizationStatus?: Prisma.EnumOrgStatusNullableFilter<"VolunteerProfile"> | $Enums.OrgStatus | null
   joinedOrganizationAt?: Prisma.DateTimeNullableFilter<"VolunteerProfile"> | Date | string | null
+  points?: Prisma.IntFilter<"VolunteerProfile"> | number
 }
 
 export type VolunteerProfileCreateManyOrganizationInput = {
@@ -830,6 +865,7 @@ export type VolunteerProfileCreateManyOrganizationInput = {
   cccdBackFile?: string | null
   organizationStatus?: $Enums.OrgStatus | null
   joinedOrganizationAt?: Date | string | null
+  points?: number
 }
 
 export type VolunteerProfileUpdateWithoutOrganizationInput = {
@@ -844,6 +880,7 @@ export type VolunteerProfileUpdateWithoutOrganizationInput = {
   cccdBackFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
   joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  points?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutVolunteerProfileNestedInput
 }
 
@@ -860,6 +897,7 @@ export type VolunteerProfileUncheckedUpdateWithoutOrganizationInput = {
   cccdBackFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
   joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  points?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type VolunteerProfileUncheckedUpdateManyWithoutOrganizationInput = {
@@ -875,6 +913,7 @@ export type VolunteerProfileUncheckedUpdateManyWithoutOrganizationInput = {
   cccdBackFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
   joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  points?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -893,6 +932,7 @@ export type VolunteerProfileSelect<ExtArgs extends runtime.Types.Extensions.Inte
   organizationId?: boolean
   organizationStatus?: boolean
   joinedOrganizationAt?: boolean
+  points?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   organization?: boolean | Prisma.VolunteerProfile$organizationArgs<ExtArgs>
 }, ExtArgs["result"]["volunteerProfile"]>
@@ -911,6 +951,7 @@ export type VolunteerProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   organizationId?: boolean
   organizationStatus?: boolean
   joinedOrganizationAt?: boolean
+  points?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   organization?: boolean | Prisma.VolunteerProfile$organizationArgs<ExtArgs>
 }, ExtArgs["result"]["volunteerProfile"]>
@@ -929,6 +970,7 @@ export type VolunteerProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   organizationId?: boolean
   organizationStatus?: boolean
   joinedOrganizationAt?: boolean
+  points?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   organization?: boolean | Prisma.VolunteerProfile$organizationArgs<ExtArgs>
 }, ExtArgs["result"]["volunteerProfile"]>
@@ -947,9 +989,10 @@ export type VolunteerProfileSelectScalar = {
   organizationId?: boolean
   organizationStatus?: boolean
   joinedOrganizationAt?: boolean
+  points?: boolean
 }
 
-export type VolunteerProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "fullName" | "avatarUrl" | "skills" | "experienceYears" | "bio" | "totalThanks" | "preferredDistricts" | "cccdFrontFile" | "cccdBackFile" | "organizationId" | "organizationStatus" | "joinedOrganizationAt", ExtArgs["result"]["volunteerProfile"]>
+export type VolunteerProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "fullName" | "avatarUrl" | "skills" | "experienceYears" | "bio" | "totalThanks" | "preferredDistricts" | "cccdFrontFile" | "cccdBackFile" | "organizationId" | "organizationStatus" | "joinedOrganizationAt" | "points", ExtArgs["result"]["volunteerProfile"]>
 export type VolunteerProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   organization?: boolean | Prisma.VolunteerProfile$organizationArgs<ExtArgs>
@@ -983,6 +1026,7 @@ export type $VolunteerProfilePayload<ExtArgs extends runtime.Types.Extensions.In
     organizationId: string | null
     organizationStatus: $Enums.OrgStatus | null
     joinedOrganizationAt: Date | null
+    points: number
   }, ExtArgs["result"]["volunteerProfile"]>
   composites: {}
 }
@@ -1421,6 +1465,7 @@ export interface VolunteerProfileFieldRefs {
   readonly organizationId: Prisma.FieldRef<"VolunteerProfile", 'String'>
   readonly organizationStatus: Prisma.FieldRef<"VolunteerProfile", 'OrgStatus'>
   readonly joinedOrganizationAt: Prisma.FieldRef<"VolunteerProfile", 'DateTime'>
+  readonly points: Prisma.FieldRef<"VolunteerProfile", 'Int'>
 }
     
 
