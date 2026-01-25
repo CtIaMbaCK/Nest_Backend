@@ -121,4 +121,50 @@ export class CloudinaryService {
       streamifier.createReadStream(buffer).pipe(uploadStream);
     });
   }
+
+  /**
+   * Xóa file trên Cloudinary bằng URL
+   * @param fileUrl URL đầy đủ của file trên Cloudinary
+   * @returns Promise<void>
+   */
+  async deleteFile(fileUrl: string): Promise<void> {
+    if (!fileUrl) return;
+
+    try {
+      // Extract public_id từ URL
+      // VD: https://res.cloudinary.com/demo/image/upload/v1234567890/better-us/avatar.jpg
+      // => public_id: better-us/avatar
+      const urlParts = fileUrl.split('/');
+      const uploadIndex = urlParts.findIndex((part) => part === 'upload');
+
+      if (uploadIndex === -1 || uploadIndex + 2 >= urlParts.length) {
+        console.warn('Invalid Cloudinary URL format:', fileUrl);
+        return;
+      }
+
+      // Lấy phần sau 'upload/v1234567890/' => 'better-us/avatar.jpg'
+      const pathAfterVersion = urlParts.slice(uploadIndex + 2).join('/');
+
+      // Bỏ extension (.jpg, .png, etc.) để lấy public_id
+      const public_id = pathAfterVersion.replace(/\.[^/.]+$/, '');
+
+      // Xóa file trên Cloudinary
+      await cloudinary.uploader.destroy(public_id);
+      console.log(`✅ Đã xóa file trên Cloudinary: ${public_id}`);
+    } catch (error) {
+      console.error('❌ Lỗi khi xóa file trên Cloudinary:', error);
+      // Không throw error để tránh gián đoạn quá trình update
+    }
+  }
+
+  /**
+   * Xóa nhiều files trên Cloudinary
+   * @param fileUrls Mảng các URLs cần xóa
+   */
+  async deleteFiles(fileUrls: string[]): Promise<void> {
+    if (!fileUrls || fileUrls.length === 0) return;
+
+    const deletePromises = fileUrls.map((url) => this.deleteFile(url));
+    await Promise.all(deletePromises);
+  }
 }

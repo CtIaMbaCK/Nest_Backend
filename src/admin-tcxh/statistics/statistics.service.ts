@@ -1,14 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { CampaignStatus, Prisma, RegistrationStatus, UserStatus } from 'src/generated/prisma/client';
+import {
+  CampaignStatus,
+  Prisma,
+  RegistrationStatus,
+  UserStatus,
+} from 'src/generated/prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class StatisticsService {
   constructor(private prisma: PrismaService) {}
 
-  /**
-   * Thống kê tổng quan
-   */
+  // Lay thong ke tong quan
   async getOverviewStatistics(organizationId: string) {
     // Đếm tổng số tình nguyện viên
     const totalVolunteers = await this.prisma.volunteerProfile.count({
@@ -79,9 +82,7 @@ export class StatisticsService {
     };
   }
 
-  /**
-   * Thống kê tình nguyện viên
-   */
+  // Thong ke tinh nguyen vien
   async getVolunteerStatistics(organizationId: string) {
     // TNV theo trạng thái
     const volunteersByStatus = await this.prisma.user.groupBy({
@@ -186,9 +187,7 @@ export class StatisticsService {
     };
   }
 
-  /**
-   * Thống kê người cần giúp đỡ
-   */
+  // Thong ke nguoi can giup do
   async getBeneficiaryStatistics(organizationId: string) {
     // NCGĐ theo trạng thái
     const beneficiariesByStatus = await this.prisma.user.groupBy({
@@ -227,9 +226,7 @@ export class StatisticsService {
     };
   }
 
-  /**
-   * Thống kê chiến dịch
-   */
+  // Thong ke chien dich
   async getCampaignStatistics(organizationId: string) {
     // Chiến dịch theo trạng thái
     const campaignsByStatus = await this.prisma.campaign.groupBy({
@@ -282,9 +279,7 @@ export class StatisticsService {
     };
   }
 
-  /**
-   * Thống kê hoạt động theo thời gian
-   */
+  // Thong ke hoat dong theo thoi gian
   async getActivityStatistics(organizationId: string, days?: number) {
     const startDate = days
       ? new Date(Date.now() - days * 24 * 60 * 60 * 1000)
@@ -297,7 +292,7 @@ export class StatisticsService {
       SELECT
         TO_CHAR(joined_organization_at, 'YYYY-MM') as month,
         COUNT(*)::bigint as count
-      FROM VolunteerProfile
+      FROM "VolunteerProfile"
       WHERE organization_id = ${organizationId}
         AND joined_organization_at >= ${startDate}
       GROUP BY TO_CHAR(joined_organization_at, 'YYYY-MM')
@@ -311,7 +306,7 @@ export class StatisticsService {
       SELECT
         TO_CHAR(joined_organization_at, 'YYYY-MM') as month,
         COUNT(*)::bigint as count
-      FROM bficiary_profile
+      FROM "BficiaryProfile"
       WHERE organization_id = ${organizationId}
         AND joined_organization_at >= ${startDate}
       GROUP BY TO_CHAR(joined_organization_at, 'YYYY-MM')
@@ -325,7 +320,7 @@ export class StatisticsService {
       SELECT
         TO_CHAR(created_at, 'YYYY-MM') as month,
         COUNT(*)::bigint as count
-      FROM campaigns
+      FROM "Campaign"
       WHERE organization_id = ${organizationId}
         AND created_at >= ${startDate}
       GROUP BY TO_CHAR(created_at, 'YYYY-MM')
@@ -366,15 +361,12 @@ export class StatisticsService {
     };
   }
 
-  /**
-   * Thống kê HelpRequest (hoạt động hỗ trợ)
-   */
+  // Thong ke hoat dong ho tro
   async getHelpRequestStatistics(organizationId: string, days?: number) {
     const startDate = days
       ? new Date(Date.now() - days * 24 * 60 * 60 * 1000)
       : null;
 
-    // Build where clause
     const whereClause: any = {
       OR: [
         { requester: { volunteerProfile: { organizationId } } },
@@ -416,11 +408,11 @@ export class StatisticsService {
         TO_CHAR(created_at, 'YYYY-MM') as month,
         status,
         COUNT(*)::bigint as count
-      FROM helpRequest hr
+      FROM "HelpRequest" hr
       WHERE (
-        EXISTS (SELECT 1 FROM VolunteerProfile vp WHERE vp.user_id = hr.requester_id AND vp.organization_id = ${organizationId})
-        OR EXISTS (SELECT 1 FROM bficiary_profile bp WHERE bp.user_id = hr.requester_id AND bp.organization_id = ${organizationId})
-        OR EXISTS (SELECT 1 FROM VolunteerProfile vp WHERE vp.user_id = hr.volunteer_id AND vp.organization_id = ${organizationId})
+        EXISTS (SELECT 1 FROM "VolunteerProfile" vp WHERE vp.user_id = hr.requester_id AND vp.organization_id = ${organizationId})
+        OR EXISTS (SELECT 1 FROM "BficiaryProfile" bp WHERE bp.user_id = hr.requester_id AND bp.organization_id = ${organizationId})
+        OR EXISTS (SELECT 1 FROM "VolunteerProfile" vp WHERE vp.user_id = hr.volunteer_id AND vp.organization_id = ${organizationId})
       )
       ${startDate ? Prisma.sql`AND created_at >= ${startDate}` : Prisma.empty}
       GROUP BY TO_CHAR(created_at, 'YYYY-MM'), status
@@ -448,9 +440,7 @@ export class StatisticsService {
     };
   }
 
-  /**
-   * [PUBLIC] Top tình nguyện viên toàn hệ thống theo điểm
-   */
+  // API public - Top TNV toan he thong
   async getTopVolunteersGlobal(limit: number = 10) {
     const topVolunteers = await this.prisma.volunteerProfile.findMany({
       where: {

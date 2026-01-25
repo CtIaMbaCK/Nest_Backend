@@ -226,6 +226,8 @@ export const CampaignScalarFieldEnum = {
   targetVolunteers: 'targetVolunteers',
   maxVolunteers: 'maxVolunteers',
   currentVolunteers: 'currentVolunteers',
+  proofImages: 'proofImages',
+  doneAt: 'doneAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
   Injectable,
   NotFoundException,
@@ -13,7 +14,6 @@ import { IssueCertificateDto } from './dto/issue-certificate.dto';
 import { createCanvas, loadImage } from 'canvas';
 import { Role } from 'src/generated/prisma/client';
 
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
@@ -179,7 +179,10 @@ export class VolunteerRewardsService {
       },
     });
 
-    console.log('✅ Template created with textBoxConfig:', JSON.stringify(template.textBoxConfig, null, 2));
+    console.log(
+      '✅ Template created with textBoxConfig:',
+      JSON.stringify(template.textBoxConfig, null, 2),
+    );
 
     return template;
   }
@@ -188,7 +191,7 @@ export class VolunteerRewardsService {
    * Lấy danh sách mẫu chứng nhận của TCXH
    */
   async getTemplates(organizationId: string) {
-    console.log('📋 getTemplates called with organizationId:', organizationId);
+    // console.log('📋 getTemplates called with organizationId:', organizationId);
 
     const templates = await this.prisma.certificateTemplate.findMany({
       where: {
@@ -245,6 +248,7 @@ export class VolunteerRewardsService {
       where: { id: templateId },
       data: {
         ...dto,
+
         textBoxConfig: dto.textBoxConfig as any,
       },
     });
@@ -378,7 +382,7 @@ export class VolunteerRewardsService {
 
       console.log('✅ Lưu database thành công');
 
-      // TODO: Gửi email cho TNV với PDF attachment
+      // TODO: neeus co thoi gian thi lam gui email ( neu dc )
       // await this.sendCertificateEmail(volunteer.email, pdfUrl);
 
       return issuedCertificate;
@@ -396,40 +400,40 @@ export class VolunteerRewardsService {
     data: any,
   ): Promise<Buffer> {
     try {
-      console.log('🔧 Bắt đầu tạo ảnh chứng nhận PNG...');
-      console.log('📋 Template:', template.name);
-      console.log('🖼️ Template image URL:', template.templateImageUrl);
-      console.log('📝 Data:', data);
+      console.log('Bắt đầu tạo ảnh chứng nhận PNG...');
+      console.log('Template:', template.name);
+      console.log('Template image URL:', template.templateImageUrl);
+      console.log('Data:', data);
 
       const config = template.textBoxConfig;
-      console.log('⚙️ textBoxConfig from DB:', JSON.stringify(config, null, 2));
-      console.log('⚙️ textBoxConfig type:', typeof config);
-      console.log('⚙️ textBoxConfig keys:', Object.keys(config || {}));
+      console.log('textBoxConfig from DB:', JSON.stringify(config, null, 2));
+      console.log('textBoxConfig type:', typeof config);
+      console.log('textBoxConfig keys:', Object.keys(config || {}));
 
-      // Load ảnh background
-      console.log('📥 Loading background image...');
+      console.log('Loading background image...');
 
-      // FIX: Convert WebP URL thành PNG để canvas có thể đọc được
       let imageUrl = template.templateImageUrl;
       if (imageUrl.includes('.webp')) {
-        // Cloudinary URL transformation: thay .webp thành .png
         imageUrl = imageUrl.replace(/\.webp$/, '.png');
         console.log('🔄 Converted WebP to PNG:', imageUrl);
       }
 
       const image = await loadImage(imageUrl);
-      console.log('✅ Image loaded, dimensions:', image.width, 'x', image.height);
+      console.log(
+        '✅ Image loaded, dimensions:',
+        image.width,
+        'x',
+        image.height,
+      );
 
       const canvas = createCanvas(image.width, image.height);
       const ctx = canvas.getContext('2d');
 
-      // Vẽ background
-      console.log('🎨 Drawing background...');
+      console.log('Điền tên...');
       ctx.drawImage(image, 0, 0);
 
-      // Vẽ từng field lên canvas
-      console.log('✍️ Drawing text fields...');
-      console.log('✍️ Config entries:', Object.entries(config || {}));
+      console.log('Đang điền tên');
+      console.log('confg:', Object.entries(config || {}));
 
       for (const [fieldName, fieldConfig] of Object.entries(config || {})) {
         console.log(`  🔍 Processing field: ${fieldName}`);
@@ -471,7 +475,9 @@ export class VolunteerRewardsService {
 
       return imageBuffer;
     } catch (error) {
-      throw new BadRequestException('Lỗi khi tạo ảnh chứng nhận: ' + error.message);
+      throw new BadRequestException(
+        'Lỗi khi tạo ảnh chứng nhận: ' + error.message,
+      );
     }
   }
 

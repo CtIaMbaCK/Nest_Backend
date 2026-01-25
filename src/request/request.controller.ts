@@ -62,13 +62,6 @@ export class RequestController {
     return this.requestService.findRequestsByRequester(userId);
   }
 
-  // xem thong tin chi tiet yeu cau giup do
-  @UseGuards(JwtAuthGuard)
-  @Get(':id')
-  getRequestById(@Param('id') requestId: string) {
-    return this.requestService.getRequestDetail(requestId);
-  }
-
   // tim tat ca yeu cau giup do cua tinh nguyen vien
   @UseGuards(JwtAuthGuard)
   @Get('volunteerRequests')
@@ -77,11 +70,26 @@ export class RequestController {
   }
 
   // lay ban do
-  // @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Lấy danh sách tọa độ rút gọn cho bản đồ' })
   @Get('map-locations')
   getMapLocations() {
     return this.requestService.getMapLocation();
+  }
+
+  @Post('auto-transition')
+  @ApiOperation({
+    summary: '[Utility] Tự động chuyển request status theo thời gian',
+    description: 'ONGOING quá endDate → COMPLETED. APPROVED (không có volunteer) quá endDate → CANCELLED'
+  })
+  autoTransitionRequests() {
+    return this.requestService.autoTransitionRequests();
+  }
+
+  // xem thong tin chi tiet yeu cau giup do (PHẢI Ở CUỐI - sau các routes cụ thể)
+  @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  getRequestById(@Param('id') requestId: string) {
+    return this.requestService.getRequestDetail(requestId);
   }
 
   @UseGuards(JwtAuthGuard)

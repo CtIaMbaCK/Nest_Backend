@@ -1,6 +1,11 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { StatisticsService } from './statistics.service';
-import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { GetUser } from 'src/auth/decorator/get-user.decorator';
 
@@ -41,7 +46,12 @@ export class StatisticsController {
   @UseGuards(JwtAuthGuard)
   @Get('activities')
   @ApiOperation({ summary: 'Thống kê hoạt động theo thời gian' })
-  @ApiQuery({ name: 'days', required: false, type: Number, description: 'Số ngày gần đây (30 hoặc để trống = tất cả)' })
+  @ApiQuery({
+    name: 'days',
+    required: false,
+    type: Number,
+    description: 'Số ngày gần đây (30 hoặc để trống = tất cả)',
+  })
   async getActivityStatistics(
     @GetUser('sub') organizationId: string,
     @Query('days') days?: number,
@@ -57,6 +67,9 @@ export class StatisticsController {
     @GetUser('sub') organizationId: string,
     @Query('days') days?: number,
   ) {
-    return this.statisticsService.getHelpRequestStatistics(organizationId, days);
+    return this.statisticsService.getHelpRequestStatistics(
+      organizationId,
+      days,
+    );
   }
 }

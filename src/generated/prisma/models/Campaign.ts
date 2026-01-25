@@ -53,6 +53,7 @@ export type CampaignMinAggregateOutputType = {
   targetVolunteers: number | null
   maxVolunteers: number | null
   currentVolunteers: number | null
+  doneAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -72,6 +73,7 @@ export type CampaignMaxAggregateOutputType = {
   targetVolunteers: number | null
   maxVolunteers: number | null
   currentVolunteers: number | null
+  doneAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -92,6 +94,8 @@ export type CampaignCountAggregateOutputType = {
   targetVolunteers: number
   maxVolunteers: number
   currentVolunteers: number
+  proofImages: number
+  doneAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -125,6 +129,7 @@ export type CampaignMinAggregateInputType = {
   targetVolunteers?: true
   maxVolunteers?: true
   currentVolunteers?: true
+  doneAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -144,6 +149,7 @@ export type CampaignMaxAggregateInputType = {
   targetVolunteers?: true
   maxVolunteers?: true
   currentVolunteers?: true
+  doneAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -164,6 +170,8 @@ export type CampaignCountAggregateInputType = {
   targetVolunteers?: true
   maxVolunteers?: true
   currentVolunteers?: true
+  proofImages?: true
+  doneAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -271,6 +279,8 @@ export type CampaignGroupByOutputType = {
   targetVolunteers: number
   maxVolunteers: number
   currentVolunteers: number
+  proofImages: string[]
+  doneAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: CampaignCountAggregateOutputType | null
@@ -314,6 +324,8 @@ export type CampaignWhereInput = {
   targetVolunteers?: Prisma.IntFilter<"Campaign"> | number
   maxVolunteers?: Prisma.IntFilter<"Campaign"> | number
   currentVolunteers?: Prisma.IntFilter<"Campaign"> | number
+  proofImages?: Prisma.StringNullableListFilter<"Campaign">
+  doneAt?: Prisma.DateTimeNullableFilter<"Campaign"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Campaign"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Campaign"> | Date | string
   organization?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -336,6 +348,8 @@ export type CampaignOrderByWithRelationInput = {
   targetVolunteers?: Prisma.SortOrder
   maxVolunteers?: Prisma.SortOrder
   currentVolunteers?: Prisma.SortOrder
+  proofImages?: Prisma.SortOrder
+  doneAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   organization?: Prisma.UserOrderByWithRelationInput
@@ -361,6 +375,8 @@ export type CampaignWhereUniqueInput = Prisma.AtLeast<{
   targetVolunteers?: Prisma.IntFilter<"Campaign"> | number
   maxVolunteers?: Prisma.IntFilter<"Campaign"> | number
   currentVolunteers?: Prisma.IntFilter<"Campaign"> | number
+  proofImages?: Prisma.StringNullableListFilter<"Campaign">
+  doneAt?: Prisma.DateTimeNullableFilter<"Campaign"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Campaign"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Campaign"> | Date | string
   organization?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -383,6 +399,8 @@ export type CampaignOrderByWithAggregationInput = {
   targetVolunteers?: Prisma.SortOrder
   maxVolunteers?: Prisma.SortOrder
   currentVolunteers?: Prisma.SortOrder
+  proofImages?: Prisma.SortOrder
+  doneAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.CampaignCountOrderByAggregateInput
@@ -411,6 +429,8 @@ export type CampaignScalarWhereWithAggregatesInput = {
   targetVolunteers?: Prisma.IntWithAggregatesFilter<"Campaign"> | number
   maxVolunteers?: Prisma.IntWithAggregatesFilter<"Campaign"> | number
   currentVolunteers?: Prisma.IntWithAggregatesFilter<"Campaign"> | number
+  proofImages?: Prisma.StringNullableListFilter<"Campaign">
+  doneAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Campaign"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Campaign"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Campaign"> | Date | string
 }
@@ -430,6 +450,8 @@ export type CampaignCreateInput = {
   targetVolunteers?: number
   maxVolunteers?: number
   currentVolunteers?: number
+  proofImages?: Prisma.CampaignCreateproofImagesInput | string[]
+  doneAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.UserCreateNestedOneWithoutCampaignsInput
@@ -452,6 +474,8 @@ export type CampaignUncheckedCreateInput = {
   targetVolunteers?: number
   maxVolunteers?: number
   currentVolunteers?: number
+  proofImages?: Prisma.CampaignCreateproofImagesInput | string[]
+  doneAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   registrations?: Prisma.CampaignRegistrationUncheckedCreateNestedManyWithoutCampaignInput
@@ -472,6 +496,8 @@ export type CampaignUpdateInput = {
   targetVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   currentVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  proofImages?: Prisma.CampaignUpdateproofImagesInput | string[]
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.UserUpdateOneRequiredWithoutCampaignsNestedInput
@@ -494,6 +520,8 @@ export type CampaignUncheckedUpdateInput = {
   targetVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   currentVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  proofImages?: Prisma.CampaignUpdateproofImagesInput | string[]
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   registrations?: Prisma.CampaignRegistrationUncheckedUpdateManyWithoutCampaignNestedInput
@@ -515,6 +543,8 @@ export type CampaignCreateManyInput = {
   targetVolunteers?: number
   maxVolunteers?: number
   currentVolunteers?: number
+  proofImages?: Prisma.CampaignCreateproofImagesInput | string[]
+  doneAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -534,6 +564,8 @@ export type CampaignUpdateManyMutationInput = {
   targetVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   currentVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  proofImages?: Prisma.CampaignUpdateproofImagesInput | string[]
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -554,6 +586,8 @@ export type CampaignUncheckedUpdateManyInput = {
   targetVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   currentVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  proofImages?: Prisma.CampaignUpdateproofImagesInput | string[]
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -584,6 +618,8 @@ export type CampaignCountOrderByAggregateInput = {
   targetVolunteers?: Prisma.SortOrder
   maxVolunteers?: Prisma.SortOrder
   currentVolunteers?: Prisma.SortOrder
+  proofImages?: Prisma.SortOrder
+  doneAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -609,6 +645,7 @@ export type CampaignMaxOrderByAggregateInput = {
   targetVolunteers?: Prisma.SortOrder
   maxVolunteers?: Prisma.SortOrder
   currentVolunteers?: Prisma.SortOrder
+  doneAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -628,6 +665,7 @@ export type CampaignMinOrderByAggregateInput = {
   targetVolunteers?: Prisma.SortOrder
   maxVolunteers?: Prisma.SortOrder
   currentVolunteers?: Prisma.SortOrder
+  doneAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -689,11 +727,20 @@ export type CampaignCreateimagesInput = {
   set: string[]
 }
 
+export type CampaignCreateproofImagesInput = {
+  set: string[]
+}
+
 export type EnumCampaignStatusFieldUpdateOperationsInput = {
   set?: $Enums.CampaignStatus
 }
 
 export type CampaignUpdateimagesInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type CampaignUpdateproofImagesInput = {
   set?: string[]
   push?: string | string[]
 }
@@ -727,6 +774,8 @@ export type CampaignCreateWithoutOrganizationInput = {
   targetVolunteers?: number
   maxVolunteers?: number
   currentVolunteers?: number
+  proofImages?: Prisma.CampaignCreateproofImagesInput | string[]
+  doneAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   registrations?: Prisma.CampaignRegistrationCreateNestedManyWithoutCampaignInput
@@ -747,6 +796,8 @@ export type CampaignUncheckedCreateWithoutOrganizationInput = {
   targetVolunteers?: number
   maxVolunteers?: number
   currentVolunteers?: number
+  proofImages?: Prisma.CampaignCreateproofImagesInput | string[]
+  doneAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   registrations?: Prisma.CampaignRegistrationUncheckedCreateNestedManyWithoutCampaignInput
@@ -797,6 +848,8 @@ export type CampaignScalarWhereInput = {
   targetVolunteers?: Prisma.IntFilter<"Campaign"> | number
   maxVolunteers?: Prisma.IntFilter<"Campaign"> | number
   currentVolunteers?: Prisma.IntFilter<"Campaign"> | number
+  proofImages?: Prisma.StringNullableListFilter<"Campaign">
+  doneAt?: Prisma.DateTimeNullableFilter<"Campaign"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Campaign"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Campaign"> | Date | string
 }
@@ -816,6 +869,8 @@ export type CampaignCreateWithoutRegistrationsInput = {
   targetVolunteers?: number
   maxVolunteers?: number
   currentVolunteers?: number
+  proofImages?: Prisma.CampaignCreateproofImagesInput | string[]
+  doneAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.UserCreateNestedOneWithoutCampaignsInput
@@ -837,6 +892,8 @@ export type CampaignUncheckedCreateWithoutRegistrationsInput = {
   targetVolunteers?: number
   maxVolunteers?: number
   currentVolunteers?: number
+  proofImages?: Prisma.CampaignCreateproofImagesInput | string[]
+  doneAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -872,6 +929,8 @@ export type CampaignUpdateWithoutRegistrationsInput = {
   targetVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   currentVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  proofImages?: Prisma.CampaignUpdateproofImagesInput | string[]
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.UserUpdateOneRequiredWithoutCampaignsNestedInput
@@ -893,6 +952,8 @@ export type CampaignUncheckedUpdateWithoutRegistrationsInput = {
   targetVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   currentVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  proofImages?: Prisma.CampaignUpdateproofImagesInput | string[]
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -912,6 +973,8 @@ export type CampaignCreateManyOrganizationInput = {
   targetVolunteers?: number
   maxVolunteers?: number
   currentVolunteers?: number
+  proofImages?: Prisma.CampaignCreateproofImagesInput | string[]
+  doneAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -931,6 +994,8 @@ export type CampaignUpdateWithoutOrganizationInput = {
   targetVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   currentVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  proofImages?: Prisma.CampaignUpdateproofImagesInput | string[]
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   registrations?: Prisma.CampaignRegistrationUpdateManyWithoutCampaignNestedInput
@@ -951,6 +1016,8 @@ export type CampaignUncheckedUpdateWithoutOrganizationInput = {
   targetVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   currentVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  proofImages?: Prisma.CampaignUpdateproofImagesInput | string[]
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   registrations?: Prisma.CampaignRegistrationUncheckedUpdateManyWithoutCampaignNestedInput
@@ -971,6 +1038,8 @@ export type CampaignUncheckedUpdateManyWithoutOrganizationInput = {
   targetVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   currentVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  proofImages?: Prisma.CampaignUpdateproofImagesInput | string[]
+  doneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1022,6 +1091,8 @@ export type CampaignSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   targetVolunteers?: boolean
   maxVolunteers?: boolean
   currentVolunteers?: boolean
+  proofImages?: boolean
+  doneAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1045,6 +1116,8 @@ export type CampaignSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   targetVolunteers?: boolean
   maxVolunteers?: boolean
   currentVolunteers?: boolean
+  proofImages?: boolean
+  doneAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1066,6 +1139,8 @@ export type CampaignSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   targetVolunteers?: boolean
   maxVolunteers?: boolean
   currentVolunteers?: boolean
+  proofImages?: boolean
+  doneAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1087,11 +1162,13 @@ export type CampaignSelectScalar = {
   targetVolunteers?: boolean
   maxVolunteers?: boolean
   currentVolunteers?: boolean
+  proofImages?: boolean
+  doneAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CampaignOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizationId" | "status" | "title" | "description" | "goal" | "district" | "addressDetail" | "startDate" | "endDate" | "coverImage" | "images" | "targetVolunteers" | "maxVolunteers" | "currentVolunteers" | "createdAt" | "updatedAt", ExtArgs["result"]["campaign"]>
+export type CampaignOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizationId" | "status" | "title" | "description" | "goal" | "district" | "addressDetail" | "startDate" | "endDate" | "coverImage" | "images" | "targetVolunteers" | "maxVolunteers" | "currentVolunteers" | "proofImages" | "doneAt" | "createdAt" | "updatedAt", ExtArgs["result"]["campaign"]>
 export type CampaignInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   registrations?: boolean | Prisma.Campaign$registrationsArgs<ExtArgs>
@@ -1126,6 +1203,8 @@ export type $CampaignPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     targetVolunteers: number
     maxVolunteers: number
     currentVolunteers: number
+    proofImages: string[]
+    doneAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["campaign"]>
@@ -1568,6 +1647,8 @@ export interface CampaignFieldRefs {
   readonly targetVolunteers: Prisma.FieldRef<"Campaign", 'Int'>
   readonly maxVolunteers: Prisma.FieldRef<"Campaign", 'Int'>
   readonly currentVolunteers: Prisma.FieldRef<"Campaign", 'Int'>
+  readonly proofImages: Prisma.FieldRef<"Campaign", 'String[]'>
+  readonly doneAt: Prisma.FieldRef<"Campaign", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Campaign", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Campaign", 'DateTime'>
 }

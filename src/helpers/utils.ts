@@ -1,6 +1,7 @@
 import * as bcrypt from 'bcrypt';
 
-const saltRounds = 10;
+// Increased from 10 to 12 for better security
+const saltRounds = 12;
 
 export const helpHashPassword = async (
   plainPassword: string,

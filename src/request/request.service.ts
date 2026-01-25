@@ -24,26 +24,35 @@ export class RequestService {
     let long: number | null = null;
 
     try {
-      const apiKey = ENV('GOONG_API_KEY');
-      const gooongBaseUrl = ENV('GOONG_URL');
-      const fullAddress = `${dto.addressDetail}, ${dto.district}, TP. Hồ Chí Minh`;
+      // Sử dụng Google Maps Geocoding API thay vì Goong
+      const apiKey = ENV('GOOGLE_MAPS_API_KEY');
 
-      const url = `${gooongBaseUrl}?address=${encodeURIComponent(fullAddress)}&api_key=${apiKey}`;
+      // Chỉ geocoding nếu có API key hợp lệ
+      if (apiKey && apiKey !== '' && apiKey !== 'your-google-maps-api-key') {
+        const fullAddress = `${dto.addressDetail}, ${dto.district}, TP. Hồ Chí Minh`;
+        const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(fullAddress)}&key=${apiKey}`;
 
-      const response = await axios.get<GoongResponse>(url);
+        try {
+          const response = await axios.get(url);
+          const data = response.data;
 
-      const data = response.data;
-
-      if (data.results?.length > 0) {
-        const location = data.results[0].geometry.location;
-        lat = location.lat;
-        long = location.lng;
+          if (data.status === 'OK' && data.results?.length > 0) {
+            const location = data.results[0].geometry.location;
+            lat = location.lat;
+            long = location.lng;
+          } else {
+            console.warn(`Geocoding warning: ${data.status}`);
+          }
+        } catch (geoError) {
+          console.warn('Geocoding failed, continuing without coordinates:', geoError);
+        }
+      } else {
+        console.warn('Google Maps API key not configured, creating request without coordinates');
       }
+      // Nếu không có API key hoặc geocoding fail, vẫn cho phép tạo request (lat/long = null)
     } catch (error) {
-      return new BadRequestException(
-        'Lấy tọa độ thất bại, vui lòng kiểm tra lại địa chỉ!',
-        { cause: error },
-      );
+      console.warn('Error in geocoding process:', error);
+      // Không throw error, vẫn tiếp tục tạo request
     }
     return this.prisma.helpRequest.create({
       data: {
@@ -57,6 +66,8 @@ export class RequestService {
         endDate: dto.endDate ? new Date(dto.endDate) : null,
         startTime: new Date(dto.startTime),
         endTime: new Date(dto.endTime),
+
+        urgencyLevel: dto.urgencyLevel || 'STANDARD', // Fix: Thêm urgencyLevel
 
         latitude: lat,
         longitude: long,
@@ -128,12 +139,37 @@ export class RequestService {
     if (!existedRequest) {
       throw new NotFoundException('Yêu cầu không tồn tại');
     }
+
+    // Check status - only allow accepting APPROVED requests
+    if (existedRequest.status !== 'APPROVED') {
+      throw new BadRequestException(
+        `Không thể nhận yêu cầu có trạng thái ${existedRequest.status}`,
+      );
+    }
+
     if (existedRequest.volunteerId) {
       throw new BadRequestException('Yêu cầu này đã có người khác nhận rồi!');
     }
+
     if (existedRequest.requesterId === volunteerId) {
       throw new BadRequestException('Không thể tự nhận yêu cầu của bản thân');
     }
+
+    // KHÔNG cho accept khi đã quá startDate + startTime
+    // Note: Tạm thời comment để test - sẽ bỏ comment sau khi confirm logic đúng
+    /*
+    const now = new Date();
+    const startDateTime = new Date(existedRequest.startDate);
+    // Combine date và time để so sánh chính xác
+    if (existedRequest.startTime) {
+      const time = new Date(existedRequest.startTime);
+      startDateTime.setHours(time.getHours(), time.getMinutes(), 0, 0);
+    }
+
+    if (now >= startDateTime) {
+      throw new BadRequestException('Không thể nhận yêu cầu sau thời gian bắt đầu');
+    }
+    */
 
     return this.prisma.helpRequest.update({
       where: { id: requesterId },
@@ -280,16 +316,41 @@ export class RequestService {
 
   async getMapLocation() {
     return this.prisma.helpRequest.findMany({
-      where: { latitude: { not: null }, longitude: { not: null } },
+      where: {
+        latitude: { not: null },
+        longitude: { not: null },
+        // Chỉ lấy các request chưa có người nhận (volunteerId null)
+        // và status là APPROVED (đã được admin duyệt)
+        volunteerId: null,
+        status: 'APPROVED',
+      },
       select: {
         id: true,
+        requesterId: true,
+        volunteerId: true,
+        acceptedAt: true,
         latitude: true,
         longitude: true,
-
         addressDetail: true,
-
         title: true,
         description: true,
+        status: true,
+        urgencyLevel: true,
+        activityType: true,
+        district: true,
+        startDate: true,
+        endDate: true,
+        startTime: true,
+        endTime: true,
+        recurrence: true,
+        activityImages: true,
+        createdAt: true,
+        doneAt: true,
+        proofImages: true,
+        completionNotes: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
       },
     });
   }
@@ -345,6 +406,76 @@ export class RequestService {
         limit,
         totalPages: Math.ceil(total / limit),
       },
+    };
+  }
+
+  // Helper: Tự động chuyển request status theo thời gian
+  async autoTransitionRequests() {
+    const now = new Date();
+    let totalUpdated = 0;
+    const results: any = {};
+
+    // Tìm requests ONGOING đã quá endDate
+    const expiredRequests = await this.prisma.helpRequest.findMany({
+      where: {
+        status: 'ONGOING',
+        endDate: { not: null, lte: now },
+      },
+      select: {
+        id: true,
+        volunteerId: true,
+      },
+    });
+
+    if (expiredRequests.length > 0) {
+      // Tất cả đều chuyển COMPLETED vì đã có volunteer accept
+      const requestIds = expiredRequests.map((r) => r.id);
+
+      await this.prisma.helpRequest.updateMany({
+        where: { id: { in: requestIds } },
+        data: { status: 'COMPLETED' },
+      });
+
+      totalUpdated += expiredRequests.length;
+      results.completed = {
+        count: expiredRequests.length,
+        requestIds,
+      };
+    }
+
+    // Tìm requests APPROVED (chưa có ai nhận) đã quá endDate
+    const abandonedRequests = await this.prisma.helpRequest.findMany({
+      where: {
+        status: 'APPROVED',
+        volunteerId: null,
+        endDate: { not: null, lte: now },
+      },
+      select: { id: true },
+    });
+
+    if (abandonedRequests.length > 0) {
+      const requestIds = abandonedRequests.map((r) => r.id);
+
+      await this.prisma.helpRequest.updateMany({
+        where: { id: { in: requestIds } },
+        data: { status: 'CANCELLED' },
+      });
+
+      totalUpdated += abandonedRequests.length;
+      results.cancelled = {
+        count: abandonedRequests.length,
+        requestIds,
+      };
+    }
+
+    if (totalUpdated === 0) {
+      return { message: 'Không có request nào cần chuyển trạng thái', count: 0 };
+    }
+
+    return {
+      message: `Đã cập nhật ${totalUpdated} requests`,
+      totalUpdated,
+      details: results,
     };
   }
 }

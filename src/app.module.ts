@@ -12,9 +12,19 @@ import { CampaignModule } from './admin-tcxh/campaign/campaign.module';
 import { CommunicationModule } from './admin-tcxh/communication/communication.module';
 import { StatisticsModule } from './admin-tcxh/statistics/statistics.module';
 import { VolunteerRewardsModule } from './volunteer-rewards/volunteer-rewards.module';
+import { AdminModule } from './admin/admin.module';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
+    // Rate limiting configuration
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000, // 60 seconds
+        limit: 100, // 100 requests per minute (global default)
+      },
+    ]),
     UsersModule,
     AuthModule,
     PrismaModule,
@@ -26,8 +36,15 @@ import { VolunteerRewardsModule } from './volunteer-rewards/volunteer-rewards.mo
     CommunicationModule,
     StatisticsModule,
     VolunteerRewardsModule,
+    AdminModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {}

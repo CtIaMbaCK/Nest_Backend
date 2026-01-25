@@ -38,7 +38,7 @@ enum GuardianRelation {
   OTHER
 }
 
-// activity category
+// request enum
 enum RequestCategory {
   EDUCATION
   MEDICAL
@@ -143,12 +143,12 @@ model User {
   createdAt           DateTime   @default(now()) @map("created_at")
   forceChangePassword Boolean    @default(false) @map("force_change_password")
 
-  // 1-1 Profiles
+  // 1-1 ng dung
   volunteerProfile     VolunteerProfile?
   bficiaryProfile      BficiaryProfile?
   organizationProfiles OrganizationProfile?
 
-  // 1-n activity
+  // 1-n hoat dong
   activitiesRequested   HelpRequest[] @relation("HelpRequester")
   activitiesVolunteered HelpRequest[] @relation("HelpVolunteer")
 
@@ -158,16 +158,16 @@ model User {
   appreciationsSent     Appreciation[] @relation("AppreciationSender")
   appreciationsReceived Appreciation[] @relation("AppreciationReceiver")
 
-  // Campaign
+
   campaigns             Campaign[]             @relation("CampaignOrganization")
   campaignRegistrations CampaignRegistration[] @relation("CampaignVolunteer")
 
-  // Organization management
+// nay cua tcxh
   volunteersManaged    VolunteerProfile[]    @relation("VolunteerOrganization")
   beneficiariesManaged BficiaryProfile[]     @relation("BeneficiaryOrganization")
   communicationPosts   CommunicationPost[]   @relation("OrgPosts")
 
-  // Hệ thống khen thưởng
+  // point
   pointHistory           PointHistory[]        @relation("VolunteerPoints")
   volunteerComments      VolunteerComment[]    @relation("VolunteerComments")
   organizationComments   VolunteerComment[]    @relation("OrgComments")
@@ -176,7 +176,7 @@ model User {
   certificatesIssued     IssuedCertificate[]   @relation("OrgIssuedCertificates")
 }
 
-// profile của tình nguyện viên
+// profile  tnv
 model VolunteerProfile {
   userId String @id @map("user_id")
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -198,11 +198,11 @@ model VolunteerProfile {
   organizationStatus   OrgStatus? @map("organization_status")
   joinedOrganizationAt DateTime? @map("joined_organization_at")
 
-  // Hệ thống điểm khen thưởng
-  points Int @default(0) // Tổng điểm tích lũy
+  // point
+  points Int @default(0)
 }
 
-// profile của người cần giúp đỡ
+// profile của ncgd
 model BficiaryProfile {
   userId String @id @map("user_id")
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -231,28 +231,24 @@ model BficiaryProfile {
 model HelpRequest {
   id String @id @default(uuid())
 
-  // --- Quan hệ User ---
+  // user
   requesterId String @map("requester_id")
-  requester   User   @relation("HelpRequester", fields: [requesterId], references: [id])
+  requester   User   @relation("HelpRequester", fields: [requesterId], references: [id], onDelete: Cascade)
 
   volunteerId String? @map("volunteer_id")
-  volunteer   User?   @relation("HelpVolunteer", fields: [volunteerId], references: [id])
+  volunteer   User?   @relation("HelpVolunteer", fields: [volunteerId], references: [id], onDelete: SetNull)
 
   acceptedAt DateTime? @map("accepted_at")
 
-  // --- Nội dung ---
   activityType RequestCategory @map("request_category")
   title        String
   description  String?         @db.Text
 
-  // urgency
   urgencyLevel UrgencyLevel @default(STANDARD) @map("urgency_level")
 
-  // Địa điểm
   district      District @map("district")
   addressDetail String   @map("address_detail")
 
-  // Thời gian
   startDate DateTime  @map("start_date") @db.Date
   endDate   DateTime? @map("end_date") @db.Date
 
@@ -280,13 +276,13 @@ model Review {
   id String @id @default(uuid())
 
   activityId String      @map("activity_id")
-  activity   HelpRequest @relation(fields: [activityId], references: [id])
+  activity   HelpRequest @relation(fields: [activityId], references: [id], onDelete: Cascade)
 
   reviewerId String @map("reviewer_id")
-  reviewer   User   @relation("Reviewer", fields: [reviewerId], references: [id])
+  reviewer   User   @relation("Reviewer", fields: [reviewerId], references: [id], onDelete: Cascade)
 
   targetId String @map("target_id")
-  target   User   @relation("ReviewTarget", fields: [targetId], references: [id])
+  target   User   @relation("ReviewTarget", fields: [targetId], references: [id], onDelete: Cascade)
 
   rating    Int // 1-5
   comment   String?  @db.Text
@@ -297,13 +293,13 @@ model Appreciation {
   id String @id @default(uuid())
 
   senderId String @map("sender_id")
-  sender   User   @relation("AppreciationSender", fields: [senderId], references: [id])
+  sender   User   @relation("AppreciationSender", fields: [senderId], references: [id], onDelete: Cascade)
 
   receiverId String @map("receiver_id")
-  receiver   User   @relation("AppreciationReceiver", fields: [receiverId], references: [id])
+  receiver   User   @relation("AppreciationReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
 
   activityId String      @map("activity_id")
-  activity   HelpRequest @relation(fields: [activityId], references: [id])
+  activity   HelpRequest @relation(fields: [activityId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now()) @map("created_at")
 
@@ -311,20 +307,19 @@ model Appreciation {
 }
 
 // moi them
-
 enum CampaignStatus {
-  PENDING    // Đang chờ duyệt
-  APPROVED   // Đã duyệt, đang mở đăng ký
-  REJECTED   // Đã từ chối
-  ONGOING    // Đang diễn ra
-  COMPLETED  // Hoàn thành
-  CANCELLED  // Đã hủy
+  PENDING    
+  APPROVED   
+  REJECTED   
+  ONGOING    
+  COMPLETED  
+  CANCELLED  
 }
 
 enum RegistrationStatus {
-  REGISTERED  // Đã đăng ký
-  ATTENDED    // Đã tham gia
-  CANCELLED   // Đã hủy
+  REGISTERED  
+  ATTENDED    
+  CANCELLED   
 }
 
 model OrganizationProfile {
@@ -354,7 +349,7 @@ model Campaign {
   id String @id @default(uuid())
 
   organizationId String @map("organization_id")
-  organization   User   @relation("CampaignOrganization", fields: [organizationId], references: [id])
+  organization   User   @relation("CampaignOrganization", fields: [organizationId], references: [id], onDelete: Cascade)
 
   status CampaignStatus @default(PENDING)
 
@@ -362,24 +357,27 @@ model Campaign {
   description String? @db.Text
   goal        String? @db.Text
 
-  // Địa điểm - để gợi ý theo preferredDistricts
+
   district      District @map("district")
   addressDetail String   @map("address_detail")
 
-  // Thời gian
+  // Ttg
   startDate DateTime  @map("start_date")
   endDate   DateTime? @map("end_date")
 
-  // Hình ảnh
+  // anh
   coverImage String?  @map("cover_image")
   images     String[] @map("images")
 
-  // Số lượng tình nguyện viên
   targetVolunteers  Int @default(0) @map("target_volunteers")
   maxVolunteers     Int @default(0) @map("max_volunteers")
   currentVolunteers Int @default(0) @map("current_volunteers")
 
   registrations CampaignRegistration[]
+
+  // Minh chứng hoàn thành và thời gian hoàn thành
+  proofImages String[]  @default([]) @map("proof_images")
+  doneAt      DateTime? @map("done_at")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -392,7 +390,7 @@ model CampaignRegistration {
   campaign   Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
 
   volunteerId String @map("volunteer_id")
-  volunteer   User   @relation("CampaignVolunteer", fields: [volunteerId], references: [id])
+  volunteer   User   @relation("CampaignVolunteer", fields: [volunteerId], references: [id], onDelete: Cascade)
 
   status       RegistrationStatus @default(REGISTERED)
   registeredAt DateTime           @default(now()) @map("registered_at")
@@ -405,7 +403,7 @@ model CommunicationPost {
   id String @id @default(uuid())
 
   organizationId String @map("organization_id")
-  organization   User   @relation("OrgPosts", fields: [organizationId], references: [id])
+  organization   User   @relation("OrgPosts", fields: [organizationId], references: [id], onDelete: Cascade)
 
   title      String
   content    String  @db.Text
@@ -417,47 +415,47 @@ model CommunicationPost {
   @@map("communication_posts")
 }
 
-// ============================================
-// HỆ THỐNG ĐIỂM & KHEN THƯỞNG TÌNH NGUYỆN VIÊN
-// ============================================
 
-// Nguồn cộng điểm
+// cộng điểm
 enum PointSource {
-  HELP_REQUEST // Hoàn thành yêu cầu giúp đỡ: +10 điểm
-  CAMPAIGN     // Tham gia campaign: +10 điểm
-  MANUAL       // TCXH cộng điểm thủ công
-  BONUS        // Thưởng đặc biệt
+  HELP_REQUEST 
+  CAMPAIGN     
+  MANUAL       
+  BONUS        
 }
 
-// 1. Lịch sử tích điểm (optional - để track chi tiết)
+
+// diem -track
 model PointHistory {
   id String @id @default(uuid())
 
   volunteerId String @map("volunteer_id")
-  volunteer   User   @relation("VolunteerPoints", fields: [volunteerId], references: [id])
+  volunteer   User   @relation("VolunteerPoints", fields: [volunteerId], references: [id], onDelete: Cascade)
 
-  points      Int // Số điểm (có thể âm nếu trừ)
+  points      Int 
   source      PointSource
   description String? @db.Text
 
-  // Reference đến activity hoặc campaign (nullable)
   helpRequestId String? @map("help_request_id")
   campaignId    String? @map("campaign_id")
 
   createdAt DateTime @default(now()) @map("created_at")
 
+  // Prevent duplicate points for the same activity
+  @@unique([volunteerId, helpRequestId, source])
+  @@unique([volunteerId, campaignId, source])
   @@map("point_history")
 }
 
-// 2. Nhận xét của TCXH về TNV (nhận xét tổng thể, không gắn với campaign cụ thể)
+// nhan xet tcxh - tnv 
 model VolunteerComment {
   id String @id @default(uuid())
 
   volunteerId String @map("volunteer_id")
-  volunteer   User   @relation("VolunteerComments", fields: [volunteerId], references: [id])
+  volunteer   User   @relation("VolunteerComments", fields: [volunteerId], references: [id], onDelete: Cascade)
 
   organizationId String @map("organization_id")
-  organization   User   @relation("OrgComments", fields: [organizationId], references: [id])
+  organization   User   @relation("OrgComments", fields: [organizationId], references: [id], onDelete: Cascade)
 
   comment String @db.Text
   rating  Int? // 1-5 sao (optional)
@@ -473,7 +471,7 @@ model CertificateTemplate {
   id String @id @default(uuid())
 
   organizationId String @map("organization_id")
-  organization   User   @relation("OrgCertTemplates", fields: [organizationId], references: [id])
+  organization   User   @relation("OrgCertTemplates", fields: [organizationId], references: [id], onDelete: Cascade)
 
   name        String // Tên mẫu: "Chứng nhận xuất sắc", "Chứng nhận tham gia"
   description String? @db.Text
@@ -513,13 +511,13 @@ model IssuedCertificate {
   id String @id @default(uuid())
 
   templateId String              @map("template_id")
-  template   CertificateTemplate @relation(fields: [templateId], references: [id])
+  template   CertificateTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
 
   volunteerId String @map("volunteer_id")
-  volunteer   User   @relation("VolunteerCertificates", fields: [volunteerId], references: [id])
+  volunteer   User   @relation("VolunteerCertificates", fields: [volunteerId], references: [id], onDelete: Cascade)
 
   organizationId String @map("organization_id")
-  organization   User   @relation("OrgIssuedCertificates", fields: [organizationId], references: [id])
+  organization   User   @relation("OrgIssuedCertificates", fields: [organizationId], references: [id], onDelete: Cascade)
 
   // Thông tin được điền vào chứng nhận (JSON)
   // {

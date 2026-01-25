@@ -257,6 +257,8 @@ export type PointHistoryOrderByWithRelationInput = {
 
 export type PointHistoryWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  volunteerId_helpRequestId_source?: Prisma.PointHistoryVolunteerIdHelpRequestIdSourceCompoundUniqueInput
+  volunteerId_campaignId_source?: Prisma.PointHistoryVolunteerIdCampaignIdSourceCompoundUniqueInput
   AND?: Prisma.PointHistoryWhereInput | Prisma.PointHistoryWhereInput[]
   OR?: Prisma.PointHistoryWhereInput[]
   NOT?: Prisma.PointHistoryWhereInput | Prisma.PointHistoryWhereInput[]
@@ -268,7 +270,7 @@ export type PointHistoryWhereUniqueInput = Prisma.AtLeast<{
   campaignId?: Prisma.StringNullableFilter<"PointHistory"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PointHistory"> | Date | string
   volunteer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id">
+}, "id" | "volunteerId_helpRequestId_source" | "volunteerId_campaignId_source">
 
 export type PointHistoryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -384,6 +386,18 @@ export type PointHistoryListRelationFilter = {
 
 export type PointHistoryOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type PointHistoryVolunteerIdHelpRequestIdSourceCompoundUniqueInput = {
+  volunteerId: string
+  helpRequestId: string
+  source: $Enums.PointSource
+}
+
+export type PointHistoryVolunteerIdCampaignIdSourceCompoundUniqueInput = {
+  volunteerId: string
+  campaignId: string
+  source: $Enums.PointSource
 }
 
 export type PointHistoryCountOrderByAggregateInput = {

@@ -22,6 +22,19 @@ export class UsersService {
     private readonly cloudinary: CloudinaryService,
   ) {}
 
+  // Helper function để loại bỏ undefined fields khỏi object
+  private cleanUndefinedFields<T extends Record<string, any>>(
+    obj: T,
+  ): Partial<T> {
+    const cleaned: any = {};
+    for (const [key, value] of Object.entries(obj)) {
+      if (value !== undefined) {
+        cleaned[key] = value;
+      }
+    }
+    return cleaned;
+  }
+
   // get all
   getUsers() {
     return this.prisma.user.findMany();
@@ -39,7 +52,7 @@ export class UsersService {
   }
 
   async getMyProfile(userId: string) {
-    console.log('🔍 getMyProfile called with userId:', userId);
+    // console.log('userId:', userId);
 
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
@@ -57,8 +70,8 @@ export class UsersService {
       },
     });
 
-    console.log('📦 User data from DB:', JSON.stringify(user, null, 2));
-    console.log('🏢 organizationProfiles field:', user?.organizationProfiles);
+    // console.log('user', JSON.stringify(user, null, 2));
+    // console.log('tcxh:', user?.organizationProfiles);
 
     if (!user) throw new NotFoundException('User not found');
     return user;
@@ -235,9 +248,48 @@ export class UsersService {
     });
     if (!profile) throw new NotFoundException('Hồ sơ không tồn tại');
 
-    const { keepingProofFiles, ...prismaData } = dto;
+    // Clean undefined fields trước khi destructure để tránh ghi đè null vào DB
+    const cleanedDto = this.cleanUndefinedFields(dto);
+    const { keepingProofFiles, ...prismaData } = cleanedDto;
 
-    // 2. Upload ảnh mới (nếu có)
+    // 2. Xóa ảnh cũ trên Cloudinary trước khi upload ảnh mới
+    const deletePromises: Promise<void>[] = [];
+
+    // Xóa avatar cũ nếu có upload avatar mới
+    if (files.avatarUrl?.[0] && profile.avatarUrl) {
+      deletePromises.push(this.cloudinary.deleteFile(profile.avatarUrl));
+    }
+
+    // Xóa CCCD front cũ nếu có upload mới
+    if (files.cccdFront?.[0] && profile.cccdFrontFile) {
+      deletePromises.push(this.cloudinary.deleteFile(profile.cccdFrontFile));
+    }
+
+    // Xóa CCCD back cũ nếu có upload mới
+    if (files.cccdBack?.[0] && profile.cccdBackFile) {
+      deletePromises.push(this.cloudinary.deleteFile(profile.cccdBackFile));
+    }
+
+    // Xóa các proof files cũ nếu FE gửi keepingProofFiles (nghĩa là có thay đổi)
+    if (keepingProofFiles !== undefined && profile.proofFiles.length > 0) {
+      const keepingUrls = Array.isArray(keepingProofFiles)
+        ? keepingProofFiles
+        : [keepingProofFiles];
+
+      // Tìm các URL cũ KHÔNG nằm trong keepingUrls → xóa chúng
+      const urlsToDelete = profile.proofFiles.filter(
+        (url) => !keepingUrls.includes(url),
+      );
+
+      if (urlsToDelete.length > 0) {
+        deletePromises.push(this.cloudinary.deleteFiles(urlsToDelete));
+      }
+    }
+
+    // Chạy tất cả delete operations song song
+    await Promise.all(deletePromises);
+
+    // 3. Upload ảnh mới (nếu có)
     const [newAvatar, newCccdFront, newCccdBack] = await Promise.all([
       files.avatarUrl?.[0]
         ? this.cloudinary.uploadFile(files.avatarUrl[0])
@@ -250,7 +302,7 @@ export class UsersService {
         : Promise.resolve(undefined),
     ]);
 
-    // 3. Xử lý mảng ảnh minh chứng (Hợp nhất cũ và mới)
+    // 4. Xử lý mảng ảnh minh chứng (Hợp nhất cũ và mới)
     let finalProofImages: string[] = profile.proofFiles; // Mặc định là mảng cũ trong DB
 
     // Nếu FE gửi danh sách ảnh cũ muốn giữ lại
@@ -266,7 +318,7 @@ export class UsersService {
       finalProofImages = [...finalProofImages, ...newProofUrls];
     }
 
-    // 4. Cập nhật vào Database
+    // 5. Cập nhật vào Database
     return this.prisma.bficiaryProfile.update({
       where: { userId },
       data: {
@@ -297,8 +349,32 @@ export class UsersService {
       throw new NotFoundException('Hồ sơ tình nguyện viên không tồn tại');
     }
 
-    const { experienceYears, ...prismaData } = dto;
+    // Clean undefined fields trước khi destructure để tránh ghi đè null vào DB
+    const cleanedDto = this.cleanUndefinedFields(dto);
+    const { experienceYears, ...prismaData } = cleanedDto;
 
+    // Xóa ảnh cũ trên Cloudinary trước khi upload ảnh mới
+    const deletePromises: Promise<void>[] = [];
+
+    // Xóa avatar cũ nếu có upload avatar mới
+    if (files.avatarUrl?.[0] && profileVol.avatarUrl) {
+      deletePromises.push(this.cloudinary.deleteFile(profileVol.avatarUrl));
+    }
+
+    // Xóa CCCD front cũ nếu có upload mới
+    if (files.cccdFront?.[0] && profileVol.cccdFrontFile) {
+      deletePromises.push(this.cloudinary.deleteFile(profileVol.cccdFrontFile));
+    }
+
+    // Xóa CCCD back cũ nếu có upload mới
+    if (files.cccdBack?.[0] && profileVol.cccdBackFile) {
+      deletePromises.push(this.cloudinary.deleteFile(profileVol.cccdBackFile));
+    }
+
+    // Chạy tất cả delete operations song song
+    await Promise.all(deletePromises);
+
+    // Upload ảnh mới (nếu có)
     const avatarUrl = files.avatarUrl?.[0]
       ? await this.cloudinary.uploadFile(files.avatarUrl[0])
       : undefined;
@@ -315,7 +391,9 @@ export class UsersService {
       where: { userId: userId },
       data: {
         ...prismaData,
-        ...(experienceYears && { experienceYears: Number(experienceYears) }),
+        ...(experienceYears !== undefined && {
+          experienceYears: Number(experienceYears),
+        }),
         ...(avatarUrl && { avatarUrl: avatarUrl }),
         ...(cccdFront && { cccdFrontFile: cccdFront }),
         ...(cccdBack && { cccdBackFile: cccdBack }),

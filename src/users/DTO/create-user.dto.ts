@@ -78,6 +78,17 @@ export class CreateVolunteerProfileDto {
   @IsArray({ message: 'Kỹ năng phải là một danh sách' })
   @IsEnum(Skill, { each: true, message: 'Kỹ năng không hợp lệ' })
   @IsOptional()
+  @Transform(({ value }) => {
+    if (typeof value === 'string') {
+      try {
+        return JSON.parse(value);
+      } catch {
+        return [];
+      }
+    }
+    if (Array.isArray(value)) return value;
+    return value ? [value] : [];
+  })
   skills?: Skill[];
 
   @ApiPropertyOptional({ example: 2, description: 'Số năm kinh nghiệm' })
@@ -100,6 +111,13 @@ export class CreateVolunteerProfileDto {
   @IsArray({ message: 'Quận huyện phải là một danh sách' })
   @IsEnum(District, { each: true, message: 'Quận huyện không hợp lệ' })
   @Transform(({ value }): District[] => {
+    if (typeof value === 'string') {
+      try {
+        return JSON.parse(value);
+      } catch {
+        return [];
+      }
+    }
     if (Array.isArray(value)) return value;
     return value ? [value] : [];
   })

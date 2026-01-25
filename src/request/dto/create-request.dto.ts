@@ -12,6 +12,7 @@ import {
   RequestCategory,
   District,
   RecurrenceType,
+  UrgencyLevel,
 } from 'src/generated/prisma/enums';
 
 export class CreateRequestDto {
@@ -73,6 +74,16 @@ export class CreateRequestDto {
   @IsDateString()
   @IsOptional()
   endTime: string;
+
+  @ApiPropertyOptional({
+    example: 'STANDARD',
+    enum: UrgencyLevel,
+    default: 'STANDARD',
+    description: 'Mức độ khẩn cấp: STANDARD hoặc CRITICAL',
+  })
+  @IsEnum(UrgencyLevel)
+  @IsOptional()
+  urgencyLevel?: UrgencyLevel;
 
   @ApiPropertyOptional({
     example: 'WEEKLY',

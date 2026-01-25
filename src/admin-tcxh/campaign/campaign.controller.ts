@@ -205,6 +205,55 @@ export class CampaignController {
     );
   }
 
+  @Post('auto-transition')
+  @ApiOperation({
+    summary: '[Utility] Tự động chuyển campaign APPROVED -> ONGOING khi startDate đến',
+    description: 'API này có thể được gọi định kỳ (bởi cron job hoặc manually) để cập nhật status campaigns'
+  })
+  async autoTransitionCampaigns() {
+    return this.campaignService.autoTransitionCampaigns();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id/complete')
+  @ApiOperation({
+    summary: '[TCXH] Upload hình ảnh minh chứng hoàn thành campaign - tự động cộng điểm cho tất cả TNV tham gia',
+    description: 'Khi TCXH upload proof images, campaign status -> COMPLETED và tất cả volunteer có status REGISTERED/ATTENDED sẽ được cộng 10 điểm'
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        proofImages: {
+          type: 'array',
+          items: { type: 'string', format: 'binary' },
+          description: 'Ảnh minh chứng hoàn thành (tối đa 10 ảnh)',
+        },
+      },
+      required: ['proofImages'],
+    },
+  })
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'proofImages', maxCount: 10 },
+    ]),
+  )
+  async completeCampaign(
+    @GetUser('sub') organizationId: string,
+    @Param('id') campaignId: string,
+    @UploadedFiles()
+    files: {
+      proofImages?: Express.Multer.File[];
+    },
+  ) {
+    return this.campaignService.completeCampaign(
+      campaignId,
+      organizationId,
+      files.proofImages,
+    );
+  }
+
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
   @ApiOperation({ summary: '[TCXH] Xóa campaign (chỉ được phép nếu chưa có TNV nào đăng ký)' })

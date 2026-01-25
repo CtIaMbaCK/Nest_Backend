@@ -33,13 +33,39 @@ export class FeedbackService {
     const activityExisted = await this.prisma.review.findFirst({
       where: { activityId: dto.activityId, reviewerId: reviewerId },
     });
-    if (activityExisted) throw new Error('Bạn đã đánh giá hoạt động này rồi');
+    if (activityExisted)
+      throw new BadRequestException('Bạn đã đánh giá hoạt động này rồi');
+
+    // Get activity to determine the target
+    const activity = await this.prisma.helpRequest.findUnique({
+      where: { id: dto.activityId },
+      select: {
+        requesterId: true,
+        volunteerId: true,
+      },
+    });
+
+    if (!activity) {
+      throw new NotFoundException('Không tìm thấy hoạt động');
+    }
+
+    // Determine target: if reviewer is requester, target is volunteer and vice versa
+    const targetId =
+      activity.requesterId === reviewerId
+        ? activity.volunteerId
+        : activity.requesterId;
+
+    if (!targetId) {
+      throw new BadRequestException(
+        'Không thể xác định người được đánh giá',
+      );
+    }
 
     return this.prisma.review.create({
       data: {
         activityId: dto.activityId,
         reviewerId: reviewerId,
-        targetId: reviewerId,
+        targetId: targetId,
         rating: dto.rating,
         comment: dto.comment,
       },

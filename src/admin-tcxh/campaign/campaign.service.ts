@@ -93,7 +93,7 @@ export class CampaignService {
         images: imageUrls,
         targetVolunteers: dto.targetVolunteers,
         maxVolunteers: dto.maxVolunteers,
-        status: CampaignStatus.APPROVED, // TODO: Tạm thời auto-approve, sau này sửa thành PENDING
+        status: CampaignStatus.PENDING, // Changed from APPROVED - campaigns need admin approval
       },
       include: {
         organization: {
@@ -364,6 +364,7 @@ export class CampaignService {
   // === API CHO TÌNH NGUYỆN VIÊN ===
 
   // Lấy tất cả campaign, ưu tiên campaign cùng quận lên đầu
+  // Loại trừ những campaign mà volunteer đã đăng ký
   async getRecommendedCampaigns(volunteerId: string) {
     // Lấy thông tin TNV
     const volunteer = await this.prisma.volunteerProfile.findUnique({
@@ -377,10 +378,26 @@ export class CampaignService {
 
     const { preferredDistricts } = volunteer;
 
-    // Lấy TẤT CẢ campaign có status APPROVED
+    // Lấy danh sách ID các campaign mà volunteer đã đăng ký
+    const registeredCampaigns = await this.prisma.campaignRegistration.findMany({
+      where: {
+        volunteerId,
+        status: {
+          in: [RegistrationStatus.REGISTERED, RegistrationStatus.ATTENDED],
+        },
+      },
+      select: { campaignId: true },
+    });
+
+    const registeredCampaignIds = registeredCampaigns.map((r) => r.campaignId);
+
+    // Lấy TẤT CẢ campaign có status APPROVED, LOẠI TRỪ những campaign đã đăng ký
     const allCampaigns = (await this.prisma.campaign.findMany({
       where: {
         status: CampaignStatus.APPROVED, // Chỉ hiển thị campaign đã được duyệt
+        id: {
+          notIn: registeredCampaignIds, // Loại trừ campaign đã đăng ký
+        },
       },
       include: {
         organization: {
@@ -419,6 +436,7 @@ export class CampaignService {
   }
 
   // Tìm kiếm campaign theo từ khóa
+  // Loại trừ những campaign mà volunteer đã đăng ký
   async searchCampaigns(volunteerId: string, dto: SearchCampaignDto) {
     // Kiểm tra TNV có tồn tại không
     const volunteer = await this.prisma.volunteerProfile.findUnique({
@@ -433,9 +451,25 @@ export class CampaignService {
     const { preferredDistricts } = volunteer;
     const { search } = dto;
 
+    // Lấy danh sách ID các campaign mà volunteer đã đăng ký
+    const registeredCampaigns = await this.prisma.campaignRegistration.findMany({
+      where: {
+        volunteerId,
+        status: {
+          in: [RegistrationStatus.REGISTERED, RegistrationStatus.ATTENDED],
+        },
+      },
+      select: { campaignId: true },
+    });
+
+    const registeredCampaignIds = registeredCampaigns.map((r) => r.campaignId);
+
     // Build where condition
     const where: any = {
       status: CampaignStatus.APPROVED,
+      id: {
+        notIn: registeredCampaignIds, // Loại trừ campaign đã đăng ký
+      },
     };
 
     // Nếu có từ khóa tìm kiếm, tìm trong title và description
@@ -510,28 +544,51 @@ export class CampaignService {
     //   throw new BadRequestException('Campaign này chưa được duyệt');
     // }
 
-    // Kiểm tra đã đăng ký chưa
-    const existing = await this.prisma.campaignRegistration.findUnique({
-      where: {
-        campaignId_volunteerId: {
-          campaignId,
-          volunteerId,
+    // Use transaction to prevent race condition
+    const registration = await this.prisma.$transaction(async (tx) => {
+      // Kiểm tra đã đăng ký chưa
+      const existing = await tx.campaignRegistration.findUnique({
+        where: {
+          campaignId_volunteerId: {
+            campaignId,
+            volunteerId,
+          },
         },
-      },
-    });
+      });
 
-    if (existing) {
-      throw new BadRequestException('Bạn đã đăng ký campaign này rồi');
-    }
+      if (existing) {
+        throw new BadRequestException('Bạn đã đăng ký campaign này rồi');
+      }
 
-    // Kiểm tra còn chỗ không
-    if (campaign.currentVolunteers >= campaign.maxVolunteers) {
-      throw new BadRequestException('Campaign đã đủ số lượng tình nguyện viên');
-    }
+      // Get fresh campaign data with lock
+      const campaignInTx = await tx.campaign.findUnique({
+        where: { id: campaignId },
+      });
 
-    // Tạo registration và cập nhật currentVolunteers
-    const [registration] = await this.prisma.$transaction([
-      this.prisma.campaignRegistration.create({
+      if (!campaignInTx) {
+        throw new NotFoundException('Không tìm thấy campaign');
+      }
+
+      // Kiểm tra campaign phải có status APPROVED hoặc ONGOING
+      if (campaignInTx.status !== CampaignStatus.APPROVED && campaignInTx.status !== CampaignStatus.ONGOING) {
+        throw new BadRequestException('Campaign này chưa được duyệt hoặc đã kết thúc');
+      }
+
+      // KHÔNG cho đăng ký khi đã quá startDate
+      const now = new Date();
+      if (now >= campaignInTx.startDate) {
+        throw new BadRequestException('Không thể đăng ký sau khi campaign đã bắt đầu');
+      }
+
+      // Kiểm tra còn chỗ không (inside transaction to avoid race condition)
+      if (campaignInTx.currentVolunteers >= campaignInTx.maxVolunteers) {
+        throw new BadRequestException(
+          'Campaign đã đủ số lượng tình nguyện viên',
+        );
+      }
+
+      // Tạo registration
+      const newRegistration = await tx.campaignRegistration.create({
         data: {
           campaignId,
           volunteerId,
@@ -549,12 +606,16 @@ export class CampaignService {
             },
           },
         },
-      }),
-      this.prisma.campaign.update({
+      });
+
+      // Cập nhật currentVolunteers
+      await tx.campaign.update({
         where: { id: campaignId },
         data: { currentVolunteers: { increment: 1 } },
-      }),
-    ]);
+      });
+
+      return newRegistration;
+    });
 
     return registration;
   }
@@ -575,10 +636,11 @@ export class CampaignService {
       throw new NotFoundException('Bạn chưa đăng ký campaign này');
     }
 
-    // Không cho phép hủy nếu campaign đã bắt đầu
-    if (new Date() >= registration.campaign.startDate) {
+    // CHỈ cho phép hủy TRƯỚC khi campaign bắt đầu
+    const now = new Date();
+    if (now >= registration.campaign.startDate) {
       throw new BadRequestException(
-        'Không thể hủy sau khi campaign đã bắt đầu',
+        'Không thể hủy đăng ký sau khi campaign đã bắt đầu',
       );
     }
 
@@ -662,6 +724,134 @@ export class CampaignService {
     }
 
     return updated;
+  }
+
+  // Helper: Tự động chuyển campaign status theo thời gian
+  async autoTransitionCampaigns() {
+    const now = new Date();
+    let totalUpdated = 0;
+    const results: any = {};
+
+    // 1. Chuyển APPROVED -> ONGOING khi startDate đến
+    const campaignsToStart = await this.prisma.campaign.findMany({
+      where: {
+        status: CampaignStatus.APPROVED,
+        startDate: { lte: now },
+      },
+    });
+
+    if (campaignsToStart.length > 0) {
+      await this.prisma.campaign.updateMany({
+        where: {
+          id: { in: campaignsToStart.map((c) => c.id) },
+        },
+        data: { status: CampaignStatus.ONGOING },
+      });
+      totalUpdated += campaignsToStart.length;
+      results.started = {
+        count: campaignsToStart.length,
+        campaignIds: campaignsToStart.map((c) => c.id),
+      };
+    }
+
+    // 2. Chuyển ONGOING -> COMPLETED khi endDate qua và chưa có proofImages
+    const campaignsToComplete = await this.prisma.campaign.findMany({
+      where: {
+        status: CampaignStatus.ONGOING,
+        endDate: { not: null, lte: now },
+      },
+    });
+
+    if (campaignsToComplete.length > 0) {
+      await this.prisma.campaign.updateMany({
+        where: {
+          id: { in: campaignsToComplete.map((c) => c.id) },
+        },
+        data: { status: CampaignStatus.COMPLETED },
+      });
+      totalUpdated += campaignsToComplete.length;
+      results.completed = {
+        count: campaignsToComplete.length,
+        campaignIds: campaignsToComplete.map((c) => c.id),
+      };
+    }
+
+    if (totalUpdated === 0) {
+      return { message: 'Không có campaign nào cần chuyển trạng thái', count: 0 };
+    }
+
+    return {
+      message: `Đã cập nhật ${totalUpdated} campaigns`,
+      totalUpdated,
+      details: results,
+    };
+  }
+
+  // [TCXH] Upload hình ảnh minh chứng hoàn thành campaign - tự động cộng điểm cho tất cả TNV
+  async completeCampaign(
+    campaignId: string,
+    organizationId: string,
+    proofImageFiles?: Express.Multer.File[],
+  ) {
+    await this.getOrgOrThrow(organizationId);
+
+    const campaign = await this.prisma.campaign.findUnique({
+      where: { id: campaignId },
+      include: {
+        registrations: {
+          where: {
+            status: {
+              in: [RegistrationStatus.REGISTERED, RegistrationStatus.ATTENDED],
+            },
+          },
+          select: {
+            volunteerId: true,
+          },
+        },
+      },
+    });
+
+    if (!campaign) {
+      throw new NotFoundException('Không tìm thấy campaign');
+    }
+
+    if (campaign.organizationId !== organizationId) {
+      throw new ForbiddenException('Bạn không có quyền cập nhật campaign này');
+    }
+
+    if (!proofImageFiles || proofImageFiles.length === 0) {
+      throw new BadRequestException('Vui lòng upload ít nhất 1 ảnh minh chứng');
+    }
+
+    // Upload ảnh minh chứng lên Cloudinary
+    const proofImageUrls = await this.cloudinary.uploadFiles(proofImageFiles);
+
+    // Cập nhật campaign: thêm proofImages, doneAt, và status = COMPLETED
+    const updatedCampaign = await this.prisma.campaign.update({
+      where: { id: campaignId },
+      data: {
+        proofImages: proofImageUrls,
+        doneAt: new Date(),
+        status: CampaignStatus.COMPLETED,
+      },
+    });
+
+    // Cộng điểm cho TẤT CẢ tình nguyện viên đã tham gia (REGISTERED hoặc ATTENDED)
+    const pointPromises = campaign.registrations.map((reg) =>
+      PointsHelper.addPointsForCampaign(
+        this.prisma,
+        reg.volunteerId,
+        campaignId,
+      ),
+    );
+
+    await Promise.all(pointPromises);
+
+    return {
+      message: `Đã hoàn thành campaign và cộng điểm cho ${campaign.registrations.length} tình nguyện viên`,
+      campaign: updatedCampaign,
+      volunteersAwarded: campaign.registrations.length,
+    };
   }
 
   // [TCXH] Xóa campaign (chỉ được phép nếu chưa có TNV nào đăng ký)
