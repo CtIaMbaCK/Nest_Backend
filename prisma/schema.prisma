@@ -447,15 +447,16 @@ model PointHistory {
   @@map("point_history")
 }
 
-// nhan xet tcxh - tnv 
+// nhan xet tcxh - tnv
 model VolunteerComment {
   id String @id @default(uuid())
 
   volunteerId String @map("volunteer_id")
   volunteer   User   @relation("VolunteerComments", fields: [volunteerId], references: [id], onDelete: Cascade)
 
-  organizationId String @map("organization_id")
-  organization   User   @relation("OrgComments", fields: [organizationId], references: [id], onDelete: Cascade)
+  // NULL = Admin comment
+  organizationId String? @map("organization_id")
+  organization   User?   @relation("OrgComments", fields: [organizationId], references: [id], onDelete: Cascade)
 
   comment String @db.Text
   rating  Int? // 1-5 sao (optional)
@@ -470,8 +471,9 @@ model VolunteerComment {
 model CertificateTemplate {
   id String @id @default(uuid())
 
-  organizationId String @map("organization_id")
-  organization   User   @relation("OrgCertTemplates", fields: [organizationId], references: [id], onDelete: Cascade)
+  // NULL = system default template (của Admin)
+  organizationId String? @map("organization_id")
+  organization   User?   @relation("OrgCertTemplates", fields: [organizationId], references: [id], onDelete: Cascade)
 
   name        String // Tên mẫu: "Chứng nhận xuất sắc", "Chứng nhận tham gia"
   description String? @db.Text
@@ -497,9 +499,10 @@ model CertificateTemplate {
   // }
   textBoxConfig Json @map("text_box_config")
 
-  isActive  Boolean  @default(true) @map("is_active")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  isSystemDefault Boolean  @default(false) @map("is_system_default") // Template mặc định của hệ thống (Admin)
+  isActive        Boolean  @default(true) @map("is_active")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
 
   issuedCertificates IssuedCertificate[]
 
@@ -516,8 +519,9 @@ model IssuedCertificate {
   volunteerId String @map("volunteer_id")
   volunteer   User   @relation("VolunteerCertificates", fields: [volunteerId], references: [id], onDelete: Cascade)
 
-  organizationId String @map("organization_id")
-  organization   User   @relation("OrgIssuedCertificates", fields: [organizationId], references: [id], onDelete: Cascade)
+  // NULL = Admin cấp
+  organizationId String? @map("organization_id")
+  organization   User?   @relation("OrgIssuedCertificates", fields: [organizationId], references: [id], onDelete: Cascade)
 
   // Thông tin được điền vào chứng nhận (JSON)
   // {

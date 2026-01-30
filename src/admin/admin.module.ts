@@ -4,6 +4,7 @@ import { VolunteersModule } from './volunteers/volunteers.module';
 import { OrganizationsModule } from './organizations/organizations.module';
 import { ContentModule } from './content/content.module';
 import { HelpRequestsModule } from './help-requests/help-requests.module';
+import { CertificatesModule } from './certificates/certificates.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { HelpRequestsModule } from './help-requests/help-requests.module';
     OrganizationsModule,
     ContentModule,
     HelpRequestsModule,
+    CertificatesModule,
   ],
 })
 export class AdminModule {}

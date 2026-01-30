@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, ValidationPipe, UseGuards } from '@nestjs/common';
 import { FeedbackService } from './feedback.service';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { GetUser } from 'src/auth/decorator/get-user.decorator';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import {
   CreateAppreciationDto,
   CreateFeedbackDto,
@@ -14,6 +15,7 @@ export class FeedbackController {
   constructor(private readonly feedbackService: FeedbackService) {}
 
   // tạo đánh giá
+  @UseGuards(JwtAuthGuard)
   @Post('review')
   @ApiOperation({ summary: 'Gửi đánh giá cho một hoạt động đã hoàn thành' })
   async createReview(
@@ -24,6 +26,7 @@ export class FeedbackController {
   }
 
   // gửi lời cảm ơn
+  @UseGuards(JwtAuthGuard)
   @Post('appreciation')
   @ApiOperation({ summary: 'Gửi lời cảm ơn đến người khác' })
   async createAppreciation(
@@ -34,6 +37,7 @@ export class FeedbackController {
   }
 
   // xem các đánh giá về mình
+  @UseGuards(JwtAuthGuard)
   @Get('my-reviews')
   @ApiOperation({ summary: 'Xem danh sách các đánh giá mà tôi nhận được' })
   async getMyReviews(@GetUser('sub') userId: string) {
@@ -41,6 +45,7 @@ export class FeedbackController {
   }
 
   // xem các lời cảm ơn đã nhận
+  @UseGuards(JwtAuthGuard)
   @Get('my-appreciations')
   @ApiOperation({ summary: 'Xem danh sách lời cảm ơn mà tôi nhận được' })
   async getMyAppreciations(@GetUser('sub') userId: string) {

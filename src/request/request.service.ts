@@ -24,35 +24,52 @@ export class RequestService {
     let long: number | null = null;
 
     try {
-      // Sử dụng Google Maps Geocoding API thay vì Goong
+      // Sử dụng Google Maps Geocoding API
       const apiKey = ENV('GOOGLE_MAPS_API_KEY');
+
+      console.log(
+        '🔑 API Key loaded:',
+        apiKey ? `${apiKey.substring(0, 10)}...` : 'NOT FOUND',
+      );
 
       // Chỉ geocoding nếu có API key hợp lệ
       if (apiKey && apiKey !== '' && apiKey !== 'your-google-maps-api-key') {
-        const fullAddress = `${dto.addressDetail}, ${dto.district}, TP. Hồ Chí Minh`;
+        const fullAddress = `${dto.addressDetail}, ${dto.district}, TP. Hồ Chí Minh, Việt Nam`;
         const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(fullAddress)}&key=${apiKey}`;
 
+        console.log('📍 Geocoding address:', fullAddress);
+        console.log('🌐 Request URL:', url.replace(apiKey, 'HIDDEN'));
+
         try {
-          const response = await axios.get(url);
+          const response = await axios.get(url, { timeout: 10000 });
           const data = response.data;
+
+          console.log('📡 Geocoding response status:', data.status);
 
           if (data.status === 'OK' && data.results?.length > 0) {
             const location = data.results[0].geometry.location;
             lat = location.lat;
             long = location.lng;
+            console.log('✅ Geocoding SUCCESS! Lat:', lat, 'Lng:', long);
           } else {
-            console.warn(`Geocoding warning: ${data.status}`);
+            console.warn(`⚠️ Geocoding warning: ${data.status}`);
+            if (data.error_message) {
+              console.warn(`   Error message: ${data.error_message}`);
+            }
           }
         } catch (geoError) {
-          console.warn('Geocoding failed, continuing without coordinates:', geoError);
+          console.error('❌ Geocoding failed:', geoError.message);
+          if (geoError.response) {
+            console.error('   Response data:', geoError.response.data);
+          }
         }
       } else {
-        console.warn('Google Maps API key not configured, creating request without coordinates');
+        console.warn(
+          '⚠️ Google Maps API key not configured, creating request without coordinates',
+        );
       }
-      // Nếu không có API key hoặc geocoding fail, vẫn cho phép tạo request (lat/long = null)
     } catch (error) {
-      console.warn('Error in geocoding process:', error);
-      // Không throw error, vẫn tiếp tục tạo request
+      console.error('❌ Error in geocoding process:', error);
     }
     return this.prisma.helpRequest.create({
       data: {
@@ -203,9 +220,15 @@ export class RequestService {
       );
     }
 
-    if (request.status === 'COMPLETED') {
+    // ✅ CHO PHÉP upload proof ngay cả khi đã COMPLETED (do auto-transition)
+    // Nhưng KHÔNG cho phép nếu đã có proofImages rồi
+    if (
+      request.status === 'COMPLETED' &&
+      request.proofImages &&
+      request.proofImages.length > 0
+    ) {
       throw new BadRequestException(
-        'Yêu cầu này đã hoàn thành, không thể cập nhật trạng thái nữa!',
+        'Yêu cầu này đã có minh chứng hoàn thành rồi!',
       );
     }
 
@@ -214,18 +237,20 @@ export class RequestService {
       data: {
         status: 'COMPLETED',
         doneAt: new Date(),
-
         proofImages: dto.proofImages,
         completionNotes: dto.completionNotes,
       },
     });
 
-    // Tự động cộng +10 điểm cho TNV khi hoàn thành request
-    if (request.volunteerId) {
+    // ✅ CHỈ cộng điểm KHI CÓ proofImages (người dùng upload proof)
+    if (request.volunteerId && dto.proofImages && dto.proofImages.length > 0) {
       await PointsHelper.addPointsForHelpRequest(
         this.prisma,
         request.volunteerId,
         requestId,
+      );
+      console.log(
+        `✅ Cộng +10 điểm cho TNV ${request.volunteerId} (Request ${requestId})`,
       );
     }
 
@@ -415,61 +440,88 @@ export class RequestService {
     let totalUpdated = 0;
     const results: any = {};
 
-    // Tìm requests ONGOING đã quá endDate
-    const expiredRequests = await this.prisma.helpRequest.findMany({
-      where: {
-        status: 'ONGOING',
-        endDate: { not: null, lte: now },
-      },
-      select: {
-        id: true,
-        volunteerId: true,
-      },
-    });
-
-    if (expiredRequests.length > 0) {
-      // Tất cả đều chuyển COMPLETED vì đã có volunteer accept
-      const requestIds = expiredRequests.map((r) => r.id);
-
-      await this.prisma.helpRequest.updateMany({
-        where: { id: { in: requestIds } },
-        data: { status: 'COMPLETED' },
-      });
-
-      totalUpdated += expiredRequests.length;
-      results.completed = {
-        count: expiredRequests.length,
-        requestIds,
-      };
-    }
-
-    // Tìm requests APPROVED (chưa có ai nhận) đã quá endDate
-    const abandonedRequests = await this.prisma.helpRequest.findMany({
+    // 1. APPROVED -> ONGOING: Chuyển khi đến startTime
+    const requestsToStart = await this.prisma.helpRequest.findMany({
       where: {
         status: 'APPROVED',
-        volunteerId: null,
-        endDate: { not: null, lte: now },
+        startTime: { lte: now },
       },
       select: { id: true },
     });
 
-    if (abandonedRequests.length > 0) {
-      const requestIds = abandonedRequests.map((r) => r.id);
+    if (requestsToStart.length > 0) {
+      const requestIds = requestsToStart.map((r) => r.id);
+      await this.prisma.helpRequest.updateMany({
+        where: { id: { in: requestIds } },
+        data: { status: 'ONGOING' },
+      });
+      totalUpdated += requestsToStart.length;
+      results.started = {
+        count: requestsToStart.length,
+        requestIds,
+      };
+      console.log(`✅ ${requestsToStart.length} requests: APPROVED → ONGOING`);
+    }
 
+    // 2. ONGOING -> COMPLETED: Chuyển khi đến endTime (KHÔNG CỘNG ĐIỂM)
+    // Chỉ chuyển những request chưa có proofImages (chưa submit proof)
+    const requestsToComplete = await this.prisma.helpRequest.findMany({
+      where: {
+        status: 'ONGOING',
+        endTime: { lte: now },
+        proofImages: { isEmpty: true }, // Chưa có proof images
+      },
+      select: { id: true, volunteerId: true },
+    });
+
+    if (requestsToComplete.length > 0) {
+      const requestIds = requestsToComplete.map((r) => r.id);
+      await this.prisma.helpRequest.updateMany({
+        where: { id: { in: requestIds } },
+        data: { status: 'COMPLETED', doneAt: now },
+      });
+      totalUpdated += requestsToComplete.length;
+      results.autoCompleted = {
+        count: requestsToComplete.length,
+        requestIds,
+        note: 'Chuyển sang COMPLETED nhưng CHƯA cộng điểm (chưa có proofImages)',
+      };
+      console.log(
+        `⏰ ${requestsToComplete.length} requests: ONGOING → COMPLETED (auto, no points)`,
+      );
+    }
+
+    // 3. APPROVED (không có TNV) -> CANCELLED: Hủy khi quá endTime
+    const requestsToCancle = await this.prisma.helpRequest.findMany({
+      where: {
+        status: 'APPROVED',
+        volunteerId: null,
+        endTime: { lte: now },
+      },
+      select: { id: true },
+    });
+
+    if (requestsToCancle.length > 0) {
+      const requestIds = requestsToCancle.map((r) => r.id);
       await this.prisma.helpRequest.updateMany({
         where: { id: { in: requestIds } },
         data: { status: 'CANCELLED' },
       });
-
-      totalUpdated += abandonedRequests.length;
+      totalUpdated += requestsToCancle.length;
       results.cancelled = {
-        count: abandonedRequests.length,
+        count: requestsToCancle.length,
         requestIds,
       };
+      console.log(
+        `❌ ${requestsToCancle.length} requests: APPROVED → CANCELLED (no volunteer)`,
+      );
     }
 
     if (totalUpdated === 0) {
-      return { message: 'Không có request nào cần chuyển trạng thái', count: 0 };
+      return {
+        message: 'Không có request nào cần chuyển trạng thái',
+        count: 0,
+      };
     }
 
     return {

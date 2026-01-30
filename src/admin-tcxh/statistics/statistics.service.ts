@@ -476,4 +476,46 @@ export class StatisticsService {
         v.organization?.organizationProfiles?.organizationName || null,
     }));
   }
+
+  async getTopOrganizationsGlobal(limit: number = 10) {
+    // Lấy danh sách tổ chức với số campaign COMPLETED
+    const organizations = await this.prisma.user.findMany({
+      where: {
+        role: 'ORGANIZATION',
+        status: UserStatus.ACTIVE,
+      },
+      select: {
+        id: true,
+        organizationProfiles: {
+          select: {
+            organizationName: true,
+            avatarUrl: true,
+            description: true,
+          },
+        },
+        campaigns: {
+          where: {
+            status: CampaignStatus.COMPLETED,
+          },
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+
+    // Map và sắp xếp theo số campaign hoàn thành
+    const topOrgs = organizations
+      .map((org) => ({
+        organizationId: org.id,
+        organizationName: org.organizationProfiles?.organizationName || 'Unknown',
+        avatarUrl: org.organizationProfiles?.avatarUrl,
+        description: org.organizationProfiles?.description,
+        completedCampaigns: org.campaigns.length,
+      }))
+      .sort((a, b) => b.completedCampaigns - a.completedCampaigns)
+      .slice(0, limit);
+
+    return topOrgs;
+  }
 }

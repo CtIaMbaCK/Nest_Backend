@@ -194,7 +194,7 @@ export type VolunteerCommentGroupByArgs<ExtArgs extends runtime.Types.Extensions
 export type VolunteerCommentGroupByOutputType = {
   id: string
   volunteerId: string
-  organizationId: string
+  organizationId: string | null
   comment: string
   rating: number | null
   createdAt: Date
@@ -227,19 +227,19 @@ export type VolunteerCommentWhereInput = {
   NOT?: Prisma.VolunteerCommentWhereInput | Prisma.VolunteerCommentWhereInput[]
   id?: Prisma.StringFilter<"VolunteerComment"> | string
   volunteerId?: Prisma.StringFilter<"VolunteerComment"> | string
-  organizationId?: Prisma.StringFilter<"VolunteerComment"> | string
+  organizationId?: Prisma.StringNullableFilter<"VolunteerComment"> | string | null
   comment?: Prisma.StringFilter<"VolunteerComment"> | string
   rating?: Prisma.IntNullableFilter<"VolunteerComment"> | number | null
   createdAt?: Prisma.DateTimeFilter<"VolunteerComment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"VolunteerComment"> | Date | string
   volunteer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  organization?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  organization?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type VolunteerCommentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   volunteerId?: Prisma.SortOrder
-  organizationId?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrderInput | Prisma.SortOrder
   comment?: Prisma.SortOrder
   rating?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -254,19 +254,19 @@ export type VolunteerCommentWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.VolunteerCommentWhereInput[]
   NOT?: Prisma.VolunteerCommentWhereInput | Prisma.VolunteerCommentWhereInput[]
   volunteerId?: Prisma.StringFilter<"VolunteerComment"> | string
-  organizationId?: Prisma.StringFilter<"VolunteerComment"> | string
+  organizationId?: Prisma.StringNullableFilter<"VolunteerComment"> | string | null
   comment?: Prisma.StringFilter<"VolunteerComment"> | string
   rating?: Prisma.IntNullableFilter<"VolunteerComment"> | number | null
   createdAt?: Prisma.DateTimeFilter<"VolunteerComment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"VolunteerComment"> | Date | string
   volunteer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  organization?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  organization?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type VolunteerCommentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   volunteerId?: Prisma.SortOrder
-  organizationId?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrderInput | Prisma.SortOrder
   comment?: Prisma.SortOrder
   rating?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -284,7 +284,7 @@ export type VolunteerCommentScalarWhereWithAggregatesInput = {
   NOT?: Prisma.VolunteerCommentScalarWhereWithAggregatesInput | Prisma.VolunteerCommentScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"VolunteerComment"> | string
   volunteerId?: Prisma.StringWithAggregatesFilter<"VolunteerComment"> | string
-  organizationId?: Prisma.StringWithAggregatesFilter<"VolunteerComment"> | string
+  organizationId?: Prisma.StringNullableWithAggregatesFilter<"VolunteerComment"> | string | null
   comment?: Prisma.StringWithAggregatesFilter<"VolunteerComment"> | string
   rating?: Prisma.IntNullableWithAggregatesFilter<"VolunteerComment"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"VolunteerComment"> | Date | string
@@ -298,13 +298,13 @@ export type VolunteerCommentCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   volunteer: Prisma.UserCreateNestedOneWithoutVolunteerCommentsInput
-  organization: Prisma.UserCreateNestedOneWithoutOrganizationCommentsInput
+  organization?: Prisma.UserCreateNestedOneWithoutOrganizationCommentsInput
 }
 
 export type VolunteerCommentUncheckedCreateInput = {
   id?: string
   volunteerId: string
-  organizationId: string
+  organizationId?: string | null
   comment: string
   rating?: number | null
   createdAt?: Date | string
@@ -318,13 +318,13 @@ export type VolunteerCommentUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   volunteer?: Prisma.UserUpdateOneRequiredWithoutVolunteerCommentsNestedInput
-  organization?: Prisma.UserUpdateOneRequiredWithoutOrganizationCommentsNestedInput
+  organization?: Prisma.UserUpdateOneWithoutOrganizationCommentsNestedInput
 }
 
 export type VolunteerCommentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   volunteerId?: Prisma.StringFieldUpdateOperationsInput | string
-  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   comment?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -334,7 +334,7 @@ export type VolunteerCommentUncheckedUpdateInput = {
 export type VolunteerCommentCreateManyInput = {
   id?: string
   volunteerId: string
-  organizationId: string
+  organizationId?: string | null
   comment: string
   rating?: number | null
   createdAt?: Date | string
@@ -352,7 +352,7 @@ export type VolunteerCommentUpdateManyMutationInput = {
 export type VolunteerCommentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   volunteerId?: Prisma.StringFieldUpdateOperationsInput | string
-  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   comment?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -505,12 +505,12 @@ export type VolunteerCommentCreateWithoutVolunteerInput = {
   rating?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  organization: Prisma.UserCreateNestedOneWithoutOrganizationCommentsInput
+  organization?: Prisma.UserCreateNestedOneWithoutOrganizationCommentsInput
 }
 
 export type VolunteerCommentUncheckedCreateWithoutVolunteerInput = {
   id?: string
-  organizationId: string
+  organizationId?: string | null
   comment: string
   rating?: number | null
   createdAt?: Date | string
@@ -577,7 +577,7 @@ export type VolunteerCommentScalarWhereInput = {
   NOT?: Prisma.VolunteerCommentScalarWhereInput | Prisma.VolunteerCommentScalarWhereInput[]
   id?: Prisma.StringFilter<"VolunteerComment"> | string
   volunteerId?: Prisma.StringFilter<"VolunteerComment"> | string
-  organizationId?: Prisma.StringFilter<"VolunteerComment"> | string
+  organizationId?: Prisma.StringNullableFilter<"VolunteerComment"> | string | null
   comment?: Prisma.StringFilter<"VolunteerComment"> | string
   rating?: Prisma.IntNullableFilter<"VolunteerComment"> | number | null
   createdAt?: Prisma.DateTimeFilter<"VolunteerComment"> | Date | string
@@ -602,7 +602,7 @@ export type VolunteerCommentUpdateManyWithWhereWithoutOrganizationInput = {
 
 export type VolunteerCommentCreateManyVolunteerInput = {
   id?: string
-  organizationId: string
+  organizationId?: string | null
   comment: string
   rating?: number | null
   createdAt?: Date | string
@@ -624,12 +624,12 @@ export type VolunteerCommentUpdateWithoutVolunteerInput = {
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  organization?: Prisma.UserUpdateOneRequiredWithoutOrganizationCommentsNestedInput
+  organization?: Prisma.UserUpdateOneWithoutOrganizationCommentsNestedInput
 }
 
 export type VolunteerCommentUncheckedUpdateWithoutVolunteerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   comment?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -638,7 +638,7 @@ export type VolunteerCommentUncheckedUpdateWithoutVolunteerInput = {
 
 export type VolunteerCommentUncheckedUpdateManyWithoutVolunteerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   comment?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -683,7 +683,7 @@ export type VolunteerCommentSelect<ExtArgs extends runtime.Types.Extensions.Inte
   createdAt?: boolean
   updatedAt?: boolean
   volunteer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.VolunteerComment$organizationArgs<ExtArgs>
 }, ExtArgs["result"]["volunteerComment"]>
 
 export type VolunteerCommentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -695,7 +695,7 @@ export type VolunteerCommentSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   createdAt?: boolean
   updatedAt?: boolean
   volunteer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.VolunteerComment$organizationArgs<ExtArgs>
 }, ExtArgs["result"]["volunteerComment"]>
 
 export type VolunteerCommentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -707,7 +707,7 @@ export type VolunteerCommentSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   createdAt?: boolean
   updatedAt?: boolean
   volunteer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.VolunteerComment$organizationArgs<ExtArgs>
 }, ExtArgs["result"]["volunteerComment"]>
 
 export type VolunteerCommentSelectScalar = {
@@ -723,27 +723,27 @@ export type VolunteerCommentSelectScalar = {
 export type VolunteerCommentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "volunteerId" | "organizationId" | "comment" | "rating" | "createdAt" | "updatedAt", ExtArgs["result"]["volunteerComment"]>
 export type VolunteerCommentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   volunteer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.VolunteerComment$organizationArgs<ExtArgs>
 }
 export type VolunteerCommentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   volunteer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.VolunteerComment$organizationArgs<ExtArgs>
 }
 export type VolunteerCommentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   volunteer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.VolunteerComment$organizationArgs<ExtArgs>
 }
 
 export type $VolunteerCommentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "VolunteerComment"
   objects: {
     volunteer: Prisma.$UserPayload<ExtArgs>
-    organization: Prisma.$UserPayload<ExtArgs>
+    organization: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     volunteerId: string
-    organizationId: string
+    organizationId: string | null
     comment: string
     rating: number | null
     createdAt: Date
@@ -1143,7 +1143,7 @@ readonly fields: VolunteerCommentFieldRefs;
 export interface Prisma__VolunteerCommentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   volunteer<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  organization<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  organization<T extends Prisma.VolunteerComment$organizationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VolunteerComment$organizationArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1573,6 +1573,25 @@ export type VolunteerCommentDeleteManyArgs<ExtArgs extends runtime.Types.Extensi
    * Limit how many VolunteerComments to delete.
    */
   limit?: number
+}
+
+/**
+ * VolunteerComment.organization
+ */
+export type VolunteerComment$organizationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

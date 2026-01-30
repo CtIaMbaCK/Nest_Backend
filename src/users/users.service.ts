@@ -9,6 +9,7 @@ import {
   CreateVolunteerProfileDto,
   UpdateBficiaryProfileDto,
   UpdateVolunteerProfileDto,
+  UpdateOrganizationProfileDto,
 } from './dto/create-user.dto';
 import { Role } from 'src/generated/prisma/enums';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
@@ -397,6 +398,101 @@ export class UsersService {
         ...(avatarUrl && { avatarUrl: avatarUrl }),
         ...(cccdFront && { cccdFrontFile: cccdFront }),
         ...(cccdBack && { cccdBackFile: cccdBack }),
+      },
+    });
+  }
+
+  // update thong tin organization
+  async updateOrganizationProfile(
+    userId: string,
+    dto: UpdateOrganizationProfileDto,
+    files: {
+      avatarUrl?: Express.Multer.File[];
+      businessLicense?: Express.Multer.File[];
+      verificationDocs?: Express.Multer.File[];
+    } = {},
+  ) {
+    // 1. Tìm hồ sơ hiện tại
+    const profile = await this.prisma.organizationProfile.findUnique({
+      where: { userId },
+    });
+    if (!profile) throw new NotFoundException('Hồ sơ tổ chức không tồn tại');
+
+    // Clean undefined fields
+    const cleanedDto = this.cleanUndefinedFields(dto);
+    const { keepingVerificationDocs, ...prismaData } = cleanedDto;
+
+    // 2. Xóa ảnh cũ trên Cloudinary trước khi upload ảnh mới
+    const deletePromises: Promise<void>[] = [];
+
+    // Xóa avatar cũ nếu có upload avatar mới
+    if (files.avatarUrl?.[0] && profile.avatarUrl) {
+      deletePromises.push(this.cloudinary.deleteFile(profile.avatarUrl));
+    }
+
+    // Xóa business license cũ nếu có upload mới
+    if (files.businessLicense?.[0] && profile.businessLicense) {
+      deletePromises.push(this.cloudinary.deleteFile(profile.businessLicense));
+    }
+
+    // Xóa các verification docs cũ nếu FE gửi keepingVerificationDocs
+    if (
+      keepingVerificationDocs !== undefined &&
+      profile.verificationDocs.length > 0
+    ) {
+      const keepingUrls = Array.isArray(keepingVerificationDocs)
+        ? keepingVerificationDocs
+        : [keepingVerificationDocs];
+
+      // Tìm các URL cũ KHÔNG nằm trong keepingUrls → xóa chúng
+      const urlsToDelete = profile.verificationDocs.filter(
+        (url) => !keepingUrls.includes(url),
+      );
+
+      if (urlsToDelete.length > 0) {
+        deletePromises.push(this.cloudinary.deleteFiles(urlsToDelete));
+      }
+    }
+
+    // Chạy tất cả delete operations song song
+    await Promise.all(deletePromises);
+
+    // 3. Upload ảnh mới (nếu có)
+    const [newAvatar, newBusinessLicense] = await Promise.all([
+      files.avatarUrl?.[0]
+        ? this.cloudinary.uploadFile(files.avatarUrl[0])
+        : Promise.resolve(undefined),
+      files.businessLicense?.[0]
+        ? this.cloudinary.uploadFile(files.businessLicense[0])
+        : Promise.resolve(undefined),
+    ]);
+
+    // 4. Xử lý mảng verification docs (Hợp nhất cũ và mới)
+    let finalVerificationDocs: string[] = profile.verificationDocs;
+
+    // Nếu FE gửi danh sách docs cũ muốn giữ lại
+    if (keepingVerificationDocs !== undefined) {
+      finalVerificationDocs = Array.isArray(keepingVerificationDocs)
+        ? keepingVerificationDocs
+        : [keepingVerificationDocs];
+    }
+
+    // Nếu có upload thêm docs mới -> Đẩy thêm vào mảng
+    if (files.verificationDocs && files.verificationDocs.length > 0) {
+      const newDocUrls = await this.cloudinary.uploadFiles(
+        files.verificationDocs,
+      );
+      finalVerificationDocs = [...finalVerificationDocs, ...newDocUrls];
+    }
+
+    // 5. Cập nhật vào Database
+    return this.prisma.organizationProfile.update({
+      where: { userId },
+      data: {
+        ...prismaData,
+        ...(newAvatar && { avatarUrl: newAvatar }),
+        ...(newBusinessLicense && { businessLicense: newBusinessLicense }),
+        verificationDocs: finalVerificationDocs,
       },
     });
   }

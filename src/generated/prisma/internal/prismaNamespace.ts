@@ -1703,6 +1703,7 @@ export const CertificateTemplateScalarFieldEnum = {
   description: 'description',
   templateImageUrl: 'templateImageUrl',
   textBoxConfig: 'textBoxConfig',
+  isSystemDefault: 'isSystemDefault',
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

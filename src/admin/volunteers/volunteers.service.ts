@@ -1,7 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UpdateVolunteerDto } from './dto/update-volunteer.dto';
 import { District, UserStatus } from 'src/generated/prisma/client';
+import { CreateAdminCommentDto } from '../certificates/dto/create-admin-comment.dto';
 
 @Injectable()
 export class VolunteersService {
@@ -149,5 +150,102 @@ export class VolunteersService {
     }
 
     return updated;
+  }
+
+  // ==================== ADMIN COMMENTS ====================
+
+  async createAdminComment(dto: CreateAdminCommentDto) {
+    // Kiểm tra TNV có tồn tại không
+    const volunteer = await this.prisma.user.findUnique({
+      where: { id: dto.volunteerId, role: 'VOLUNTEER' },
+    });
+
+    if (!volunteer) {
+      throw new NotFoundException('Không tìm thấy tình nguyện viên');
+    }
+
+    // Tạo nhận xét (organizationId = null cho Admin)
+    const comment = await this.prisma.volunteerComment.create({
+      data: {
+        volunteerId: dto.volunteerId,
+        organizationId: null, // Admin comment
+        comment: dto.comment,
+        rating: dto.rating,
+      },
+      include: {
+        volunteer: {
+          select: {
+            id: true,
+            email: true,
+            volunteerProfile: {
+              select: {
+                fullName: true,
+                avatarUrl: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return {
+      message: 'Đã tạo nhận xét thành công',
+      comment,
+    };
+  }
+
+  async getVolunteerComments(volunteerId: string) {
+    // Kiểm tra TNV có tồn tại không
+    const volunteer = await this.prisma.user.findUnique({
+      where: { id: volunteerId, role: 'VOLUNTEER' },
+    });
+
+    if (!volunteer) {
+      throw new NotFoundException('Không tìm thấy tình nguyện viên');
+    }
+
+    // Lấy tất cả nhận xét (cả Admin và TCXH)
+    const comments = await this.prisma.volunteerComment.findMany({
+      where: { volunteerId },
+      include: {
+        organization: {
+          select: {
+            id: true,
+            organizationProfiles: {
+              select: {
+                organizationName: true,
+                avatarUrl: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    return comments;
+  }
+
+  async deleteAdminComment(commentId: string) {
+    // Kiểm tra comment có tồn tại và là của Admin không
+    const comment = await this.prisma.volunteerComment.findUnique({
+      where: { id: commentId },
+    });
+
+    if (!comment) {
+      throw new NotFoundException('Không tìm thấy nhận xét');
+    }
+
+    if (comment.organizationId !== null) {
+      throw new BadRequestException('Chỉ có thể xóa nhận xét của Admin');
+    }
+
+    await this.prisma.volunteerComment.delete({
+      where: { id: commentId },
+    });
+
+    return {
+      message: 'Đã xóa nhận xét thành công',
+    };
   }
 }

@@ -18,6 +18,11 @@ import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
+    // ✅ Load .env file
+    // ConfigModule.forRoot({
+    //   isGlobal: true, // Make ConfigService available globally
+    //   envFilePath: '.env',
+    // }),
     // Rate limiting configuration
     ThrottlerModule.forRoot([
       {

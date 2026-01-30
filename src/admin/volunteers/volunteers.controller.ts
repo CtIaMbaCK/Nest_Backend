@@ -6,6 +6,10 @@ import {
   Patch,
   Body,
   UseGuards,
+  Post,
+  Delete,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { VolunteersService } from './volunteers.service';
 import {
@@ -16,6 +20,7 @@ import {
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UpdateVolunteerDto } from './dto/update-volunteer.dto';
+import { CreateAdminCommentDto } from '../certificates/dto/create-admin-comment.dto';
 
 @ApiTags('Admin - Quan ly TNV')
 @ApiBearerAuth('JWT-auth')
@@ -72,5 +77,26 @@ export class VolunteersController {
     @Body() updateDto: UpdateVolunteerDto,
   ) {
     return this.volunteersService.updateVolunteer(id, updateDto);
+  }
+
+  // ==================== ADMIN COMMENTS ====================
+
+  @Post('comments')
+  @ApiOperation({ summary: '[Admin] Tạo nhận xét cho TNV' })
+  async createAdminComment(@Body() dto: CreateAdminCommentDto) {
+    return this.volunteersService.createAdminComment(dto);
+  }
+
+  @Get(':id/comments')
+  @ApiOperation({ summary: '[Admin] Lấy danh sách nhận xét của TNV' })
+  async getVolunteerComments(@Param('id') volunteerId: string) {
+    return this.volunteersService.getVolunteerComments(volunteerId);
+  }
+
+  @Delete('comments/:commentId')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: '[Admin] Xóa nhận xét' })
+  async deleteAdminComment(@Param('commentId') commentId: string) {
+    return this.volunteersService.deleteAdminComment(commentId);
   }
 }

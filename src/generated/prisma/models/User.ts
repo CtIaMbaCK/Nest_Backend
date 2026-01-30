@@ -777,10 +777,12 @@ export type UserUpdateOneRequiredWithoutVolunteerCommentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutVolunteerCommentsInput, Prisma.UserUpdateWithoutVolunteerCommentsInput>, Prisma.UserUncheckedUpdateWithoutVolunteerCommentsInput>
 }
 
-export type UserUpdateOneRequiredWithoutOrganizationCommentsNestedInput = {
+export type UserUpdateOneWithoutOrganizationCommentsNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutOrganizationCommentsInput, Prisma.UserUncheckedCreateWithoutOrganizationCommentsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrganizationCommentsInput
   upsert?: Prisma.UserUpsertWithoutOrganizationCommentsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOrganizationCommentsInput, Prisma.UserUpdateWithoutOrganizationCommentsInput>, Prisma.UserUncheckedUpdateWithoutOrganizationCommentsInput>
 }
@@ -791,10 +793,12 @@ export type UserCreateNestedOneWithoutCertificateTemplatesInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutCertificateTemplatesNestedInput = {
+export type UserUpdateOneWithoutCertificateTemplatesNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCertificateTemplatesInput, Prisma.UserUncheckedCreateWithoutCertificateTemplatesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCertificateTemplatesInput
   upsert?: Prisma.UserUpsertWithoutCertificateTemplatesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCertificateTemplatesInput, Prisma.UserUpdateWithoutCertificateTemplatesInput>, Prisma.UserUncheckedUpdateWithoutCertificateTemplatesInput>
 }
@@ -819,10 +823,12 @@ export type UserUpdateOneRequiredWithoutCertificatesReceivedNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCertificatesReceivedInput, Prisma.UserUpdateWithoutCertificatesReceivedInput>, Prisma.UserUncheckedUpdateWithoutCertificatesReceivedInput>
 }
 
-export type UserUpdateOneRequiredWithoutCertificatesIssuedNestedInput = {
+export type UserUpdateOneWithoutCertificatesIssuedNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCertificatesIssuedInput, Prisma.UserUncheckedCreateWithoutCertificatesIssuedInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCertificatesIssuedInput
   upsert?: Prisma.UserUpsertWithoutCertificatesIssuedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCertificatesIssuedInput, Prisma.UserUpdateWithoutCertificatesIssuedInput>, Prisma.UserUncheckedUpdateWithoutCertificatesIssuedInput>
 }

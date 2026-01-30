@@ -732,7 +732,7 @@ export class CampaignService {
     let totalUpdated = 0;
     const results: any = {};
 
-    // 1. Chuyển APPROVED -> ONGOING khi startDate đến
+    // 1. APPROVED -> ONGOING: Chuyển khi đến startDate
     const campaignsToStart = await this.prisma.campaign.findMany({
       where: {
         status: CampaignStatus.APPROVED,
@@ -752,13 +752,16 @@ export class CampaignService {
         count: campaignsToStart.length,
         campaignIds: campaignsToStart.map((c) => c.id),
       };
+      console.log(`✅ ${campaignsToStart.length} campaigns: APPROVED → ONGOING`);
     }
 
-    // 2. Chuyển ONGOING -> COMPLETED khi endDate qua và chưa có proofImages
+    // 2. ONGOING -> COMPLETED: Chuyển khi đến endDate (KHÔNG CỘNG ĐIỂM)
+    // Chỉ chuyển những campaign chưa có proofImages (chưa submit proof)
     const campaignsToComplete = await this.prisma.campaign.findMany({
       where: {
         status: CampaignStatus.ONGOING,
         endDate: { not: null, lte: now },
+        proofImages: { isEmpty: true }, // Chưa có proof images
       },
     });
 
@@ -767,13 +770,18 @@ export class CampaignService {
         where: {
           id: { in: campaignsToComplete.map((c) => c.id) },
         },
-        data: { status: CampaignStatus.COMPLETED },
+        data: {
+          status: CampaignStatus.COMPLETED,
+          doneAt: now,
+        },
       });
       totalUpdated += campaignsToComplete.length;
-      results.completed = {
+      results.autoCompleted = {
         count: campaignsToComplete.length,
         campaignIds: campaignsToComplete.map((c) => c.id),
+        note: 'Chuyển sang COMPLETED nhưng CHƯA cộng điểm (chưa có proofImages)',
       };
+      console.log(`⏰ ${campaignsToComplete.length} campaigns: ONGOING → COMPLETED (auto, no points)`);
     }
 
     if (totalUpdated === 0) {
@@ -819,6 +827,11 @@ export class CampaignService {
       throw new ForbiddenException('Bạn không có quyền cập nhật campaign này');
     }
 
+    // ✅ KHÔNG cho phép upload nếu đã có proofImages rồi
+    if (campaign.proofImages && campaign.proofImages.length > 0) {
+      throw new BadRequestException('Campaign này đã có minh chứng hoàn thành rồi!');
+    }
+
     if (!proofImageFiles || proofImageFiles.length === 0) {
       throw new BadRequestException('Vui lòng upload ít nhất 1 ảnh minh chứng');
     }
@@ -836,7 +849,9 @@ export class CampaignService {
       },
     });
 
-    // Cộng điểm cho TẤT CẢ tình nguyện viên đã tham gia (REGISTERED hoặc ATTENDED)
+    // ✅ Cộng điểm cho TẤT CẢ tình nguyện viên đã tham gia (REGISTERED hoặc ATTENDED)
+    console.log(`✅ Cộng điểm cho ${campaign.registrations.length} TNV (Campaign ${campaignId})`);
+
     const pointPromises = campaign.registrations.map((reg) =>
       PointsHelper.addPointsForCampaign(
         this.prisma,

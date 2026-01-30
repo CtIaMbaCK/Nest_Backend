@@ -39,7 +39,7 @@ export class AuthService {
         phoneNumber: dto.phoneNumber,
         passwordHash: passwordHash,
         role: dto.role,
-        status: 'PENDING',
+        status: 'ACTIVE', // Auto-activate tài khoản mới
       },
     });
 

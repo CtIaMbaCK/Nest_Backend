@@ -177,7 +177,7 @@ export type IssuedCertificateGroupByOutputType = {
   id: string
   templateId: string
   volunteerId: string
-  organizationId: string
+  organizationId: string | null
   certificateData: runtime.JsonValue
   pdfUrl: string
   emailSent: boolean
@@ -211,7 +211,7 @@ export type IssuedCertificateWhereInput = {
   id?: Prisma.StringFilter<"IssuedCertificate"> | string
   templateId?: Prisma.StringFilter<"IssuedCertificate"> | string
   volunteerId?: Prisma.StringFilter<"IssuedCertificate"> | string
-  organizationId?: Prisma.StringFilter<"IssuedCertificate"> | string
+  organizationId?: Prisma.StringNullableFilter<"IssuedCertificate"> | string | null
   certificateData?: Prisma.JsonFilter<"IssuedCertificate">
   pdfUrl?: Prisma.StringFilter<"IssuedCertificate"> | string
   emailSent?: Prisma.BoolFilter<"IssuedCertificate"> | boolean
@@ -220,14 +220,14 @@ export type IssuedCertificateWhereInput = {
   issuedAt?: Prisma.DateTimeFilter<"IssuedCertificate"> | Date | string
   template?: Prisma.XOR<Prisma.CertificateTemplateScalarRelationFilter, Prisma.CertificateTemplateWhereInput>
   volunteer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  organization?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  organization?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type IssuedCertificateOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   templateId?: Prisma.SortOrder
   volunteerId?: Prisma.SortOrder
-  organizationId?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrderInput | Prisma.SortOrder
   certificateData?: Prisma.SortOrder
   pdfUrl?: Prisma.SortOrder
   emailSent?: Prisma.SortOrder
@@ -246,7 +246,7 @@ export type IssuedCertificateWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.IssuedCertificateWhereInput | Prisma.IssuedCertificateWhereInput[]
   templateId?: Prisma.StringFilter<"IssuedCertificate"> | string
   volunteerId?: Prisma.StringFilter<"IssuedCertificate"> | string
-  organizationId?: Prisma.StringFilter<"IssuedCertificate"> | string
+  organizationId?: Prisma.StringNullableFilter<"IssuedCertificate"> | string | null
   certificateData?: Prisma.JsonFilter<"IssuedCertificate">
   pdfUrl?: Prisma.StringFilter<"IssuedCertificate"> | string
   emailSent?: Prisma.BoolFilter<"IssuedCertificate"> | boolean
@@ -255,14 +255,14 @@ export type IssuedCertificateWhereUniqueInput = Prisma.AtLeast<{
   issuedAt?: Prisma.DateTimeFilter<"IssuedCertificate"> | Date | string
   template?: Prisma.XOR<Prisma.CertificateTemplateScalarRelationFilter, Prisma.CertificateTemplateWhereInput>
   volunteer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  organization?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  organization?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type IssuedCertificateOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   templateId?: Prisma.SortOrder
   volunteerId?: Prisma.SortOrder
-  organizationId?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrderInput | Prisma.SortOrder
   certificateData?: Prisma.SortOrder
   pdfUrl?: Prisma.SortOrder
   emailSent?: Prisma.SortOrder
@@ -281,7 +281,7 @@ export type IssuedCertificateScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"IssuedCertificate"> | string
   templateId?: Prisma.StringWithAggregatesFilter<"IssuedCertificate"> | string
   volunteerId?: Prisma.StringWithAggregatesFilter<"IssuedCertificate"> | string
-  organizationId?: Prisma.StringWithAggregatesFilter<"IssuedCertificate"> | string
+  organizationId?: Prisma.StringNullableWithAggregatesFilter<"IssuedCertificate"> | string | null
   certificateData?: Prisma.JsonWithAggregatesFilter<"IssuedCertificate">
   pdfUrl?: Prisma.StringWithAggregatesFilter<"IssuedCertificate"> | string
   emailSent?: Prisma.BoolWithAggregatesFilter<"IssuedCertificate"> | boolean
@@ -300,14 +300,14 @@ export type IssuedCertificateCreateInput = {
   issuedAt?: Date | string
   template: Prisma.CertificateTemplateCreateNestedOneWithoutIssuedCertificatesInput
   volunteer: Prisma.UserCreateNestedOneWithoutCertificatesReceivedInput
-  organization: Prisma.UserCreateNestedOneWithoutCertificatesIssuedInput
+  organization?: Prisma.UserCreateNestedOneWithoutCertificatesIssuedInput
 }
 
 export type IssuedCertificateUncheckedCreateInput = {
   id?: string
   templateId: string
   volunteerId: string
-  organizationId: string
+  organizationId?: string | null
   certificateData: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pdfUrl: string
   emailSent?: boolean
@@ -326,14 +326,14 @@ export type IssuedCertificateUpdateInput = {
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   template?: Prisma.CertificateTemplateUpdateOneRequiredWithoutIssuedCertificatesNestedInput
   volunteer?: Prisma.UserUpdateOneRequiredWithoutCertificatesReceivedNestedInput
-  organization?: Prisma.UserUpdateOneRequiredWithoutCertificatesIssuedNestedInput
+  organization?: Prisma.UserUpdateOneWithoutCertificatesIssuedNestedInput
 }
 
 export type IssuedCertificateUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   templateId?: Prisma.StringFieldUpdateOperationsInput | string
   volunteerId?: Prisma.StringFieldUpdateOperationsInput | string
-  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certificateData?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pdfUrl?: Prisma.StringFieldUpdateOperationsInput | string
   emailSent?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -346,7 +346,7 @@ export type IssuedCertificateCreateManyInput = {
   id?: string
   templateId: string
   volunteerId: string
-  organizationId: string
+  organizationId?: string | null
   certificateData: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pdfUrl: string
   emailSent?: boolean
@@ -369,7 +369,7 @@ export type IssuedCertificateUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   templateId?: Prisma.StringFieldUpdateOperationsInput | string
   volunteerId?: Prisma.StringFieldUpdateOperationsInput | string
-  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certificateData?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pdfUrl?: Prisma.StringFieldUpdateOperationsInput | string
   emailSent?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -560,13 +560,13 @@ export type IssuedCertificateCreateWithoutVolunteerInput = {
   notes?: string | null
   issuedAt?: Date | string
   template: Prisma.CertificateTemplateCreateNestedOneWithoutIssuedCertificatesInput
-  organization: Prisma.UserCreateNestedOneWithoutCertificatesIssuedInput
+  organization?: Prisma.UserCreateNestedOneWithoutCertificatesIssuedInput
 }
 
 export type IssuedCertificateUncheckedCreateWithoutVolunteerInput = {
   id?: string
   templateId: string
-  organizationId: string
+  organizationId?: string | null
   certificateData: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pdfUrl: string
   emailSent?: boolean
@@ -642,7 +642,7 @@ export type IssuedCertificateScalarWhereInput = {
   id?: Prisma.StringFilter<"IssuedCertificate"> | string
   templateId?: Prisma.StringFilter<"IssuedCertificate"> | string
   volunteerId?: Prisma.StringFilter<"IssuedCertificate"> | string
-  organizationId?: Prisma.StringFilter<"IssuedCertificate"> | string
+  organizationId?: Prisma.StringNullableFilter<"IssuedCertificate"> | string | null
   certificateData?: Prisma.JsonFilter<"IssuedCertificate">
   pdfUrl?: Prisma.StringFilter<"IssuedCertificate"> | string
   emailSent?: Prisma.BoolFilter<"IssuedCertificate"> | boolean
@@ -676,13 +676,13 @@ export type IssuedCertificateCreateWithoutTemplateInput = {
   notes?: string | null
   issuedAt?: Date | string
   volunteer: Prisma.UserCreateNestedOneWithoutCertificatesReceivedInput
-  organization: Prisma.UserCreateNestedOneWithoutCertificatesIssuedInput
+  organization?: Prisma.UserCreateNestedOneWithoutCertificatesIssuedInput
 }
 
 export type IssuedCertificateUncheckedCreateWithoutTemplateInput = {
   id?: string
   volunteerId: string
-  organizationId: string
+  organizationId?: string | null
   certificateData: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pdfUrl: string
   emailSent?: boolean
@@ -720,7 +720,7 @@ export type IssuedCertificateUpdateManyWithWhereWithoutTemplateInput = {
 export type IssuedCertificateCreateManyVolunteerInput = {
   id?: string
   templateId: string
-  organizationId: string
+  organizationId?: string | null
   certificateData: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pdfUrl: string
   emailSent?: boolean
@@ -750,13 +750,13 @@ export type IssuedCertificateUpdateWithoutVolunteerInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   template?: Prisma.CertificateTemplateUpdateOneRequiredWithoutIssuedCertificatesNestedInput
-  organization?: Prisma.UserUpdateOneRequiredWithoutCertificatesIssuedNestedInput
+  organization?: Prisma.UserUpdateOneWithoutCertificatesIssuedNestedInput
 }
 
 export type IssuedCertificateUncheckedUpdateWithoutVolunteerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   templateId?: Prisma.StringFieldUpdateOperationsInput | string
-  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certificateData?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pdfUrl?: Prisma.StringFieldUpdateOperationsInput | string
   emailSent?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -768,7 +768,7 @@ export type IssuedCertificateUncheckedUpdateWithoutVolunteerInput = {
 export type IssuedCertificateUncheckedUpdateManyWithoutVolunteerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   templateId?: Prisma.StringFieldUpdateOperationsInput | string
-  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certificateData?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pdfUrl?: Prisma.StringFieldUpdateOperationsInput | string
   emailSent?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -816,7 +816,7 @@ export type IssuedCertificateUncheckedUpdateManyWithoutOrganizationInput = {
 export type IssuedCertificateCreateManyTemplateInput = {
   id?: string
   volunteerId: string
-  organizationId: string
+  organizationId?: string | null
   certificateData: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pdfUrl: string
   emailSent?: boolean
@@ -834,13 +834,13 @@ export type IssuedCertificateUpdateWithoutTemplateInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   volunteer?: Prisma.UserUpdateOneRequiredWithoutCertificatesReceivedNestedInput
-  organization?: Prisma.UserUpdateOneRequiredWithoutCertificatesIssuedNestedInput
+  organization?: Prisma.UserUpdateOneWithoutCertificatesIssuedNestedInput
 }
 
 export type IssuedCertificateUncheckedUpdateWithoutTemplateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   volunteerId?: Prisma.StringFieldUpdateOperationsInput | string
-  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certificateData?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pdfUrl?: Prisma.StringFieldUpdateOperationsInput | string
   emailSent?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -852,7 +852,7 @@ export type IssuedCertificateUncheckedUpdateWithoutTemplateInput = {
 export type IssuedCertificateUncheckedUpdateManyWithoutTemplateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   volunteerId?: Prisma.StringFieldUpdateOperationsInput | string
-  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certificateData?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pdfUrl?: Prisma.StringFieldUpdateOperationsInput | string
   emailSent?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -876,7 +876,7 @@ export type IssuedCertificateSelect<ExtArgs extends runtime.Types.Extensions.Int
   issuedAt?: boolean
   template?: boolean | Prisma.CertificateTemplateDefaultArgs<ExtArgs>
   volunteer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.IssuedCertificate$organizationArgs<ExtArgs>
 }, ExtArgs["result"]["issuedCertificate"]>
 
 export type IssuedCertificateSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -892,7 +892,7 @@ export type IssuedCertificateSelectCreateManyAndReturn<ExtArgs extends runtime.T
   issuedAt?: boolean
   template?: boolean | Prisma.CertificateTemplateDefaultArgs<ExtArgs>
   volunteer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.IssuedCertificate$organizationArgs<ExtArgs>
 }, ExtArgs["result"]["issuedCertificate"]>
 
 export type IssuedCertificateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -908,7 +908,7 @@ export type IssuedCertificateSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   issuedAt?: boolean
   template?: boolean | Prisma.CertificateTemplateDefaultArgs<ExtArgs>
   volunteer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.IssuedCertificate$organizationArgs<ExtArgs>
 }, ExtArgs["result"]["issuedCertificate"]>
 
 export type IssuedCertificateSelectScalar = {
@@ -928,17 +928,17 @@ export type IssuedCertificateOmit<ExtArgs extends runtime.Types.Extensions.Inter
 export type IssuedCertificateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   template?: boolean | Prisma.CertificateTemplateDefaultArgs<ExtArgs>
   volunteer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.IssuedCertificate$organizationArgs<ExtArgs>
 }
 export type IssuedCertificateIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   template?: boolean | Prisma.CertificateTemplateDefaultArgs<ExtArgs>
   volunteer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.IssuedCertificate$organizationArgs<ExtArgs>
 }
 export type IssuedCertificateIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   template?: boolean | Prisma.CertificateTemplateDefaultArgs<ExtArgs>
   volunteer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.IssuedCertificate$organizationArgs<ExtArgs>
 }
 
 export type $IssuedCertificatePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -946,13 +946,13 @@ export type $IssuedCertificatePayload<ExtArgs extends runtime.Types.Extensions.I
   objects: {
     template: Prisma.$CertificateTemplatePayload<ExtArgs>
     volunteer: Prisma.$UserPayload<ExtArgs>
-    organization: Prisma.$UserPayload<ExtArgs>
+    organization: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     templateId: string
     volunteerId: string
-    organizationId: string
+    organizationId: string | null
     certificateData: runtime.JsonValue
     pdfUrl: string
     emailSent: boolean
@@ -1355,7 +1355,7 @@ export interface Prisma__IssuedCertificateClient<T, Null = never, ExtArgs extend
   readonly [Symbol.toStringTag]: "PrismaPromise"
   template<T extends Prisma.CertificateTemplateDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CertificateTemplateDefaultArgs<ExtArgs>>): Prisma.Prisma__CertificateTemplateClient<runtime.Types.Result.GetResult<Prisma.$CertificateTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   volunteer<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  organization<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  organization<T extends Prisma.IssuedCertificate$organizationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IssuedCertificate$organizationArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1788,6 +1788,25 @@ export type IssuedCertificateDeleteManyArgs<ExtArgs extends runtime.Types.Extens
    * Limit how many IssuedCertificates to delete.
    */
   limit?: number
+}
+
+/**
+ * IssuedCertificate.organization
+ */
+export type IssuedCertificate$organizationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

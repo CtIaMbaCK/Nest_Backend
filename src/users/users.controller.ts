@@ -18,6 +18,7 @@ import { GetUser } from 'src/auth/decorator/get-user.decorator';
 import {
   UpdateBficiaryProfileDto,
   UpdateVolunteerProfileDto,
+  UpdateOrganizationProfileDto,
 } from './dto/create-user.dto';
 import {
   ApiBearerAuth,
@@ -164,6 +165,61 @@ export class UsersController {
     }
 
     return this.userService.updateBenificiaryProfile(userId, dto, files);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('profile/organization')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        avatarUrl: { type: 'string', format: 'binary' },
+        businessLicense: { type: 'string', format: 'binary' },
+        verificationDocs: {
+          type: 'array',
+          items: { type: 'string', format: 'binary' },
+          description: 'Chọn các file tài liệu xác minh mới (nếu có)',
+        },
+        organizationName: { type: 'string' },
+        representativeName: { type: 'string' },
+        description: { type: 'string' },
+        website: { type: 'string' },
+        district: { type: 'string' },
+        addressDetail: { type: 'string' },
+        keepingVerificationDocs: {
+          type: 'array',
+          items: { type: 'string' },
+          description: 'Danh sách các URL tài liệu cũ muốn giữ lại',
+        },
+      },
+    },
+  })
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'avatarUrl', maxCount: 1 },
+      { name: 'businessLicense', maxCount: 1 },
+      { name: 'verificationDocs', maxCount: 5 },
+    ]),
+  )
+  async updateOrganizationProfile(
+    @GetUser('sub') userId: string,
+    @GetUser('role') role: string,
+    @Body() dto: UpdateOrganizationProfileDto,
+    @UploadedFiles()
+    files: {
+      avatarUrl?: Express.Multer.File[];
+      businessLicense?: Express.Multer.File[];
+      verificationDocs?: Express.Multer.File[];
+    },
+  ) {
+    if (role !== 'ORGANIZATION') {
+      throw new ForbiddenException(
+        'Chỉ tổ chức xã hội mới có quyền cập nhật hồ sơ này',
+      );
+    }
+
+    return this.userService.updateOrganizationProfile(userId, dto, files);
   }
 
   // ========== API CHO TÌNH NGUYỆN VIÊN - CAMPAIGN ==========

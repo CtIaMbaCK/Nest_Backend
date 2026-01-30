@@ -30,6 +30,7 @@ export type CertificateTemplateMinAggregateOutputType = {
   name: string | null
   description: string | null
   templateImageUrl: string | null
+  isSystemDefault: boolean | null
   isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -41,6 +42,7 @@ export type CertificateTemplateMaxAggregateOutputType = {
   name: string | null
   description: string | null
   templateImageUrl: string | null
+  isSystemDefault: boolean | null
   isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -53,6 +55,7 @@ export type CertificateTemplateCountAggregateOutputType = {
   description: number
   templateImageUrl: number
   textBoxConfig: number
+  isSystemDefault: number
   isActive: number
   createdAt: number
   updatedAt: number
@@ -66,6 +69,7 @@ export type CertificateTemplateMinAggregateInputType = {
   name?: true
   description?: true
   templateImageUrl?: true
+  isSystemDefault?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
@@ -77,6 +81,7 @@ export type CertificateTemplateMaxAggregateInputType = {
   name?: true
   description?: true
   templateImageUrl?: true
+  isSystemDefault?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
@@ -89,6 +94,7 @@ export type CertificateTemplateCountAggregateInputType = {
   description?: true
   templateImageUrl?: true
   textBoxConfig?: true
+  isSystemDefault?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
@@ -169,11 +175,12 @@ export type CertificateTemplateGroupByArgs<ExtArgs extends runtime.Types.Extensi
 
 export type CertificateTemplateGroupByOutputType = {
   id: string
-  organizationId: string
+  organizationId: string | null
   name: string
   description: string | null
   templateImageUrl: string
   textBoxConfig: runtime.JsonValue
+  isSystemDefault: boolean
   isActive: boolean
   createdAt: Date
   updatedAt: Date
@@ -202,25 +209,27 @@ export type CertificateTemplateWhereInput = {
   OR?: Prisma.CertificateTemplateWhereInput[]
   NOT?: Prisma.CertificateTemplateWhereInput | Prisma.CertificateTemplateWhereInput[]
   id?: Prisma.StringFilter<"CertificateTemplate"> | string
-  organizationId?: Prisma.StringFilter<"CertificateTemplate"> | string
+  organizationId?: Prisma.StringNullableFilter<"CertificateTemplate"> | string | null
   name?: Prisma.StringFilter<"CertificateTemplate"> | string
   description?: Prisma.StringNullableFilter<"CertificateTemplate"> | string | null
   templateImageUrl?: Prisma.StringFilter<"CertificateTemplate"> | string
   textBoxConfig?: Prisma.JsonFilter<"CertificateTemplate">
+  isSystemDefault?: Prisma.BoolFilter<"CertificateTemplate"> | boolean
   isActive?: Prisma.BoolFilter<"CertificateTemplate"> | boolean
   createdAt?: Prisma.DateTimeFilter<"CertificateTemplate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CertificateTemplate"> | Date | string
-  organization?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  organization?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   issuedCertificates?: Prisma.IssuedCertificateListRelationFilter
 }
 
 export type CertificateTemplateOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  organizationId?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   templateImageUrl?: Prisma.SortOrder
   textBoxConfig?: Prisma.SortOrder
+  isSystemDefault?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -233,25 +242,27 @@ export type CertificateTemplateWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.CertificateTemplateWhereInput | Prisma.CertificateTemplateWhereInput[]
   OR?: Prisma.CertificateTemplateWhereInput[]
   NOT?: Prisma.CertificateTemplateWhereInput | Prisma.CertificateTemplateWhereInput[]
-  organizationId?: Prisma.StringFilter<"CertificateTemplate"> | string
+  organizationId?: Prisma.StringNullableFilter<"CertificateTemplate"> | string | null
   name?: Prisma.StringFilter<"CertificateTemplate"> | string
   description?: Prisma.StringNullableFilter<"CertificateTemplate"> | string | null
   templateImageUrl?: Prisma.StringFilter<"CertificateTemplate"> | string
   textBoxConfig?: Prisma.JsonFilter<"CertificateTemplate">
+  isSystemDefault?: Prisma.BoolFilter<"CertificateTemplate"> | boolean
   isActive?: Prisma.BoolFilter<"CertificateTemplate"> | boolean
   createdAt?: Prisma.DateTimeFilter<"CertificateTemplate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CertificateTemplate"> | Date | string
-  organization?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  organization?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   issuedCertificates?: Prisma.IssuedCertificateListRelationFilter
 }, "id">
 
 export type CertificateTemplateOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  organizationId?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   templateImageUrl?: Prisma.SortOrder
   textBoxConfig?: Prisma.SortOrder
+  isSystemDefault?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -265,11 +276,12 @@ export type CertificateTemplateScalarWhereWithAggregatesInput = {
   OR?: Prisma.CertificateTemplateScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CertificateTemplateScalarWhereWithAggregatesInput | Prisma.CertificateTemplateScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"CertificateTemplate"> | string
-  organizationId?: Prisma.StringWithAggregatesFilter<"CertificateTemplate"> | string
+  organizationId?: Prisma.StringNullableWithAggregatesFilter<"CertificateTemplate"> | string | null
   name?: Prisma.StringWithAggregatesFilter<"CertificateTemplate"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"CertificateTemplate"> | string | null
   templateImageUrl?: Prisma.StringWithAggregatesFilter<"CertificateTemplate"> | string
   textBoxConfig?: Prisma.JsonWithAggregatesFilter<"CertificateTemplate">
+  isSystemDefault?: Prisma.BoolWithAggregatesFilter<"CertificateTemplate"> | boolean
   isActive?: Prisma.BoolWithAggregatesFilter<"CertificateTemplate"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CertificateTemplate"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"CertificateTemplate"> | Date | string
@@ -281,20 +293,22 @@ export type CertificateTemplateCreateInput = {
   description?: string | null
   templateImageUrl: string
   textBoxConfig: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isSystemDefault?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  organization: Prisma.UserCreateNestedOneWithoutCertificateTemplatesInput
+  organization?: Prisma.UserCreateNestedOneWithoutCertificateTemplatesInput
   issuedCertificates?: Prisma.IssuedCertificateCreateNestedManyWithoutTemplateInput
 }
 
 export type CertificateTemplateUncheckedCreateInput = {
   id?: string
-  organizationId: string
+  organizationId?: string | null
   name: string
   description?: string | null
   templateImageUrl: string
   textBoxConfig: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isSystemDefault?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -307,20 +321,22 @@ export type CertificateTemplateUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   templateImageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   textBoxConfig?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isSystemDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  organization?: Prisma.UserUpdateOneRequiredWithoutCertificateTemplatesNestedInput
+  organization?: Prisma.UserUpdateOneWithoutCertificateTemplatesNestedInput
   issuedCertificates?: Prisma.IssuedCertificateUpdateManyWithoutTemplateNestedInput
 }
 
 export type CertificateTemplateUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   templateImageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   textBoxConfig?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isSystemDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -329,11 +345,12 @@ export type CertificateTemplateUncheckedUpdateInput = {
 
 export type CertificateTemplateCreateManyInput = {
   id?: string
-  organizationId: string
+  organizationId?: string | null
   name: string
   description?: string | null
   templateImageUrl: string
   textBoxConfig: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isSystemDefault?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -345,6 +362,7 @@ export type CertificateTemplateUpdateManyMutationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   templateImageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   textBoxConfig?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isSystemDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -352,11 +370,12 @@ export type CertificateTemplateUpdateManyMutationInput = {
 
 export type CertificateTemplateUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   templateImageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   textBoxConfig?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isSystemDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -379,6 +398,7 @@ export type CertificateTemplateCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   templateImageUrl?: Prisma.SortOrder
   textBoxConfig?: Prisma.SortOrder
+  isSystemDefault?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -390,6 +410,7 @@ export type CertificateTemplateMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   templateImageUrl?: Prisma.SortOrder
+  isSystemDefault?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -401,6 +422,7 @@ export type CertificateTemplateMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   templateImageUrl?: Prisma.SortOrder
+  isSystemDefault?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -473,6 +495,7 @@ export type CertificateTemplateCreateWithoutOrganizationInput = {
   description?: string | null
   templateImageUrl: string
   textBoxConfig: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isSystemDefault?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -485,6 +508,7 @@ export type CertificateTemplateUncheckedCreateWithoutOrganizationInput = {
   description?: string | null
   templateImageUrl: string
   textBoxConfig: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isSystemDefault?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -522,11 +546,12 @@ export type CertificateTemplateScalarWhereInput = {
   OR?: Prisma.CertificateTemplateScalarWhereInput[]
   NOT?: Prisma.CertificateTemplateScalarWhereInput | Prisma.CertificateTemplateScalarWhereInput[]
   id?: Prisma.StringFilter<"CertificateTemplate"> | string
-  organizationId?: Prisma.StringFilter<"CertificateTemplate"> | string
+  organizationId?: Prisma.StringNullableFilter<"CertificateTemplate"> | string | null
   name?: Prisma.StringFilter<"CertificateTemplate"> | string
   description?: Prisma.StringNullableFilter<"CertificateTemplate"> | string | null
   templateImageUrl?: Prisma.StringFilter<"CertificateTemplate"> | string
   textBoxConfig?: Prisma.JsonFilter<"CertificateTemplate">
+  isSystemDefault?: Prisma.BoolFilter<"CertificateTemplate"> | boolean
   isActive?: Prisma.BoolFilter<"CertificateTemplate"> | boolean
   createdAt?: Prisma.DateTimeFilter<"CertificateTemplate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CertificateTemplate"> | Date | string
@@ -538,19 +563,21 @@ export type CertificateTemplateCreateWithoutIssuedCertificatesInput = {
   description?: string | null
   templateImageUrl: string
   textBoxConfig: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isSystemDefault?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  organization: Prisma.UserCreateNestedOneWithoutCertificateTemplatesInput
+  organization?: Prisma.UserCreateNestedOneWithoutCertificateTemplatesInput
 }
 
 export type CertificateTemplateUncheckedCreateWithoutIssuedCertificatesInput = {
   id?: string
-  organizationId: string
+  organizationId?: string | null
   name: string
   description?: string | null
   templateImageUrl: string
   textBoxConfig: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isSystemDefault?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -578,19 +605,21 @@ export type CertificateTemplateUpdateWithoutIssuedCertificatesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   templateImageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   textBoxConfig?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isSystemDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  organization?: Prisma.UserUpdateOneRequiredWithoutCertificateTemplatesNestedInput
+  organization?: Prisma.UserUpdateOneWithoutCertificateTemplatesNestedInput
 }
 
 export type CertificateTemplateUncheckedUpdateWithoutIssuedCertificatesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   templateImageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   textBoxConfig?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isSystemDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -602,6 +631,7 @@ export type CertificateTemplateCreateManyOrganizationInput = {
   description?: string | null
   templateImageUrl: string
   textBoxConfig: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isSystemDefault?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -613,6 +643,7 @@ export type CertificateTemplateUpdateWithoutOrganizationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   templateImageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   textBoxConfig?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isSystemDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -625,6 +656,7 @@ export type CertificateTemplateUncheckedUpdateWithoutOrganizationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   templateImageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   textBoxConfig?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isSystemDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -637,6 +669,7 @@ export type CertificateTemplateUncheckedUpdateManyWithoutOrganizationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   templateImageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   textBoxConfig?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isSystemDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -680,10 +713,11 @@ export type CertificateTemplateSelect<ExtArgs extends runtime.Types.Extensions.I
   description?: boolean
   templateImageUrl?: boolean
   textBoxConfig?: boolean
+  isSystemDefault?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.CertificateTemplate$organizationArgs<ExtArgs>
   issuedCertificates?: boolean | Prisma.CertificateTemplate$issuedCertificatesArgs<ExtArgs>
   _count?: boolean | Prisma.CertificateTemplateCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["certificateTemplate"]>
@@ -695,10 +729,11 @@ export type CertificateTemplateSelectCreateManyAndReturn<ExtArgs extends runtime
   description?: boolean
   templateImageUrl?: boolean
   textBoxConfig?: boolean
+  isSystemDefault?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.CertificateTemplate$organizationArgs<ExtArgs>
 }, ExtArgs["result"]["certificateTemplate"]>
 
 export type CertificateTemplateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -708,10 +743,11 @@ export type CertificateTemplateSelectUpdateManyAndReturn<ExtArgs extends runtime
   description?: boolean
   templateImageUrl?: boolean
   textBoxConfig?: boolean
+  isSystemDefault?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.CertificateTemplate$organizationArgs<ExtArgs>
 }, ExtArgs["result"]["certificateTemplate"]>
 
 export type CertificateTemplateSelectScalar = {
@@ -721,37 +757,39 @@ export type CertificateTemplateSelectScalar = {
   description?: boolean
   templateImageUrl?: boolean
   textBoxConfig?: boolean
+  isSystemDefault?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CertificateTemplateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizationId" | "name" | "description" | "templateImageUrl" | "textBoxConfig" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["certificateTemplate"]>
+export type CertificateTemplateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizationId" | "name" | "description" | "templateImageUrl" | "textBoxConfig" | "isSystemDefault" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["certificateTemplate"]>
 export type CertificateTemplateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.CertificateTemplate$organizationArgs<ExtArgs>
   issuedCertificates?: boolean | Prisma.CertificateTemplate$issuedCertificatesArgs<ExtArgs>
   _count?: boolean | Prisma.CertificateTemplateCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CertificateTemplateIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.CertificateTemplate$organizationArgs<ExtArgs>
 }
 export type CertificateTemplateIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  organization?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.CertificateTemplate$organizationArgs<ExtArgs>
 }
 
 export type $CertificateTemplatePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CertificateTemplate"
   objects: {
-    organization: Prisma.$UserPayload<ExtArgs>
+    organization: Prisma.$UserPayload<ExtArgs> | null
     issuedCertificates: Prisma.$IssuedCertificatePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    organizationId: string
+    organizationId: string | null
     name: string
     description: string | null
     templateImageUrl: string
     textBoxConfig: runtime.JsonValue
+    isSystemDefault: boolean
     isActive: boolean
     createdAt: Date
     updatedAt: Date
@@ -1149,7 +1187,7 @@ readonly fields: CertificateTemplateFieldRefs;
  */
 export interface Prisma__CertificateTemplateClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  organization<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  organization<T extends Prisma.CertificateTemplate$organizationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CertificateTemplate$organizationArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   issuedCertificates<T extends Prisma.CertificateTemplate$issuedCertificatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CertificateTemplate$issuedCertificatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IssuedCertificatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1186,6 +1224,7 @@ export interface CertificateTemplateFieldRefs {
   readonly description: Prisma.FieldRef<"CertificateTemplate", 'String'>
   readonly templateImageUrl: Prisma.FieldRef<"CertificateTemplate", 'String'>
   readonly textBoxConfig: Prisma.FieldRef<"CertificateTemplate", 'Json'>
+  readonly isSystemDefault: Prisma.FieldRef<"CertificateTemplate", 'Boolean'>
   readonly isActive: Prisma.FieldRef<"CertificateTemplate", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"CertificateTemplate", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"CertificateTemplate", 'DateTime'>
@@ -1582,6 +1621,25 @@ export type CertificateTemplateDeleteManyArgs<ExtArgs extends runtime.Types.Exte
    * Limit how many CertificateTemplates to delete.
    */
   limit?: number
+}
+
+/**
+ * CertificateTemplate.organization
+ */
+export type CertificateTemplate$organizationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

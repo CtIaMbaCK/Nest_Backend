@@ -210,3 +210,66 @@ export class UpdateBficiaryProfileDto extends PartialType(
   })
   keepingProofFiles?: string[];
 }
+
+// DTO cho update organization profile
+export class UpdateOrganizationProfileDto {
+  @ApiPropertyOptional({ description: 'Tên tổ chức' })
+  @IsString()
+  @IsOptional()
+  organizationName?: string;
+
+  @ApiPropertyOptional({ description: 'Tên người đại diện' })
+  @IsString()
+  @IsOptional()
+  representativeName?: string;
+
+  @ApiPropertyOptional({ description: 'Mô tả tổ chức' })
+  @IsString()
+  @IsOptional()
+  description?: string;
+
+  @ApiPropertyOptional({ description: 'Website' })
+  @IsString()
+  @IsOptional()
+  website?: string;
+
+  @ApiPropertyOptional({ enum: District, description: 'Quận/Huyện' })
+  @IsEnum(District)
+  @IsOptional()
+  district?: District;
+
+  @ApiPropertyOptional({ description: 'Địa chỉ chi tiết' })
+  @IsString()
+  @IsOptional()
+  addressDetail?: string;
+
+  @ApiPropertyOptional({ description: 'URL ảnh đại diện' })
+  @IsString()
+  @IsOptional()
+  avatarUrl?: string;
+
+  @ApiPropertyOptional({ description: 'URL giấy phép kinh doanh' })
+  @IsString()
+  @IsOptional()
+  businessLicense?: string;
+
+  @ApiPropertyOptional({
+    type: [String],
+    description: 'Danh sách URLs tài liệu xác minh cũ muốn giữ lại',
+  })
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  @Transform(({ value }: TransformFnParams) => {
+    if (value === null || value === undefined) return undefined;
+
+    if (typeof value === 'string') {
+      if (value.trim() === '') return [];
+      return [value];
+    }
+    if (Array.isArray(value)) return value;
+
+    return [];
+  })
+  keepingVerificationDocs?: string[];
+}
