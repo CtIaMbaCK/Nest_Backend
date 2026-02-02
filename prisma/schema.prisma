@@ -174,6 +174,11 @@ model User {
   certificateTemplates   CertificateTemplate[] @relation("OrgCertTemplates")
   certificatesReceived   IssuedCertificate[]   @relation("VolunteerCertificates")
   certificatesIssued     IssuedCertificate[]   @relation("OrgIssuedCertificates")
+
+  // Chat relations
+  conversationsAsUser1 Conversation[] @relation("ConversationUser1")
+  conversationsAsUser2 Conversation[] @relation("ConversationUser2")
+  messagesSent         Message[]      @relation("MessageSender")
 }
 
 // profile  tnv
@@ -543,4 +548,50 @@ model IssuedCertificate {
   issuedAt DateTime @default(now()) @map("issued_at")
 
   @@map("issued_certificates")
+}
+
+// ==================== CHAT SYSTEM MODELS ====================
+
+// Conversation: Lưu thông tin cuộc hội thoại giữa 2 user
+model Conversation {
+  id String @id @default(uuid())
+
+  // Hai người tham gia (user1 luôn là người có ID nhỏ hơn để tránh duplicate)
+  user1Id String @map("user1_id")
+  user1   User   @relation("ConversationUser1", fields: [user1Id], references: [id], onDelete: Cascade)
+
+  user2Id String @map("user2_id")
+  user2   User   @relation("ConversationUser2", fields: [user2Id], references: [id], onDelete: Cascade)
+
+  // Metadata
+  lastMessageAt DateTime? @map("last_message_at") // Thời gian tin nhắn cuối
+  createdAt     DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  messages Message[]
+
+  // Đảm bảo không có conversation trùng lặp
+  @@unique([user1Id, user2Id])
+  @@map("conversations")
+}
+
+// Message: Tin nhắn trong conversation (chỉ hỗ trợ text)
+model Message {
+  id String @id @default(uuid())
+
+  conversationId String       @map("conversation_id")
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  senderId String @map("sender_id")
+  sender   User   @relation("MessageSender", fields: [senderId], references: [id], onDelete: Cascade)
+
+  content String @db.Text // Nội dung tin nhắn text
+
+  isRead Boolean   @default(false) @map("is_read") // Đã đọc chưa
+  readAt DateTime? @map("read_at") // Thời gian đọc
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("messages")
+  @@index([conversationId, createdAt]) // Index để query nhanh
 }

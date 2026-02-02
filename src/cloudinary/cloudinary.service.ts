@@ -47,6 +47,7 @@ export class CloudinaryService {
   /**
    * Upload PDF từ Buffer lên Cloudinary
    */
+  // Tạm thời chưa dùng đến
   async uploadPDF(
     buffer: Buffer,
     fileName: string,

@@ -13,6 +13,7 @@ import { CommunicationModule } from './admin-tcxh/communication/communication.mo
 import { StatisticsModule } from './admin-tcxh/statistics/statistics.module';
 import { VolunteerRewardsModule } from './volunteer-rewards/volunteer-rewards.module';
 import { AdminModule } from './admin/admin.module';
+import { ChatModule } from './chat/chat.module';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 
@@ -42,6 +43,7 @@ import { APP_GUARD } from '@nestjs/core';
     StatisticsModule,
     VolunteerRewardsModule,
     AdminModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [

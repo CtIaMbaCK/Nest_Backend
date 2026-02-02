@@ -88,7 +88,7 @@ export class OrganizationController {
   async updateStatus(
     @GetUser('sub') organizationId: string,
     @Param('id') userId: string,
-    @Body('status') status: 'PENDING' | 'ACTIVE' | 'DENIED' | 'BANNED',
+    @Body('status') status: 'PENDING' | 'APPROVED' | 'REJECTED',
   ) {
     return this.organizationService.updateMemberStatus(
       organizationId,

@@ -64,7 +64,9 @@ export const ModelName = {
   PointHistory: 'PointHistory',
   VolunteerComment: 'VolunteerComment',
   CertificateTemplate: 'CertificateTemplate',
-  IssuedCertificate: 'IssuedCertificate'
+  IssuedCertificate: 'IssuedCertificate',
+  Conversation: 'Conversation',
+  Message: 'Message'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -317,6 +319,30 @@ export const IssuedCertificateScalarFieldEnum = {
 } as const
 
 export type IssuedCertificateScalarFieldEnum = (typeof IssuedCertificateScalarFieldEnum)[keyof typeof IssuedCertificateScalarFieldEnum]
+
+
+export const ConversationScalarFieldEnum = {
+  id: 'id',
+  user1Id: 'user1Id',
+  user2Id: 'user2Id',
+  lastMessageAt: 'lastMessageAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
+
+
+export const MessageScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  senderId: 'senderId',
+  content: 'content',
+  isRead: 'isRead',
+  readAt: 'readAt',
+  createdAt: 'createdAt'
+} as const
+
+export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
 
 
 export const SortOrder = {

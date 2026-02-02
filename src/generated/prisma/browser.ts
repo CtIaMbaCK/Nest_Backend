@@ -87,3 +87,13 @@ export type CertificateTemplate = Prisma.CertificateTemplateModel
  * 
  */
 export type IssuedCertificate = Prisma.IssuedCertificateModel
+/**
+ * Model Conversation
+ * 
+ */
+export type Conversation = Prisma.ConversationModel
+/**
+ * Model Message
+ * 
+ */
+export type Message = Prisma.MessageModel

@@ -114,6 +114,7 @@ export class OrganizationService {
 
     const where: Prisma.BficiaryProfileWhereInput = {
       organizationId: orgId,
+      organizationStatus: 'PENDING', // Chỉ lấy yêu cầu PENDING
       ...(search && {
         OR: [
           { fullName: { contains: search, mode: 'insensitive' } },
@@ -146,7 +147,7 @@ export class OrganizationService {
     const data = profiles.map((profile) => ({
       id: profile.user.id,
       email: profile.user.email,
-      status: profile.user.status,
+      status: profile.organizationStatus, // Sửa: dùng organizationStatus thay vì user.status
       createdAt: profile.user.createdAt,
       bficiaryProfile: {
         fullName: profile.fullName,
@@ -168,6 +169,7 @@ export class OrganizationService {
 
     const where: Prisma.VolunteerProfileWhereInput = {
       organizationId: orgId,
+      organizationStatus: 'PENDING', // Chỉ lấy yêu cầu PENDING
       ...(districts && {
         preferredDistricts: {
           hasSome: Array.isArray(districts) ? districts : [districts],
@@ -206,7 +208,7 @@ export class OrganizationService {
     const data = profiles.map((profile) => ({
       id: profile.user.id,
       email: profile.user.email,
-      status: profile.user.status,
+      status: profile.organizationStatus, // Sửa: dùng organizationStatus thay vì user.status
       createdAt: profile.user.createdAt,
       volunteerProfile: {
         fullName: profile.fullName,
@@ -324,7 +326,7 @@ export class OrganizationService {
   async updateMemberStatus(
     organizationId: string,
     userId: string,
-    status: 'PENDING' | 'ACTIVE' | 'DENIED' | 'BANNED',
+    status: 'PENDING' | 'APPROVED' | 'REJECTED',
   ) {
     // Verify organization
     await this.getOrgOrThrow(organizationId);
@@ -345,17 +347,30 @@ export class OrganizationService {
       );
     }
 
-    // Cập nhật status trong bảng User
-    const updatedUser = await this.prisma.user.update({
-      where: { id: userId },
-      data: { status },
-      include: {
-        volunteerProfile: true,
-        bficiaryProfile: true,
-      },
-    });
+    // Cập nhật organizationStatus trong profile (KHÔNG phải user.status)
+    if (volunteer) {
+      await this.prisma.volunteerProfile.update({
+        where: { userId },
+        data: {
+          organizationStatus: status,
+          // Nếu APPROVED thì set joinedOrganizationAt, còn không thì null
+          joinedOrganizationAt: status === 'APPROVED' ? new Date() : null,
+        },
+      });
+    }
 
-    return updatedUser;
+    if (beneficiary) {
+      await this.prisma.bficiaryProfile.update({
+        where: { userId },
+        data: {
+          organizationStatus: status,
+          // Nếu APPROVED thì set joinedOrganizationAt, còn không thì null
+          joinedOrganizationAt: status === 'APPROVED' ? new Date() : null,
+        },
+      });
+    }
+
+    return { success: true, message: 'Đã cập nhật trạng thái' };
   }
 
   /**

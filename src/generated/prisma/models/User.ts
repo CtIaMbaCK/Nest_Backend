@@ -226,6 +226,9 @@ export type UserWhereInput = {
   certificateTemplates?: Prisma.CertificateTemplateListRelationFilter
   certificatesReceived?: Prisma.IssuedCertificateListRelationFilter
   certificatesIssued?: Prisma.IssuedCertificateListRelationFilter
+  conversationsAsUser1?: Prisma.ConversationListRelationFilter
+  conversationsAsUser2?: Prisma.ConversationListRelationFilter
+  messagesSent?: Prisma.MessageListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -257,6 +260,9 @@ export type UserOrderByWithRelationInput = {
   certificateTemplates?: Prisma.CertificateTemplateOrderByRelationAggregateInput
   certificatesReceived?: Prisma.IssuedCertificateOrderByRelationAggregateInput
   certificatesIssued?: Prisma.IssuedCertificateOrderByRelationAggregateInput
+  conversationsAsUser1?: Prisma.ConversationOrderByRelationAggregateInput
+  conversationsAsUser2?: Prisma.ConversationOrderByRelationAggregateInput
+  messagesSent?: Prisma.MessageOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -291,6 +297,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   certificateTemplates?: Prisma.CertificateTemplateListRelationFilter
   certificatesReceived?: Prisma.IssuedCertificateListRelationFilter
   certificatesIssued?: Prisma.IssuedCertificateListRelationFilter
+  conversationsAsUser1?: Prisma.ConversationListRelationFilter
+  conversationsAsUser2?: Prisma.ConversationListRelationFilter
+  messagesSent?: Prisma.MessageListRelationFilter
 }, "id" | "email" | "phoneNumber">
 
 export type UserOrderByWithAggregationInput = {
@@ -350,6 +359,9 @@ export type UserCreateInput = {
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -381,6 +393,9 @@ export type UserUncheckedCreateInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserUpdateInput = {
@@ -412,6 +427,9 @@ export type UserUpdateInput = {
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -443,6 +461,9 @@ export type UserUncheckedUpdateInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -833,6 +854,48 @@ export type UserUpdateOneWithoutCertificatesIssuedNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCertificatesIssuedInput, Prisma.UserUpdateWithoutCertificatesIssuedInput>, Prisma.UserUncheckedUpdateWithoutCertificatesIssuedInput>
 }
 
+export type UserCreateNestedOneWithoutConversationsAsUser1Input = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsAsUser1Input, Prisma.UserUncheckedCreateWithoutConversationsAsUser1Input>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsAsUser1Input
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutConversationsAsUser2Input = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsAsUser2Input, Prisma.UserUncheckedCreateWithoutConversationsAsUser2Input>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsAsUser2Input
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutConversationsAsUser1NestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsAsUser1Input, Prisma.UserUncheckedCreateWithoutConversationsAsUser1Input>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsAsUser1Input
+  upsert?: Prisma.UserUpsertWithoutConversationsAsUser1Input
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutConversationsAsUser1Input, Prisma.UserUpdateWithoutConversationsAsUser1Input>, Prisma.UserUncheckedUpdateWithoutConversationsAsUser1Input>
+}
+
+export type UserUpdateOneRequiredWithoutConversationsAsUser2NestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsAsUser2Input, Prisma.UserUncheckedCreateWithoutConversationsAsUser2Input>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsAsUser2Input
+  upsert?: Prisma.UserUpsertWithoutConversationsAsUser2Input
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutConversationsAsUser2Input, Prisma.UserUpdateWithoutConversationsAsUser2Input>, Prisma.UserUncheckedUpdateWithoutConversationsAsUser2Input>
+}
+
+export type UserCreateNestedOneWithoutMessagesSentInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesSentInput, Prisma.UserUncheckedCreateWithoutMessagesSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesSentInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMessagesSentNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesSentInput, Prisma.UserUncheckedCreateWithoutMessagesSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesSentInput
+  upsert?: Prisma.UserUpsertWithoutMessagesSentInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessagesSentInput, Prisma.UserUpdateWithoutMessagesSentInput>, Prisma.UserUncheckedUpdateWithoutMessagesSentInput>
+}
+
 export type UserCreateWithoutVolunteerProfileInput = {
   id?: string
   email: string
@@ -861,6 +924,9 @@ export type UserCreateWithoutVolunteerProfileInput = {
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutVolunteerProfileInput = {
@@ -891,6 +957,9 @@ export type UserUncheckedCreateWithoutVolunteerProfileInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutVolunteerProfileInput = {
@@ -926,6 +995,9 @@ export type UserCreateWithoutVolunteersManagedInput = {
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutVolunteersManagedInput = {
@@ -956,6 +1028,9 @@ export type UserUncheckedCreateWithoutVolunteersManagedInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutVolunteersManagedInput = {
@@ -1002,6 +1077,9 @@ export type UserUpdateWithoutVolunteerProfileInput = {
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolunteerProfileInput = {
@@ -1032,6 +1110,9 @@ export type UserUncheckedUpdateWithoutVolunteerProfileInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUpsertWithoutVolunteersManagedInput = {
@@ -1073,6 +1154,9 @@ export type UserUpdateWithoutVolunteersManagedInput = {
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolunteersManagedInput = {
@@ -1103,6 +1187,9 @@ export type UserUncheckedUpdateWithoutVolunteersManagedInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserCreateWithoutBficiaryProfileInput = {
@@ -1133,6 +1220,9 @@ export type UserCreateWithoutBficiaryProfileInput = {
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutBficiaryProfileInput = {
@@ -1163,6 +1253,9 @@ export type UserUncheckedCreateWithoutBficiaryProfileInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutBficiaryProfileInput = {
@@ -1198,6 +1291,9 @@ export type UserCreateWithoutBeneficiariesManagedInput = {
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutBeneficiariesManagedInput = {
@@ -1228,6 +1324,9 @@ export type UserUncheckedCreateWithoutBeneficiariesManagedInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutBeneficiariesManagedInput = {
@@ -1274,6 +1373,9 @@ export type UserUpdateWithoutBficiaryProfileInput = {
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBficiaryProfileInput = {
@@ -1304,6 +1406,9 @@ export type UserUncheckedUpdateWithoutBficiaryProfileInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUpsertWithoutBeneficiariesManagedInput = {
@@ -1345,6 +1450,9 @@ export type UserUpdateWithoutBeneficiariesManagedInput = {
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBeneficiariesManagedInput = {
@@ -1375,6 +1483,9 @@ export type UserUncheckedUpdateWithoutBeneficiariesManagedInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserCreateWithoutActivitiesRequestedInput = {
@@ -1405,6 +1516,9 @@ export type UserCreateWithoutActivitiesRequestedInput = {
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutActivitiesRequestedInput = {
@@ -1435,6 +1549,9 @@ export type UserUncheckedCreateWithoutActivitiesRequestedInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutActivitiesRequestedInput = {
@@ -1470,6 +1587,9 @@ export type UserCreateWithoutActivitiesVolunteeredInput = {
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutActivitiesVolunteeredInput = {
@@ -1500,6 +1620,9 @@ export type UserUncheckedCreateWithoutActivitiesVolunteeredInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutActivitiesVolunteeredInput = {
@@ -1546,6 +1669,9 @@ export type UserUpdateWithoutActivitiesRequestedInput = {
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivitiesRequestedInput = {
@@ -1576,6 +1702,9 @@ export type UserUncheckedUpdateWithoutActivitiesRequestedInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUpsertWithoutActivitiesVolunteeredInput = {
@@ -1617,6 +1746,9 @@ export type UserUpdateWithoutActivitiesVolunteeredInput = {
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivitiesVolunteeredInput = {
@@ -1647,6 +1779,9 @@ export type UserUncheckedUpdateWithoutActivitiesVolunteeredInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserCreateWithoutReviewsWrittenInput = {
@@ -1677,6 +1812,9 @@ export type UserCreateWithoutReviewsWrittenInput = {
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutReviewsWrittenInput = {
@@ -1707,6 +1845,9 @@ export type UserUncheckedCreateWithoutReviewsWrittenInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutReviewsWrittenInput = {
@@ -1742,6 +1883,9 @@ export type UserCreateWithoutReviewsReceivedInput = {
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutReviewsReceivedInput = {
@@ -1772,6 +1916,9 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutReviewsReceivedInput = {
@@ -1818,6 +1965,9 @@ export type UserUpdateWithoutReviewsWrittenInput = {
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsWrittenInput = {
@@ -1848,6 +1998,9 @@ export type UserUncheckedUpdateWithoutReviewsWrittenInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUpsertWithoutReviewsReceivedInput = {
@@ -1889,6 +2042,9 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
@@ -1919,6 +2075,9 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserCreateWithoutAppreciationsSentInput = {
@@ -1949,6 +2108,9 @@ export type UserCreateWithoutAppreciationsSentInput = {
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutAppreciationsSentInput = {
@@ -1979,6 +2141,9 @@ export type UserUncheckedCreateWithoutAppreciationsSentInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutAppreciationsSentInput = {
@@ -2014,6 +2179,9 @@ export type UserCreateWithoutAppreciationsReceivedInput = {
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutAppreciationsReceivedInput = {
@@ -2044,6 +2212,9 @@ export type UserUncheckedCreateWithoutAppreciationsReceivedInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutAppreciationsReceivedInput = {
@@ -2090,6 +2261,9 @@ export type UserUpdateWithoutAppreciationsSentInput = {
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAppreciationsSentInput = {
@@ -2120,6 +2294,9 @@ export type UserUncheckedUpdateWithoutAppreciationsSentInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUpsertWithoutAppreciationsReceivedInput = {
@@ -2161,6 +2338,9 @@ export type UserUpdateWithoutAppreciationsReceivedInput = {
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAppreciationsReceivedInput = {
@@ -2191,6 +2371,9 @@ export type UserUncheckedUpdateWithoutAppreciationsReceivedInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserCreateWithoutOrganizationProfilesInput = {
@@ -2221,6 +2404,9 @@ export type UserCreateWithoutOrganizationProfilesInput = {
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutOrganizationProfilesInput = {
@@ -2251,6 +2437,9 @@ export type UserUncheckedCreateWithoutOrganizationProfilesInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutOrganizationProfilesInput = {
@@ -2297,6 +2486,9 @@ export type UserUpdateWithoutOrganizationProfilesInput = {
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrganizationProfilesInput = {
@@ -2327,6 +2519,9 @@ export type UserUncheckedUpdateWithoutOrganizationProfilesInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserCreateWithoutCampaignsInput = {
@@ -2357,6 +2552,9 @@ export type UserCreateWithoutCampaignsInput = {
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutCampaignsInput = {
@@ -2387,6 +2585,9 @@ export type UserUncheckedCreateWithoutCampaignsInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutCampaignsInput = {
@@ -2433,6 +2634,9 @@ export type UserUpdateWithoutCampaignsInput = {
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCampaignsInput = {
@@ -2463,6 +2667,9 @@ export type UserUncheckedUpdateWithoutCampaignsInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserCreateWithoutCampaignRegistrationsInput = {
@@ -2493,6 +2700,9 @@ export type UserCreateWithoutCampaignRegistrationsInput = {
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutCampaignRegistrationsInput = {
@@ -2523,6 +2733,9 @@ export type UserUncheckedCreateWithoutCampaignRegistrationsInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutCampaignRegistrationsInput = {
@@ -2569,6 +2782,9 @@ export type UserUpdateWithoutCampaignRegistrationsInput = {
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCampaignRegistrationsInput = {
@@ -2599,6 +2815,9 @@ export type UserUncheckedUpdateWithoutCampaignRegistrationsInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserCreateWithoutCommunicationPostsInput = {
@@ -2629,6 +2848,9 @@ export type UserCreateWithoutCommunicationPostsInput = {
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutCommunicationPostsInput = {
@@ -2659,6 +2881,9 @@ export type UserUncheckedCreateWithoutCommunicationPostsInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutCommunicationPostsInput = {
@@ -2705,6 +2930,9 @@ export type UserUpdateWithoutCommunicationPostsInput = {
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommunicationPostsInput = {
@@ -2735,6 +2963,9 @@ export type UserUncheckedUpdateWithoutCommunicationPostsInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserCreateWithoutPointHistoryInput = {
@@ -2765,6 +2996,9 @@ export type UserCreateWithoutPointHistoryInput = {
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutPointHistoryInput = {
@@ -2795,6 +3029,9 @@ export type UserUncheckedCreateWithoutPointHistoryInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutPointHistoryInput = {
@@ -2841,6 +3078,9 @@ export type UserUpdateWithoutPointHistoryInput = {
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPointHistoryInput = {
@@ -2871,6 +3111,9 @@ export type UserUncheckedUpdateWithoutPointHistoryInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserCreateWithoutVolunteerCommentsInput = {
@@ -2901,6 +3144,9 @@ export type UserCreateWithoutVolunteerCommentsInput = {
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutVolunteerCommentsInput = {
@@ -2931,6 +3177,9 @@ export type UserUncheckedCreateWithoutVolunteerCommentsInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutVolunteerCommentsInput = {
@@ -2966,6 +3215,9 @@ export type UserCreateWithoutOrganizationCommentsInput = {
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutOrganizationCommentsInput = {
@@ -2996,6 +3248,9 @@ export type UserUncheckedCreateWithoutOrganizationCommentsInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutOrganizationCommentsInput = {
@@ -3042,6 +3297,9 @@ export type UserUpdateWithoutVolunteerCommentsInput = {
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolunteerCommentsInput = {
@@ -3072,6 +3330,9 @@ export type UserUncheckedUpdateWithoutVolunteerCommentsInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUpsertWithoutOrganizationCommentsInput = {
@@ -3113,6 +3374,9 @@ export type UserUpdateWithoutOrganizationCommentsInput = {
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrganizationCommentsInput = {
@@ -3143,6 +3407,9 @@ export type UserUncheckedUpdateWithoutOrganizationCommentsInput = {
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserCreateWithoutCertificateTemplatesInput = {
@@ -3173,6 +3440,9 @@ export type UserCreateWithoutCertificateTemplatesInput = {
   organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutCertificateTemplatesInput = {
@@ -3203,6 +3473,9 @@ export type UserUncheckedCreateWithoutCertificateTemplatesInput = {
   organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutCertificateTemplatesInput = {
@@ -3249,6 +3522,9 @@ export type UserUpdateWithoutCertificateTemplatesInput = {
   organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCertificateTemplatesInput = {
@@ -3279,6 +3555,9 @@ export type UserUncheckedUpdateWithoutCertificateTemplatesInput = {
   organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserCreateWithoutCertificatesReceivedInput = {
@@ -3309,6 +3588,9 @@ export type UserCreateWithoutCertificatesReceivedInput = {
   organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutCertificatesReceivedInput = {
@@ -3339,6 +3621,9 @@ export type UserUncheckedCreateWithoutCertificatesReceivedInput = {
   organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutCertificatesReceivedInput = {
@@ -3374,6 +3659,9 @@ export type UserCreateWithoutCertificatesIssuedInput = {
   organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
   certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
 }
 
 export type UserUncheckedCreateWithoutCertificatesIssuedInput = {
@@ -3404,6 +3692,9 @@ export type UserUncheckedCreateWithoutCertificatesIssuedInput = {
   organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
   certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutCertificatesIssuedInput = {
@@ -3450,6 +3741,9 @@ export type UserUpdateWithoutCertificatesReceivedInput = {
   organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCertificatesReceivedInput = {
@@ -3480,6 +3774,9 @@ export type UserUncheckedUpdateWithoutCertificatesReceivedInput = {
   organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUpsertWithoutCertificatesIssuedInput = {
@@ -3521,6 +3818,9 @@ export type UserUpdateWithoutCertificatesIssuedInput = {
   organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
   certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCertificatesIssuedInput = {
@@ -3551,6 +3851,453 @@ export type UserUncheckedUpdateWithoutCertificatesIssuedInput = {
   organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
   certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
   certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+}
+
+export type UserCreateWithoutConversationsAsUser1Input = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  campaigns?: Prisma.CampaignCreateNestedManyWithoutOrganizationInput
+  campaignRegistrations?: Prisma.CampaignRegistrationCreateNestedManyWithoutVolunteerInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
+  communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
+}
+
+export type UserUncheckedCreateWithoutConversationsAsUser1Input = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutOrganizationInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+}
+
+export type UserCreateOrConnectWithoutConversationsAsUser1Input = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsAsUser1Input, Prisma.UserUncheckedCreateWithoutConversationsAsUser1Input>
+}
+
+export type UserCreateWithoutConversationsAsUser2Input = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  campaigns?: Prisma.CampaignCreateNestedManyWithoutOrganizationInput
+  campaignRegistrations?: Prisma.CampaignRegistrationCreateNestedManyWithoutVolunteerInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
+  communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
+}
+
+export type UserUncheckedCreateWithoutConversationsAsUser2Input = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutOrganizationInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+}
+
+export type UserCreateOrConnectWithoutConversationsAsUser2Input = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsAsUser2Input, Prisma.UserUncheckedCreateWithoutConversationsAsUser2Input>
+}
+
+export type UserUpsertWithoutConversationsAsUser1Input = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutConversationsAsUser1Input, Prisma.UserUncheckedUpdateWithoutConversationsAsUser1Input>
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsAsUser1Input, Prisma.UserUncheckedCreateWithoutConversationsAsUser1Input>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutConversationsAsUser1Input = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutConversationsAsUser1Input, Prisma.UserUncheckedUpdateWithoutConversationsAsUser1Input>
+}
+
+export type UserUpdateWithoutConversationsAsUser1Input = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  campaigns?: Prisma.CampaignUpdateManyWithoutOrganizationNestedInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUpdateManyWithoutVolunteerNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
+  communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+}
+
+export type UserUncheckedUpdateWithoutConversationsAsUser1Input = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+}
+
+export type UserUpsertWithoutConversationsAsUser2Input = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutConversationsAsUser2Input, Prisma.UserUncheckedUpdateWithoutConversationsAsUser2Input>
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsAsUser2Input, Prisma.UserUncheckedCreateWithoutConversationsAsUser2Input>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutConversationsAsUser2Input = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutConversationsAsUser2Input, Prisma.UserUncheckedUpdateWithoutConversationsAsUser2Input>
+}
+
+export type UserUpdateWithoutConversationsAsUser2Input = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  campaigns?: Prisma.CampaignUpdateManyWithoutOrganizationNestedInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUpdateManyWithoutVolunteerNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
+  communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+}
+
+export type UserUncheckedUpdateWithoutConversationsAsUser2Input = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+}
+
+export type UserCreateWithoutMessagesSentInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationCreateNestedManyWithoutReceiverInput
+  campaigns?: Prisma.CampaignCreateNestedManyWithoutOrganizationInput
+  campaignRegistrations?: Prisma.CampaignRegistrationCreateNestedManyWithoutVolunteerInput
+  volunteersManaged?: Prisma.VolunteerProfileCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileCreateNestedManyWithoutOrganizationInput
+  communicationPosts?: Prisma.CommunicationPostCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+}
+
+export type UserUncheckedCreateWithoutMessagesSentInput = {
+  id?: string
+  email: string
+  phoneNumber: string
+  passwordHash: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  forceChangePassword?: boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedCreateNestedOneWithoutUserInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedCreateNestedOneWithoutUserInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedCreateNestedOneWithoutUserInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutRequesterInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedCreateNestedManyWithoutVolunteerInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTargetInput
+  appreciationsSent?: Prisma.AppreciationUncheckedCreateNestedManyWithoutSenderInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedCreateNestedManyWithoutReceiverInput
+  campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutOrganizationInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedCreateNestedManyWithoutOrganizationInput
+  communicationPosts?: Prisma.CommunicationPostUncheckedCreateNestedManyWithoutOrganizationInput
+  pointHistory?: Prisma.PointHistoryUncheckedCreateNestedManyWithoutVolunteerInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutVolunteerInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedCreateNestedManyWithoutOrganizationInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutVolunteerInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedCreateNestedManyWithoutOrganizationInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversationsAsUser2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+}
+
+export type UserCreateOrConnectWithoutMessagesSentInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesSentInput, Prisma.UserUncheckedCreateWithoutMessagesSentInput>
+}
+
+export type UserUpsertWithoutMessagesSentInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMessagesSentInput, Prisma.UserUncheckedUpdateWithoutMessagesSentInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesSentInput, Prisma.UserUncheckedCreateWithoutMessagesSentInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMessagesSentInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMessagesSentInput, Prisma.UserUncheckedUpdateWithoutMessagesSentInput>
+}
+
+export type UserUpdateWithoutMessagesSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUpdateManyWithoutReceiverNestedInput
+  campaigns?: Prisma.CampaignUpdateManyWithoutOrganizationNestedInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUpdateManyWithoutVolunteerNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUpdateManyWithoutOrganizationNestedInput
+  communicationPosts?: Prisma.CommunicationPostUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+}
+
+export type UserUncheckedUpdateWithoutMessagesSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  forceChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  volunteerProfile?: Prisma.VolunteerProfileUncheckedUpdateOneWithoutUserNestedInput
+  bficiaryProfile?: Prisma.BficiaryProfileUncheckedUpdateOneWithoutUserNestedInput
+  organizationProfiles?: Prisma.OrganizationProfileUncheckedUpdateOneWithoutUserNestedInput
+  activitiesRequested?: Prisma.HelpRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  activitiesVolunteered?: Prisma.HelpRequestUncheckedUpdateManyWithoutVolunteerNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTargetNestedInput
+  appreciationsSent?: Prisma.AppreciationUncheckedUpdateManyWithoutSenderNestedInput
+  appreciationsReceived?: Prisma.AppreciationUncheckedUpdateManyWithoutReceiverNestedInput
+  campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+  campaignRegistrations?: Prisma.CampaignRegistrationUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteersManaged?: Prisma.VolunteerProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  beneficiariesManaged?: Prisma.BficiaryProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+  communicationPosts?: Prisma.CommunicationPostUncheckedUpdateManyWithoutOrganizationNestedInput
+  pointHistory?: Prisma.PointHistoryUncheckedUpdateManyWithoutVolunteerNestedInput
+  volunteerComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutVolunteerNestedInput
+  organizationComments?: Prisma.VolunteerCommentUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificateTemplates?: Prisma.CertificateTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  certificatesReceived?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutVolunteerNestedInput
+  certificatesIssued?: Prisma.IssuedCertificateUncheckedUpdateManyWithoutOrganizationNestedInput
+  conversationsAsUser1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversationsAsUser2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
 }
 
 
@@ -3576,6 +4323,9 @@ export type UserCountOutputType = {
   certificateTemplates: number
   certificatesReceived: number
   certificatesIssued: number
+  conversationsAsUser1: number
+  conversationsAsUser2: number
+  messagesSent: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3596,6 +4346,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   certificateTemplates?: boolean | UserCountOutputTypeCountCertificateTemplatesArgs
   certificatesReceived?: boolean | UserCountOutputTypeCountCertificatesReceivedArgs
   certificatesIssued?: boolean | UserCountOutputTypeCountCertificatesIssuedArgs
+  conversationsAsUser1?: boolean | UserCountOutputTypeCountConversationsAsUser1Args
+  conversationsAsUser2?: boolean | UserCountOutputTypeCountConversationsAsUser2Args
+  messagesSent?: boolean | UserCountOutputTypeCountMessagesSentArgs
 }
 
 /**
@@ -3727,6 +4480,27 @@ export type UserCountOutputTypeCountCertificatesIssuedArgs<ExtArgs extends runti
   where?: Prisma.IssuedCertificateWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountConversationsAsUser1Args<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConversationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountConversationsAsUser2Args<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConversationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMessagesSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3757,6 +4531,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   certificateTemplates?: boolean | Prisma.User$certificateTemplatesArgs<ExtArgs>
   certificatesReceived?: boolean | Prisma.User$certificatesReceivedArgs<ExtArgs>
   certificatesIssued?: boolean | Prisma.User$certificatesIssuedArgs<ExtArgs>
+  conversationsAsUser1?: boolean | Prisma.User$conversationsAsUser1Args<ExtArgs>
+  conversationsAsUser2?: boolean | Prisma.User$conversationsAsUser2Args<ExtArgs>
+  messagesSent?: boolean | Prisma.User$messagesSentArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -3815,6 +4592,9 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   certificateTemplates?: boolean | Prisma.User$certificateTemplatesArgs<ExtArgs>
   certificatesReceived?: boolean | Prisma.User$certificatesReceivedArgs<ExtArgs>
   certificatesIssued?: boolean | Prisma.User$certificatesIssuedArgs<ExtArgs>
+  conversationsAsUser1?: boolean | Prisma.User$conversationsAsUser1Args<ExtArgs>
+  conversationsAsUser2?: boolean | Prisma.User$conversationsAsUser2Args<ExtArgs>
+  messagesSent?: boolean | Prisma.User$messagesSentArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -3843,6 +4623,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     certificateTemplates: Prisma.$CertificateTemplatePayload<ExtArgs>[]
     certificatesReceived: Prisma.$IssuedCertificatePayload<ExtArgs>[]
     certificatesIssued: Prisma.$IssuedCertificatePayload<ExtArgs>[]
+    conversationsAsUser1: Prisma.$ConversationPayload<ExtArgs>[]
+    conversationsAsUser2: Prisma.$ConversationPayload<ExtArgs>[]
+    messagesSent: Prisma.$MessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4267,6 +5050,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   certificateTemplates<T extends Prisma.User$certificateTemplatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$certificateTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CertificateTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   certificatesReceived<T extends Prisma.User$certificatesReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$certificatesReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IssuedCertificatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   certificatesIssued<T extends Prisma.User$certificatesIssuedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$certificatesIssuedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IssuedCertificatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversationsAsUser1<T extends Prisma.User$conversationsAsUser1Args<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversationsAsUser1Args<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversationsAsUser2<T extends Prisma.User$conversationsAsUser2Args<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversationsAsUser2Args<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messagesSent<T extends Prisma.User$messagesSentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagesSentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5154,6 +5940,78 @@ export type User$certificatesIssuedArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.IssuedCertificateScalarFieldEnum | Prisma.IssuedCertificateScalarFieldEnum[]
+}
+
+/**
+ * User.conversationsAsUser1
+ */
+export type User$conversationsAsUser1Args<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Conversation
+   */
+  select?: Prisma.ConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Conversation
+   */
+  omit?: Prisma.ConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConversationInclude<ExtArgs> | null
+  where?: Prisma.ConversationWhereInput
+  orderBy?: Prisma.ConversationOrderByWithRelationInput | Prisma.ConversationOrderByWithRelationInput[]
+  cursor?: Prisma.ConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConversationScalarFieldEnum | Prisma.ConversationScalarFieldEnum[]
+}
+
+/**
+ * User.conversationsAsUser2
+ */
+export type User$conversationsAsUser2Args<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Conversation
+   */
+  select?: Prisma.ConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Conversation
+   */
+  omit?: Prisma.ConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConversationInclude<ExtArgs> | null
+  where?: Prisma.ConversationWhereInput
+  orderBy?: Prisma.ConversationOrderByWithRelationInput | Prisma.ConversationOrderByWithRelationInput[]
+  cursor?: Prisma.ConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConversationScalarFieldEnum | Prisma.ConversationScalarFieldEnum[]
+}
+
+/**
+ * User.messagesSent
+ */
+export type User$messagesSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Message
+   */
+  select?: Prisma.MessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Message
+   */
+  omit?: Prisma.MessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  where?: Prisma.MessageWhereInput
+  orderBy?: Prisma.MessageOrderByWithRelationInput | Prisma.MessageOrderByWithRelationInput[]
+  cursor?: Prisma.MessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
 }
 
 /**
