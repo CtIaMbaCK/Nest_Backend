@@ -181,3 +181,11 @@ export const PointSource = {
 } as const
 
 export type PointSource = (typeof PointSource)[keyof typeof PointSource]
+
+
+export const EmergencyStatus = {
+  NEW: 'NEW',
+  COMPLETED: 'COMPLETED'
+} as const
+
+export type EmergencyStatus = (typeof EmergencyStatus)[keyof typeof EmergencyStatus]

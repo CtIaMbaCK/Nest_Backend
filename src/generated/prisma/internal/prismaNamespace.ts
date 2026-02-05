@@ -399,7 +399,8 @@ export const ModelName = {
   CertificateTemplate: 'CertificateTemplate',
   IssuedCertificate: 'IssuedCertificate',
   Conversation: 'Conversation',
-  Message: 'Message'
+  Message: 'Message',
+  EmergencyRequest: 'EmergencyRequest'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -415,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "volunteerProfile" | "bficiaryProfile" | "helpRequest" | "review" | "appreciation" | "organizationProfile" | "campaign" | "campaignRegistration" | "communicationPost" | "pointHistory" | "volunteerComment" | "certificateTemplate" | "issuedCertificate" | "conversation" | "message"
+    modelProps: "user" | "volunteerProfile" | "bficiaryProfile" | "helpRequest" | "review" | "appreciation" | "organizationProfile" | "campaign" | "campaignRegistration" | "communicationPost" | "pointHistory" | "volunteerComment" | "certificateTemplate" | "issuedCertificate" | "conversation" | "message" | "emergencyRequest"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1603,6 +1604,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    EmergencyRequest: {
+      payload: Prisma.$EmergencyRequestPayload<ExtArgs>
+      fields: Prisma.EmergencyRequestFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EmergencyRequestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmergencyRequestPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EmergencyRequestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmergencyRequestPayload>
+        }
+        findFirst: {
+          args: Prisma.EmergencyRequestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmergencyRequestPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EmergencyRequestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmergencyRequestPayload>
+        }
+        findMany: {
+          args: Prisma.EmergencyRequestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmergencyRequestPayload>[]
+        }
+        create: {
+          args: Prisma.EmergencyRequestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmergencyRequestPayload>
+        }
+        createMany: {
+          args: Prisma.EmergencyRequestCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EmergencyRequestCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmergencyRequestPayload>[]
+        }
+        delete: {
+          args: Prisma.EmergencyRequestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmergencyRequestPayload>
+        }
+        update: {
+          args: Prisma.EmergencyRequestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmergencyRequestPayload>
+        }
+        deleteMany: {
+          args: Prisma.EmergencyRequestDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EmergencyRequestUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EmergencyRequestUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmergencyRequestPayload>[]
+        }
+        upsert: {
+          args: Prisma.EmergencyRequestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmergencyRequestPayload>
+        }
+        aggregate: {
+          args: Prisma.EmergencyRequestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEmergencyRequest>
+        }
+        groupBy: {
+          args: Prisma.EmergencyRequestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EmergencyRequestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EmergencyRequestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EmergencyRequestCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1900,6 +1975,17 @@ export const MessageScalarFieldEnum = {
 } as const
 
 export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+export const EmergencyRequestScalarFieldEnum = {
+  id: 'id',
+  beneficiaryId: 'beneficiaryId',
+  status: 'status',
+  createdAt: 'createdAt',
+  completedAt: 'completedAt'
+} as const
+
+export type EmergencyRequestScalarFieldEnum = (typeof EmergencyRequestScalarFieldEnum)[keyof typeof EmergencyRequestScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2220,6 +2306,20 @@ export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'J
 export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
+
+/**
+ * Reference to a field of type 'EmergencyStatus'
+ */
+export type EnumEmergencyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmergencyStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'EmergencyStatus[]'
+ */
+export type ListEnumEmergencyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmergencyStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -2331,6 +2431,7 @@ export type GlobalOmitConfig = {
   issuedCertificate?: Prisma.IssuedCertificateOmit
   conversation?: Prisma.ConversationOmit
   message?: Prisma.MessageOmit
+  emergencyRequest?: Prisma.EmergencyRequestOmit
 }
 
 /* Types for Logging */

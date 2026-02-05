@@ -9,6 +9,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { ChatService } from './chat.service';
+import { EmergencyService } from 'src/emergency/emergency.service';
 import { Logger } from '@nestjs/common';
 
 @WebSocketGateway({
@@ -29,7 +30,10 @@ export class ChatGateway
   // Map để lưu userId → socketId
   private connectedUsers = new Map<string, string>();
 
-  constructor(private readonly chatService: ChatService) {}
+  constructor(
+    private readonly chatService: ChatService,
+    private readonly emergencyService: EmergencyService,
+  ) {}
 
   // ==================== CONNECTION HANDLERS ====================
 
@@ -266,6 +270,54 @@ export class ChatGateway
     }
   }
 
+  // ==================== EMERGENCY SOS HANDLERS ====================
+
+  @SubscribeMessage('send_sos')
+  async handleSendSOS(
+    @MessageBody() data: { notes?: string },
+    @ConnectedSocket() client: Socket,
+  ) {
+    try {
+      const userId = client.data.userId;
+
+      if (!userId) {
+        client.emit('error', { message: 'Bạn chưa đăng nhập' });
+        return;
+      }
+
+      this.logger.warn(`🚨 SOS Emergency triggered by user ${userId}`);
+
+      // Tạo emergency request trong DB
+      const emergency = await this.emergencyService.createEmergency(userId, {
+        notes: data.notes,
+      });
+
+      // Emit cho tất cả ADMIN đang online
+      this.server.emit('sos_alert', {
+        emergencyId: emergency.id,
+        beneficiary: emergency.beneficiary,
+        createdAt: emergency.createdAt,
+        notes: data.notes,
+      });
+
+      // Confirm cho người gửi
+      client.emit('sos_sent', {
+        success: true,
+        emergencyId: emergency.id,
+        message: 'Đã gửi SOS thành công. Admin sẽ liên hệ với bạn sớm nhất.',
+      });
+
+      this.logger.log(`✅ SOS alert sent to all admins for emergency ${emergency.id}`);
+
+      return { success: true, emergency };
+    } catch (error) {
+      this.logger.error('Send SOS error:', error);
+      client.emit('error', {
+        message: error.message || 'Gửi SOS thất bại',
+      });
+    }
+  }
+
   // ==================== UTILITY METHODS ====================
 
   // Check if user is online
@@ -276,5 +328,11 @@ export class ChatGateway
   // Get socket ID by user ID
   getSocketIdByUserId(userId: string): string | undefined {
     return this.connectedUsers.get(userId);
+  }
+
+  // Broadcast SOS alert to all connected admins (called from service)
+  broadcastSOSToAdmins(emergency: any) {
+    this.server.emit('sos_alert', emergency);
+    this.logger.log(`📢 Broadcasting SOS alert to all connected clients`);
   }
 }

@@ -501,6 +501,23 @@ export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
   _max?: Prisma.NestedJsonFilter<$PrismaModel>
 }
 
+export type EnumEmergencyStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.EmergencyStatus | Prisma.EnumEmergencyStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.EmergencyStatus[] | Prisma.ListEnumEmergencyStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EmergencyStatus[] | Prisma.ListEnumEmergencyStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEmergencyStatusFilter<$PrismaModel> | $Enums.EmergencyStatus
+}
+
+export type EnumEmergencyStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.EmergencyStatus | Prisma.EnumEmergencyStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.EmergencyStatus[] | Prisma.ListEnumEmergencyStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EmergencyStatus[] | Prisma.ListEnumEmergencyStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEmergencyStatusWithAggregatesFilter<$PrismaModel> | $Enums.EmergencyStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumEmergencyStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumEmergencyStatusFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -961,6 +978,23 @@ export type NestedJsonFilterBase<$PrismaModel = never> = {
   gt?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
   gte?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
   not?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter
+}
+
+export type NestedEnumEmergencyStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.EmergencyStatus | Prisma.EnumEmergencyStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.EmergencyStatus[] | Prisma.ListEnumEmergencyStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EmergencyStatus[] | Prisma.ListEnumEmergencyStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEmergencyStatusFilter<$PrismaModel> | $Enums.EmergencyStatus
+}
+
+export type NestedEnumEmergencyStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.EmergencyStatus | Prisma.EnumEmergencyStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.EmergencyStatus[] | Prisma.ListEnumEmergencyStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EmergencyStatus[] | Prisma.ListEnumEmergencyStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEmergencyStatusWithAggregatesFilter<$PrismaModel> | $Enums.EmergencyStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumEmergencyStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumEmergencyStatusFilter<$PrismaModel>
 }
 
 

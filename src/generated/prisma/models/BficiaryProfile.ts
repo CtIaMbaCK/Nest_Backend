@@ -260,6 +260,7 @@ export type BficiaryProfileWhereInput = {
   joinedOrganizationAt?: Prisma.DateTimeNullableFilter<"BficiaryProfile"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   organization?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  emergencyRequests?: Prisma.EmergencyRequestListRelationFilter
 }
 
 export type BficiaryProfileOrderByWithRelationInput = {
@@ -280,6 +281,7 @@ export type BficiaryProfileOrderByWithRelationInput = {
   joinedOrganizationAt?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   organization?: Prisma.UserOrderByWithRelationInput
+  emergencyRequests?: Prisma.EmergencyRequestOrderByRelationAggregateInput
 }
 
 export type BficiaryProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -303,6 +305,7 @@ export type BficiaryProfileWhereUniqueInput = Prisma.AtLeast<{
   joinedOrganizationAt?: Prisma.DateTimeNullableFilter<"BficiaryProfile"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   organization?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  emergencyRequests?: Prisma.EmergencyRequestListRelationFilter
 }, "userId">
 
 export type BficiaryProfileOrderByWithAggregationInput = {
@@ -363,6 +366,7 @@ export type BficiaryProfileCreateInput = {
   joinedOrganizationAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutBficiaryProfileInput
   organization?: Prisma.UserCreateNestedOneWithoutBeneficiariesManagedInput
+  emergencyRequests?: Prisma.EmergencyRequestCreateNestedManyWithoutBeneficiaryInput
 }
 
 export type BficiaryProfileUncheckedCreateInput = {
@@ -381,6 +385,7 @@ export type BficiaryProfileUncheckedCreateInput = {
   organizationId?: string | null
   organizationStatus?: $Enums.OrgStatus | null
   joinedOrganizationAt?: Date | string | null
+  emergencyRequests?: Prisma.EmergencyRequestUncheckedCreateNestedManyWithoutBeneficiaryInput
 }
 
 export type BficiaryProfileUpdateInput = {
@@ -399,6 +404,7 @@ export type BficiaryProfileUpdateInput = {
   joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutBficiaryProfileNestedInput
   organization?: Prisma.UserUpdateOneWithoutBeneficiariesManagedNestedInput
+  emergencyRequests?: Prisma.EmergencyRequestUpdateManyWithoutBeneficiaryNestedInput
 }
 
 export type BficiaryProfileUncheckedUpdateInput = {
@@ -417,6 +423,7 @@ export type BficiaryProfileUncheckedUpdateInput = {
   organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
   joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emergencyRequests?: Prisma.EmergencyRequestUncheckedUpdateManyWithoutBeneficiaryNestedInput
 }
 
 export type BficiaryProfileCreateManyInput = {
@@ -546,6 +553,11 @@ export type BficiaryProfileMinOrderByAggregateInput = {
   joinedOrganizationAt?: Prisma.SortOrder
 }
 
+export type BficiaryProfileScalarRelationFilter = {
+  is?: Prisma.BficiaryProfileWhereInput
+  isNot?: Prisma.BficiaryProfileWhereInput
+}
+
 export type BficiaryProfileCreateNestedOneWithoutUserInput = {
   create?: Prisma.XOR<Prisma.BficiaryProfileCreateWithoutUserInput, Prisma.BficiaryProfileUncheckedCreateWithoutUserInput>
   connectOrCreate?: Prisma.BficiaryProfileCreateOrConnectWithoutUserInput
@@ -637,6 +649,20 @@ export type NullableEnumGuardianRelationFieldUpdateOperationsInput = {
   set?: $Enums.GuardianRelation | null
 }
 
+export type BficiaryProfileCreateNestedOneWithoutEmergencyRequestsInput = {
+  create?: Prisma.XOR<Prisma.BficiaryProfileCreateWithoutEmergencyRequestsInput, Prisma.BficiaryProfileUncheckedCreateWithoutEmergencyRequestsInput>
+  connectOrCreate?: Prisma.BficiaryProfileCreateOrConnectWithoutEmergencyRequestsInput
+  connect?: Prisma.BficiaryProfileWhereUniqueInput
+}
+
+export type BficiaryProfileUpdateOneRequiredWithoutEmergencyRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.BficiaryProfileCreateWithoutEmergencyRequestsInput, Prisma.BficiaryProfileUncheckedCreateWithoutEmergencyRequestsInput>
+  connectOrCreate?: Prisma.BficiaryProfileCreateOrConnectWithoutEmergencyRequestsInput
+  upsert?: Prisma.BficiaryProfileUpsertWithoutEmergencyRequestsInput
+  connect?: Prisma.BficiaryProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BficiaryProfileUpdateToOneWithWhereWithoutEmergencyRequestsInput, Prisma.BficiaryProfileUpdateWithoutEmergencyRequestsInput>, Prisma.BficiaryProfileUncheckedUpdateWithoutEmergencyRequestsInput>
+}
+
 export type BficiaryProfileCreateWithoutUserInput = {
   fullName: string
   avatarUrl?: string | null
@@ -652,6 +678,7 @@ export type BficiaryProfileCreateWithoutUserInput = {
   organizationStatus?: $Enums.OrgStatus | null
   joinedOrganizationAt?: Date | string | null
   organization?: Prisma.UserCreateNestedOneWithoutBeneficiariesManagedInput
+  emergencyRequests?: Prisma.EmergencyRequestCreateNestedManyWithoutBeneficiaryInput
 }
 
 export type BficiaryProfileUncheckedCreateWithoutUserInput = {
@@ -669,6 +696,7 @@ export type BficiaryProfileUncheckedCreateWithoutUserInput = {
   organizationId?: string | null
   organizationStatus?: $Enums.OrgStatus | null
   joinedOrganizationAt?: Date | string | null
+  emergencyRequests?: Prisma.EmergencyRequestUncheckedCreateNestedManyWithoutBeneficiaryInput
 }
 
 export type BficiaryProfileCreateOrConnectWithoutUserInput = {
@@ -691,6 +719,7 @@ export type BficiaryProfileCreateWithoutOrganizationInput = {
   organizationStatus?: $Enums.OrgStatus | null
   joinedOrganizationAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutBficiaryProfileInput
+  emergencyRequests?: Prisma.EmergencyRequestCreateNestedManyWithoutBeneficiaryInput
 }
 
 export type BficiaryProfileUncheckedCreateWithoutOrganizationInput = {
@@ -708,6 +737,7 @@ export type BficiaryProfileUncheckedCreateWithoutOrganizationInput = {
   guardianRelation?: $Enums.GuardianRelation | null
   organizationStatus?: $Enums.OrgStatus | null
   joinedOrganizationAt?: Date | string | null
+  emergencyRequests?: Prisma.EmergencyRequestUncheckedCreateNestedManyWithoutBeneficiaryInput
 }
 
 export type BficiaryProfileCreateOrConnectWithoutOrganizationInput = {
@@ -746,6 +776,7 @@ export type BficiaryProfileUpdateWithoutUserInput = {
   organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
   joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   organization?: Prisma.UserUpdateOneWithoutBeneficiariesManagedNestedInput
+  emergencyRequests?: Prisma.EmergencyRequestUpdateManyWithoutBeneficiaryNestedInput
 }
 
 export type BficiaryProfileUncheckedUpdateWithoutUserInput = {
@@ -763,6 +794,7 @@ export type BficiaryProfileUncheckedUpdateWithoutUserInput = {
   organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
   joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emergencyRequests?: Prisma.EmergencyRequestUncheckedUpdateManyWithoutBeneficiaryNestedInput
 }
 
 export type BficiaryProfileUpsertWithWhereUniqueWithoutOrganizationInput = {
@@ -802,6 +834,94 @@ export type BficiaryProfileScalarWhereInput = {
   joinedOrganizationAt?: Prisma.DateTimeNullableFilter<"BficiaryProfile"> | Date | string | null
 }
 
+export type BficiaryProfileCreateWithoutEmergencyRequestsInput = {
+  fullName: string
+  avatarUrl?: string | null
+  vulnerabilityType: $Enums.VulnerabilityType
+  situationDescription?: string | null
+  healthCondition?: string | null
+  proofFiles?: Prisma.BficiaryProfileCreateproofFilesInput | string[]
+  cccdFrontFile?: string | null
+  cccdBackFile?: string | null
+  guardianName?: string | null
+  guardianPhone?: string | null
+  guardianRelation?: $Enums.GuardianRelation | null
+  organizationStatus?: $Enums.OrgStatus | null
+  joinedOrganizationAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutBficiaryProfileInput
+  organization?: Prisma.UserCreateNestedOneWithoutBeneficiariesManagedInput
+}
+
+export type BficiaryProfileUncheckedCreateWithoutEmergencyRequestsInput = {
+  userId: string
+  fullName: string
+  avatarUrl?: string | null
+  vulnerabilityType: $Enums.VulnerabilityType
+  situationDescription?: string | null
+  healthCondition?: string | null
+  proofFiles?: Prisma.BficiaryProfileCreateproofFilesInput | string[]
+  cccdFrontFile?: string | null
+  cccdBackFile?: string | null
+  guardianName?: string | null
+  guardianPhone?: string | null
+  guardianRelation?: $Enums.GuardianRelation | null
+  organizationId?: string | null
+  organizationStatus?: $Enums.OrgStatus | null
+  joinedOrganizationAt?: Date | string | null
+}
+
+export type BficiaryProfileCreateOrConnectWithoutEmergencyRequestsInput = {
+  where: Prisma.BficiaryProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.BficiaryProfileCreateWithoutEmergencyRequestsInput, Prisma.BficiaryProfileUncheckedCreateWithoutEmergencyRequestsInput>
+}
+
+export type BficiaryProfileUpsertWithoutEmergencyRequestsInput = {
+  update: Prisma.XOR<Prisma.BficiaryProfileUpdateWithoutEmergencyRequestsInput, Prisma.BficiaryProfileUncheckedUpdateWithoutEmergencyRequestsInput>
+  create: Prisma.XOR<Prisma.BficiaryProfileCreateWithoutEmergencyRequestsInput, Prisma.BficiaryProfileUncheckedCreateWithoutEmergencyRequestsInput>
+  where?: Prisma.BficiaryProfileWhereInput
+}
+
+export type BficiaryProfileUpdateToOneWithWhereWithoutEmergencyRequestsInput = {
+  where?: Prisma.BficiaryProfileWhereInput
+  data: Prisma.XOR<Prisma.BficiaryProfileUpdateWithoutEmergencyRequestsInput, Prisma.BficiaryProfileUncheckedUpdateWithoutEmergencyRequestsInput>
+}
+
+export type BficiaryProfileUpdateWithoutEmergencyRequestsInput = {
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vulnerabilityType?: Prisma.EnumVulnerabilityTypeFieldUpdateOperationsInput | $Enums.VulnerabilityType
+  situationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  healthCondition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  proofFiles?: Prisma.BficiaryProfileUpdateproofFilesInput | string[]
+  cccdFrontFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cccdBackFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardianName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardianPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardianRelation?: Prisma.NullableEnumGuardianRelationFieldUpdateOperationsInput | $Enums.GuardianRelation | null
+  organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
+  joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutBficiaryProfileNestedInput
+  organization?: Prisma.UserUpdateOneWithoutBeneficiariesManagedNestedInput
+}
+
+export type BficiaryProfileUncheckedUpdateWithoutEmergencyRequestsInput = {
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vulnerabilityType?: Prisma.EnumVulnerabilityTypeFieldUpdateOperationsInput | $Enums.VulnerabilityType
+  situationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  healthCondition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  proofFiles?: Prisma.BficiaryProfileUpdateproofFilesInput | string[]
+  cccdFrontFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cccdBackFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardianName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardianPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardianRelation?: Prisma.NullableEnumGuardianRelationFieldUpdateOperationsInput | $Enums.GuardianRelation | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
+  joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
 export type BficiaryProfileCreateManyOrganizationInput = {
   userId: string
   fullName: string
@@ -834,6 +954,7 @@ export type BficiaryProfileUpdateWithoutOrganizationInput = {
   organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
   joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutBficiaryProfileNestedInput
+  emergencyRequests?: Prisma.EmergencyRequestUpdateManyWithoutBeneficiaryNestedInput
 }
 
 export type BficiaryProfileUncheckedUpdateWithoutOrganizationInput = {
@@ -851,6 +972,7 @@ export type BficiaryProfileUncheckedUpdateWithoutOrganizationInput = {
   guardianRelation?: Prisma.NullableEnumGuardianRelationFieldUpdateOperationsInput | $Enums.GuardianRelation | null
   organizationStatus?: Prisma.NullableEnumOrgStatusFieldUpdateOperationsInput | $Enums.OrgStatus | null
   joinedOrganizationAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emergencyRequests?: Prisma.EmergencyRequestUncheckedUpdateManyWithoutBeneficiaryNestedInput
 }
 
 export type BficiaryProfileUncheckedUpdateManyWithoutOrganizationInput = {
@@ -871,6 +993,35 @@ export type BficiaryProfileUncheckedUpdateManyWithoutOrganizationInput = {
 }
 
 
+/**
+ * Count Type BficiaryProfileCountOutputType
+ */
+
+export type BficiaryProfileCountOutputType = {
+  emergencyRequests: number
+}
+
+export type BficiaryProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  emergencyRequests?: boolean | BficiaryProfileCountOutputTypeCountEmergencyRequestsArgs
+}
+
+/**
+ * BficiaryProfileCountOutputType without action
+ */
+export type BficiaryProfileCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BficiaryProfileCountOutputType
+   */
+  select?: Prisma.BficiaryProfileCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * BficiaryProfileCountOutputType without action
+ */
+export type BficiaryProfileCountOutputTypeCountEmergencyRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EmergencyRequestWhereInput
+}
+
 
 export type BficiaryProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   userId?: boolean
@@ -890,6 +1041,8 @@ export type BficiaryProfileSelect<ExtArgs extends runtime.Types.Extensions.Inter
   joinedOrganizationAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   organization?: boolean | Prisma.BficiaryProfile$organizationArgs<ExtArgs>
+  emergencyRequests?: boolean | Prisma.BficiaryProfile$emergencyRequestsArgs<ExtArgs>
+  _count?: boolean | Prisma.BficiaryProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bficiaryProfile"]>
 
 export type BficiaryProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -954,6 +1107,8 @@ export type BficiaryProfileOmit<ExtArgs extends runtime.Types.Extensions.Interna
 export type BficiaryProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   organization?: boolean | Prisma.BficiaryProfile$organizationArgs<ExtArgs>
+  emergencyRequests?: boolean | Prisma.BficiaryProfile$emergencyRequestsArgs<ExtArgs>
+  _count?: boolean | Prisma.BficiaryProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BficiaryProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -969,6 +1124,7 @@ export type $BficiaryProfilePayload<ExtArgs extends runtime.Types.Extensions.Int
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     organization: Prisma.$UserPayload<ExtArgs> | null
+    emergencyRequests: Prisma.$EmergencyRequestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     userId: string
@@ -1382,6 +1538,7 @@ export interface Prisma__BficiaryProfileClient<T, Null = never, ExtArgs extends 
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   organization<T extends Prisma.BficiaryProfile$organizationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BficiaryProfile$organizationArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  emergencyRequests<T extends Prisma.BficiaryProfile$emergencyRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BficiaryProfile$emergencyRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmergencyRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1838,6 +1995,30 @@ export type BficiaryProfile$organizationArgs<ExtArgs extends runtime.Types.Exten
    */
   include?: Prisma.UserInclude<ExtArgs> | null
   where?: Prisma.UserWhereInput
+}
+
+/**
+ * BficiaryProfile.emergencyRequests
+ */
+export type BficiaryProfile$emergencyRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EmergencyRequest
+   */
+  select?: Prisma.EmergencyRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EmergencyRequest
+   */
+  omit?: Prisma.EmergencyRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmergencyRequestInclude<ExtArgs> | null
+  where?: Prisma.EmergencyRequestWhereInput
+  orderBy?: Prisma.EmergencyRequestOrderByWithRelationInput | Prisma.EmergencyRequestOrderByWithRelationInput[]
+  cursor?: Prisma.EmergencyRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EmergencyRequestScalarFieldEnum | Prisma.EmergencyRequestScalarFieldEnum[]
 }
 
 /**

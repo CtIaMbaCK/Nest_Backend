@@ -14,6 +14,8 @@ import { StatisticsModule } from './admin-tcxh/statistics/statistics.module';
 import { VolunteerRewardsModule } from './volunteer-rewards/volunteer-rewards.module';
 import { AdminModule } from './admin/admin.module';
 import { ChatModule } from './chat/chat.module';
+import { EmergencyModule } from './emergency/emergency.module';
+import { ActivityLogModule } from './activity-log/activity-log.module';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 
@@ -44,6 +46,8 @@ import { APP_GUARD } from '@nestjs/core';
     VolunteerRewardsModule,
     AdminModule,
     ChatModule,
+    EmergencyModule,
+    ActivityLogModule,
   ],
   controllers: [AppController],
   providers: [

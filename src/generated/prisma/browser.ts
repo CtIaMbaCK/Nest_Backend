@@ -97,3 +97,8 @@ export type Conversation = Prisma.ConversationModel
  * 
  */
 export type Message = Prisma.MessageModel
+/**
+ * Model EmergencyRequest
+ * 
+ */
+export type EmergencyRequest = Prisma.EmergencyRequestModel

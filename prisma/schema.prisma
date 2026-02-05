@@ -229,8 +229,11 @@ model BficiaryProfile {
 
   organizationId       String?   @map("organization_id")
   organization         User?     @relation("BeneficiaryOrganization", fields: [organizationId], references: [id])
-  organizationStatus   OrgStatus? @map("organization_status") 
+  organizationStatus   OrgStatus? @map("organization_status")
   joinedOrganizationAt DateTime? @map("joined_organization_at")
+
+  // Emergency SOS requests
+  emergencyRequests EmergencyRequest[] @relation("EmergencySOS")
 }
 
 model HelpRequest {
@@ -594,4 +597,29 @@ model Message {
 
   @@map("messages")
   @@index([conversationId, createdAt]) // Index để query nhanh
+}
+
+// ==================== EMERGENCY SOS SYSTEM ====================
+
+enum EmergencyStatus {
+  NEW       // Mới, chưa xử lý
+  COMPLETED // Đã xử lý xong
+}
+
+// Emergency Request: Khi NCGD nhấn nút SOS khẩn cấp
+model EmergencyRequest {
+  id String @id @default(uuid())
+
+  // Người gửi SOS (BENEFICIARY profile)
+  beneficiaryId String          @map("beneficiary_id")
+  beneficiary   BficiaryProfile @relation("EmergencySOS", fields: [beneficiaryId], references: [userId], onDelete: Cascade)
+
+  status EmergencyStatus @default(NEW)
+
+  createdAt   DateTime  @default(now()) @map("created_at")
+  completedAt DateTime? @map("completed_at") // Thời gian xử lý xong
+
+  @@map("emergency_requests")
+  @@index([status, createdAt])
+  @@index([beneficiaryId])
 }

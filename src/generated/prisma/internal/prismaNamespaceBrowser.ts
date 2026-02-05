@@ -66,7 +66,8 @@ export const ModelName = {
   CertificateTemplate: 'CertificateTemplate',
   IssuedCertificate: 'IssuedCertificate',
   Conversation: 'Conversation',
-  Message: 'Message'
+  Message: 'Message',
+  EmergencyRequest: 'EmergencyRequest'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -343,6 +344,17 @@ export const MessageScalarFieldEnum = {
 } as const
 
 export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+export const EmergencyRequestScalarFieldEnum = {
+  id: 'id',
+  beneficiaryId: 'beneficiaryId',
+  status: 'status',
+  createdAt: 'createdAt',
+  completedAt: 'completedAt'
+} as const
+
+export type EmergencyRequestScalarFieldEnum = (typeof EmergencyRequestScalarFieldEnum)[keyof typeof EmergencyRequestScalarFieldEnum]
 
 
 export const SortOrder = {
