@@ -24,6 +24,14 @@ export class GetBeneficiariesDto {
   @IsString()
   search?: string;
 
+  @ApiPropertyOptional({
+    enum: ['PENDING', 'APPROVED', 'REJECTED'],
+    description: 'Lọc theo trạng thái tham gia tổ chức',
+  })
+  @IsOptional()
+  @IsEnum(['PENDING', 'APPROVED', 'REJECTED'])
+  status?: 'PENDING' | 'APPROVED' | 'REJECTED';
+
   @ApiPropertyOptional({ minimum: 1, default: 1 })
   @Type(() => Number)
   @IsInt()

@@ -110,11 +110,12 @@ export class OrganizationService {
   // lay ncgd trong to chuc
   async getBeneficiaries(orgId: string, dto: GetBeneficiariesDto) {
     await this.getOrgOrThrow(orgId);
-    const { search, page = 1, limit = 10 } = dto;
+    const { search, status, page = 1, limit = 10 } = dto;
 
     const where: Prisma.BficiaryProfileWhereInput = {
       organizationId: orgId,
-      organizationStatus: 'PENDING', // Chỉ lấy yêu cầu PENDING
+      // Nếu có status thì filter, không thì lấy APPROVED (mặc định)
+      organizationStatus: status || 'APPROVED',
       ...(search && {
         OR: [
           { fullName: { contains: search, mode: 'insensitive' } },
@@ -165,11 +166,12 @@ export class OrganizationService {
   // lay tnv trong to chuc
   async getVolunteers(orgId: string, dto: GetVolunteersDto) {
     await this.getOrgOrThrow(orgId);
-    const { search, districts, page = 1, limit = 10 } = dto;
+    const { search, status, districts, page = 1, limit = 10 } = dto;
 
     const where: Prisma.VolunteerProfileWhereInput = {
       organizationId: orgId,
-      organizationStatus: 'PENDING', // Chỉ lấy yêu cầu PENDING
+      // Nếu có status thì filter, không thì lấy APPROVED (mặc định)
+      organizationStatus: status || 'APPROVED',
       ...(districts && {
         preferredDistricts: {
           hasSome: Array.isArray(districts) ? districts : [districts],

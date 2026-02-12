@@ -29,7 +29,12 @@ export class ChatService {
 
   // Helper: Lấy profile info theo role
   private getUserProfile(user: any) {
-    if (user.role === 'VOLUNTEER') {
+    if (user.role === 'ADMIN') {
+      return {
+        fullName: 'Admin BetterUS',
+        avatarUrl: null,
+      };
+    } else if (user.role === 'VOLUNTEER') {
       return {
         fullName: user.volunteerProfile?.fullName || null,
         avatarUrl: user.volunteerProfile?.avatarUrl || null,
@@ -49,7 +54,7 @@ export class ChatService {
         avatarUrl: user.organizationProfiles?.avatarUrl || null,
       };
     }
-    return null; // ADMIN không có profile
+    return null;
   }
 
   // Helper: Order user IDs (user nhỏ hơn luôn là user1)

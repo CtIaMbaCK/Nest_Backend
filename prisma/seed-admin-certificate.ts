@@ -5,7 +5,7 @@ import 'dotenv/config';
 import { env as ENV } from './config';
 
 const pool = new Pool({
-  connectionString: ENV('NEST_URL'),
+  connectionString: ENV('DATABASE_URL'),
 });
 
 const adapter = new PrismaPg(pool);

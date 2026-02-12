@@ -83,13 +83,25 @@ export class FeedbackService {
       throw new Error('Bạn đã gửi lời cảm ơn cho hoạt động này rồi');
     }
 
-    return this.prisma.appreciation.create({
-      data: {
-        activityId: dto.activityId,
-        senderId: senderId,
-        receiverId: dto.targetId,
-      },
-    });
+    // Tạo appreciation và cộng totalThanks cho volunteer trong 1 transaction
+    const [appreciation] = await this.prisma.$transaction([
+      this.prisma.appreciation.create({
+        data: {
+          activityId: dto.activityId,
+          senderId: senderId,
+          receiverId: dto.targetId,
+        },
+      }),
+      // Cộng totalThanks cho volunteer
+      this.prisma.volunteerProfile.update({
+        where: { userId: dto.targetId },
+        data: {
+          totalThanks: { increment: 1 },
+        },
+      }),
+    ]);
+
+    return appreciation;
   }
 
   // cai nay lay danh gia cua nguoi can giup do cho tnv
