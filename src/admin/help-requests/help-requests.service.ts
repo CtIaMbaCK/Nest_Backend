@@ -51,8 +51,15 @@ export class HelpRequestsService {
       where.status = status as ActivityStatus;
     }
 
-    if (district && Object.values(District).includes(district as District)) {
-      where.district = district as District;
+    if (district) {
+      const selectedDistricts = district
+        .split(',')
+        .map((d) => d.trim())
+        .filter((d) => Object.values(District).includes(d as District));
+      
+      if (selectedDistricts.length > 0) {
+        where.district = { in: selectedDistricts as District[] };
+      }
     }
 
     if (

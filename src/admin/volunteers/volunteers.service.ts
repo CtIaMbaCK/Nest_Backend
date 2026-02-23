@@ -38,10 +38,11 @@ export class VolunteersService {
     }
 
     if (district) {
+      const formattedDistrict = district.toUpperCase() as District;
       andConditions.push({
         volunteerProfile: {
           preferredDistricts: {
-            hasSome: [district],
+            hasSome: [formattedDistrict],
           },
         },
       });
