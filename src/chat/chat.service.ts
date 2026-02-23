@@ -504,8 +504,12 @@ export class ChatService {
     }
 
     if (user.role === 'VOLUNTEER' && user.volunteerProfile) {
-      // Kiểm tra đã tham gia chưa
-      if (user.volunteerProfile.organizationId === organizationId) {
+      // Kiểm tra đã tham gia chưa hoặc đang chờ duyệt
+      if (
+        user.volunteerProfile.organizationId === organizationId &&
+        (user.volunteerProfile.organizationStatus === 'PENDING' ||
+          user.volunteerProfile.organizationStatus === 'APPROVED')
+      ) {
         throw new ForbiddenException(
           'Bạn đã gửi yêu cầu hoặc đã tham gia TCXH này',
         );
@@ -516,12 +520,16 @@ export class ChatService {
         data: {
           organizationId,
           organizationStatus: 'PENDING',
-          joinedOrganizationAt: new Date(),
+          joinedOrganizationAt: null, // Đổi sang null giống design update mới nhất
         },
       });
     } else if (user.role === 'BENEFICIARY' && user.bficiaryProfile) {
-      // Kiểm tra đã tham gia chưa
-      if (user.bficiaryProfile.organizationId === organizationId) {
+      // Kiểm tra đã tham gia chưa hoặc đang chờ duyệt
+      if (
+        user.bficiaryProfile.organizationId === organizationId &&
+        (user.bficiaryProfile.organizationStatus === 'PENDING' ||
+          user.bficiaryProfile.organizationStatus === 'APPROVED')
+      ) {
         throw new ForbiddenException(
           'Bạn đã gửi yêu cầu hoặc đã tham gia TCXH này',
         );
@@ -532,7 +540,7 @@ export class ChatService {
         data: {
           organizationId,
           organizationStatus: 'PENDING',
-          joinedOrganizationAt: new Date(),
+          joinedOrganizationAt: null, // Đổi sang null giống design update mới nhất
         },
       });
     } else {

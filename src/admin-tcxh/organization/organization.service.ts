@@ -59,8 +59,8 @@ export class OrganizationService {
         where: { userId },
         data: {
           organizationId: organizationId,
-          organizationStatus: 'APPROVED',
-          joinedOrganizationAt: new Date(), //thay the null khi pending, newDate khi approve
+          organizationStatus: 'PENDING',
+          joinedOrganizationAt: null,
         },
       });
     }
@@ -70,8 +70,8 @@ export class OrganizationService {
         where: { userId },
         data: {
           organizationId: organizationId,
-          organizationStatus: 'APPROVED',
-          joinedOrganizationAt: new Date(), //thay the null khi pending, newDate khi approve
+          organizationStatus: 'PENDING',
+          joinedOrganizationAt: null,
         },
       });
     }
