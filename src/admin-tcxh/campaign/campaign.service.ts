@@ -20,6 +20,7 @@ import {
 import { Prisma } from 'src/generated/prisma/client';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { PointsHelper } from 'src/volunteer-rewards/points.helper';
+import { NotificationService } from 'src/notification/notification.service';
 
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -31,6 +32,7 @@ export class CampaignService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly cloudinary: CloudinaryService,
+    private readonly notificationService: NotificationService,
   ) {}
 
   // Kiểm tra user có phải là Organization không
@@ -79,7 +81,7 @@ export class CampaignService {
       imageUrls = await this.cloudinary.uploadFiles(imageFiles);
     }
 
-    return this.prisma.campaign.create({
+    const newCampaign = await this.prisma.campaign.create({
       data: {
         organizationId,
         title: dto.title,
@@ -110,6 +112,12 @@ export class CampaignService {
         },
       },
     });
+
+    // THÔNG BÁO CHO ADMIN KHI CÓ CHIẾN DỊCH TẠO MỚI CẦN DUYỆT
+    const orgName = newCampaign.organization?.organizationProfiles?.organizationName || 'Tổ chức xã hội';
+    this.notificationService.notifyAdmins(`Tổ chức ${orgName} vừa tạo chiến dịch mới: "${newCampaign.title}" chờ duyệt`);
+
+    return newCampaign;
   }
 
   // Lấy danh sách campaign của TCXH với filter
@@ -627,6 +635,13 @@ export class CampaignService {
 
       return newRegistration;
     });
+
+    // THÔNG BÁO CHO TỔ CHỨC XÃ HỘI KHI TNV ĐĂNG KÝ
+    const volunteerName = volunteer.volunteerProfile?.fullName || 'Tình nguyện viên';
+    this.notificationService.createNotification(
+      campaign.organizationId,
+      `${volunteerName} vừa đăng ký tham gia chiến dịch "${campaign.title}" của bạn`
+    );
 
     return registration;
   }

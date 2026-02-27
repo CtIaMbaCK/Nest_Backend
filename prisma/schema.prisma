@@ -631,3 +631,16 @@ model EmergencyRequest {
   @@index([status, createdAt])
   @@index([beneficiaryId])
 }
+
+// ==================== NOTIFICATIONS ====================
+
+model Notification {
+  id          String   @id @default(uuid())
+  receiverId  String   @map("receiver_id") // ID của Admin hoặc người đại diện TCXH
+  message     String   @db.Text            // Nội dung thông báo hiển thị
+  isRead      Boolean  @default(false)     @map("is_read") // Trạng thái đã xem
+  createdAt   DateTime @default(now())     @map("created_at")
+
+  @@map("notifications")
+  @@index([receiverId, createdAt])
+}

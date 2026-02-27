@@ -18,6 +18,7 @@ import { EmergencyModule } from './emergency/emergency.module';
 import { ActivityLogModule } from './activity-log/activity-log.module';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { APP_GUARD } from '@nestjs/core';
     ChatModule,
     EmergencyModule,
     ActivityLogModule,
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [

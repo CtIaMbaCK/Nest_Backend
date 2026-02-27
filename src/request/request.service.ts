@@ -14,10 +14,14 @@ import { env as ENV } from 'prisma/config';
 import { GoongResponse } from './goong.interface';
 import { FilterActivityDto } from './dto/filter.dto';
 import { PointsHelper } from '../volunteer-rewards/points.helper';
+import { NotificationService } from 'src/notification/notification.service';
 
 @Injectable()
 export class RequestService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notificationService: NotificationService,
+  ) {}
 
   async createRequest(userId: string, dto: CreateRequestDto) {
     let lat: number | null = null;
@@ -71,7 +75,7 @@ export class RequestService {
     } catch (error) {
       console.error('❌ Error in geocoding process:', error);
     }
-    return this.prisma.helpRequest.create({
+    const newRequest = await this.prisma.helpRequest.create({
       data: {
         title: dto.title,
         activityType: dto.activityType,
@@ -97,7 +101,20 @@ export class RequestService {
         },
         status: 'PENDING',
       },
+      include: {
+        requester: {
+          include: { bficiaryProfile: true }
+        }
+      }
     });
+
+    // BÁO CHO ADMIN
+    const requesterName = newRequest.requester?.bficiaryProfile?.fullName || 'Ai đó';
+    this.notificationService.notifyAdmins(
+      `Người cần giúp đỡ ${requesterName} vừa gửi một yêu cầu cứu trợ mới: "${dto.title}"`
+    );
+
+    return newRequest;
   }
 
   // xem chi tiet
