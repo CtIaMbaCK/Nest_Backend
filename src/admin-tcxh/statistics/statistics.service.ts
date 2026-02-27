@@ -508,7 +508,8 @@ export class StatisticsService {
     const topOrgs = organizations
       .map((org) => ({
         organizationId: org.id,
-        organizationName: org.organizationProfiles?.organizationName || 'Unknown',
+        organizationName:
+          org.organizationProfiles?.organizationName || 'Unknown',
         avatarUrl: org.organizationProfiles?.avatarUrl,
         description: org.organizationProfiles?.description,
         completedCampaigns: org.campaigns.length,
@@ -517,5 +518,187 @@ export class StatisticsService {
       .slice(0, limit);
 
     return topOrgs;
+  }
+
+  // Lấy lịch sử hoạt động riêng của Tổ chức xã hội
+  async getRecentActivities(organizationId: string, limit: number = 50) {
+    const activities: any[] = [];
+
+    // 1. Chiến dịch do tổ chức tạo
+    const campaigns = await this.prisma.campaign.findMany({
+      where: { organizationId },
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+      select: {
+        id: true,
+        title: true,
+        status: true,
+        district: true,
+        targetVolunteers: true,
+        createdAt: true,
+      },
+    });
+
+    campaigns.forEach((c) => {
+      activities.push({
+        id: `campaign-${c.id}`,
+        type: 'CAMPAIGN',
+        action: `Tạo chiến dịch: ${c.title}`,
+        metadata: {
+          status: c.status,
+          district: c.district,
+          targetVolunteers: c.targetVolunteers,
+        },
+        createdAt: c.createdAt,
+      });
+    });
+
+    // 2. Tình nguyện viên đăng ký chiến dịch của tổ chức
+    const registrations = await this.prisma.campaignRegistration.findMany({
+      where: {
+        campaign: { organizationId },
+      },
+      orderBy: { registeredAt: 'desc' },
+      take: limit,
+      include: {
+        volunteer: {
+          select: {
+            id: true,
+            phoneNumber: true,
+            role: true,
+          },
+        },
+        campaign: { select: { title: true } },
+      },
+    });
+
+    registrations.forEach((r) => {
+      activities.push({
+        id: `reg-${r.id}`,
+        type: 'CAMPAIGN_REGISTRATION',
+        action: `Có người đăng ký chiến dịch: ${r.campaign.title}`,
+        user: r.volunteer,
+        metadata: { status: r.status },
+        createdAt: r.registeredAt,
+      });
+    });
+
+    // 3. Yêu cầu hỗ trợ (Chỉ quan tâm đến requester hoặc volunteer thuộc tổ chức này)
+    const requests = await this.prisma.helpRequest.findMany({
+      where: {
+        OR: [
+          { requester: { volunteerProfile: { organizationId } } },
+          { requester: { bficiaryProfile: { organizationId } } },
+          { volunteer: { volunteerProfile: { organizationId } } },
+        ],
+      },
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+      include: {
+        requester: { select: { id: true, phoneNumber: true, role: true } },
+        volunteer: { select: { id: true, phoneNumber: true, role: true } },
+      },
+    });
+
+    requests.forEach((r) => {
+      activities.push({
+        id: `req-${r.id}`,
+        type: 'REQUEST',
+        action: `Yêu cầu hỗ trợ: ${r.title}`,
+        user: r.requester,
+        metadata: { status: r.status, district: r.district },
+        createdAt: r.createdAt,
+      });
+
+      if (r.volunteer && r.acceptedAt) {
+        activities.push({
+          id: `req-acc-${r.id}`,
+          type: 'REQUEST_ACCEPTED',
+          action: `Nhận yêu cầu: ${r.title}`,
+          user: r.volunteer,
+          metadata: { requestId: r.id },
+          createdAt: r.acceptedAt,
+        });
+      }
+
+      if (r.doneAt && r.volunteer) {
+        activities.push({
+          id: `req-done-${r.id}`,
+          type: 'REQUEST_COMPLETED',
+          action: `Hoàn thành yêu cầu: ${r.title}`,
+          user: r.volunteer,
+          metadata: { requestId: r.id },
+          createdAt: r.doneAt,
+        });
+      }
+    });
+
+    // 4. Tổ chức đăng bài viết truyền thông
+    const posts = await this.prisma.communicationPost.findMany({
+      where: { organizationId },
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+      select: {
+        id: true,
+        title: true,
+        createdAt: true,
+      },
+    });
+
+    posts.forEach((p) => {
+      activities.push({
+        id: `post-${p.id}`,
+        type: 'POST',
+        action: `Đăng bài viết mới: ${p.title}`,
+        createdAt: p.createdAt,
+      });
+    });
+
+    // 5. NCGĐ / TNV tham gia tổ chức (Thông qua ngày gia nhập)
+    const newVolunteers = await this.prisma.volunteerProfile.findMany({
+      where: { organizationId },
+      orderBy: { joinedOrganizationAt: 'desc' },
+      take: limit,
+      include: {
+        user: { select: { id: true, phoneNumber: true, role: true } },
+      },
+    });
+
+    newVolunteers.forEach((v) => {
+      if (v.joinedOrganizationAt) {
+        activities.push({
+          id: `joined-v-${v.userId}`,
+          type: 'USER_CREATED',
+          action: `Tình nguyện viên mới gia nhập tổ chức`,
+          user: v.user,
+          createdAt: v.joinedOrganizationAt,
+        });
+      }
+    });
+
+    const newBeneficiaries = await this.prisma.bficiaryProfile.findMany({
+      where: { organizationId },
+      orderBy: { joinedOrganizationAt: 'desc' },
+      take: limit,
+      include: {
+        user: { select: { id: true, phoneNumber: true, role: true } },
+      },
+    });
+
+    newBeneficiaries.forEach((b) => {
+      if (b.joinedOrganizationAt) {
+        activities.push({
+          id: `joined-b-${b.userId}`,
+          type: 'USER_CREATED',
+          action: `Người cần giúp đỡ mới tham gia tổ chức`,
+          user: b.user,
+          createdAt: b.joinedOrganizationAt,
+        });
+      }
+    });
+
+    // Sắp xếp tổng hợp giảm dần theo thời gian
+    activities.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    return activities.slice(0, limit);
   }
 }

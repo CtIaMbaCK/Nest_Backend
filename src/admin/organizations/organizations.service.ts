@@ -29,7 +29,11 @@ export class OrganizationsService {
       where.OR = [
         { email: { contains: search, mode: 'insensitive' } },
         { phoneNumber: { contains: search } },
-        { organizationProfiles: { organizationName: { contains: search, mode: 'insensitive' } } },
+        {
+          organizationProfiles: {
+            organizationName: { contains: search, mode: 'insensitive' },
+          },
+        },
       ];
     }
 
@@ -110,7 +114,8 @@ export class OrganizationsService {
       throw new NotFoundException('Khong tim thay TCXH');
     }
 
-    const { organizationName, representativeName, phoneNumber, status } = updateDto;
+    const { organizationName, representativeName, phoneNumber, status } =
+      updateDto;
 
     // Cap nhat thong tin user (status, phoneNumber)
     const updateData: any = {};
@@ -128,8 +133,10 @@ export class OrganizationsService {
     // Cap nhat thong tin profile (organizationName, representativeName)
     if (organizationName || representativeName) {
       const profileUpdateData: any = {};
-      if (organizationName) profileUpdateData.organizationName = organizationName;
-      if (representativeName) profileUpdateData.representativeName = representativeName;
+      if (organizationName)
+        profileUpdateData.organizationName = organizationName;
+      if (representativeName)
+        profileUpdateData.representativeName = representativeName;
 
       await this.prisma.organizationProfile.update({
         where: { userId: id },

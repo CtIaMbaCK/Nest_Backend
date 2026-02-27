@@ -159,7 +159,10 @@ export class ContentService {
     });
 
     return {
-      message: status === 'APPROVED' ? 'Đã duyệt campaign thành công' : 'Đã từ chối campaign',
+      message:
+        status === 'APPROVED'
+          ? 'Đã duyệt campaign thành công'
+          : 'Đã từ chối campaign',
       campaign: updated,
     };
   }

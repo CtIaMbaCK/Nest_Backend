@@ -379,15 +379,17 @@ export class CampaignService {
     const { preferredDistricts } = volunteer;
 
     // Lấy danh sách ID các campaign mà volunteer đã đăng ký
-    const registeredCampaigns = await this.prisma.campaignRegistration.findMany({
-      where: {
-        volunteerId,
-        status: {
-          in: [RegistrationStatus.REGISTERED, RegistrationStatus.ATTENDED],
+    const registeredCampaigns = await this.prisma.campaignRegistration.findMany(
+      {
+        where: {
+          volunteerId,
+          status: {
+            in: [RegistrationStatus.REGISTERED, RegistrationStatus.ATTENDED],
+          },
         },
+        select: { campaignId: true },
       },
-      select: { campaignId: true },
-    });
+    );
 
     const registeredCampaignIds = registeredCampaigns.map((r) => r.campaignId);
 
@@ -452,15 +454,17 @@ export class CampaignService {
     const { search } = dto;
 
     // Lấy danh sách ID các campaign mà volunteer đã đăng ký
-    const registeredCampaigns = await this.prisma.campaignRegistration.findMany({
-      where: {
-        volunteerId,
-        status: {
-          in: [RegistrationStatus.REGISTERED, RegistrationStatus.ATTENDED],
+    const registeredCampaigns = await this.prisma.campaignRegistration.findMany(
+      {
+        where: {
+          volunteerId,
+          status: {
+            in: [RegistrationStatus.REGISTERED, RegistrationStatus.ATTENDED],
+          },
         },
+        select: { campaignId: true },
       },
-      select: { campaignId: true },
-    });
+    );
 
     const registeredCampaignIds = registeredCampaigns.map((r) => r.campaignId);
 
@@ -570,14 +574,21 @@ export class CampaignService {
       }
 
       // Kiểm tra campaign phải có status APPROVED hoặc ONGOING
-      if (campaignInTx.status !== CampaignStatus.APPROVED && campaignInTx.status !== CampaignStatus.ONGOING) {
-        throw new BadRequestException('Campaign này chưa được duyệt hoặc đã kết thúc');
+      if (
+        campaignInTx.status !== CampaignStatus.APPROVED &&
+        campaignInTx.status !== CampaignStatus.ONGOING
+      ) {
+        throw new BadRequestException(
+          'Campaign này chưa được duyệt hoặc đã kết thúc',
+        );
       }
 
       // KHÔNG cho đăng ký khi đã quá startDate
       const now = new Date();
       if (now >= campaignInTx.startDate) {
-        throw new BadRequestException('Không thể đăng ký sau khi campaign đã bắt đầu');
+        throw new BadRequestException(
+          'Không thể đăng ký sau khi campaign đã bắt đầu',
+        );
       }
 
       // Kiểm tra còn chỗ không (inside transaction to avoid race condition)
@@ -752,7 +763,9 @@ export class CampaignService {
         count: campaignsToStart.length,
         campaignIds: campaignsToStart.map((c) => c.id),
       };
-      console.log(`✅ ${campaignsToStart.length} campaigns: APPROVED → ONGOING`);
+      console.log(
+        `✅ ${campaignsToStart.length} campaigns: APPROVED → ONGOING`,
+      );
     }
 
     // 2. ONGOING -> COMPLETED: Chuyển khi đến endDate (KHÔNG CỘNG ĐIỂM)
@@ -781,11 +794,16 @@ export class CampaignService {
         campaignIds: campaignsToComplete.map((c) => c.id),
         note: 'Chuyển sang COMPLETED nhưng CHƯA cộng điểm (chưa có proofImages)',
       };
-      console.log(`⏰ ${campaignsToComplete.length} campaigns: ONGOING → COMPLETED (auto, no points)`);
+      console.log(
+        `⏰ ${campaignsToComplete.length} campaigns: ONGOING → COMPLETED (auto, no points)`,
+      );
     }
 
     if (totalUpdated === 0) {
-      return { message: 'Không có campaign nào cần chuyển trạng thái', count: 0 };
+      return {
+        message: 'Không có campaign nào cần chuyển trạng thái',
+        count: 0,
+      };
     }
 
     return {
@@ -829,7 +847,9 @@ export class CampaignService {
 
     // ✅ KHÔNG cho phép upload nếu đã có proofImages rồi
     if (campaign.proofImages && campaign.proofImages.length > 0) {
-      throw new BadRequestException('Campaign này đã có minh chứng hoàn thành rồi!');
+      throw new BadRequestException(
+        'Campaign này đã có minh chứng hoàn thành rồi!',
+      );
     }
 
     if (!proofImageFiles || proofImageFiles.length === 0) {
@@ -850,7 +870,9 @@ export class CampaignService {
     });
 
     // ✅ Cộng điểm cho TẤT CẢ tình nguyện viên đã tham gia (REGISTERED hoặc ATTENDED)
-    console.log(`✅ Cộng điểm cho ${campaign.registrations.length} TNV (Campaign ${campaignId})`);
+    console.log(
+      `✅ Cộng điểm cho ${campaign.registrations.length} TNV (Campaign ${campaignId})`,
+    );
 
     const pointPromises = campaign.registrations.map((reg) =>
       PointsHelper.addPointsForCampaign(

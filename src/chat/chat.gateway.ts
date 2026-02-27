@@ -19,9 +19,7 @@ import { Logger } from '@nestjs/common';
   },
   namespace: '/chat', // Socket namespace riêng cho chat
 })
-export class ChatGateway
-  implements OnGatewayConnection, OnGatewayDisconnect
-{
+export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
 
@@ -152,7 +150,9 @@ export class ChatGateway
       return { success: true, message };
     } catch (error) {
       this.logger.error('Send message error:', error);
-      client.emit('error', { message: error.message || 'Gửi tin nhắn thất bại' });
+      client.emit('error', {
+        message: error.message || 'Gửi tin nhắn thất bại',
+      });
     }
   }
 
@@ -307,7 +307,9 @@ export class ChatGateway
         message: 'Đã gửi SOS thành công. Admin sẽ liên hệ với bạn sớm nhất.',
       });
 
-      this.logger.log(`✅ SOS alert sent to all admins for emergency ${emergency.id}`);
+      this.logger.log(
+        `✅ SOS alert sent to all admins for emergency ${emergency.id}`,
+      );
 
       return { success: true, emergency };
     } catch (error) {

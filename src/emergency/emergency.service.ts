@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateEmergencyDto } from './dto/create-emergency.dto';
 import { UpdateEmergencyDto } from './dto/update-emergency.dto';
@@ -20,7 +24,9 @@ export class EmergencyService {
     }
 
     if (!user.bficiaryProfile) {
-      throw new ForbiddenException('Vui lòng hoàn thiện hồ sơ trước khi gửi SOS');
+      throw new ForbiddenException(
+        'Vui lòng hoàn thiện hồ sơ trước khi gửi SOS',
+      );
     }
 
     // Tạo emergency request

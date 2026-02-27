@@ -1,7 +1,12 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { ActivityLogService } from './activity-log.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @ApiTags('Activity Log')
 @Controller('activity-log')

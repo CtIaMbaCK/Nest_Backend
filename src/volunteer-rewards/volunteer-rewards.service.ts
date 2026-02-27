@@ -175,7 +175,7 @@ export class VolunteerRewardsService {
         name: dto.name,
         description: dto.description,
         templateImageUrl: dto.templateImageUrl,
-        textBoxConfig: dto.textBoxConfig as any,
+        textBoxConfig: dto.textBoxConfig,
       },
     });
 
@@ -249,7 +249,7 @@ export class VolunteerRewardsService {
       data: {
         ...dto,
 
-        textBoxConfig: dto.textBoxConfig as any,
+        textBoxConfig: dto.textBoxConfig,
       },
     });
 

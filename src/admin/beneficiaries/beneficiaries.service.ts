@@ -27,7 +27,11 @@ export class BeneficiariesService {
       where.OR = [
         { email: { contains: search, mode: 'insensitive' } },
         { phoneNumber: { contains: search } },
-        { bficiaryProfile: { fullName: { contains: search, mode: 'insensitive' } } },
+        {
+          bficiaryProfile: {
+            fullName: { contains: search, mode: 'insensitive' },
+          },
+        },
       ];
     }
 

@@ -317,9 +317,7 @@ export class OrganizationService {
     }
 
     // This should never happen due to the check above, but TypeScript needs it
-    throw new NotFoundException(
-      'Không tìm thấy thành viên này trong tổ chức',
-    );
+    throw new NotFoundException('Không tìm thấy thành viên này trong tổ chức');
   }
 
   /**
@@ -536,9 +534,7 @@ export class OrganizationService {
     });
 
     if (existingUser) {
-      throw new ConflictException(
-        'Email hoặc số điện thoại đã được sử dụng',
-      );
+      throw new ConflictException('Email hoặc số điện thoại đã được sử dụng');
     }
 
     // Hash password
@@ -618,9 +614,7 @@ export class OrganizationService {
     });
 
     if (existingUser) {
-      throw new ConflictException(
-        'Email hoặc số điện thoại đã được sử dụng',
-      );
+      throw new ConflictException('Email hoặc số điện thoại đã được sử dụng');
     }
 
     // Hash password

@@ -72,4 +72,19 @@ export class StatisticsController {
       days,
     );
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('recent-activities')
+  @ApiOperation({ summary: 'Lấy nhật ký hoạt động gần đây của tổ chức' })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  async getRecentActivities(
+    @GetUser('sub') organizationId: string,
+    @Query('limit') limit?: string,
+  ) {
+    const parsedLimit = limit ? parseInt(limit, 10) : 50;
+    return this.statisticsService.getRecentActivities(
+      organizationId,
+      parsedLimit,
+    );
+  }
 }

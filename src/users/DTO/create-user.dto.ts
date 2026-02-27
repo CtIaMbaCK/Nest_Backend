@@ -80,10 +80,8 @@ export class CreateVolunteerProfileDto {
   @IsOptional()
   @Transform(({ value }) => {
     if (typeof value === 'string') {
-      // Hỗ trợ cả comma-separated string và JSON string
       if (value.trim() === '') return [];
 
-      // Nếu là JSON string (bắt đầu bằng '[')
       if (value.trim().startsWith('[')) {
         try {
           return JSON.parse(value);
@@ -92,8 +90,10 @@ export class CreateVolunteerProfileDto {
         }
       }
 
-      // Nếu là comma-separated string: "LOGISTICS,TEACHING"
-      return value.split(',').map(s => s.trim()).filter(s => s.length > 0);
+      return value
+        .split(',')
+        .map((s) => s.trim())
+        .filter((s) => s.length > 0) as Skill[];
     }
     if (Array.isArray(value)) return value;
     return value ? [value] : [];
@@ -121,10 +121,8 @@ export class CreateVolunteerProfileDto {
   @IsEnum(District, { each: true, message: 'Quận huyện không hợp lệ' })
   @Transform(({ value }): District[] => {
     if (typeof value === 'string') {
-      // Hỗ trợ cả comma-separated string và JSON string
       if (value.trim() === '') return [];
 
-      // Nếu là JSON string (bắt đầu bằng '[')
       if (value.trim().startsWith('[')) {
         try {
           return JSON.parse(value);
@@ -133,8 +131,10 @@ export class CreateVolunteerProfileDto {
         }
       }
 
-      // Nếu là comma-separated string: "DISTRICT1,DISTRICT2"
-      return value.split(',').map(s => s.trim()).filter(s => s.length > 0) as District[];
+      return value
+        .split(',')
+        .map((s) => s.trim())
+        .filter((s) => s.length > 0) as District[];
     }
     if (Array.isArray(value)) return value;
     return value ? [value] : [];

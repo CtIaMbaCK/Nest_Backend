@@ -42,8 +42,10 @@ export class CommunicationController {
         title: { type: 'string', example: 'Chương trình trao quà Tết 2024' },
         content: {
           type: 'string',
-          description: 'Nội dung bài viết (copy/paste nội dung nhiều dòng vào đây)',
-          example: 'Ngày 15/01/2024, tổ chức đã trao 500 phần quà Tết.\n\nChương trình diễn ra tại:\n- Quận 1\n- Quận 3\n\nCảm ơn các tình nguyện viên!'
+          description:
+            'Nội dung bài viết (copy/paste nội dung nhiều dòng vào đây)',
+          example:
+            'Ngày 15/01/2024, tổ chức đã trao 500 phần quà Tết.\n\nChương trình diễn ra tại:\n- Quận 1\n- Quận 3\n\nCảm ơn các tình nguyện viên!',
         },
         coverImage: { type: 'string', format: 'binary' },
       },
@@ -56,7 +58,11 @@ export class CommunicationController {
     @Body() dto: CreatePostDto,
     @UploadedFile() coverImage?: Express.Multer.File,
   ) {
-    return this.communicationService.createPost(organizationId, dto, coverImage);
+    return this.communicationService.createPost(
+      organizationId,
+      dto,
+      coverImage,
+    );
   }
 
   @UseGuards(JwtAuthGuard)
@@ -93,7 +99,8 @@ export class CommunicationController {
         title: { type: 'string' },
         content: {
           type: 'string',
-          description: 'Nội dung bài viết (copy/paste nội dung nhiều dòng vào đây)'
+          description:
+            'Nội dung bài viết (copy/paste nội dung nhiều dòng vào đây)',
         },
         coverImage: { type: 'string', format: 'binary' },
       },

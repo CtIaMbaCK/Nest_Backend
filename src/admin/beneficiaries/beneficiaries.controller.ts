@@ -1,6 +1,19 @@
-import { Controller, Get, Param, Query, Patch, Body, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Query,
+  Patch,
+  Body,
+  UseGuards,
+} from '@nestjs/common';
 import { BeneficiariesService } from './beneficiaries.service';
-import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UpdateBeneficiaryDto } from './dto/update-beneficiary.dto';
 
@@ -13,8 +26,16 @@ export class BeneficiariesController {
 
   @Get()
   @ApiOperation({ summary: 'Lay danh sach tat ca NCGD' })
-  @ApiQuery({ name: 'search', required: false, description: 'Tim kiem theo ten, sdt, email' })
-  @ApiQuery({ name: 'status', required: false, description: 'Loc theo trang thai' })
+  @ApiQuery({
+    name: 'search',
+    required: false,
+    description: 'Tim kiem theo ten, sdt, email',
+  })
+  @ApiQuery({
+    name: 'status',
+    required: false,
+    description: 'Loc theo trang thai',
+  })
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   async getAllBeneficiaries(
@@ -23,7 +44,12 @@ export class BeneficiariesController {
     @Query('page') page?: number,
     @Query('limit') limit?: number,
   ) {
-    return this.beneficiariesService.getAllBeneficiaries(search, status, page, limit);
+    return this.beneficiariesService.getAllBeneficiaries(
+      search,
+      status,
+      page,
+      limit,
+    );
   }
 
   @Get(':id')

@@ -1,4 +1,12 @@
-import { IsNotEmpty, IsString, IsInt, Min, Max, IsOptional, IsUUID } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  IsInt,
+  Min,
+  Max,
+  IsOptional,
+  IsUUID,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateVolunteerCommentDto {

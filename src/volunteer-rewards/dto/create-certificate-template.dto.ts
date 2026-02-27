@@ -29,9 +29,36 @@ export class CreateCertificateTemplateDto {
   @ApiProperty({
     description: 'Cấu hình vị trí các text box trên template',
     example: {
-      volunteerName: { x: 250, y: 300, width: 400, height: 80, fontSize: 32, fontFamily: 'Arial', color: '#000000', align: 'center' },
-      points: { x: 250, y: 400, width: 200, height: 40, fontSize: 24, fontFamily: 'Arial', color: '#000000', align: 'center' },
-      issueDate: { x: 250, y: 500, width: 200, height: 40, fontSize: 20, fontFamily: 'Arial', color: '#000000', align: 'center' },
+      volunteerName: {
+        x: 250,
+        y: 300,
+        width: 400,
+        height: 80,
+        fontSize: 32,
+        fontFamily: 'Arial',
+        color: '#000000',
+        align: 'center',
+      },
+      points: {
+        x: 250,
+        y: 400,
+        width: 200,
+        height: 40,
+        fontSize: 24,
+        fontFamily: 'Arial',
+        color: '#000000',
+        align: 'center',
+      },
+      issueDate: {
+        x: 250,
+        y: 500,
+        width: 200,
+        height: 40,
+        fontSize: 20,
+        fontFamily: 'Arial',
+        color: '#000000',
+        align: 'center',
+      },
     },
   })
   @IsNotEmpty({ message: 'Config text box không được để trống' })

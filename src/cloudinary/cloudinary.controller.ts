@@ -27,9 +27,7 @@ export class CloudinaryController {
     // Kiểm tra loại file
     const allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png'];
     if (!allowedMimeTypes.includes(file.mimetype)) {
-      throw new BadRequestException(
-        'Chỉ chấp nhận file ảnh (JPEG, JPG, PNG)',
-      );
+      throw new BadRequestException('Chỉ chấp nhận file ảnh (JPEG, JPG, PNG)');
     }
 
     // Kiểm tra kích thước file (max 5MB)

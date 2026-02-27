@@ -56,9 +56,7 @@ export class FeedbackService {
         : activity.requesterId;
 
     if (!targetId) {
-      throw new BadRequestException(
-        'Không thể xác định người được đánh giá',
-      );
+      throw new BadRequestException('Không thể xác định người được đánh giá');
     }
 
     return this.prisma.review.create({

@@ -1,6 +1,19 @@
-import { Controller, Get, Param, Query, Patch, Body, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Query,
+  Patch,
+  Body,
+  UseGuards,
+} from '@nestjs/common';
 import { OrganizationsService } from './organizations.service';
-import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 
@@ -13,8 +26,16 @@ export class OrganizationsController {
 
   @Get()
   @ApiOperation({ summary: 'Lay danh sach tat ca TCXH' })
-  @ApiQuery({ name: 'search', required: false, description: 'Tim kiem theo ten TCXH, sdt, email' })
-  @ApiQuery({ name: 'status', required: false, description: 'Loc theo trang thai' })
+  @ApiQuery({
+    name: 'search',
+    required: false,
+    description: 'Tim kiem theo ten TCXH, sdt, email',
+  })
+  @ApiQuery({
+    name: 'status',
+    required: false,
+    description: 'Loc theo trang thai',
+  })
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   async getAllOrganizations(
@@ -23,7 +44,12 @@ export class OrganizationsController {
     @Query('page') page?: number,
     @Query('limit') limit?: number,
   ) {
-    return this.organizationsService.getAllOrganizations(search, status, page, limit);
+    return this.organizationsService.getAllOrganizations(
+      search,
+      status,
+      page,
+      limit,
+    );
   }
 
   @Get(':id')

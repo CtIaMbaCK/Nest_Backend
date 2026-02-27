@@ -24,7 +24,6 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { GetUser } from 'src/auth/decorator/get-user.decorator';
 import { CreateCampaignDto, UpdateCampaignDto, FilterCampaignDto } from './dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 
 @ApiTags('Admin TCXH - Campaign')
 @ApiBearerAuth('JWT-auth')
@@ -179,7 +178,10 @@ export class CampaignController {
 
   @UseGuards(JwtAuthGuard)
   @Patch('registrations/:registrationId/status')
-  @ApiOperation({ summary: '[TCXH] Cập nhật trạng thái đăng ký campaign (ATTENDED để cộng điểm)' })
+  @ApiOperation({
+    summary:
+      '[TCXH] Cập nhật trạng thái đăng ký campaign (ATTENDED để cộng điểm)',
+  })
   @ApiBody({
     schema: {
       type: 'object',
@@ -207,8 +209,10 @@ export class CampaignController {
 
   @Post('auto-transition')
   @ApiOperation({
-    summary: '[Utility] Tự động chuyển campaign APPROVED -> ONGOING khi startDate đến',
-    description: 'API này có thể được gọi định kỳ (bởi cron job hoặc manually) để cập nhật status campaigns'
+    summary:
+      '[Utility] Tự động chuyển campaign APPROVED -> ONGOING khi startDate đến',
+    description:
+      'API này có thể được gọi định kỳ (bởi cron job hoặc manually) để cập nhật status campaigns',
   })
   async autoTransitionCampaigns() {
     return this.campaignService.autoTransitionCampaigns();
@@ -217,8 +221,10 @@ export class CampaignController {
   @UseGuards(JwtAuthGuard)
   @Patch(':id/complete')
   @ApiOperation({
-    summary: '[TCXH] Upload hình ảnh minh chứng hoàn thành campaign - tự động cộng điểm cho tất cả TNV tham gia',
-    description: 'Khi TCXH upload proof images, campaign status -> COMPLETED và tất cả volunteer có status REGISTERED/ATTENDED sẽ được cộng 10 điểm'
+    summary:
+      '[TCXH] Upload hình ảnh minh chứng hoàn thành campaign - tự động cộng điểm cho tất cả TNV tham gia',
+    description:
+      'Khi TCXH upload proof images, campaign status -> COMPLETED và tất cả volunteer có status REGISTERED/ATTENDED sẽ được cộng 10 điểm',
   })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -235,9 +241,7 @@ export class CampaignController {
     },
   })
   @UseInterceptors(
-    FileFieldsInterceptor([
-      { name: 'proofImages', maxCount: 10 },
-    ]),
+    FileFieldsInterceptor([{ name: 'proofImages', maxCount: 10 }]),
   )
   async completeCampaign(
     @GetUser('sub') organizationId: string,
@@ -256,7 +260,9 @@ export class CampaignController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  @ApiOperation({ summary: '[TCXH] Xóa campaign (chỉ được phép nếu chưa có TNV nào đăng ký)' })
+  @ApiOperation({
+    summary: '[TCXH] Xóa campaign (chỉ được phép nếu chưa có TNV nào đăng ký)',
+  })
   async deleteCampaign(
     @GetUser('sub') organizationId: string,
     @Param('id') campaignId: string,

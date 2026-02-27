@@ -1,6 +1,19 @@
-import { Body, Controller, Get, Param, Patch, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { ContentService } from './content.service';
-import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @ApiTags('Admin - Quan ly noi dung')
@@ -12,8 +25,16 @@ export class ContentController {
 
   @Get('posts')
   @ApiOperation({ summary: 'Lay danh sach tat ca posts' })
-  @ApiQuery({ name: 'search', required: false, description: 'Tim kiem theo tieu de post' })
-  @ApiQuery({ name: 'organizationId', required: false, description: 'Loc theo TCXH' })
+  @ApiQuery({
+    name: 'search',
+    required: false,
+    description: 'Tim kiem theo tieu de post',
+  })
+  @ApiQuery({
+    name: 'organizationId',
+    required: false,
+    description: 'Loc theo TCXH',
+  })
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   async getAllPosts(
@@ -33,9 +54,21 @@ export class ContentController {
 
   @Get('campaigns')
   @ApiOperation({ summary: 'Lay danh sach tat ca campaigns' })
-  @ApiQuery({ name: 'search', required: false, description: 'Tim kiem theo tieu de campaign' })
-  @ApiQuery({ name: 'organizationId', required: false, description: 'Loc theo TCXH' })
-  @ApiQuery({ name: 'status', required: false, description: 'Loc theo trang thai campaign' })
+  @ApiQuery({
+    name: 'search',
+    required: false,
+    description: 'Tim kiem theo tieu de campaign',
+  })
+  @ApiQuery({
+    name: 'organizationId',
+    required: false,
+    description: 'Loc theo TCXH',
+  })
+  @ApiQuery({
+    name: 'status',
+    required: false,
+    description: 'Loc theo trang thai campaign',
+  })
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   async getAllCampaigns(
@@ -45,7 +78,13 @@ export class ContentController {
     @Query('page') page?: number,
     @Query('limit') limit?: number,
   ) {
-    return this.contentService.getAllCampaigns(search, organizationId, status, page, limit);
+    return this.contentService.getAllCampaigns(
+      search,
+      organizationId,
+      status,
+      page,
+      limit,
+    );
   }
 
   @Patch('campaigns/:id/approve')

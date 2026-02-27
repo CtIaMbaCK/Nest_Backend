@@ -56,7 +56,7 @@ export class HelpRequestsService {
         .split(',')
         .map((d) => d.trim())
         .filter((d) => Object.values(District).includes(d as District));
-      
+
       if (selectedDistricts.length > 0) {
         where.district = { in: selectedDistricts as District[] };
       }

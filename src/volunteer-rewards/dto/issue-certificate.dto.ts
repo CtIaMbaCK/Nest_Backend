@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsString, IsUUID, IsOptional, IsObject } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  IsUUID,
+  IsOptional,
+  IsObject,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class IssueCertificateDto {
@@ -20,7 +26,9 @@ export class IssueCertificateDto {
 
   @ApiPropertyOptional({
     description: 'Dữ liệu bổ sung cho chứng nhận (JSON)',
-    example: { achievementText: 'Đã hoàn thành xuất sắc 12 hoạt động tình nguyện' },
+    example: {
+      achievementText: 'Đã hoàn thành xuất sắc 12 hoạt động tình nguyện',
+    },
   })
   @IsOptional()
   @IsObject({ message: 'Additional data phải là object' })

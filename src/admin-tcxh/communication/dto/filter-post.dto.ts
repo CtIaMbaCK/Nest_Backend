@@ -11,7 +11,11 @@ export class FilterPostDto {
   @IsString()
   search?: string;
 
-  @ApiPropertyOptional({ example: 1, description: 'Trang hiện tại', minimum: 1 })
+  @ApiPropertyOptional({
+    example: 1,
+    description: 'Trang hiện tại',
+    minimum: 1,
+  })
   @IsOptional()
   @Type(() => Number)
   @IsInt()

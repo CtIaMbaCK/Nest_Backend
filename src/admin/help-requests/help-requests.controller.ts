@@ -1,5 +1,18 @@
-import { Body, Controller, Get, Param, Patch, Query, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { HelpRequestsService } from './help-requests.service';
 
@@ -12,13 +25,39 @@ export class HelpRequestsController {
 
   @Get()
   @ApiOperation({ summary: 'Lấy danh sách tất cả yêu cầu giúp đỡ (ADMIN)' })
-  @ApiQuery({ name: 'search', required: false, description: 'Tìm kiếm theo tiêu đề hoặc mô tả' })
-  @ApiQuery({ name: 'status', required: false, description: 'Lọc theo trạng thái' })
+  @ApiQuery({
+    name: 'search',
+    required: false,
+    description: 'Tìm kiếm theo tiêu đề hoặc mô tả',
+  })
+  @ApiQuery({
+    name: 'status',
+    required: false,
+    description: 'Lọc theo trạng thái',
+  })
   @ApiQuery({ name: 'district', required: false, description: 'Lọc theo quận' })
-  @ApiQuery({ name: 'activityType', required: false, description: 'Lọc theo loại hoạt động' })
-  @ApiQuery({ name: 'urgencyLevel', required: false, description: 'Lọc theo mức độ khẩn cấp' })
-  @ApiQuery({ name: 'page', required: false, description: 'Số trang', type: Number })
-  @ApiQuery({ name: 'limit', required: false, description: 'Số lượng mỗi trang', type: Number })
+  @ApiQuery({
+    name: 'activityType',
+    required: false,
+    description: 'Lọc theo loại hoạt động',
+  })
+  @ApiQuery({
+    name: 'urgencyLevel',
+    required: false,
+    description: 'Lọc theo mức độ khẩn cấp',
+  })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    description: 'Số trang',
+    type: Number,
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    description: 'Số lượng mỗi trang',
+    type: Number,
+  })
   async getAllHelpRequests(
     @Query('search') search?: string,
     @Query('status') status?: string,
@@ -46,7 +85,9 @@ export class HelpRequestsController {
   }
 
   @Patch(':id/approve')
-  @ApiOperation({ summary: 'Duyệt yêu cầu giúp đỡ (PENDING -> APPROVED hoặc REJECTED)' })
+  @ApiOperation({
+    summary: 'Duyệt yêu cầu giúp đỡ (PENDING -> APPROVED hoặc REJECTED)',
+  })
   async approveHelpRequest(
     @Param('id') id: string,
     @Body() body: { status: 'APPROVED' | 'REJECTED' },

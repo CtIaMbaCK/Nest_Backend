@@ -79,7 +79,8 @@ export class RequestController {
   @Post('auto-transition')
   @ApiOperation({
     summary: '[Utility] Tự động chuyển request status theo thời gian',
-    description: 'ONGOING quá endDate → COMPLETED. APPROVED (không có volunteer) quá endDate → CANCELLED'
+    description:
+      'ONGOING quá endDate → COMPLETED. APPROVED (không có volunteer) quá endDate → CANCELLED',
   })
   autoTransitionRequests() {
     return this.requestService.autoTransitionRequests();

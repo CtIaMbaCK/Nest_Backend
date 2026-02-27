@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UpdateVolunteerDto } from './dto/update-volunteer.dto';
 import { District, UserStatus } from 'src/generated/prisma/client';
@@ -32,7 +36,11 @@ export class VolunteersService {
         OR: [
           { email: { contains: search, mode: 'insensitive' } },
           { phoneNumber: { contains: search } },
-          { volunteerProfile: { fullName: { contains: search, mode: 'insensitive' } } },
+          {
+            volunteerProfile: {
+              fullName: { contains: search, mode: 'insensitive' },
+            },
+          },
         ],
       });
     }
