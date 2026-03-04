@@ -10,6 +10,7 @@ import {
 import { Server, Socket } from 'socket.io';
 import { ChatService } from './chat.service';
 import { EmergencyService } from 'src/emergency/emergency.service';
+import { NotificationService } from 'src/notification/notification.service';
 import { Logger } from '@nestjs/common';
 
 @WebSocketGateway({
@@ -31,6 +32,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   constructor(
     private readonly chatService: ChatService,
     private readonly emergencyService: EmergencyService,
+    private readonly notificationService: NotificationService,
   ) {}
 
   // ==================== CONNECTION HANDLERS ====================
@@ -292,13 +294,30 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
         notes: data.notes,
       });
 
-      // Emit cho tất cả ADMIN đang online
-      this.server.emit('sos_alert', {
+      // Lấy danh sách admin online và chỉ emit cho admin
+      const admins = await this.chatService.getAllAdmins();
+      
+      const sosData = {
         emergencyId: emergency.id,
         beneficiary: emergency.beneficiary,
         createdAt: emergency.createdAt,
         notes: data.notes,
-      });
+      };
+
+      for (const admin of admins) {
+        // Gửi tới room cá nhân của từng user qua Socket (kênh Chat)
+        // Hệ thống đang route chung ở Namespace `/chat` cho các event liên quan
+        this.server.to(`user:${admin.id}`).emit('sos_alert', sosData);
+      }
+
+      // Lưu notification database cho Admins
+      try {
+        await this.notificationService.notifyAdmins(
+          `🚨 Tín hiệu cầu cứu SOS từ ${emergency.beneficiary?.fullName || 'một NCGD'}! Vui lòng kiểm tra khẩn cấp!`
+        );
+      } catch (err) {
+        this.logger.error('Error saving SOS notification:', err);
+      }
 
       // Confirm cho người gửi
       client.emit('sos_sent', {

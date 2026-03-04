@@ -22,10 +22,14 @@ import {
 } from './dto/create-account.dto';
 import { Prisma } from 'src/generated/prisma/client';
 import { helpHashPassword } from 'src/helpers/utils';
+import { NotificationService } from 'src/notification/notification.service';
 
 @Injectable()
 export class OrganizationService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notificationService: NotificationService,
+  ) {}
 
   private async getOrgOrThrow(userId: string) {
     const org = await this.prisma.user.findUnique({
@@ -55,7 +59,7 @@ export class OrganizationService {
 
     //
     if (role === Role.VOLUNTEER) {
-      return this.prisma.volunteerProfile.update({
+      const updated = await this.prisma.volunteerProfile.update({
         where: { userId },
         data: {
           organizationId: organizationId,
@@ -63,10 +67,21 @@ export class OrganizationService {
           joinedOrganizationAt: null,
         },
       });
+
+      // Gửi thông báo
+      await this.notificationService.createNotification(
+        organizationId,
+        `Tình nguyện viên ${updated.fullName} vừa gửi yêu cầu tham gia tổ chức của bạn.`,
+      );
+      await this.notificationService.notifyAdmins(
+        `Tình nguyện viên ${updated.fullName} vừa gửi yêu cầu tham gia một Tổ chức xã hội.`
+      );
+
+      return updated;
     }
 
     if (role === Role.BENEFICIARY) {
-      return this.prisma.bficiaryProfile.update({
+      const updated = await this.prisma.bficiaryProfile.update({
         where: { userId },
         data: {
           organizationId: organizationId,
@@ -74,6 +89,17 @@ export class OrganizationService {
           joinedOrganizationAt: null,
         },
       });
+
+      // Gửi thông báo
+      await this.notificationService.createNotification(
+        organizationId,
+        `Người cần giúp đỡ ${updated.fullName} vừa gửi yêu cầu tham gia tổ chức của bạn.`,
+      );
+      await this.notificationService.notifyAdmins(
+        `Người cần giúp đỡ ${updated.fullName} vừa gửi yêu cầu tham gia một Tổ chức xã hội.`
+      );
+
+      return updated;
     }
 
     throw new BadRequestException(

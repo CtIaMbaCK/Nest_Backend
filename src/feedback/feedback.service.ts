@@ -152,6 +152,55 @@ export class FeedbackService {
     });
   }
 
+  // Lấy các đánh giá mà user ĐÃ GỬI (NCGD đánh giá TNV)
+  async getMySubmittedReviews(userId: string) {
+    const reviews = await this.prisma.review.findMany({
+      where: { reviewerId: userId },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        target: {
+          select: {
+            id: true,
+            volunteerProfile: {
+              select: {
+                fullName: true,
+                avatarUrl: true,
+              },
+            },
+            bficiaryProfile: {
+              select: {
+                fullName: true,
+                avatarUrl: true,
+              },
+            },
+          },
+        },
+        activity: {
+          select: {
+            id: true,
+            title: true,
+          },
+        },
+      },
+    });
+
+    return reviews.map((review) => {
+      const userProfile = review.target.volunteerProfile || review.target.bficiaryProfile;
+
+      return {
+        id: review.id,
+        activity: review.activity,
+        rating: review.rating,
+        comment: review.comment,
+        target: {
+          id: review.target.id,
+          fullName: userProfile?.fullName,
+          avatarUrl: userProfile?.avatarUrl,
+        },
+      };
+    });
+  }
+
   async getMyAppreciations(userId: string) {
     const appreciations = await this.prisma.appreciation.findMany({
       where: { receiverId: userId },
@@ -182,6 +231,44 @@ export class FeedbackService {
         activity: appr.activity,
         sender: {
           id: appr.sender.id,
+          fullName: userProfile?.fullName || 'Người dùng ẩn danh',
+          avatarUrl: userProfile?.avatarUrl || null,
+        },
+      };
+    });
+  }
+
+  // Lấy các lời cảm ơn mà tôi ĐÃ GỬI
+  async getMySubmittedAppreciations(userId: string) {
+    const appreciations = await this.prisma.appreciation.findMany({
+      where: { senderId: userId },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        receiver: {
+          select: {
+            id: true,
+            bficiaryProfile: {
+              select: { fullName: true, avatarUrl: true },
+            },
+            volunteerProfile: {
+              select: { fullName: true, avatarUrl: true },
+            },
+          },
+        },
+        activity: { select: { id: true, title: true } },
+      },
+    });
+
+    return appreciations.map((appr) => {
+      const userProfile =
+        appr.receiver.bficiaryProfile || appr.receiver.volunteerProfile;
+
+      return {
+        id: appr.id,
+        createdAt: appr.createdAt,
+        activity: appr.activity,
+        receiver: {
+          id: appr.receiver.id,
           fullName: userProfile?.fullName || 'Người dùng ẩn danh',
           avatarUrl: userProfile?.avatarUrl || null,
         },

@@ -51,6 +51,22 @@ export class FeedbackController {
     return this.feedbackService.getMyReviews(userId);
   }
 
+  // xem các đánh giá do mình đã GỬI ĐI (để NCGD check xem mình đã đánh giá TNV chưa)
+  @UseGuards(JwtAuthGuard)
+  @Get('my-submitted-reviews')
+  @ApiOperation({ summary: 'Xem danh sách các đánh giá mà TÔI ĐÃ GỬI' })
+  async getMySubmittedReviews(@GetUser('sub') userId: string) {
+    return this.feedbackService.getMySubmittedReviews(userId);
+  }
+
+  // xem các lời CẢM ƠN do mình đã GỬI ĐI
+  @UseGuards(JwtAuthGuard)
+  @Get('my-submitted-appreciations')
+  @ApiOperation({ summary: 'Xem danh sách các lời cảm ơn mà TÔI ĐÃ GỬI' })
+  async getMySubmittedAppreciations(@GetUser('sub') userId: string) {
+    return this.feedbackService.getMySubmittedAppreciations(userId);
+  }
+
   // xem các lời cảm ơn đã nhận
   @UseGuards(JwtAuthGuard)
   @Get('my-appreciations')

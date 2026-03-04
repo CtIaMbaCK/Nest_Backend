@@ -274,6 +274,37 @@ export class RequestService {
     return updated;
   }
 
+  // API HUỶ YÊU CẦU CHO NCGD
+  async cancelRequestByRequester(requesterId: string, requestId: string) {
+    const request = await this.prisma.helpRequest.findUnique({
+      where: { id: requestId },
+    });
+
+    if (!request) {
+      throw new NotFoundException('Không tìm thấy yêu cầu này');
+    }
+
+    if (request.requesterId !== requesterId) {
+      throw new ForbiddenException(
+        'Bạn không có quyền chỉnh sửa yêu cầu của người khác',
+      );
+    }
+
+    // Chỉ cho phép hủy khi đang PENDING (Chờ duyệt)
+    if (request.status !== 'PENDING') {
+      throw new BadRequestException(
+        'Bạn chỉ có thể hủy yêu cầu khi đang ở trạng thái Chờ Duyệt (PENDING).',
+      );
+    }
+
+    return this.prisma.helpRequest.update({
+      where: { id: requestId },
+      data: {
+        status: 'CANCELLED',
+      },
+    });
+  }
+
   // cap nhat yeu cau giup do
   async updateRequest(
     volunteerId: string,

@@ -98,6 +98,11 @@ export class RequestController {
   @ApiOperation({
     summary: 'TNV cập nhật trạng thái hoạt động (Hoàn thành + Ảnh minh chứng)',
   })
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id/status')
+  @ApiOperation({
+    summary: 'TNV cập nhật trạng thái hoạt động (Hoàn thành + Ảnh minh chứng)',
+  })
   updateStatus(
     @GetUser('sub') userId: string,
     @Param('id') requestId: string,
@@ -108,6 +113,16 @@ export class RequestController {
       requestId,
       dto,
     );
+  }
+
+  // API HUỶ YÊU CẦU: dành cho người cần giúp đỡ (NCGD) hủy yêu cầu PENDING của chính họ
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id/cancel')
+  @ApiOperation({
+    summary: 'NCGD hủy yêu cầu (Chỉ áp dụng khi yêu cầu đang chờ duyệt - PENDING)',
+  })
+  cancelRequest(@GetUser('sub') userId: string, @Param('id') requestId: string) {
+    return this.requestService.cancelRequestByRequester(userId, requestId);
   }
 
   @UseGuards(JwtAuthGuard)

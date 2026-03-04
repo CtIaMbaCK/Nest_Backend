@@ -5,12 +5,14 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
+import { NotificationService } from 'src/notification/notification.service';
 
 @Injectable()
 export class ChatService {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
+    private notificationService: NotificationService,
   ) {}
 
   // ==================== UTILITY METHODS ====================
@@ -128,7 +130,9 @@ export class ChatService {
       where: { role: 'ADMIN' },
     });
 
-    if (!admin) return null;
+    if (!admin) {
+      return null;
+    }
 
     return {
       id: admin.id,
@@ -136,10 +140,17 @@ export class ChatService {
       phoneNumber: admin.phoneNumber,
       email: admin.email,
       profile: {
-        fullName: 'Admin BetterUS',
+        fullName: 'Administrator',
         avatarUrl: null,
       },
     };
+  }
+
+  // Lấy danh sách toàn bộ admin
+  async getAllAdmins() {
+    return this.prisma.user.findMany({
+      where: { role: 'ADMIN' },
+    });
   }
 
   // ==================== CONVERSATION METHODS ====================
@@ -523,6 +534,15 @@ export class ChatService {
           joinedOrganizationAt: null, // Đổi sang null giống design update mới nhất
         },
       });
+
+      // Gửi thông báo
+      await this.notificationService.createNotification(
+        organizationId,
+        `Tình nguyện viên ${user.volunteerProfile.fullName} vừa gửi yêu cầu tham gia tổ chức của bạn.`
+      );
+      await this.notificationService.notifyAdmins(
+        `Tình nguyện viên ${user.volunteerProfile.fullName} vừa gửi yêu cầu tham gia một Tổ chức xã hội.`
+      );
     } else if (user.role === 'BENEFICIARY' && user.bficiaryProfile) {
       // Kiểm tra đã tham gia chưa hoặc đang chờ duyệt
       if (
@@ -543,6 +563,15 @@ export class ChatService {
           joinedOrganizationAt: null, // Đổi sang null giống design update mới nhất
         },
       });
+
+      // Gửi thông báo
+      await this.notificationService.createNotification(
+        organizationId,
+        `Người cần giúp đỡ ${user.bficiaryProfile.fullName} vừa gửi yêu cầu tham gia tổ chức của bạn.`
+      );
+      await this.notificationService.notifyAdmins(
+        `Người cần giúp đỡ ${user.bficiaryProfile.fullName} vừa gửi yêu cầu tham gia một Tổ chức xã hội.`
+      );
     } else {
       throw new ForbiddenException('Chỉ TNV và NCGĐ mới có thể tham gia TCXH');
     }
