@@ -9,10 +9,12 @@ export class ContentService {
   async getAllPosts(
     search?: string,
     organizationId?: string,
-    page: number = 1,
-    limit: number = 20,
+    page: number | string = 1,
+    limit: number | string = 20,
   ) {
-    const skip = (page - 1) * limit;
+    const parsedPage = Number(page) || 1;
+    const parsedLimit = Number(limit) || 20;
+    const skip = (parsedPage - 1) * parsedLimit;
 
     const where: any = {};
 
@@ -30,7 +32,7 @@ export class ContentService {
       this.prisma.communicationPost.findMany({
         where,
         skip,
-        take: limit,
+        take: parsedLimit,
         include: {
           organization: {
             select: {
@@ -53,9 +55,9 @@ export class ContentService {
     return {
       items,
       total,
-      page,
-      limit,
-      totalPages: Math.ceil(total / limit),
+      page: parsedPage,
+      limit: parsedLimit,
+      totalPages: Math.ceil(total / parsedLimit),
     };
   }
 
@@ -89,10 +91,12 @@ export class ContentService {
     search?: string,
     organizationId?: string,
     status?: string,
-    page: number = 1,
-    limit: number = 20,
+    page: number | string = 1,
+    limit: number | string = 20,
   ) {
-    const skip = (page - 1) * limit;
+    const parsedPage = Number(page) || 1;
+    const parsedLimit = Number(limit) || 20;
+    const skip = (parsedPage - 1) * parsedLimit;
 
     const where: any = {};
 
@@ -115,7 +119,7 @@ export class ContentService {
       this.prisma.campaign.findMany({
         where,
         skip,
-        take: limit,
+        take: parsedLimit,
         include: {
           organization: {
             select: {
@@ -138,9 +142,9 @@ export class ContentService {
     return {
       items,
       total,
-      page,
-      limit,
-      totalPages: Math.ceil(total / limit),
+      page: parsedPage,
+      limit: parsedLimit,
+      totalPages: Math.ceil(total / parsedLimit),
     };
   }
 

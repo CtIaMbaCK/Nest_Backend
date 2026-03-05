@@ -388,7 +388,7 @@ export class RequestService {
   }
 
   async getMapLocation() {
-    return this.prisma.helpRequest.findMany({
+    const locations = await this.prisma.helpRequest.findMany({
       where: {
         latitude: { not: null },
         longitude: { not: null },
@@ -421,10 +421,37 @@ export class RequestService {
         doneAt: true,
         proofImages: true,
         completionNotes: true,
+        requester: {
+          select: {
+            id: true,
+            phoneNumber: true,
+            bficiaryProfile: {
+              select: {
+                fullName: true,
+                avatarUrl: true,
+              },
+            },
+          },
+        },
       },
       orderBy: {
         createdAt: 'desc',
       },
+    });
+
+    return locations.map((loc) => {
+      const { requester, ...rest } = loc;
+      return {
+        ...rest,
+        requester: requester
+          ? {
+              id: requester.id,
+              phoneNumber: requester.phoneNumber,
+              fullName: requester.bficiaryProfile?.fullName || 'Người cần giúp đỡ',
+              avatarUrl: requester.bficiaryProfile?.avatarUrl || null,
+            }
+          : null,
+      };
     });
   }
 
