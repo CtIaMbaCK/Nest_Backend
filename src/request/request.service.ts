@@ -114,6 +114,18 @@ export class RequestService {
       `Người cần giúp đỡ ${requesterName} vừa gửi một yêu cầu cứu trợ mới: "${dto.title}"`
     );
 
+    // BÁO CHO TỔ CHỨC XÃ HỘI (Nếu có)
+    const bficiaryProfile = newRequest.requester?.bficiaryProfile;
+    if (
+      bficiaryProfile?.organizationId &&
+      bficiaryProfile?.organizationStatus === 'APPROVED'
+    ) {
+      this.notificationService.createNotification(
+        bficiaryProfile.organizationId,
+        `Thành viên ${requesterName} thuộc tổ chức của bạn vừa đăng tải một yêu cầu cứu trợ mới: "${dto.title}"`
+      );
+    }
+
     return newRequest;
   }
 
