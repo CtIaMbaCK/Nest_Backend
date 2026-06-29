@@ -1,4 +1,4 @@
-# 🔧 BetterUS — Nest Backend
+# BetterUS — Nest Backend
 
 API Backend của hệ thống **BetterUS** — nền tảng kết nối tình nguyện viên với người có hoàn cảnh khó khăn tại TP. Hồ Chí Minh.
 
@@ -53,7 +53,7 @@ API Backend của hệ thống **BetterUS** — nền tảng kết nối tình n
 
 ---
 
-## 🚀 Hướng dẫn cài đặt & chạy
+## Hướng dẫn cài đặt & chạy
 
 ### 1. Clone repository và vào thư mục
 
@@ -128,7 +128,7 @@ Server sẽ chạy tại: `http://localhost:8080`
 
 ---
 
-## 📖 Tài liệu API (Swagger)
+## Tài liệu API (Swagger)
 
 Sau khi khởi động server, truy cập:
 
