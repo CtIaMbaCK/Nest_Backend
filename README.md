@@ -12,7 +12,7 @@ API Backend của hệ thống **BetterUS** — nền tảng kết nối tình n
 - Đăng ký / Đăng nhập với mã hóa `bcrypt`
 - JWT Authentication (Access Token)
 - Phân quyền theo vai trò: `ADMIN`, `VOLUNTEER`, `BENEFICIARY`, `ORGANIZATION`
-- Rate limiting (100 requests/phút) để chống DDoS
+- Rate limiting (100 requests/phút)
 
 ### Quản lý người dùng
 - CRUD hồ sơ tình nguyện viên (kỹ năng, khu vực, thông tin cá nhân)
@@ -81,24 +81,24 @@ Chỉnh sửa file `.env`:
 # Kết nối PostgreSQL
 DATABASE_URL="postgresql://postgres:your_password@localhost:5432/betterus?schema=public"
 
-# JWT Secret (đặt chuỗi ngẫu nhiên, dài và khó đoán)
+# JWT Secret
 SECRET_KEY="your_super_secret_jwt_key"
 
 # Google Maps API Key
 GOOGLE_MAPS_API_KEY="your_google_maps_api_key"
 
-# Cloudinary (lưu ảnh)
+# Cloudinary - ảnh
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 
-# Email SMTP (gửi mail thông báo)
+# Email SMTP - mail
 MAIL_SERVICE=gmail
 MAIL_USERNAME=your_email@gmail.com
 MAIL_PASSWORD=your_app_password
 MAIL_FROM=BetterUS <your_email@gmail.com>
 
-# Port (mặc định 8080)
+# Port
 PORT=8080
 ```
 
@@ -136,9 +136,11 @@ Sau khi khởi động server, truy cập:
 http://localhost:8080/api
 ```
 
-Swagger UI cung cấp đầy đủ danh sách endpoint, mô tả, và cho phép test trực tiếp.
+hoặc
 
-> Dùng tính năng **Authorize** để đăng nhập với JWT token và test các endpoint cần xác thực.
+```
+https://<your-ngrok-url>/api
+```
 
 ---
 
@@ -151,7 +153,7 @@ npm run db:studio
 # Tạo migration mới khi thay đổi schema
 npm run db:migrate
 
-# Reset toàn bộ database (⚠️ XÓA HẾT DỮ LIỆU)
+# Reset toàn bộ database 
 npm run db:reset
 
 # Cập nhật Prisma Client sau khi thay đổi schema
